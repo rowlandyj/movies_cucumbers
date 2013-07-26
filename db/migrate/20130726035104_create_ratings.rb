@@ -5,6 +5,7 @@ class CreateRatings < ActiveRecord::Migration
       t.belongs_to :user
       t.float :rating_value
       t.boolean :viewable, default: true
+      t.timestamps
     end
   end
 end

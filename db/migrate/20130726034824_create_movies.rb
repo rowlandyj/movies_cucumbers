@@ -12,6 +12,7 @@ class CreateMovies < ActiveRecord::Migration
       t.string :trailer_url
       t.string :mpaa_rating
       t.integer :run_time
+      t.timestamps
     end
   end
 end
