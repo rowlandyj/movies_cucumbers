@@ -2,18 +2,24 @@ class Movie < ActiveRecord::Base
 
   attr_accessible :title, :rt_id, :tmdb_id, :director_id, :release_year, :critic_consensus, :rt_score, :poster_url, :trailer_url, :mpaa_rating, :run_time
   has_many :ratings
+  has_many :user, through: :ratings
+
   has_many :actors_movies
+  has_many :actors, through: :actors_movies
+
   has_many :genres_movies
-  has_many :ratings
-  has_many :directors
+  has_many :genres, through: :genres_movies
+
+  belongs_to :director
 
   def self.seed
     movie = RottenMovie.find(id: 9)
 
     unless movie.empty?
-      
+
       if movie.respond_to?(:links) && movie.links.respond_to?(:clips)
         clips_url = movie.links.clips
+        
       end
 
       clips = HTTParty.get(clips_url + "?apikey=" + RT_API_KEY)

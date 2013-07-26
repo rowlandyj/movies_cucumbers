@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 
   has_many :ratings
-  # has_many :recommendations, class_name: "Movie", 
+  has_many :movies, through: :ratings
+
+  has_many :recommendations
+  has_many :movies, through: :recommendations
+
   
 end
