@@ -68,6 +68,7 @@ GEM
     daemons (1.1.9)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
+    deepopenstruct (0.1.2)
     devise (3.0.0)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -86,6 +87,8 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    faker (1.1.2)
+      i18n (~> 0.5)
     ffi (1.9.0)
     figaro (0.7.0)
       bundler (~> 1.0)
@@ -111,6 +114,9 @@ GEM
       guard (>= 1.8)
       rspec (~> 2.13)
     hike (1.2.3)
+    httparty (0.11.0)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
     i18n (0.6.4)
     journey (1.0.4)
     jquery-rails (3.0.4)
@@ -133,6 +139,7 @@ GEM
     mini_portile (0.5.1)
     multi_json (1.7.7)
     multi_test (0.0.2)
+    multi_xml (0.5.4)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     orm_adapter (0.4.0)
@@ -177,6 +184,9 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     rolify (3.2.0)
+    rottentomatoes (1.1.0)
+      deepopenstruct (>= 0.1.2)
+      json
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -192,6 +202,10 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    ruby-tmdb (0.2.1)
+      addressable
+      deepopenstruct (>= 0.1.2)
+      json
     sass (3.2.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -239,11 +253,13 @@ DEPENDENCIES
   devise
   email_spec
   factory_girl_rails
+  faker
   figaro
   guard-bundler
   guard-cucumber
   guard-rails
   guard-rspec
+  httparty
   jquery-rails
   launchy
   pg
@@ -253,7 +269,9 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify
   rolify
+  rottentomatoes
   rspec-rails
+  ruby-tmdb
   sass-rails (~> 3.2.3)
   simple_form
   thin
