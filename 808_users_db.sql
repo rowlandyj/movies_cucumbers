@@ -1,0 +1,9798 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: actors; Type: TABLE; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE TABLE actors (
+    id integer NOT NULL,
+    name character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.actors OWNER TO apprentice;
+
+--
+-- Name: actors_id_seq; Type: SEQUENCE; Schema: public; Owner: apprentice
+--
+
+CREATE SEQUENCE actors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.actors_id_seq OWNER TO apprentice;
+
+--
+-- Name: actors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: apprentice
+--
+
+ALTER SEQUENCE actors_id_seq OWNED BY actors.id;
+
+
+--
+-- Name: actors_movies; Type: TABLE; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE TABLE actors_movies (
+    id integer NOT NULL,
+    movie_id integer,
+    actor_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.actors_movies OWNER TO apprentice;
+
+--
+-- Name: actors_movies_id_seq; Type: SEQUENCE; Schema: public; Owner: apprentice
+--
+
+CREATE SEQUENCE actors_movies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.actors_movies_id_seq OWNER TO apprentice;
+
+--
+-- Name: actors_movies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: apprentice
+--
+
+ALTER SEQUENCE actors_movies_id_seq OWNED BY actors_movies.id;
+
+
+--
+-- Name: directors; Type: TABLE; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE TABLE directors (
+    id integer NOT NULL,
+    name character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.directors OWNER TO apprentice;
+
+--
+-- Name: directors_id_seq; Type: SEQUENCE; Schema: public; Owner: apprentice
+--
+
+CREATE SEQUENCE directors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.directors_id_seq OWNER TO apprentice;
+
+--
+-- Name: directors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: apprentice
+--
+
+ALTER SEQUENCE directors_id_seq OWNED BY directors.id;
+
+
+--
+-- Name: directors_movies; Type: TABLE; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE TABLE directors_movies (
+    id integer NOT NULL,
+    director_id integer,
+    movie_id integer
+);
+
+
+ALTER TABLE public.directors_movies OWNER TO apprentice;
+
+--
+-- Name: directors_movies_id_seq; Type: SEQUENCE; Schema: public; Owner: apprentice
+--
+
+CREATE SEQUENCE directors_movies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.directors_movies_id_seq OWNER TO apprentice;
+
+--
+-- Name: directors_movies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: apprentice
+--
+
+ALTER SEQUENCE directors_movies_id_seq OWNED BY directors_movies.id;
+
+
+--
+-- Name: genres; Type: TABLE; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE TABLE genres (
+    id integer NOT NULL,
+    name character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.genres OWNER TO apprentice;
+
+--
+-- Name: genres_id_seq; Type: SEQUENCE; Schema: public; Owner: apprentice
+--
+
+CREATE SEQUENCE genres_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.genres_id_seq OWNER TO apprentice;
+
+--
+-- Name: genres_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: apprentice
+--
+
+ALTER SEQUENCE genres_id_seq OWNED BY genres.id;
+
+
+--
+-- Name: genres_movies; Type: TABLE; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE TABLE genres_movies (
+    id integer NOT NULL,
+    genre_id integer,
+    movie_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.genres_movies OWNER TO apprentice;
+
+--
+-- Name: genres_movies_id_seq; Type: SEQUENCE; Schema: public; Owner: apprentice
+--
+
+CREATE SEQUENCE genres_movies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.genres_movies_id_seq OWNER TO apprentice;
+
+--
+-- Name: genres_movies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: apprentice
+--
+
+ALTER SEQUENCE genres_movies_id_seq OWNED BY genres_movies.id;
+
+
+--
+-- Name: movies; Type: TABLE; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE TABLE movies (
+    id integer NOT NULL,
+    title character varying(255),
+    rt_id integer,
+    tmdb_id integer,
+    imdb_ref character varying(255),
+    tmdb_rating integer,
+    release_date date,
+    critic_consensus character varying(255),
+    rt_score integer,
+    poster_url character varying(255),
+    trailer_url character varying(255),
+    mpaa_rating character varying(255),
+    run_time integer,
+    budget integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.movies OWNER TO apprentice;
+
+--
+-- Name: movies_id_seq; Type: SEQUENCE; Schema: public; Owner: apprentice
+--
+
+CREATE SEQUENCE movies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.movies_id_seq OWNER TO apprentice;
+
+--
+-- Name: movies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: apprentice
+--
+
+ALTER SEQUENCE movies_id_seq OWNED BY movies.id;
+
+
+--
+-- Name: ratings; Type: TABLE; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE TABLE ratings (
+    id integer NOT NULL,
+    movie_id integer,
+    user_id integer,
+    rating_value double precision,
+    viewable boolean DEFAULT true,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.ratings OWNER TO apprentice;
+
+--
+-- Name: ratings_id_seq; Type: SEQUENCE; Schema: public; Owner: apprentice
+--
+
+CREATE SEQUENCE ratings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ratings_id_seq OWNER TO apprentice;
+
+--
+-- Name: ratings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: apprentice
+--
+
+ALTER SEQUENCE ratings_id_seq OWNED BY ratings.id;
+
+
+--
+-- Name: recommendations; Type: TABLE; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE TABLE recommendations (
+    id integer NOT NULL,
+    user_id integer,
+    movie_id integer
+);
+
+
+ALTER TABLE public.recommendations OWNER TO apprentice;
+
+--
+-- Name: recommendations_id_seq; Type: SEQUENCE; Schema: public; Owner: apprentice
+--
+
+CREATE SEQUENCE recommendations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.recommendations_id_seq OWNER TO apprentice;
+
+--
+-- Name: recommendations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: apprentice
+--
+
+ALTER SEQUENCE recommendations_id_seq OWNED BY recommendations.id;
+
+
+--
+-- Name: roles; Type: TABLE; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE TABLE roles (
+    id integer NOT NULL,
+    name character varying(255),
+    resource_id integer,
+    resource_type character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.roles OWNER TO apprentice;
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: apprentice
+--
+
+CREATE SEQUENCE roles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.roles_id_seq OWNER TO apprentice;
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: apprentice
+--
+
+ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE TABLE schema_migrations (
+    version character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO apprentice;
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    email character varying(255) DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying(255) DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying(255),
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0,
+    current_sign_in_at timestamp without time zone,
+    last_sign_in_at timestamp without time zone,
+    current_sign_in_ip character varying(255),
+    last_sign_in_ip character varying(255),
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    name character varying(255)
+);
+
+
+ALTER TABLE public.users OWNER TO apprentice;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: apprentice
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO apprentice;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: apprentice
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: users_roles; Type: TABLE; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE TABLE users_roles (
+    user_id integer,
+    role_id integer
+);
+
+
+ALTER TABLE public.users_roles OWNER TO apprentice;
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: apprentice
+--
+
+ALTER TABLE ONLY actors ALTER COLUMN id SET DEFAULT nextval('actors_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: apprentice
+--
+
+ALTER TABLE ONLY actors_movies ALTER COLUMN id SET DEFAULT nextval('actors_movies_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: apprentice
+--
+
+ALTER TABLE ONLY directors ALTER COLUMN id SET DEFAULT nextval('directors_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: apprentice
+--
+
+ALTER TABLE ONLY directors_movies ALTER COLUMN id SET DEFAULT nextval('directors_movies_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: apprentice
+--
+
+ALTER TABLE ONLY genres ALTER COLUMN id SET DEFAULT nextval('genres_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: apprentice
+--
+
+ALTER TABLE ONLY genres_movies ALTER COLUMN id SET DEFAULT nextval('genres_movies_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: apprentice
+--
+
+ALTER TABLE ONLY movies ALTER COLUMN id SET DEFAULT nextval('movies_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: apprentice
+--
+
+ALTER TABLE ONLY ratings ALTER COLUMN id SET DEFAULT nextval('ratings_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: apprentice
+--
+
+ALTER TABLE ONLY recommendations ALTER COLUMN id SET DEFAULT nextval('recommendations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: apprentice
+--
+
+ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: apprentice
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Data for Name: actors; Type: TABLE DATA; Schema: public; Owner: apprentice
+--
+
+COPY actors (id, name, created_at, updated_at) FROM stdin;
+1	Turo Pajala	2013-07-26 22:12:09.400242	2013-07-26 22:12:09.400242
+2	Susanna Haavisto	2013-07-26 22:12:09.418131	2013-07-26 22:12:09.418131
+3	Matti Pellonpää	2013-07-26 22:12:09.423524	2013-07-26 22:12:09.423524
+4	Kati Outinen	2013-07-26 22:12:10.016458	2013-07-26 22:12:10.016458
+5	Sakari Kuosmanen	2013-07-26 22:12:10.021977	2013-07-26 22:12:10.021977
+6	Quentin Tarantino	2013-07-26 22:12:11.233131	2013-07-26 22:12:11.233131
+7	Antonio Banderas	2013-07-26 22:12:11.238439	2013-07-26 22:12:11.238439
+8	Jennifer Beals	2013-07-26 22:12:11.242838	2013-07-26 22:12:11.242838
+9	Emilio Estevez	2013-07-26 22:12:11.779455	2013-07-26 22:12:11.779455
+10	Cuba Gooding Jr.	2013-07-26 22:12:11.785427	2013-07-26 22:12:11.785427
+11	Denis Leary	2013-07-26 22:12:11.789948	2013-07-26 22:12:11.789948
+12	\N	2013-07-26 22:12:12.901672	2013-07-26 22:12:12.901672
+13	Mark Hamill	2013-07-26 22:12:14.993589	2013-07-26 22:12:14.993589
+14	Carrie Fisher	2013-07-26 22:12:14.9992	2013-07-26 22:12:14.9992
+15	Harrison Ford	2013-07-26 22:12:15.004457	2013-07-26 22:12:15.004457
+16	Alexander Gould	2013-07-26 22:12:15.909834	2013-07-26 22:12:15.909834
+17	Albert Brooks	2013-07-26 22:12:15.916673	2013-07-26 22:12:15.916673
+18	Ellen DeGeneres	2013-07-26 22:12:15.921591	2013-07-26 22:12:15.921591
+19	Tom Hanks	2013-07-26 22:12:16.704269	2013-07-26 22:12:16.704269
+20	Robin Wright	2013-07-26 22:12:16.709987	2013-07-26 22:12:16.709987
+21	Gary Sinise	2013-07-26 22:12:16.715849	2013-07-26 22:12:16.715849
+22	Kevin Spacey	2013-07-26 22:12:17.559559	2013-07-26 22:12:17.559559
+23	Annette Bening	2013-07-26 22:12:17.565293	2013-07-26 22:12:17.565293
+24	Thora Birch	2013-07-26 22:12:17.570635	2013-07-26 22:12:17.570635
+25	Joseph Cotten	2013-07-26 22:12:18.356974	2013-07-26 22:12:18.356974
+26	Orson Welles	2013-07-26 22:12:18.362041	2013-07-26 22:12:18.362041
+27	Agnes Moorehead	2013-07-26 22:12:18.367231	2013-07-26 22:12:18.367231
+28	Björk	2013-07-26 22:12:19.000176	2013-07-26 22:12:19.000176
+29	Catherine Deneuve	2013-07-26 22:12:19.006282	2013-07-26 22:12:19.006282
+30	David Morse	2013-07-26 22:12:19.011569	2013-07-26 22:12:19.011569
+31	Sean Bean	2013-07-26 22:12:19.592238	2013-07-26 22:12:19.592238
+32	Maria Bello	2013-07-26 22:12:19.597165	2013-07-26 22:12:19.597165
+33	Richard Elfyn	2013-07-26 22:12:19.60204	2013-07-26 22:12:19.60204
+34	Bruce Willis	2013-07-26 22:12:20.377136	2013-07-26 22:12:20.377136
+35	Milla Jovovich	2013-07-26 22:12:20.38215	2013-07-26 22:12:20.38215
+36	Gary Oldman	2013-07-26 22:12:20.387429	2013-07-26 22:12:20.387429
+37	Fritz Alberti	2013-07-26 22:12:21.111476	2013-07-26 22:12:21.111476
+38	Gustav Fröhlich	2013-07-26 22:12:21.116388	2013-07-26 22:12:21.116388
+39	Brigitte Helm	2013-07-26 22:12:21.121559	2013-07-26 22:12:21.121559
+40	Sarah Polley	2013-07-26 22:12:21.794427	2013-07-26 22:12:21.794427
+41	Amanda Plummer	2013-07-26 22:12:21.802043	2013-07-26 22:12:21.802043
+42	Scott Speedman	2013-07-26 22:12:21.807518	2013-07-26 22:12:21.807518
+43	Robert August	2013-07-26 22:12:22.317299	2013-07-26 22:12:22.317299
+44	Mike Hynson	2013-07-26 22:12:22.322953	2013-07-26 22:12:22.322953
+45	Johnny Depp	2013-07-26 22:12:23.182537	2013-07-26 22:12:23.182537
+46	Orlando Bloom	2013-07-26 22:12:23.188044	2013-07-26 22:12:23.188044
+47	Keira Knightley	2013-07-26 22:12:23.192934	2013-07-26 22:12:23.192934
+48	Uma Thurman	2013-07-26 22:12:24.460294	2013-07-26 22:12:24.460294
+49	Lucy Liu	2013-07-26 22:12:24.4675	2013-07-26 22:12:24.4675
+50	David Carradine	2013-07-26 22:12:24.472966	2013-07-26 22:12:24.472966
+51	Jamie Foxx	2013-07-26 22:12:25.795847	2013-07-26 22:12:25.795847
+52	Jake Gyllenhaal	2013-07-26 22:12:25.801567	2013-07-26 22:12:25.801567
+53	Scott MacDonald	2013-07-26 22:12:25.80698	2013-07-26 22:12:25.80698
+54	Lior Ashkenazi	2013-07-26 22:12:26.394957	2013-07-26 22:12:26.394957
+55	Knut Berger	2013-07-26 22:12:26.400112	2013-07-26 22:12:26.400112
+56	Caroline Peters	2013-07-26 22:12:26.405965	2013-07-26 22:12:26.405965
+57	Kieran O'Brien	2013-07-26 22:12:27.039663	2013-07-26 22:12:27.039663
+58	Margo Stilley	2013-07-26 22:12:27.044653	2013-07-26 22:12:27.044653
+59	The Dandy Warhols	2013-07-26 22:12:27.049438	2013-07-26 22:12:27.049438
+60	Martin Sheen	2013-07-26 22:12:27.68593	2013-07-26 22:12:27.68593
+61	Marlon Brando	2013-07-26 22:12:27.691681	2013-07-26 22:12:27.691681
+62	Robert Duvall	2013-07-26 22:12:27.696963	2013-07-26 22:12:27.696963
+63	Clint Eastwood	2013-07-26 22:12:30.702971	2013-07-26 22:12:30.702971
+64	Gene Hackman	2013-07-26 22:12:30.711342	2013-07-26 22:12:30.711342
+65	Richard Harris	2013-07-26 22:12:30.71777	2013-07-26 22:12:30.71777
+66	Dan Castellaneta	2013-07-26 22:12:31.966664	2013-07-26 22:12:31.966664
+67	Julie Kavner	2013-07-26 22:12:31.972965	2013-07-26 22:12:31.972965
+68	Nancy Cartwright	2013-07-26 22:12:31.977729	2013-07-26 22:12:31.977729
+69	Kate Winslet	2013-07-26 22:12:33.675176	2013-07-26 22:12:33.675176
+70	Jim Carrey	2013-07-26 22:12:33.68218	2013-07-26 22:12:33.68218
+71	Elijah Wood	2013-07-26 22:12:33.686834	2013-07-26 22:12:33.686834
+72	Gael García Bernal	2013-07-26 22:12:42.581492	2013-07-26 22:12:42.581492
+73	Vanessa Bauche	2013-07-26 22:12:42.589533	2013-07-26 22:12:42.589533
+74	Goya Toledo	2013-07-26 22:12:42.595053	2013-07-26 22:12:42.595053
+75	Viggo Mortensen	2013-07-26 22:12:45.154677	2013-07-26 22:12:45.154677
+76	Heidi Hayes	2013-07-26 22:12:45.163354	2013-07-26 22:12:45.163354
+77	Keir Dullea	2013-07-26 22:12:47.123895	2013-07-26 22:12:47.123895
+78	Douglas Rain	2013-07-26 22:12:47.128961	2013-07-26 22:12:47.128961
+79	Gary Lockwood	2013-07-26 22:12:47.13336	2013-07-26 22:12:47.13336
+80	Brad Pitt	2013-07-26 22:12:48.493555	2013-07-26 22:12:48.493555
+81	Madeleine Stowe	2013-07-26 22:12:48.498492	2013-07-26 22:12:48.498492
+82	Leonor Watling	2013-07-26 22:12:49.206889	2013-07-26 22:12:49.206889
+83	Rosario Flores	2013-07-26 22:12:49.212375	2013-07-26 22:12:49.212375
+84	Javier Cámara	2013-07-26 22:12:49.217125	2013-07-26 22:12:49.217125
+85	Eminem	2013-07-26 22:12:49.965122	2013-07-26 22:12:49.965122
+86	Mekhi Phifer	2013-07-26 22:12:49.972674	2013-07-26 22:12:49.972674
+87	Kim Basinger	2013-07-26 22:12:49.977852	2013-07-26 22:12:49.977852
+88	Ed Harris	2013-07-26 22:12:50.588267	2013-07-26 22:12:50.588267
+89	Ali Suliman	2013-07-26 22:12:51.206697	2013-07-26 22:12:51.206697
+90	Amer Hlehel	2013-07-26 22:12:51.214338	2013-07-26 22:12:51.214338
+91	Hiam Abbass	2013-07-26 22:12:51.21905	2013-07-26 22:12:51.21905
+92	Jonathan Pryce	2013-07-26 22:12:52.398903	2013-07-26 22:12:52.398903
+93	Robert De Niro	2013-07-26 22:12:52.405473	2013-07-26 22:12:52.405473
+94	Katherine Helmond	2013-07-26 22:12:52.410823	2013-07-26 22:12:52.410823
+95	Joaquin Phoenix	2013-07-26 22:12:53.216332	2013-07-26 22:12:53.216332
+96	Reese Witherspoon	2013-07-26 22:12:53.221794	2013-07-26 22:12:53.221794
+97	Ginnifer Goodwin	2013-07-26 22:12:53.227119	2013-07-26 22:12:53.227119
+98	Hilary Swank	2013-07-26 22:12:53.919092	2013-07-26 22:12:53.919092
+99	Morgan Freeman	2013-07-26 22:12:53.924933	2013-07-26 22:12:53.924933
+100	Jamie Bell	2013-07-26 22:12:54.544126	2013-07-26 22:12:54.544126
+101	Julie Walters	2013-07-26 22:12:54.549365	2013-07-26 22:12:54.549365
+102	Jean Heywood	2013-07-26 22:12:54.554254	2013-07-26 22:12:54.554254
+103	Edward Norton	2013-07-26 22:12:55.939509	2013-07-26 22:12:55.939509
+104	Edward Furlong	2013-07-26 22:12:55.947551	2013-07-26 22:12:55.947551
+105	Beverly D'Angelo	2013-07-26 22:12:55.952467	2013-07-26 22:12:55.952467
+106	Tom Cruise	2013-07-26 22:12:56.791446	2013-07-26 22:12:56.791446
+107	Dakota Fanning	2013-07-26 22:12:56.796461	2013-07-26 22:12:56.796461
+108	Miranda Otto	2013-07-26 22:12:56.801261	2013-07-26 22:12:56.801261
+109	Jack Nicholson	2013-07-26 22:12:57.520965	2013-07-26 22:12:57.520965
+110	Glenn Close	2013-07-26 22:12:57.525845	2013-07-26 22:12:57.525845
+111	Ethan Hawke	2013-07-26 22:12:58.187873	2013-07-26 22:12:58.187873
+112	Julie Delpy	2013-07-26 22:12:58.195843	2013-07-26 22:12:58.195843
+113	Andrea Eckert	2013-07-26 22:12:58.201052	2013-07-26 22:12:58.201052
+114	Guy Pearce	2013-07-26 22:12:58.898745	2013-07-26 22:12:58.898745
+115	Carrie-Anne Moss	2013-07-26 22:12:58.906485	2013-07-26 22:12:58.906485
+116	Joe Pantoliano	2013-07-26 22:12:58.911154	2013-07-26 22:12:58.911154
+117	Rutger Hauer	2013-07-26 22:13:00.035944	2013-07-26 22:13:00.035944
+118	Sean Young	2013-07-26 22:13:00.040829	2013-07-26 22:13:00.040829
+119	Jet Li	2013-07-26 22:13:00.829272	2013-07-26 22:13:00.829272
+120	Tony Leung Chiu-Wai	2013-07-26 22:13:00.837243	2013-07-26 22:13:00.837243
+121	Maggie Cheung Man-Yuk	2013-07-26 22:13:00.842143	2013-07-26 22:13:00.842143
+122	Vernon Dobtcheff	2013-07-26 22:13:01.494383	2013-07-26 22:13:01.494383
+123	Sumi Shimamoto	2013-07-26 22:13:02.368005	2013-07-26 22:13:02.368005
+124	Mahito Tsujimura	2013-07-26 22:13:02.373221	2013-07-26 22:13:02.373221
+125	Hisako Kyôda	2013-07-26 22:13:02.377856	2013-07-26 22:13:02.377856
+126	Colin Farrell	2013-07-26 22:13:03.10431	2013-07-26 22:13:03.10431
+127	Gong Li	2013-07-26 22:13:03.109123	2013-07-26 22:13:03.109123
+128	Blanchard Ryan	2013-07-26 22:13:03.91566	2013-07-26 22:13:03.91566
+129	Daniel Travis	2013-07-26 22:13:03.922322	2013-07-26 22:13:03.922322
+130	Saul Stein	2013-07-26 22:13:03.926934	2013-07-26 22:13:03.926934
+131	Karen Allen	2013-07-26 22:13:05.821993	2013-07-26 22:13:05.821993
+132	Paul Freeman	2013-07-26 22:13:05.826802	2013-07-26 22:13:05.826802
+133	Christian Ulmen	2013-07-26 22:13:07.006536	2013-07-26 22:13:07.006536
+134	Moritz Bleibtreu	2013-07-26 22:13:07.01346	2013-07-26 22:13:07.01346
+135	Martina Gedeck	2013-07-26 22:13:07.018424	2013-07-26 22:13:07.018424
+136	Kate Capshaw	2013-07-26 22:13:08.119212	2013-07-26 22:13:08.119212
+137	Jonathan Ke Quan	2013-07-26 22:13:08.123983	2013-07-26 22:13:08.123983
+138	Jennifer Grey	2013-07-26 22:13:09.049397	2013-07-26 22:13:09.049397
+139	Patrick Swayze	2013-07-26 22:13:09.057042	2013-07-26 22:13:09.057042
+140	Cynthia Rhodes	2013-07-26 22:13:09.061749	2013-07-26 22:13:09.061749
+141	Sean Connery	2013-07-26 22:13:09.987326	2013-07-26 22:13:09.987326
+142	Denholm Elliott	2013-07-26 22:13:09.991986	2013-07-26 22:13:09.991986
+143	Eddie Murphy	2013-07-26 22:13:10.805593	2013-07-26 22:13:10.805593
+144	Judge Reinhold	2013-07-26 22:13:10.810422	2013-07-26 22:13:10.810422
+145	John Ashton	2013-07-26 22:13:10.815106	2013-07-26 22:13:10.815106
+146	Shankar Loutakke	2013-07-26 22:13:12.019808	2013-07-26 22:13:12.019808
+147	Modesto Francisco Rodriguez	2013-07-26 22:13:12.027547	2013-07-26 22:13:12.027547
+148	Mike „Tone“ P. Ross	2013-07-26 22:13:12.032532	2013-07-26 22:13:12.032532
+149	James Stewart	2013-07-26 22:13:13.237045	2013-07-26 22:13:13.237045
+150	Lee Remick	2013-07-26 22:13:13.242022	2013-07-26 22:13:13.242022
+151	Ben Gazzara	2013-07-26 22:13:13.246899	2013-07-26 22:13:13.246899
+152	Billy Bob Thornton	2013-07-26 22:13:14.631556	2013-07-26 22:13:14.631556
+153	Ben Affleck	2013-07-26 22:13:14.636768	2013-07-26 22:13:14.636768
+154	Jeff Bridges	2013-07-26 22:13:16.281816	2013-07-26 22:13:16.281816
+155	Bruce Boxleitner	2013-07-26 22:13:16.287685	2013-07-26 22:13:16.287685
+156	David Warner	2013-07-26 22:13:16.292256	2013-07-26 22:13:16.292256
+157	Russell Crowe	2013-07-26 22:13:17.334282	2013-07-26 22:13:17.334282
+158	Connie Nielsen	2013-07-26 22:13:17.342486	2013-07-26 22:13:17.342486
+159	Cecilia Roth	2013-07-26 22:13:18.077072	2013-07-26 22:13:18.077072
+160	Marisa Paredes	2013-07-26 22:13:18.084973	2013-07-26 22:13:18.084973
+161	Penélope Cruz	2013-07-26 22:13:18.091667	2013-07-26 22:13:18.091667
+162	Jason Flemyng	2013-07-26 22:13:18.98063	2013-07-26 22:13:18.98063
+163	Dexter Fletcher	2013-07-26 22:13:18.986244	2013-07-26 22:13:18.986244
+164	Nick Moran	2013-07-26 22:13:18.991032	2013-07-26 22:13:18.991032
+165	Jean Reno	2013-07-26 22:13:20.024993	2013-07-26 22:13:20.024993
+166	Natalie Portman	2013-07-26 22:13:20.031995	2013-07-26 22:13:20.031995
+167	Danny Aiello	2013-07-26 22:13:20.039866	2013-07-26 22:13:20.039866
+168	Sonja Richter	2013-07-26 22:13:20.980792	2013-07-26 22:13:20.980792
+169	Nikolaj Lie Kaas	2013-07-26 22:13:20.986996	2013-07-26 22:13:20.986996
+170	Mads Mikkelsen	2013-07-26 22:13:20.992499	2013-07-26 22:13:20.992499
+171	Cybill Shepherd	2013-07-26 22:13:21.897352	2013-07-26 22:13:21.897352
+172	Harvey Keitel	2013-07-26 22:13:21.902299	2013-07-26 22:13:21.902299
+173	Franka Potente	2013-07-26 22:13:22.683546	2013-07-26 22:13:22.683546
+174	Herbert Knaup	2013-07-26 22:13:22.693167	2013-07-26 22:13:22.693167
+175	Michael J. Fox	2013-07-26 22:13:23.691492	2013-07-26 22:13:23.691492
+176	Christopher Lloyd	2013-07-26 22:13:23.696508	2013-07-26 22:13:23.696508
+177	Lea Thompson	2013-07-26 22:13:23.701121	2013-07-26 22:13:23.701121
+178	Arnold Schwarzenegger	2013-07-26 22:13:24.671513	2013-07-26 22:13:24.671513
+179	Carl Weathers	2013-07-26 22:13:24.676901	2013-07-26 22:13:24.676901
+180	Elpidia Carrillo	2013-07-26 22:13:24.68185	2013-07-26 22:13:24.68185
+181	Jason Statham	2013-07-26 22:13:26.259365	2013-07-26 22:13:26.259365
+182	Stephen Graham	2013-07-26 22:13:26.268322	2013-07-26 22:13:26.268322
+183	Juliette Binoche	2013-07-26 22:13:26.976505	2013-07-26 22:13:26.976505
+184	Benoît Régent	2013-07-26 22:13:26.981501	2013-07-26 22:13:26.981501
+185	Florence Pernel	2013-07-26 22:13:26.986295	2013-07-26 22:13:26.986295
+186	Zbigniew Zamachowski	2013-07-26 22:13:27.750392	2013-07-26 22:13:27.750392
+187	Janusz Gajos	2013-07-26 22:13:27.759239	2013-07-26 22:13:27.759239
+188	Irène Jacob	2013-07-26 22:13:28.549392	2013-07-26 22:13:28.549392
+189	Jean-Louis Trintignant	2013-07-26 22:13:28.555871	2013-07-26 22:13:28.555871
+190	Frédérique Feder	2013-07-26 22:13:28.561276	2013-07-26 22:13:28.561276
+191	Al Pacino	2013-07-26 22:13:29.452111	2013-07-26 22:13:29.452111
+192	Steven Bauer	2013-07-26 22:13:29.459386	2013-07-26 22:13:29.459386
+193	Michelle Pfeiffer	2013-07-26 22:13:29.464388	2013-07-26 22:13:29.464388
+194	Peter Gantzler	2013-07-26 22:13:30.009427	2013-07-26 22:13:30.009427
+195	Sara Indrio Jensen	2013-07-26 22:13:30.015916	2013-07-26 22:13:30.015916
+196	Ann Eleonora Jørgensen	2013-07-26 22:13:30.021065	2013-07-26 22:13:30.021065
+197	Oh Young	2013-07-26 22:13:30.696524	2013-07-26 22:13:30.696524
+198	Kim Ki-duk	2013-07-26 22:13:30.702761	2013-07-26 22:13:30.702761
+199	Kim Young-min	2013-07-26 22:13:30.708472	2013-07-26 22:13:30.708472
+200	Julia Roberts	2013-07-26 22:13:31.439673	2013-07-26 22:13:31.439673
+201	Richard Gere	2013-07-26 22:13:31.445333	2013-07-26 22:13:31.445333
+202	Ralph Bellamy	2013-07-26 22:13:31.450847	2013-07-26 22:13:31.450847
+203	John Goodman	2013-07-26 22:13:32.406605	2013-07-26 22:13:32.406605
+204	Steve Buscemi	2013-07-26 22:13:32.412346	2013-07-26 22:13:32.412346
+205	Jonathan Rhys Meyers	2013-07-26 22:13:33.286809	2013-07-26 22:13:33.286809
+206	Scarlett Johansson	2013-07-26 22:13:33.292673	2013-07-26 22:13:33.292673
+207	Emily Mortimer	2013-07-26 22:13:33.297643	2013-07-26 22:13:33.297643
+208	Kevin Costner	2013-07-26 22:13:34.04694	2013-07-26 22:13:34.04694
+209	Freddie Highmore	2013-07-26 22:13:34.801068	2013-07-26 22:13:34.801068
+210	AnnaSophia Robb	2013-07-26 22:13:34.807731	2013-07-26 22:13:34.807731
+211	Ian McKellen	2013-07-26 22:13:36.45952	2013-07-26 22:13:36.45952
+212	Christopher Guard	2013-07-26 22:13:39.918253	2013-07-26 22:13:39.918253
+213	William Squire	2013-07-26 22:13:39.923214	2013-07-26 22:13:39.923214
+214	Michael Scholes	2013-07-26 22:13:39.928043	2013-07-26 22:13:39.928043
+215	Grażyna Szapołowska	2013-07-26 22:13:40.747642	2013-07-26 22:13:40.747642
+216	Maria Pakulnis	2013-07-26 22:13:40.797588	2013-07-26 22:13:40.797588
+217	Aleksander Bardini	2013-07-26 22:13:40.803485	2013-07-26 22:13:40.803485
+218	Wacław Ulewicz	2013-07-26 22:13:42.103675	2013-07-26 22:13:42.103675
+219	Mirosław Siedler	2013-07-26 22:13:42.10939	2013-07-26 22:13:42.10939
+220	Paweł Nowisz	2013-07-26 22:13:42.114944	2013-07-26 22:13:42.114944
+221	Zbigniew Zapasiewicz	2013-07-26 22:13:42.964317	2013-07-26 22:13:42.964317
+222	Marzena Trybała	2013-07-26 22:13:42.971921	2013-07-26 22:13:42.971921
+223	Jerzy Stuhr	2013-07-26 22:13:42.977339	2013-07-26 22:13:42.977339
+224	Yôji Matsuda	2013-07-26 22:13:43.703449	2013-07-26 22:13:43.703449
+225	Yuriko Ishida	2013-07-26 22:13:43.710336	2013-07-26 22:13:43.710336
+226	Yûko Tanaka	2013-07-26 22:13:43.715999	2013-07-26 22:13:43.715999
+227	Rumi Hîragi	2013-07-26 22:13:44.586053	2013-07-26 22:13:44.586053
+228	Miyu Irino	2013-07-26 22:13:44.591742	2013-07-26 22:13:44.591742
+229	Mari Natsuki	2013-07-26 22:13:44.596737	2013-07-26 22:13:44.596737
+230	Mick Jagger	2013-07-26 22:13:46.786682	2013-07-26 22:13:46.786682
+231	Keith Richards	2013-07-26 22:13:46.791517	2013-07-26 22:13:46.791517
+232	Charlie Watts	2013-07-26 22:13:46.796461	2013-07-26 22:13:46.796461
+233	John F. Kennedy	2013-07-26 22:13:47.502893	2013-07-26 22:13:47.502893
+234	Hubert Humphrey	2013-07-26 22:13:47.51001	2013-07-26 22:13:47.51001
+235	George Clooney	2013-07-26 22:13:48.515306	2013-07-26 22:13:48.515306
+236	John Turturro	2013-07-26 22:13:48.520875	2013-07-26 22:13:48.520875
+237	Tim Blake Nelson	2013-07-26 22:13:48.526001	2013-07-26 22:13:48.526001
+238	Bob Dylan	2013-07-26 22:13:49.314318	2013-07-26 22:13:49.314318
+239	Albert Grossman	2013-07-26 22:13:49.320088	2013-07-26 22:13:49.320088
+240	Bob Neuwirth	2013-07-26 22:13:49.32642	2013-07-26 22:13:49.32642
+241	Edgar Allan Woolf	2013-07-26 22:13:49.969295	2013-07-26 22:13:49.969295
+242	Leila Hyams	2013-07-26 22:13:49.974976	2013-07-26 22:13:49.974976
+243	Olga Baclanova	2013-07-26 22:13:49.981305	2013-07-26 22:13:49.981305
+244	Bill Murray	2013-07-26 22:13:51.002461	2013-07-26 22:13:51.002461
+245	Andie MacDowell	2013-07-26 22:13:51.007422	2013-07-26 22:13:51.007422
+246	Chris Elliott	2013-07-26 22:13:51.012173	2013-07-26 22:13:51.012173
+247	Bela Lugosi	2013-07-26 22:13:51.957652	2013-07-26 22:13:51.957652
+248	Helen Chandler	2013-07-26 22:13:51.963574	2013-07-26 22:13:51.963574
+249	David Manners	2013-07-26 22:13:51.968622	2013-07-26 22:13:51.968622
+250	Anders W. Berthelsen	2013-07-26 22:13:52.870139	2013-07-26 22:13:52.870139
+251	Iben Hjejle	2013-07-26 22:13:52.876652	2013-07-26 22:13:52.876652
+252	Jesper Asholt	2013-07-26 22:13:52.882693	2013-07-26 22:13:52.882693
+253	Fele Martínez	2013-07-26 22:13:54.096202	2013-07-26 22:13:54.096202
+254	Daniel Giménez Cacho	2013-07-26 22:13:54.101466	2013-07-26 22:13:54.101466
+255	Drew Barrymore	2013-07-26 22:13:55.014888	2013-07-26 22:13:55.014888
+256	Heath Ledger	2013-07-26 22:13:55.769957	2013-07-26 22:13:55.769957
+257	Randy Quaid	2013-07-26 22:13:55.778908	2013-07-26 22:13:55.778908
+258	Lew Ayres	2013-07-26 22:13:56.491034	2013-07-26 22:13:56.491034
+259	Arnold Lucy	2013-07-26 22:13:56.497568	2013-07-26 22:13:56.497568
+260	John Wray	2013-07-26 22:13:56.50253	2013-07-26 22:13:56.50253
+261	Bruno Ganz	2013-07-26 22:13:57.283946	2013-07-26 22:13:57.283946
+262	Otto Sander	2013-07-26 22:13:57.290197	2013-07-26 22:13:57.290197
+263	Solveig Dommartin	2013-07-26 22:13:57.296395	2013-07-26 22:13:57.296395
+264	Emily Watson	2013-07-26 22:13:57.849124	2013-07-26 22:13:57.849124
+265	Stellan Skarsgård	2013-07-26 22:13:57.855358	2013-07-26 22:13:57.855358
+266	Katrin Cartlidge	2013-07-26 22:13:57.862269	2013-07-26 22:13:57.862269
+267	Michelle Yeoh	2013-07-26 22:13:58.604979	2013-07-26 22:13:58.604979
+268	Zhang Ziyi	2013-07-26 22:13:58.610246	2013-07-26 22:13:58.610246
+269	Chang Chen	2013-07-26 22:13:58.615455	2013-07-26 22:13:58.615455
+270	Jean-Pierre Léaud	2013-07-26 22:13:59.657615	2013-07-26 22:13:59.657615
+271	Claire Maurier	2013-07-26 22:13:59.663046	2013-07-26 22:13:59.663046
+272	Albert Rémy	2013-07-26 22:13:59.668516	2013-07-26 22:13:59.668516
+273	Tim Robbins	2013-07-26 22:14:00.208909	2013-07-26 22:14:00.208909
+274	Mitsuo Iwata	2013-07-26 22:14:00.964678	2013-07-26 22:14:00.964678
+275	Nozomu Sasaki	2013-07-26 22:14:00.970142	2013-07-26 22:14:00.970142
+276	Mami Koyama	2013-07-26 22:14:00.975603	2013-07-26 22:14:00.975603
+277	Nick Nolte	2013-07-26 22:14:01.784989	2013-07-26 22:14:01.784989
+278	Annette O'Toole	2013-07-26 22:14:01.793043	2013-07-26 22:14:01.793043
+279	William Shatner	2013-07-26 22:14:03.399414	2013-07-26 22:14:03.399414
+280	Leonard Nimoy	2013-07-26 22:14:03.404245	2013-07-26 22:14:03.404245
+281	George Takei	2013-07-26 22:14:03.44901	2013-07-26 22:14:03.44901
+282	Anna Faris	2013-07-26 22:14:04.112574	2013-07-26 22:14:04.112574
+283	DeForest Kelley	2013-07-26 22:14:04.871224	2013-07-26 22:14:04.871224
+284	Christian Bale	2013-07-26 22:14:05.917264	2013-07-26 22:14:05.917264
+285	Maggie Gyllenhaal	2013-07-26 22:14:05.927265	2013-07-26 22:14:05.927265
+286	Jamie Sives	2013-07-26 22:14:06.528195	2013-07-26 22:14:06.528195
+287	Adrian Rawlins	2013-07-26 22:14:06.534437	2013-07-26 22:14:06.534437
+288	Shirley Henderson	2013-07-26 22:14:06.539914	2013-07-26 22:14:06.539914
+289	Til Schweiger	2013-07-26 22:14:07.959514	2013-07-26 22:14:07.959514
+290	Jan Josef Liefers	2013-07-26 22:14:07.964748	2013-07-26 22:14:07.964748
+291	Thierry van Werveke	2013-07-26 22:14:07.969745	2013-07-26 22:14:07.969745
+292	Katja Riemann	2013-07-26 22:14:09.149158	2013-07-26 22:14:09.149158
+293	Joachim Król	2013-07-26 22:14:09.154115	2013-07-26 22:14:09.154115
+294	Matt Damon	2013-07-26 22:14:10.534065	2013-07-26 22:14:10.534065
+295	Winona Ryder	2013-07-26 22:14:11.229653	2013-07-26 22:14:11.229653
+296	Dianne Wiest	2013-07-26 22:14:11.234652	2013-07-26 22:14:11.234652
+297	Catherine Zeta-Jones	2013-07-26 22:14:12.064087	2013-07-26 22:14:12.064087
+298	Audrey Hepburn	2013-07-26 22:14:12.910717	2013-07-26 22:14:12.910717
+299	George Peppard	2013-07-26 22:14:12.919122	2013-07-26 22:14:12.919122
+300	Patricia Neal	2013-07-26 22:14:12.923887	2013-07-26 22:14:12.923887
+301	Claude Brasseur	2013-07-26 22:14:14.46756	2013-07-26 22:14:14.46756
+302	Brigitte Fossey	2013-07-26 22:14:14.475238	2013-07-26 22:14:14.475238
+303	Sophie Marceau	2013-07-26 22:14:14.480021	2013-07-26 22:14:14.480021
+304	Mary McCormack	2013-07-26 22:14:15.15097	2013-07-26 22:14:15.15097
+305	Kevin Peter Hall	2013-07-26 22:14:16.6126	2013-07-26 22:14:16.6126
+306	Danny Glover	2013-07-26 22:14:16.619084	2013-07-26 22:14:16.619084
+307	Gary Busey	2013-07-26 22:14:16.623918	2013-07-26 22:14:16.623918
+308	Cillian Murphy	2013-07-26 22:14:17.577487	2013-07-26 22:14:17.577487
+309	Naomie Harris	2013-07-26 22:14:17.58539	2013-07-26 22:14:17.58539
+310	Brendan Gleeson	2013-07-26 22:14:17.590394	2013-07-26 22:14:17.590394
+311	Kirk Douglas	2013-07-26 22:14:19.595833	2013-07-26 22:14:19.595833
+312	James Mason	2013-07-26 22:14:19.604068	2013-07-26 22:14:19.604068
+313	Paul Lukas	2013-07-26 22:14:19.608729	2013-07-26 22:14:19.608729
+314	Jean-Marc Barr	2013-07-26 22:14:20.954137	2013-07-26 22:14:20.954137
+315	Rosanna Arquette	2013-07-26 22:14:20.963884	2013-07-26 22:14:20.963884
+316	Leigh Whannell	2013-07-26 22:14:21.677119	2013-07-26 22:14:21.677119
+317	Cary Elwes	2013-07-26 22:14:21.68419	2013-07-26 22:14:21.68419
+318	Robin Williams	2013-07-26 22:14:22.370702	2013-07-26 22:14:22.370702
+319	Mercedes Ruehl	2013-07-26 22:14:22.377337	2013-07-26 22:14:22.377337
+320	Tommy Lee Jones	2013-07-26 22:14:22.901255	2013-07-26 22:14:22.901255
+321	Lloyd Bridges	2013-07-26 22:14:22.906554	2013-07-26 22:14:22.906554
+322	Nicole Kidman	2013-07-26 22:14:24.116678	2013-07-26 22:14:24.116678
+323	Sean Penn	2013-07-26 22:14:24.123303	2013-07-26 22:14:24.123303
+324	Catherine Keener	2013-07-26 22:14:24.127987	2013-07-26 22:14:24.127987
+325	Max von Sydow	2013-07-26 22:14:24.878457	2013-07-26 22:14:24.878457
+326	Steve Harris	2013-07-26 22:14:24.883044	2013-07-26 22:14:24.883044
+327	Cate Blanchett	2013-07-26 22:14:25.88943	2013-07-26 22:14:25.88943
+328	Tobey Maguire	2013-07-26 22:14:25.894	2013-07-26 22:14:25.894
+329	Fred Savage	2013-07-26 22:14:26.443469	2013-07-26 22:14:26.443469
+330	Luke Edwards	2013-07-26 22:14:26.451267	2013-07-26 22:14:26.451267
+331	Beau Bridges	2013-07-26 22:14:26.456626	2013-07-26 22:14:26.456626
+332	Pam Grier	2013-07-26 22:14:27.195512	2013-07-26 22:14:27.195512
+333	Samuel L. Jackson	2013-07-26 22:14:27.202639	2013-07-26 22:14:27.202639
+334	Robert Forster	2013-07-26 22:14:27.207752	2013-07-26 22:14:27.207752
+335	Malcolm McDowell	2013-07-26 22:14:28.208329	2013-07-26 22:14:28.208329
+336	Patrick Magee	2013-07-26 22:14:28.215639	2013-07-26 22:14:28.215639
+337	Adrienne Corri	2013-07-26 22:14:28.220899	2013-07-26 22:14:28.220899
+338	Josh Hartnett	2013-07-26 22:14:28.96213	2013-07-26 22:14:28.96213
+339	Mickey Rourke	2013-07-26 22:14:29.79794	2013-07-26 22:14:29.79794
+340	Clive Owen	2013-07-26 22:14:29.802468	2013-07-26 22:14:29.802468
+341	Julia Hummer	2013-07-26 22:14:31.973403	2013-07-26 22:14:31.973403
+342	Barbara Auer	2013-07-26 22:14:31.978701	2013-07-26 22:14:31.978701
+343	Richy Müller	2013-07-26 22:14:31.983245	2013-07-26 22:14:31.983245
+344	Christian Slater	2013-07-26 22:14:32.696049	2013-07-26 22:14:32.696049
+345	Helmut Qualtinger	2013-07-26 22:14:32.700652	2013-07-26 22:14:32.700652
+346	Patrick Stewart	2013-07-26 22:14:33.462646	2013-07-26 22:14:33.462646
+347	Jonathan Frakes	2013-07-26 22:14:33.469432	2013-07-26 22:14:33.469432
+348	Brent Spiner	2013-07-26 22:14:33.475281	2013-07-26 22:14:33.475281
+349	Audrey Tautou	2013-07-26 22:14:34.251116	2013-07-26 22:14:34.251116
+350	Rufus	2013-07-26 22:14:34.258907	2013-07-26 22:14:34.258907
+351	Jamel Debbouze	2013-07-26 22:14:34.265326	2013-07-26 22:14:34.265326
+352	Miriam Hopkins	2013-07-26 22:14:34.787582	2013-07-26 22:14:34.787582
+353	Kay Francis	2013-07-26 22:14:34.796601	2013-07-26 22:14:34.796601
+354	Herbert Marshall	2013-07-26 22:14:34.806665	2013-07-26 22:14:34.806665
+355	Mary Steenburgen	2013-07-26 22:14:35.622553	2013-07-26 22:14:35.622553
+356	Mel Gibson	2013-07-26 22:14:36.425827	2013-07-26 22:14:36.425827
+357	Catherine McCormack	2013-07-26 22:14:36.432654	2013-07-26 22:14:36.432654
+358	Carole Lombard	2013-07-26 22:14:37.000601	2013-07-26 22:14:37.000601
+359	Jack Benny	2013-07-26 22:14:37.007782	2013-07-26 22:14:37.007782
+360	Robert Stack	2013-07-26 22:14:37.013599	2013-07-26 22:14:37.013599
+361	James Cromwell	2013-07-26 22:14:37.716572	2013-07-26 22:14:37.716572
+362	Alfre Woodard	2013-07-26 22:14:37.723686	2013-07-26 22:14:37.723686
+363	Alice Krige	2013-07-26 22:14:37.729632	2013-07-26 22:14:37.729632
+364	David Proval	2013-07-26 22:14:40.212531	2013-07-26 22:14:40.212531
+365	Yves Montand	2013-07-26 22:14:40.857609	2013-07-26 22:14:40.857609
+366	Charles Vanel	2013-07-26 22:14:40.863507	2013-07-26 22:14:40.863507
+367	Peter van Eyck	2013-07-26 22:14:40.868165	2013-07-26 22:14:40.868165
+368	Don Cheadle	2013-07-26 22:14:41.481238	2013-07-26 22:14:41.481238
+369	Sophie Okonedo	2013-07-26 22:14:41.490981	2013-07-26 22:14:41.490981
+370	Kiefer Sutherland	2013-07-26 22:14:43.113668	2013-07-26 22:14:43.113668
+371	Alun Armstrong	2013-07-26 22:14:43.119037	2013-07-26 22:14:43.119037
+372	Nastassja Kinski	2013-07-26 22:14:43.123707	2013-07-26 22:14:43.123707
+373	Robert Sean Leonard	2013-07-26 22:14:43.776665	2013-07-26 22:14:43.776665
+374	Jörg Schüttauf	2013-07-26 22:14:46.903145	2013-07-26 22:14:46.903145
+375	Julia Jäger	2013-07-26 22:14:46.908222	2013-07-26 22:14:46.908222
+376	Tom Jahn	2013-07-26 22:14:46.913339	2013-07-26 22:14:46.913339
+377	Cary Grant	2013-07-26 22:14:47.527631	2013-07-26 22:14:47.527631
+378	Priscilla Lane	2013-07-26 22:14:47.5351	2013-07-26 22:14:47.5351
+379	Raymond Massey	2013-07-26 22:14:47.541229	2013-07-26 22:14:47.541229
+380	Eva Marie Saint	2013-07-26 22:14:48.323365	2013-07-26 22:14:48.323365
+381	Tobin Bell	2013-07-26 22:14:48.978199	2013-07-26 22:14:48.978199
+382	Angus Macfadyen	2013-07-26 22:14:48.986039	2013-07-26 22:14:48.986039
+383	Dina Meyer	2013-07-26 22:14:48.990973	2013-07-26 22:14:48.990973
+384	Shawnee Smith	2013-07-26 22:14:49.695932	2013-07-26 22:14:49.695932
+385	Donnie Wahlberg	2013-07-26 22:14:49.70055	2013-07-26 22:14:49.70055
+386	Brigitte Mira	2013-07-26 22:14:50.296888	2013-07-26 22:14:50.296888
+387	El Hedi ben Salem	2013-07-26 22:14:50.302018	2013-07-26 22:14:50.302018
+388	Barbara Valentin	2013-07-26 22:14:50.306638	2013-07-26 22:14:50.306638
+389	Shia LaBeouf	2013-07-26 22:14:51.723286	2013-07-26 22:14:51.723286
+390	Michael Biehn	2013-07-26 22:14:52.443889	2013-07-26 22:14:52.443889
+391	Linda Hamilton	2013-07-26 22:14:52.449264	2013-07-26 22:14:52.449264
+392	Carmen Maura	2013-07-26 22:14:53.057666	2013-07-26 22:14:53.057666
+393	Lola Dueñas	2013-07-26 22:14:53.064928	2013-07-26 22:14:53.064928
+394	James Dean	2013-07-26 22:14:53.842626	2013-07-26 22:14:53.842626
+395	Julie Harris	2013-07-26 22:14:53.848241	2013-07-26 22:14:53.848241
+396	Natalie Wood	2013-07-26 22:14:54.521222	2013-07-26 22:14:54.521222
+397	Sal Mineo	2013-07-26 22:14:54.52614	2013-07-26 22:14:54.52614
+398	Paul von Hindenburg	2013-07-26 22:14:55.092534	2013-07-26 22:14:55.092534
+399	Laurence Olivier	2013-07-26 22:14:55.891203	2013-07-26 22:14:55.891203
+400	Joan Fontaine	2013-07-26 22:14:55.897151	2013-07-26 22:14:55.897151
+401	George Sanders	2013-07-26 22:14:55.902429	2013-07-26 22:14:55.902429
+402	Krystyna Janda	2013-07-26 22:14:56.459758	2013-07-26 22:14:56.459758
+403	Jerzy Radziwiłowicz	2013-07-26 22:14:56.468203	2013-07-26 22:14:56.468203
+404	Marian Opania	2013-07-26 22:14:57.018043	2013-07-26 22:14:57.018043
+405	Chloë Sevigny	2013-07-26 22:14:57.740174	2013-07-26 22:14:57.740174
+406	Peter Sarsgaard	2013-07-26 22:14:57.745118	2013-07-26 22:14:57.745118
+407	Matt Dillon	2013-07-26 22:14:58.389053	2013-07-26 22:14:58.389053
+408	Ralph Macchio	2013-07-26 22:14:58.394236	2013-07-26 22:14:58.394236
+409	C. Thomas Howell	2013-07-26 22:14:58.399747	2013-07-26 22:14:58.399747
+410	Emil Jannings	2013-07-26 22:14:59.036947	2013-07-26 22:14:59.036947
+411	Marlene Dietrich	2013-07-26 22:14:59.042313	2013-07-26 22:14:59.042313
+412	Kurt Gerron	2013-07-26 22:14:59.047666	2013-07-26 22:14:59.047666
+413	Boris Karloff	2013-07-26 22:14:59.679729	2013-07-26 22:14:59.679729
+414	Colin Clive	2013-07-26 22:14:59.687302	2013-07-26 22:14:59.687302
+415	Valerie Hobson	2013-07-26 22:14:59.692251	2013-07-26 22:14:59.692251
+416	Jeffrey Wright	2013-07-26 22:15:00.925392	2013-07-26 22:15:00.925392
+417	Diane Lane	2013-07-26 22:15:01.565635	2013-07-26 22:15:01.565635
+418	Ken Wahl	2013-07-26 22:15:02.087606	2013-07-26 22:15:02.087606
+419	John Friedrich	2013-07-26 22:15:02.09555	2013-07-26 22:15:02.09555
+420	Conrad Veidt	2013-07-26 22:15:02.620122	2013-07-26 22:15:02.620122
+421	Rudolf Klein-Rogge	2013-07-26 22:15:02.628215	2013-07-26 22:15:02.628215
+422	Werner Krauss	2013-07-26 22:15:02.633926	2013-07-26 22:15:02.633926
+423	Wil Wheaton	2013-07-26 22:15:03.383935	2013-07-26 22:15:03.383935
+424	River Phoenix	2013-07-26 22:15:03.389162	2013-07-26 22:15:03.389162
+425	Corey Feldman	2013-07-26 22:15:03.393783	2013-07-26 22:15:03.393783
+426	Toni Collette	2013-07-26 22:15:03.985203	2013-07-26 22:15:03.985203
+427	Bill Hunter	2013-07-26 22:15:03.992913	2013-07-26 22:15:03.992913
+428	Rachel Griffiths	2013-07-26 22:15:03.997705	2013-07-26 22:15:03.997705
+429	Ewan McGregor	2013-07-26 22:15:04.594941	2013-07-26 22:15:04.594941
+430	Tilda Swinton	2013-07-26 22:15:04.603019	2013-07-26 22:15:04.603019
+431	Peter Mullan	2013-07-26 22:15:04.607749	2013-07-26 22:15:04.607749
+432	James Caan	2013-07-26 22:15:05.45601	2013-07-26 22:15:05.45601
+433	Marilyn Monroe	2013-07-26 22:15:06.177838	2013-07-26 22:15:06.177838
+434	Tony Curtis	2013-07-26 22:15:06.185437	2013-07-26 22:15:06.185437
+435	Jack Lemmon	2013-07-26 22:15:06.190072	2013-07-26 22:15:06.190072
+436	Diane Keaton	2013-07-26 22:15:06.957139	2013-07-26 22:15:06.957139
+437	Woody Harrelson	2013-07-26 22:15:07.752706	2013-07-26 22:15:07.752706
+438	Juliette Lewis	2013-07-26 22:15:07.757758	2013-07-26 22:15:07.757758
+439	Tom Sizemore	2013-07-26 22:15:07.762531	2013-07-26 22:15:07.762531
+440	Andy Garcia	2013-07-26 22:15:08.646408	2013-07-26 22:15:08.646408
+441	John Cusack	2013-07-26 22:15:09.266612	2013-07-26 22:15:09.266612
+442	Todd Louiso	2013-07-26 22:15:09.27456	2013-07-26 22:15:09.27456
+443	Fay Wray	2013-07-26 22:15:10.013026	2013-07-26 22:15:10.013026
+444	Robert Armstrong	2013-07-26 22:15:10.018163	2013-07-26 22:15:10.018163
+445	Bruce Cabot	2013-07-26 22:15:10.023154	2013-07-26 22:15:10.023154
+446	Hugh Grant	2013-07-26 22:15:10.747186	2013-07-26 22:15:10.747186
+447	Nicholas Hoult	2013-07-26 22:15:10.753131	2013-07-26 22:15:10.753131
+448	Takeshi Kitano	2013-07-26 22:15:11.404054	2013-07-26 22:15:11.404054
+449	Tadanobu Asano	2013-07-26 22:15:11.409106	2013-07-26 22:15:11.409106
+450	Michiyo Ookusu	2013-07-26 22:15:11.413583	2013-07-26 22:15:11.413583
+451	Sterling Hayden	2013-07-26 22:15:12.289314	2013-07-26 22:15:12.289314
+452	Coleen Gray	2013-07-26 22:15:12.296097	2013-07-26 22:15:12.296097
+453	Vince Edwards	2013-07-26 22:15:12.302334	2013-07-26 22:15:12.302334
+454	Bette Davis	2013-07-26 22:15:12.891161	2013-07-26 22:15:12.891161
+455	Glenn Ford	2013-07-26 22:15:12.896643	2013-07-26 22:15:12.896643
+456	Hope Lange	2013-07-26 22:15:12.901821	2013-07-26 22:15:12.901821
+457	Kathleen Turner	2013-07-26 22:15:13.573262	2013-07-26 22:15:13.573262
+458	Michael Douglas	2013-07-26 22:15:13.580794	2013-07-26 22:15:13.580794
+459	Danny DeVito	2013-07-26 22:15:13.585544	2013-07-26 22:15:13.585544
+460	Dejan Cukic	2013-07-26 22:15:14.186886	2013-07-26 22:15:14.186886
+461	Kim Bodnia	2013-07-26 22:15:14.191848	2013-07-26 22:15:14.191848
+462	Brian Patterson	2013-07-26 22:15:14.196705	2013-07-26 22:15:14.196705
+463	Demi Moore	2013-07-26 22:15:14.8182	2013-07-26 22:15:14.8182
+464	Tony Goldwyn	2013-07-26 22:15:14.82304	2013-07-26 22:15:14.82304
+465	Gene Wilder	2013-07-26 22:15:15.48312	2013-07-26 22:15:15.48312
+466	Jack Albertson	2013-07-26 22:15:15.490866	2013-07-26 22:15:15.490866
+467	Peter Ostrum	2013-07-26 22:15:15.49551	2013-07-26 22:15:15.49551
+468	Roger Moore	2013-07-26 22:15:16.357676	2013-07-26 22:15:16.357676
+469	Yaphet Kotto	2013-07-26 22:15:16.36285	2013-07-26 22:15:16.36285
+470	Jane Seymour	2013-07-26 22:15:16.367531	2013-07-26 22:15:16.367531
+471	Naomi Watts	2013-07-26 22:15:17.117791	2013-07-26 22:15:17.117791
+472	Jack Black	2013-07-26 22:15:17.123247	2013-07-26 22:15:17.123247
+473	Adrien Brody	2013-07-26 22:15:17.127875	2013-07-26 22:15:17.127875
+474	Claude Jade	2013-07-26 22:15:17.655196	2013-07-26 22:15:17.655196
+475	Delphine Seyrig	2013-07-26 22:15:17.660514	2013-07-26 22:15:17.660514
+476	Barney Clark	2013-07-26 22:15:18.93549	2013-07-26 22:15:18.93549
+477	Ben Kingsley	2013-07-26 22:15:18.941666	2013-07-26 22:15:18.941666
+478	Jamie Foreman	2013-07-26 22:15:18.946661	2013-07-26 22:15:18.946661
+479	Daniel Ceccaldi	2013-07-26 22:15:19.455515	2013-07-26 22:15:19.455515
+480	Marie-France Pisier	2013-07-26 22:15:19.977898	2013-07-26 22:15:19.977898
+481	Robert Donat	2013-07-26 22:15:20.738337	2013-07-26 22:15:20.738337
+482	Madeleine Carroll	2013-07-26 22:15:20.745356	2013-07-26 22:15:20.745356
+483	Lucie Mannheim	2013-07-26 22:15:20.750465	2013-07-26 22:15:20.750465
+484	Elizabeth Taylor	2013-07-26 22:15:21.467724	2013-07-26 22:15:21.467724
+485	Paul Newman	2013-07-26 22:15:21.473292	2013-07-26 22:15:21.473292
+486	Burl Ives	2013-07-26 22:15:21.478112	2013-07-26 22:15:21.478112
+487	Jerry Lewis	2013-07-26 22:15:22.131391	2013-07-26 22:15:22.131391
+488	Diahnne Abbott	2013-07-26 22:15:22.136784	2013-07-26 22:15:22.136784
+489	Hanna Schygulla	2013-07-26 22:15:23.940484	2013-07-26 22:15:23.940484
+490	Giancarlo Giannini	2013-07-26 22:15:23.946179	2013-07-26 22:15:23.946179
+491	Christine Kaufmann	2013-07-26 22:15:23.951177	2013-07-26 22:15:23.951177
+492	Brigitte Bardot	2013-07-26 22:15:24.609245	2013-07-26 22:15:24.609245
+493	Michel Piccoli	2013-07-26 22:15:24.616614	2013-07-26 22:15:24.616614
+494	Jack Palance	2013-07-26 22:15:24.621951	2013-07-26 22:15:24.621951
+495	Liberto Rabal	2013-07-26 22:15:25.239583	2013-07-26 22:15:25.239583
+496	Francesca Neri	2013-07-26 22:15:25.245302	2013-07-26 22:15:25.245302
+497	Javier Bardem	2013-07-26 22:15:25.250573	2013-07-26 22:15:25.250573
+498	Michael Keaton	2013-07-26 22:15:26.047739	2013-07-26 22:15:26.047739
+499	Jean-Paul Belmondo	2013-07-26 22:15:26.694117	2013-07-26 22:15:26.694117
+500	Jean Seberg	2013-07-26 22:15:26.700301	2013-07-26 22:15:26.700301
+501	Daniel Boulanger	2013-07-26 22:15:26.705886	2013-07-26 22:15:26.705886
+502	Samuel Finzi	2013-07-26 22:15:27.536039	2013-07-26 22:15:27.536039
+503	Nina Kronjäger	2013-07-26 22:15:27.543788	2013-07-26 22:15:27.543788
+504	Anna Maria Mühe	2013-07-26 22:15:27.548515	2013-07-26 22:15:27.548515
+505	Hanna Zetterberg	2013-07-26 22:15:28.156612	2013-07-26 22:15:28.156612
+506	Dan Håfström	2013-07-26 22:15:28.164139	2013-07-26 22:15:28.164139
+507	Börje Ahlstedt	2013-07-26 22:15:28.169207	2013-07-26 22:15:28.169207
+508	Liam Neeson	2013-07-26 22:15:29.04052	2013-07-26 22:15:29.04052
+509	Michael Caine	2013-07-26 22:15:29.04591	2013-07-26 22:15:29.04591
+510	Daniel Brühl	2013-07-26 22:15:29.783205	2013-07-26 22:15:29.783205
+511	Anabelle Lachatte	2013-07-26 22:15:29.790186	2013-07-26 22:15:29.790186
+512	Patrick Joswig	2013-07-26 22:15:29.795404	2013-07-26 22:15:29.795404
+513	Jodie Foster	2013-07-26 22:15:31.100036	2013-07-26 22:15:31.100036
+514	Anthony Hopkins	2013-07-26 22:15:31.10805	2013-07-26 22:15:31.10805
+515	Anthony Heald	2013-07-26 22:15:31.11558	2013-07-26 22:15:31.11558
+516	William H. Macy	2013-07-26 22:15:31.898169	2013-07-26 22:15:31.898169
+517	Frances McDormand	2013-07-26 22:15:31.903072	2013-07-26 22:15:31.903072
+518	Julia Jentsch	2013-07-26 22:15:32.575656	2013-07-26 22:15:32.575656
+519	Stipe Erceg	2013-07-26 22:15:32.580546	2013-07-26 22:15:32.580546
+520	Kate Beckinsale	2013-07-26 22:15:33.299457	2013-07-26 22:15:33.299457
+521	Michael Sheen	2013-07-26 22:15:33.307371	2013-07-26 22:15:33.307371
+522	Bob Gunton	2013-07-26 22:15:34.166537	2013-07-26 22:15:34.166537
+523	F. Murray Abraham	2013-07-26 22:15:34.900642	2013-07-26 22:15:34.900642
+524	Tom Hulce	2013-07-26 22:15:34.90643	2013-07-26 22:15:34.90643
+525	Elizabeth Berridge	2013-07-26 22:15:34.912018	2013-07-26 22:15:34.912018
+526	Ralph Fiennes	2013-07-26 22:15:36.390142	2013-07-26 22:15:36.390142
+527	Angela Bassett	2013-07-26 22:15:36.396286	2013-07-26 22:15:36.396286
+528	Shirley MacLaine	2013-07-26 22:15:38.126423	2013-07-26 22:15:38.126423
+529	Fred MacMurray	2013-07-26 22:15:38.131043	2013-07-26 22:15:38.131043
+530	Jens Lehmann	2013-07-26 22:15:39.706122	2013-07-26 22:15:39.706122
+531	Arne Friedrich	2013-07-26 22:15:39.714377	2013-07-26 22:15:39.714377
+532	Philipp Lahm	2013-07-26 22:15:39.719638	2013-07-26 22:15:39.719638
+533	Susan Sarandon	2013-07-26 22:15:40.384932	2013-07-26 22:15:40.384932
+534	Gary Cooper	2013-07-26 22:15:41.949022	2013-07-26 22:15:41.949022
+535	Grace Kelly	2013-07-26 22:15:41.956767	2013-07-26 22:15:41.956767
+536	Thomas Mitchell	2013-07-26 22:15:41.962339	2013-07-26 22:15:41.962339
+537	Humphrey Bogart	2013-07-26 22:15:42.712075	2013-07-26 22:15:42.712075
+538	Ingrid Bergman	2013-07-26 22:15:42.71725	2013-07-26 22:15:42.71725
+539	Paul Henreid	2013-07-26 22:15:42.7221	2013-07-26 22:15:42.7221
+540	Judy Davis	2013-07-26 22:15:43.439042	2013-07-26 22:15:43.439042
+541	Jeff Clark	2013-07-26 22:15:44.007403	2013-07-26 22:15:44.007403
+542	Darrick Doerner	2013-07-26 22:15:44.012813	2013-07-26 22:15:44.012813
+543	Laird John Hamilton	2013-07-26 22:15:44.017736	2013-07-26 22:15:44.017736
+544	Dave Chappelle	2013-07-26 22:15:44.524296	2013-07-26 22:15:44.524296
+545	Erykah Badu	2013-07-26 22:15:44.531276	2013-07-26 22:15:44.531276
+546	Common	2013-07-26 22:15:44.536114	2013-07-26 22:15:44.536114
+547	Craig Sheffer	2013-07-26 22:15:45.154254	2013-07-26 22:15:45.154254
+548	Tom Skerritt	2013-07-26 22:15:45.159227	2013-07-26 22:15:45.159227
+549	Helen Shaver	2013-07-26 22:15:45.680664	2013-07-26 22:15:45.680664
+550	Patricia Charbonneau	2013-07-26 22:15:45.685612	2013-07-26 22:15:45.685612
+551	Audra Lindley	2013-07-26 22:15:45.69021	2013-07-26 22:15:45.69021
+552	Nick Stahl	2013-07-26 22:15:47.025611	2013-07-26 22:15:47.025611
+553	Claire Danes	2013-07-26 22:15:47.030707	2013-07-26 22:15:47.030707
+554	Claire Forlani	2013-07-26 22:15:47.782862	2013-07-26 22:15:47.782862
+555	Frank Sinatra	2013-07-26 22:15:49.2588	2013-07-26 22:15:49.2588
+556	Dean Martin	2013-07-26 22:15:49.265111	2013-07-26 22:15:49.265111
+557	Peter Lawford	2013-07-26 22:15:49.269937	2013-07-26 22:15:49.269937
+558	Charlotte Gainsbourg	2013-07-26 22:15:49.879646	2013-07-26 22:15:49.879646
+559	Miou-Miou	2013-07-26 22:15:49.884982	2013-07-26 22:15:49.884982
+560	John Wayne	2013-07-26 22:15:50.593619	2013-07-26 22:15:50.593619
+561	Ricky Nelson	2013-07-26 22:15:50.604561	2013-07-26 22:15:50.604561
+562	Charlotte Rampling	2013-07-26 22:15:51.220096	2013-07-26 22:15:51.220096
+563	Ludivine Sagnier	2013-07-26 22:15:51.227992	2013-07-26 22:15:51.227992
+564	Charles Dance	2013-07-26 22:15:51.233211	2013-07-26 22:15:51.233211
+565	Claude Rains	2013-07-26 22:15:52.0191	2013-07-26 22:15:52.0191
+566	Hector Elizondo	2013-07-26 22:15:53.81783	2013-07-26 22:15:53.81783
+567	Aldo Fabrizi	2013-07-26 22:15:54.434748	2013-07-26 22:15:54.434748
+568	Anna Magnani	2013-07-26 22:15:54.442139	2013-07-26 22:15:54.442139
+569	Francesco Grandjacquet	2013-07-26 22:15:54.447355	2013-07-26 22:15:54.447355
+570	Sharon Stone	2013-07-26 22:15:55.06228	2013-07-26 22:15:55.06228
+571	Ulrich Thomsen	2013-07-26 22:15:55.738872	2013-07-26 22:15:55.738872
+572	Henning Moritzen	2013-07-26 22:15:55.747191	2013-07-26 22:15:55.747191
+573	Thomas Bo Larsen	2013-07-26 22:15:55.752065	2013-07-26 22:15:55.752065
+574	Jennifer Aniston	2013-07-26 22:15:56.367912	2013-07-26 22:15:56.367912
+575	Philip Baker Hall	2013-07-26 22:15:56.372813	2013-07-26 22:15:56.372813
+576	James Woods	2013-07-26 22:15:57.173832	2013-07-26 22:15:57.173832
+577	Elizabeth McGovern	2013-07-26 22:15:57.178665	2013-07-26 22:15:57.178665
+578	Sylvie Testud	2013-07-26 22:15:57.696094	2013-07-26 22:15:57.696094
+579	Tatjana Trieb	2013-07-26 22:15:57.704129	2013-07-26 22:15:57.704129
+580	Howie Seago	2013-07-26 22:15:57.708679	2013-07-26 22:15:57.708679
+581	Alan Rickman	2013-07-26 22:15:58.224699	2013-07-26 22:15:58.224699
+582	Sigourney Weaver	2013-07-26 22:15:58.229385	2013-07-26 22:15:58.229385
+583	Halle Berry	2013-07-26 22:15:58.863419	2013-07-26 22:15:58.863419
+584	Benjamin Bratt	2013-07-26 22:15:58.871298	2013-07-26 22:15:58.871298
+585	Tura Satana	2013-07-26 22:16:00.626363	2013-07-26 22:16:00.626363
+586	Haji	2013-07-26 22:16:00.631947	2013-07-26 22:16:00.631947
+587	Lori Williams	2013-07-26 22:16:00.637171	2013-07-26 22:16:00.637171
+588	Steffi Kühnert	2013-07-26 22:16:01.145168	2013-07-26 22:16:01.145168
+589	Gabriela Maria Schmeide	2013-07-26 22:16:01.152865	2013-07-26 22:16:01.152865
+590	Thorsten Merten	2013-07-26 22:16:01.157445	2013-07-26 22:16:01.157445
+591	Mirjana Karanović	2013-07-26 22:16:01.667192	2013-07-26 22:16:01.667192
+592	Luna Mijovic	2013-07-26 22:16:01.672008	2013-07-26 22:16:01.672008
+593	Leon Lucev	2013-07-26 22:16:01.714708	2013-07-26 22:16:01.714708
+594	Jeremy Davies	2013-07-26 22:16:02.35024	2013-07-26 22:16:02.35024
+595	Patricia Arquette	2013-07-26 22:16:04.094637	2013-07-26 22:16:04.094637
+596	Michael Rapaport	2013-07-26 22:16:04.10057	2013-07-26 22:16:04.10057
+597	Luke Kirby	2013-07-26 22:16:05.328166	2013-07-26 22:16:05.328166
+598	Ginette Reno	2013-07-26 22:16:05.333256	2013-07-26 22:16:05.333256
+599	Paul Sorvino	2013-07-26 22:16:05.337921	2013-07-26 22:16:05.337921
+600	Kevin Bacon	2013-07-26 22:16:05.959964	2013-07-26 22:16:05.959964
+601	Julianna Margulies	2013-07-26 22:16:08.130216	2013-07-26 22:16:08.130216
+602	Kenan Thompson	2013-07-26 22:16:08.135929	2013-07-26 22:16:08.135929
+603	Omar Epps	2013-07-26 22:16:08.760865	2013-07-26 22:16:08.760865
+604	Kurôdo Maki	2013-07-26 22:16:08.765975	2013-07-26 22:16:08.765975
+605	Sam Neill	2013-07-26 22:16:10.027282	2013-07-26 22:16:10.027282
+606	Laura Dern	2013-07-26 22:16:10.034419	2013-07-26 22:16:10.034419
+607	Jeff Goldblum	2013-07-26 22:16:10.039224	2013-07-26 22:16:10.039224
+608	Julianne Moore	2013-07-26 22:16:10.814623	2013-07-26 22:16:10.814623
+609	Pete Postlethwaite	2013-07-26 22:16:10.820094	2013-07-26 22:16:10.820094
+610	Téa Leoni	2013-07-26 22:16:11.602519	2013-07-26 22:16:11.602519
+611	Matthew Broderick	2013-07-26 22:16:12.211011	2013-07-26 22:16:12.211011
+612	Rupert Everett	2013-07-26 22:16:12.218752	2013-07-26 22:16:12.218752
+613	Joely Fisher	2013-07-26 22:16:12.223599	2013-07-26 22:16:12.223599
+614	Rahul Khanna	2013-07-26 22:16:12.742312	2013-07-26 22:16:12.742312
+615	Lisa Ray	2013-07-26 22:16:12.750403	2013-07-26 22:16:12.750403
+616	Moushumi Chatterjee	2013-07-26 22:16:12.755878	2013-07-26 22:16:12.755878
+617	John C. Reilly	2013-07-26 22:16:13.42745	2013-07-26 22:16:13.42745
+618	Henry Fonda	2013-07-26 22:16:14.218423	2013-07-26 22:16:14.218423
+619	Claudia Cardinale	2013-07-26 22:16:14.223712	2013-07-26 22:16:14.223712
+620	Jason Robards	2013-07-26 22:16:14.228529	2013-07-26 22:16:14.228529
+621	James Coburn	2013-07-26 22:16:14.880863	2013-07-26 22:16:14.880863
+622	Rod Steiger	2013-07-26 22:16:14.886962	2013-07-26 22:16:14.886962
+623	Maria Monti	2013-07-26 22:16:14.892097	2013-07-26 22:16:14.892097
+624	Omar Sharif	2013-07-26 22:16:15.426887	2013-07-26 22:16:15.426887
+625	Pierre Boulanger	2013-07-26 22:16:15.434766	2013-07-26 22:16:15.434766
+626	Gilbert Melki	2013-07-26 22:16:15.439593	2013-07-26 22:16:15.439593
+627	Katrin Saß	2013-07-26 22:16:16.046027	2013-07-26 22:16:16.046027
+628	Chulpan Khamatova	2013-07-26 22:16:16.050646	2013-07-26 22:16:16.050646
+629	Gena Rowlands	2013-07-26 22:16:16.703672	2013-07-26 22:16:16.703672
+630	Lisanne Falk	2013-07-26 22:16:16.708583	2013-07-26 22:16:16.708583
+631	Eugene Hutz	2013-07-26 22:16:17.34552	2013-07-26 22:16:17.34552
+632	Boris Leskin	2013-07-26 22:16:17.350352	2013-07-26 22:16:17.350352
+633	Emmanuelle Béart	2013-07-26 22:16:18.038835	2013-07-26 22:16:18.038835
+634	Norman Reedus	2013-07-26 22:16:18.043713	2013-07-26 22:16:18.043713
+635	Robert Stadlober	2013-07-26 22:16:19.036562	2013-07-26 22:16:19.036562
+636	Kostja Ullmann	2013-07-26 22:16:19.041853	2013-07-26 22:16:19.041853
+637	Alicja Bachleda	2013-07-26 22:16:19.046669	2013-07-26 22:16:19.046669
+638	Ruth Gordon	2013-07-26 22:16:19.665325	2013-07-26 22:16:19.665325
+639	Bud Cort	2013-07-26 22:16:19.672864	2013-07-26 22:16:19.672864
+640	Cyril Cusack	2013-07-26 22:16:19.6776	2013-07-26 22:16:19.6776
+641	Oliver Korittke	2013-07-26 22:16:20.199475	2013-07-26 22:16:20.199475
+642	Ralf Richter	2013-07-26 22:16:20.204503	2013-07-26 22:16:20.204503
+643	Diether Krebs	2013-07-26 22:16:20.209283	2013-07-26 22:16:20.209283
+644	Madison Eginton	2013-07-26 22:16:21.319844	2013-07-26 22:16:21.319844
+645	Toshirô Mifune	2013-07-26 22:16:22.158703	2013-07-26 22:16:22.158703
+646	Takashi Shimura	2013-07-26 22:16:22.164668	2013-07-26 22:16:22.164668
+647	Yoshio Inaba	2013-07-26 22:16:22.169566	2013-07-26 22:16:22.169566
+648	Erwin Splettstößer	2013-07-26 22:16:22.687356	2013-07-26 22:16:22.687356
+649	Brigitte Borchert	2013-07-26 22:16:22.692721	2013-07-26 22:16:22.692721
+650	Wolfgang von Waltershausen	2013-07-26 22:16:22.69721	2013-07-26 22:16:22.69721
+651	Veronica Cartwright	2013-07-26 22:16:23.573266	2013-07-26 22:16:23.573266
+652	Valeria Bruni Tedeschi	2013-07-26 22:16:24.156054	2013-07-26 22:16:24.156054
+653	Meryl Streep	2013-07-26 22:16:24.862217	2013-07-26 22:16:24.862217
+654	Anne Hathaway	2013-07-26 22:16:24.867599	2013-07-26 22:16:24.867599
+655	Stanley Tucci	2013-07-26 22:16:24.872306	2013-07-26 22:16:24.872306
+656	Andreas Müller	2013-07-26 22:16:25.427466	2013-07-26 22:16:25.427466
+657	Ilka Welz	2013-07-26 22:16:25.435176	2013-07-26 22:16:25.435176
+658	Anett Dornbusch	2013-07-26 22:16:25.44056	2013-07-26 22:16:25.44056
+659	Birol Ünel	2013-07-26 22:16:31.803381	2013-07-26 22:16:31.803381
+660	Sibel Kekilli	2013-07-26 22:16:31.811056	2013-07-26 22:16:31.811056
+661	Catrin Striebeck	2013-07-26 22:16:31.815763	2013-07-26 22:16:31.815763
+662	Robert Englund	2013-07-26 22:16:39.455966	2013-07-26 22:16:39.455966
+663	Heather Langenkamp	2013-07-26 22:16:39.462938	2013-07-26 22:16:39.462938
+664	Nicolas Cage	2013-07-26 22:16:40.098058	2013-07-26 22:16:40.098058
+665	Holly Hunter	2013-07-26 22:16:40.104806	2013-07-26 22:16:40.104806
+666	Trey Wilson	2013-07-26 22:16:40.109832	2013-07-26 22:16:40.109832
+667	Gabriel Byrne	2013-07-26 22:16:40.864473	2013-07-26 22:16:40.864473
+668	Marcia Gay Harden	2013-07-26 22:16:40.871413	2013-07-26 22:16:40.871413
+669	Dustin Hoffman	2013-07-26 22:16:41.499288	2013-07-26 22:16:41.499288
+670	Valeria Golino	2013-07-26 22:16:41.510013	2013-07-26 22:16:41.510013
+671	Jessie Royce Landis	2013-07-26 22:16:42.254511	2013-07-26 22:16:42.254511
+672	Doug Cooeyate	2013-07-26 22:16:43.249507	2013-07-26 22:16:43.249507
+673	Tim Streeter	2013-07-26 22:16:43.257528	2013-07-26 22:16:43.257528
+674	Sam Downey	2013-07-26 22:16:43.26243	2013-07-26 22:16:43.26243
+675	Jürgen Prochnow	2013-07-26 22:16:45.971374	2013-07-26 22:16:45.971374
+676	Herbert Grönemeyer	2013-07-26 22:16:45.979416	2013-07-26 22:16:45.979416
+677	Klaus Wennemann	2013-07-26 22:16:45.984403	2013-07-26 22:16:45.984403
+678	Denzel Washington	2013-07-26 22:16:46.691639	2013-07-26 22:16:46.691639
+679	Lee J. Cobb	2013-07-26 22:16:47.374639	2013-07-26 22:16:47.374639
+680	Ed Begley	2013-07-26 22:16:47.379944	2013-07-26 22:16:47.379944
+681	Rüdiger Vogler	2013-07-26 22:16:48.263843	2013-07-26 22:16:48.263843
+682	Patrick Bauchau	2013-07-26 22:16:48.26914	2013-07-26 22:16:48.26914
+683	Vasco Sequeira	2013-07-26 22:16:48.273916	2013-07-26 22:16:48.273916
+684	Marianne Koch	2013-07-26 22:16:49.02373	2013-07-26 22:16:49.02373
+685	Wolfgang Lukschy	2013-07-26 22:16:49.03025	2013-07-26 22:16:49.03025
+686	Alfred Molina	2013-07-26 22:16:49.663305	2013-07-26 22:16:49.663305
+687	Daryl Hannah	2013-07-26 22:16:50.416022	2013-07-26 22:16:50.416022
+688	Sanaa Lathan	2013-07-26 22:16:51.68249	2013-07-26 22:16:51.68249
+689	Raoul Bova	2013-07-26 22:16:51.687707	2013-07-26 22:16:51.687707
+690	Ewen Bremner	2013-07-26 22:16:51.692296	2013-07-26 22:16:51.692296
+691	Richard Burton	2013-07-26 22:16:52.775628	2013-07-26 22:16:52.775628
+692	George Segal	2013-07-26 22:16:52.78119	2013-07-26 22:16:52.78119
+693	Meg Ryan	2013-07-26 22:16:53.304879	2013-07-26 22:16:53.304879
+694	Kevin Kline	2013-07-26 22:16:53.313073	2013-07-26 22:16:53.313073
+695	Timothy Hutton	2013-07-26 22:16:53.317964	2013-07-26 22:16:53.317964
+696	Philip Seymour Hoffman	2013-07-26 22:16:54.038815	2013-07-26 22:16:54.038815
+697	Allie Mickelson	2013-07-26 22:16:54.044103	2013-07-26 22:16:54.044103
+698	Craig Archibald	2013-07-26 22:16:54.049076	2013-07-26 22:16:54.049076
+699	William Forsythe	2013-07-26 22:16:55.204943	2013-07-26 22:16:55.204943
+700	Zach Braff	2013-07-26 22:16:55.840406	2013-07-26 22:16:55.840406
+701	George Dzundza	2013-07-26 22:16:56.630622	2013-07-26 22:16:56.630622
+702	Jessica Tandy	2013-07-26 22:16:57.259966	2013-07-26 22:16:57.259966
+703	Dan Aykroyd	2013-07-26 22:16:57.265361	2013-07-26 22:16:57.265361
+704	Richard Farnsworth	2013-07-26 22:16:57.895204	2013-07-26 22:16:57.895204
+705	Sissy Spacek	2013-07-26 22:16:57.902904	2013-07-26 22:16:57.902904
+706	Jane Galloway Heitz	2013-07-26 22:16:57.907736	2013-07-26 22:16:57.907736
+707	Anthony Quinn	2013-07-26 22:16:58.514125	2013-07-26 22:16:58.514125
+708	Giulietta Masina	2013-07-26 22:16:58.519397	2013-07-26 22:16:58.519397
+709	Richard Basehart	2013-07-26 22:16:58.523854	2013-07-26 22:16:58.523854
+710	Vincent Cassel	2013-07-26 22:16:59.131409	2013-07-26 22:16:59.131409
+711	Hubert Koundé	2013-07-26 22:16:59.137394	2013-07-26 22:16:59.137394
+712	Saïd Taghmaoui	2013-07-26 22:16:59.142067	2013-07-26 22:16:59.142067
+713	Mehmet Kurtulus	2013-07-26 22:16:59.987847	2013-07-26 22:16:59.987847
+714	Aleksandar Jovanovic	2013-07-26 22:16:59.994867	2013-07-26 22:16:59.994867
+715	Adam Bousdoukos	2013-07-26 22:17:00.000635	2013-07-26 22:17:00.000635
+716	Adriana Caselotti	2013-07-26 22:17:00.756604	2013-07-26 22:17:00.756604
+717	Eddie Collins	2013-07-26 22:17:00.761917	2013-07-26 22:17:00.761917
+718	Pinto Colvig	2013-07-26 22:17:00.766894	2013-07-26 22:17:00.766894
+719	Willem Dafoe	2013-07-26 22:17:01.403184	2013-07-26 22:17:01.403184
+720	Inka Friedrich	2013-07-26 22:17:02.213697	2013-07-26 22:17:02.213697
+721	Nadja Uhl	2013-07-26 22:17:02.219477	2013-07-26 22:17:02.219477
+722	Andreas Schmidt	2013-07-26 22:17:02.224234	2013-07-26 22:17:02.224234
+723	Georgie Henley	2013-07-26 22:17:03.014726	2013-07-26 22:17:03.014726
+724	Skandar Keynes	2013-07-26 22:17:03.020473	2013-07-26 22:17:03.020473
+725	William Moseley	2013-07-26 22:17:03.025172	2013-07-26 22:17:03.025172
+726	Val Kilmer	2013-07-26 22:17:04.860741	2013-07-26 22:17:04.860741
+727	Michael Gough	2013-07-26 22:17:05.673428	2013-07-26 22:17:05.673428
+728	Pat Hingle	2013-07-26 22:17:05.678413	2013-07-26 22:17:05.678413
+729	Alexandra Maria Lara	2013-07-26 22:17:08.1646	2013-07-26 22:17:08.1646
+730	Uwe Ochsenknecht	2013-07-26 22:17:08.170292	2013-07-26 22:17:08.170292
+731	Anjelica Huston	2013-07-26 22:17:09.357075	2013-07-26 22:17:09.357075
+732	Marcello Mastroianni	2013-07-26 22:17:10.569374	2013-07-26 22:17:10.569374
+733	Anouk Aimée	2013-07-26 22:17:10.577876	2013-07-26 22:17:10.577876
+734	Thomas Kretschmann	2013-07-26 22:17:11.720042	2013-07-26 22:17:11.720042
+735	Frank Finlay	2013-07-26 22:17:11.725155	2013-07-26 22:17:11.725155
+736	Ray Romano	2013-07-26 22:17:13.194738	2013-07-26 22:17:13.194738
+737	John Leguizamo	2013-07-26 22:17:13.201822	2013-07-26 22:17:13.201822
+738	Kim Novak	2013-07-26 22:17:13.952428	2013-07-26 22:17:13.952428
+739	Barbara Bel Geddes	2013-07-26 22:17:13.957294	2013-07-26 22:17:13.957294
+740	Jean-Pierre Zola	2013-07-26 22:17:14.629787	2013-07-26 22:17:14.629787
+741	Jacques Tati	2013-07-26 22:17:14.635253	2013-07-26 22:17:14.635253
+742	Adrienne Servantie	2013-07-26 22:17:14.640729	2013-07-26 22:17:14.640729
+743	Robert Seeliger	2013-07-26 22:17:15.232829	2013-07-26 22:17:15.232829
+744	Peter Davor	2013-07-26 22:17:15.240079	2013-07-26 22:17:15.240079
+745	Eli Wallach	2013-07-26 22:17:16.243848	2013-07-26 22:17:16.243848
+746	Lee Van Cleef	2013-07-26 22:17:16.255311	2013-07-26 22:17:16.255311
+747	James Cagney	2013-07-26 22:17:18.23797	2013-07-26 22:17:18.23797
+748	Horst Buchholz	2013-07-26 22:17:18.243048	2013-07-26 22:17:18.243048
+749	Pamela Tiffin	2013-07-26 22:17:18.247818	2013-07-26 22:17:18.247818
+750	Nicole de Boer	2013-07-26 22:17:18.976873	2013-07-26 22:17:18.976873
+751	Nicky Guadagni	2013-07-26 22:17:18.982091	2013-07-26 22:17:18.982091
+752	David Hewlett	2013-07-26 22:17:18.987318	2013-07-26 22:17:18.987318
+753	Julie Andrews	2013-07-26 22:17:20.353823	2013-07-26 22:17:20.353823
+754	Dick Van Dyke	2013-07-26 22:17:20.359204	2013-07-26 22:17:20.359204
+755	David Tomlinson	2013-07-26 22:17:20.364025	2013-07-26 22:17:20.364025
+756	David Kross	2013-07-26 22:17:21.432312	2013-07-26 22:17:21.432312
+757	Jenny Elvers	2013-07-26 22:17:21.437818	2013-07-26 22:17:21.437818
+758	Erhan Emre	2013-07-26 22:17:21.443304	2013-07-26 22:17:21.443304
+759	Dennis Quaid	2013-07-26 22:17:22.139151	2013-07-26 22:17:22.139151
+760	Emmy Rossum	2013-07-26 22:17:22.147215	2013-07-26 22:17:22.147215
+761	Catalina Sandino Moreno	2013-07-26 22:17:23.199999	2013-07-26 22:17:23.199999
+762	Guilied Lopez	2013-07-26 22:17:23.205461	2013-07-26 22:17:23.205461
+763	Yenny Paola Vega	2013-07-26 22:17:23.210327	2013-07-26 22:17:23.210327
+764	Kari Matchett	2013-07-26 22:17:24.625564	2013-07-26 22:17:24.625564
+765	Geraint Wyn Davies	2013-07-26 22:17:24.632627	2013-07-26 22:17:24.632627
+766	Grace Lynn Kung	2013-07-26 22:17:24.639198	2013-07-26 22:17:24.639198
+767	Zachary Bennett	2013-07-26 22:17:25.701301	2013-07-26 22:17:25.701301
+768	Stephanie Moore	2013-07-26 22:17:25.709348	2013-07-26 22:17:25.709348
+769	Michael Riley	2013-07-26 22:17:25.714107	2013-07-26 22:17:25.714107
+770	Anita Ekberg	2013-07-26 22:17:26.36433	2013-07-26 22:17:26.36433
+771	Steven Pasquale	2013-07-26 22:17:27.065549	2013-07-26 22:17:27.065549
+772	Reiko Aylesworth	2013-07-26 22:17:27.070466	2013-07-26 22:17:27.070466
+773	John Ortiz	2013-07-26 22:17:27.075842	2013-07-26 22:17:27.075842
+774	Niklas Ulfvarson	2013-07-26 22:17:28.190589	2013-07-26 22:17:28.190589
+775	Max Enderfors	2013-07-26 22:17:28.198334	2013-07-26 22:17:28.198334
+776	Tommy Vallikari	2013-07-26 22:17:28.203142	2013-07-26 22:17:28.203142
+777	Daniel Auteuil	2013-07-26 22:17:29.843174	2013-07-26 22:17:29.843174
+778	Annie Girardot	2013-07-26 22:17:29.853419	2013-07-26 22:17:29.853419
+779	Ivan Shvedoff	2013-07-26 22:17:31.014668	2013-07-26 22:17:31.014668
+780	Sergey Frolov	2013-07-26 22:17:31.019689	2013-07-26 22:17:31.019689
+781	Anna Yanovskaya	2013-07-26 22:17:31.024683	2013-07-26 22:17:31.024683
+782	Elisabeth Shue	2013-07-26 22:17:34.12584	2013-07-26 22:17:34.12584
+783	Julian Sands	2013-07-26 22:17:34.130959	2013-07-26 22:17:34.130959
+784	Bodil Jørgensen	2013-07-26 22:17:35.446651	2013-07-26 22:17:35.446651
+785	Jens Albinus	2013-07-26 22:17:35.452063	2013-07-26 22:17:35.452063
+786	Anne Louise Hassing	2013-07-26 22:17:35.456903	2013-07-26 22:17:35.456903
+787	Jennifer Connelly	2013-07-26 22:17:36.221972	2013-07-26 22:17:36.221972
+788	Leonardo DiCaprio	2013-07-26 22:17:36.924252	2013-07-26 22:17:36.924252
+789	Parminder Nagra	2013-07-26 22:17:38.339239	2013-07-26 22:17:38.339239
+790	Romy Schneider	2013-07-26 22:17:39.923102	2013-07-26 22:17:39.923102
+791	Karlheinz Böhm	2013-07-26 22:17:39.928881	2013-07-26 22:17:39.928881
+792	Magda Schneider	2013-07-26 22:17:39.933618	2013-07-26 22:17:39.933618
+793	Henry Hübchen	2013-07-26 22:17:42.250405	2013-07-26 22:17:42.250405
+794	Hannelore Elsner	2013-07-26 22:17:42.255649	2013-07-26 22:17:42.255649
+795	Udo Samel	2013-07-26 22:17:42.261149	2013-07-26 22:17:42.261149
+796	David Brisbin	2013-07-26 22:17:43.415098	2013-07-26 22:17:43.415098
+797	Dawn Didawick	2013-07-26 22:17:43.419995	2013-07-26 22:17:43.419995
+798	Michael Nyqvist	2013-07-26 22:17:45.203053	2013-07-26 22:17:45.203053
+799	Frida Hallgren	2013-07-26 22:17:45.208342	2013-07-26 22:17:45.208342
+800	Helen Sjöholm	2013-07-26 22:17:45.2133	2013-07-26 22:17:45.2133
+801	Delphine Zentout	2013-07-26 22:17:46.115871	2013-07-26 22:17:46.115871
+802	Olivier Parnière	2013-07-26 22:17:46.123414	2013-07-26 22:17:46.123414
+803	Jane Fonda	2013-07-26 22:17:47.014038	2013-07-26 22:17:47.014038
+804	Donald Sutherland	2013-07-26 22:17:47.019932	2013-07-26 22:17:47.019932
+805	Charles Cioffi	2013-07-26 22:17:47.024593	2013-07-26 22:17:47.024593
+806	Desmond Harrington	2013-07-26 22:17:48.004318	2013-07-26 22:17:48.004318
+807	Keanu Reeves	2013-07-26 22:17:49.024756	2013-07-26 22:17:49.024756
+808	James Russo	2013-07-26 22:17:49.030867	2013-07-26 22:17:49.030867
+809	John Lurie	2013-07-26 22:17:49.640051	2013-07-26 22:17:49.640051
+810	Eszter Balint	2013-07-26 22:17:49.645435	2013-07-26 22:17:49.645435
+811	Richard Edson	2013-07-26 22:17:49.6507	2013-07-26 22:17:49.6507
+812	Benicio Del Toro	2013-07-26 22:17:50.405272	2013-07-26 22:17:50.405272
+813	Polly Walker	2013-07-26 22:17:51.359669	2013-07-26 22:17:51.359669
+814	Ida Jablonska	2013-07-26 22:17:51.365557	2013-07-26 22:17:51.365557
+815	Sean Gullette	2013-07-26 22:17:52.568669	2013-07-26 22:17:52.568669
+816	Mark Margolis	2013-07-26 22:17:52.573665	2013-07-26 22:17:52.573665
+817	Ben Shenkman	2013-07-26 22:17:52.578488	2013-07-26 22:17:52.578488
+818	Warren Beatty	2013-07-26 22:17:54.166717	2013-07-26 22:17:54.166717
+819	Faye Dunaway	2013-07-26 22:17:54.173902	2013-07-26 22:17:54.173902
+820	Michael J. Pollard	2013-07-26 22:17:54.180577	2013-07-26 22:17:54.180577
+821	Kelly Lynch	2013-07-26 22:17:54.840651	2013-07-26 22:17:54.840651
+822	James LeGros	2013-07-26 22:17:54.845312	2013-07-26 22:17:54.845312
+823	Naseeruddin Shah	2013-07-26 22:17:57.246293	2013-07-26 22:17:57.246293
+824	Lillete Dubey	2013-07-26 22:17:57.252586	2013-07-26 22:17:57.252586
+825	Vijay Raaz	2013-07-26 22:17:57.257942	2013-07-26 22:17:57.257942
+826	Juan José Ballesta	2013-07-26 22:17:58.303221	2013-07-26 22:17:58.303221
+827	Jesús Carroza	2013-07-26 22:17:58.308908	2013-07-26 22:17:58.308908
+828	Antonio Dechent	2013-07-26 22:17:58.315747	2013-07-26 22:17:58.315747
+829	Richard Roundtree	2013-07-26 22:17:59.443245	2013-07-26 22:17:59.443245
+830	Moses Gunn	2013-07-26 22:17:59.450302	2013-07-26 22:17:59.450302
+831	Katharine Hepburn	2013-07-26 22:18:04.304876	2013-07-26 22:18:04.304876
+832	Robert Morley	2013-07-26 22:18:04.310433	2013-07-26 22:18:04.310433
+833	Gunnar Björnstrand	2013-07-26 22:18:06.381434	2013-07-26 22:18:06.381434
+834	Bengt Ekerot	2013-07-26 22:18:06.388402	2013-07-26 22:18:06.388402
+835	Ioannis Tsialas	2013-07-26 22:18:07.116294	2013-07-26 22:18:07.116294
+836	Toni Osmani	2013-07-26 22:18:07.122987	2013-07-26 22:18:07.122987
+837	Barbara Rudnik	2013-07-26 22:18:07.128394	2013-07-26 22:18:07.128394
+838	John Malkovich	2013-07-26 22:18:07.861591	2013-07-26 22:18:07.861591
+839	Cameron Diaz	2013-07-26 22:18:07.912568	2013-07-26 22:18:07.912568
+840	Drew Bundini Brown	2013-07-26 22:18:08.841953	2013-07-26 22:18:08.841953
+841	Vonetta McGee	2013-07-26 22:18:09.813094	2013-07-26 22:18:09.813094
+842	Sacha Baron Cohen	2013-07-26 22:18:11.172523	2013-07-26 22:18:11.172523
+843	Ken Davitian	2013-07-26 22:18:11.178129	2013-07-26 22:18:11.178129
+844	Luenell	2013-07-26 22:18:11.182817	2013-07-26 22:18:11.182817
+845	Michael Clarke Duncan	2013-07-26 22:18:12.028501	2013-07-26 22:18:12.028501
+846	Bonnie Hunt	2013-07-26 22:18:12.033433	2013-07-26 22:18:12.033433
+847	Corinne Marchand	2013-07-26 22:18:13.107762	2013-07-26 22:18:13.107762
+848	Antoine Bourseiller	2013-07-26 22:18:13.112952	2013-07-26 22:18:13.112952
+849	Dominique Davray	2013-07-26 22:18:13.117568	2013-07-26 22:18:13.117568
+850	Tim Roth	2013-07-26 22:18:13.994591	2013-07-26 22:18:13.994591
+851	Michael Madsen	2013-07-26 22:18:14.001397	2013-07-26 22:18:14.001397
+852	Chris Penn	2013-07-26 22:18:14.007105	2013-07-26 22:18:14.007105
+853	Timothy Treadwell	2013-07-26 22:18:14.562524	2013-07-26 22:18:14.562524
+854	Kathleen Parker	2013-07-26 22:18:14.568379	2013-07-26 22:18:14.568379
+855	Warren Queeney	2013-07-26 22:18:14.574577	2013-07-26 22:18:14.574577
+856	Walter Matthau	2013-07-26 22:18:15.208456	2013-07-26 22:18:15.208456
+857	Fritz Weaver	2013-07-26 22:18:15.214509	2013-07-26 22:18:15.214509
+858	Kurt Russell	2013-07-26 22:18:15.916702	2013-07-26 22:18:15.916702
+859	Richard Dreyfuss	2013-07-26 22:18:15.923497	2013-07-26 22:18:15.923497
+860	Josh Lucas	2013-07-26 22:18:15.928465	2013-07-26 22:18:15.928465
+861	Charlize Theron	2013-07-26 22:18:16.608406	2013-07-26 22:18:16.608406
+862	Christina Ricci	2013-07-26 22:18:16.61386	2013-07-26 22:18:16.61386
+863	Bruce Dern	2013-07-26 22:18:16.618729	2013-07-26 22:18:16.618729
+864	Ellen Barkin	2013-07-26 22:18:17.263033	2013-07-26 22:18:17.263033
+865	Tippi Hedren	2013-07-26 22:18:18.096586	2013-07-26 22:18:18.096586
+866	Diane Baker	2013-07-26 22:18:18.106043	2013-07-26 22:18:18.106043
+867	Eric Stoltz	2013-07-26 22:18:18.663521	2013-07-26 22:18:18.663521
+868	Jean-Hugues Anglade	2013-07-26 22:18:18.673411	2013-07-26 22:18:18.673411
+869	Bill Nighy	2013-07-26 22:18:19.553398	2013-07-26 22:18:19.553398
+870	Gregor Fisher	2013-07-26 22:18:19.559845	2013-07-26 22:18:19.559845
+871	Rory MacGregor	2013-07-26 22:18:19.564524	2013-07-26 22:18:19.564524
+872	Richard McCabe	2013-07-26 22:18:20.359144	2013-07-26 22:18:20.359144
+873	Louise Fletcher	2013-07-26 22:18:21.465327	2013-07-26 22:18:21.465327
+874	William Redfield	2013-07-26 22:18:21.47032	2013-07-26 22:18:21.47032
+875	Daniel Olbrychski	2013-07-26 22:18:21.993723	2013-07-26 22:18:21.993723
+876	Wojciech Pszoniak	2013-07-26 22:18:21.998673	2013-07-26 22:18:21.998673
+877	Andrzej Seweryn	2013-07-26 22:18:22.003396	2013-07-26 22:18:22.003396
+878	Hugh Jackman	2013-07-26 22:18:22.817487	2013-07-26 22:18:22.817487
+879	Geoff Bell	2013-07-26 22:18:22.827714	2013-07-26 22:18:22.827714
+880	Nandita Das	2013-07-26 22:18:23.394172	2013-07-26 22:18:23.394172
+881	Shabana Azmi	2013-07-26 22:18:23.400067	2013-07-26 22:18:23.400067
+882	Jaaved Jaaferi	2013-07-26 22:18:23.406038	2013-07-26 22:18:23.406038
+883	Ray Milland	2013-07-26 22:18:27.687104	2013-07-26 22:18:27.687104
+884	Robert Cummings	2013-07-26 22:18:27.69643	2013-07-26 22:18:27.69643
+885	Martin Landau	2013-07-26 22:18:28.498091	2013-07-26 22:18:28.498091
+886	Sarah Jessica Parker	2013-07-26 22:18:28.503364	2013-07-26 22:18:28.503364
+887	Sandra Hüller	2013-07-26 22:18:29.050648	2013-07-26 22:18:29.050648
+888	Burghart Klaußner	2013-07-26 22:18:29.05565	2013-07-26 22:18:29.05565
+889	Imogen Kogge	2013-07-26 22:18:29.060572	2013-07-26 22:18:29.060572
+890	Joe Pesci	2013-07-26 22:18:29.757048	2013-07-26 22:18:29.757048
+891	John Belushi	2013-07-26 22:18:30.691414	2013-07-26 22:18:30.691414
+892	James Brown	2013-07-26 22:18:30.697248	2013-07-26 22:18:30.697248
+893	Rena Owen	2013-07-26 22:18:32.182308	2013-07-26 22:18:32.182308
+894	Temuera Morrison	2013-07-26 22:18:32.190392	2013-07-26 22:18:32.190392
+895	Mamaengaroa Kerr-Bell	2013-07-26 22:18:32.198949	2013-07-26 22:18:32.198949
+896	Nicholas Smith	2013-07-26 22:18:37.25563	2013-07-26 22:18:37.25563
+897	Liz Smith	2013-07-26 22:18:37.261011	2013-07-26 22:18:37.261011
+898	John Thomson	2013-07-26 22:18:37.267045	2013-07-26 22:18:37.267045
+899	Sam Worthington	2013-07-26 22:18:38.251145	2013-07-26 22:18:38.251145
+900	Anton Yelchin	2013-07-26 22:18:38.256106	2013-07-26 22:18:38.256106
+901	Moon Bloodgood	2013-07-26 22:18:38.260837	2013-07-26 22:18:38.260837
+902	Michael Nouri	2013-07-26 22:18:38.868629	2013-07-26 22:18:38.868629
+903	Lilia Skala	2013-07-26 22:18:38.873399	2013-07-26 22:18:38.873399
+904	Patrick Chesnais	2013-07-26 22:18:39.976006	2013-07-26 22:18:39.976006
+905	Anne Consigny	2013-07-26 22:18:39.98407	2013-07-26 22:18:39.98407
+906	Georges Wilson	2013-07-26 22:18:39.990945	2013-07-26 22:18:39.990945
+907	Anthony Perkins	2013-07-26 22:18:41.657699	2013-07-26 22:18:41.657699
+908	Vera Miles	2013-07-26 22:18:41.664616	2013-07-26 22:18:41.664616
+909	John Gavin	2013-07-26 22:18:41.672643	2013-07-26 22:18:41.672643
+910	Sara Foster	2013-07-26 22:18:42.197303	2013-07-26 22:18:42.197303
+911	Meagan Good	2013-07-26 22:18:42.203463	2013-07-26 22:18:42.203463
+912	Jordana Brewster	2013-07-26 22:18:42.208306	2013-07-26 22:18:42.208306
+913	Eleanor Parker	2013-07-26 22:18:42.733146	2013-07-26 22:18:42.733146
+914	Ana Claudia Talancón	2013-07-26 22:18:43.337314	2013-07-26 22:18:43.337314
+915	Sancho Gracia	2013-07-26 22:18:43.343444	2013-07-26 22:18:43.343444
+916	Anny Ondra	2013-07-26 22:18:44.038159	2013-07-26 22:18:44.038159
+917	Sara Allgood	2013-07-26 22:18:44.045236	2013-07-26 22:18:44.045236
+918	John Longden	2013-07-26 22:18:44.05027	2013-07-26 22:18:44.05027
+919	Ben Stiller	2013-07-26 22:18:44.868103	2013-07-26 22:18:44.868103
+920	Felicity Huffman	2013-07-26 22:18:45.990313	2013-07-26 22:18:45.990313
+921	Kevin Zegers	2013-07-26 22:18:45.998479	2013-07-26 22:18:45.998479
+922	Elizabeth Peña	2013-07-26 22:18:46.003448	2013-07-26 22:18:46.003448
+923	Robert Redford	2013-07-26 22:18:46.591723	2013-07-26 22:18:46.591723
+924	Kristin Scott Thomas	2013-07-26 22:18:46.597066	2013-07-26 22:18:46.597066
+925	Machiko Kyô	2013-07-26 22:18:47.324205	2013-07-26 22:18:47.324205
+926	Masayuki Mori	2013-07-26 22:18:47.330303	2013-07-26 22:18:47.330303
+927	Michael Wincott	2013-07-26 22:18:47.868578	2013-07-26 22:18:47.868578
+928	Helena Bonham Carter	2013-07-26 22:18:48.996704	2013-07-26 22:18:48.996704
+929	Ernest Borgnine	2013-07-26 22:18:49.704708	2013-07-26 22:18:49.704708
+930	Red Buttons	2013-07-26 22:18:49.709522	2013-07-26 22:18:49.709522
+931	Licia Maglietta	2013-07-26 22:18:51.003809	2013-07-26 22:18:51.003809
+932	Giuseppe Battiston	2013-07-26 22:18:51.017933	2013-07-26 22:18:51.017933
+933	Harriet Andersson	2013-07-26 22:18:51.640482	2013-07-26 22:18:51.640482
+934	Lauren Bacall	2013-07-26 22:18:51.645261	2013-07-26 22:18:51.645261
+935	Anni-Kristiina Juuso	2013-07-26 22:18:52.246005	2013-07-26 22:18:52.246005
+936	Ville Haapasalo	2013-07-26 22:18:52.25294	2013-07-26 22:18:52.25294
+937	Виктр Бычков	2013-07-26 22:18:52.257919	2013-07-26 22:18:52.257919
+938	Vincent Bonillo	2013-07-26 22:18:52.781235	2013-07-26 22:18:52.781235
+939	Iréne Godel	2013-07-26 22:18:52.786478	2013-07-26 22:18:52.786478
+940	François Nadin	2013-07-26 22:18:52.791237	2013-07-26 22:18:52.791237
+941	Kirsten Dunst	2013-07-26 22:18:53.992167	2013-07-26 22:18:53.992167
+942	Rosemary Harris	2013-07-26 22:18:54.760018	2013-07-26 22:18:54.760018
+943	J.K. Simmons	2013-07-26 22:18:55.532251	2013-07-26 22:18:55.532251
+944	Joan Bennett	2013-07-26 22:18:56.122555	2013-07-26 22:18:56.122555
+945	Michael Redgrave	2013-07-26 22:18:56.127781	2013-07-26 22:18:56.127781
+946	Anne Revere	2013-07-26 22:18:56.133123	2013-07-26 22:18:56.133123
+947	Rachel Weisz	2013-07-26 22:18:56.88121	2013-07-26 22:18:56.88121
+948	Reginald VelJohnson	2013-07-26 22:18:57.619417	2013-07-26 22:18:57.619417
+949	Casper Van Dien	2013-07-26 22:18:58.471468	2013-07-26 22:18:58.471468
+950	Denise Richards	2013-07-26 22:18:58.479378	2013-07-26 22:18:58.479378
+951	Brendan Fraser	2013-07-26 22:18:59.30209	2013-07-26 22:18:59.30209
+952	John Hannah	2013-07-26 22:18:59.315595	2013-07-26 22:18:59.315595
+953	Martin Henderson	2013-07-26 22:19:00.064412	2013-07-26 22:19:00.064412
+954	David Dorfman	2013-07-26 22:19:00.069919	2013-07-26 22:19:00.069919
+955	Wendell Corey	2013-07-26 22:19:01.398934	2013-07-26 22:19:01.398934
+956	Bill Paxton	2013-07-26 22:19:02.13424	2013-07-26 22:19:02.13424
+957	Anaïs Reboux	2013-07-26 22:19:03.229537	2013-07-26 22:19:03.229537
+958	Roxane Mesquida	2013-07-26 22:19:03.235969	2013-07-26 22:19:03.235969
+959	Libero De Rienzo	2013-07-26 22:19:03.240821	2013-07-26 22:19:03.240821
+960	Rod Taylor	2013-07-26 22:19:03.970862	2013-07-26 22:19:03.970862
+961	Suzanne Pleshette	2013-07-26 22:19:03.979558	2013-07-26 22:19:03.979558
+962	Kristoffer Joner	2013-07-26 22:19:04.587623	2013-07-26 22:19:04.587623
+963	Cecilie A. Mosli	2013-07-26 22:19:04.594901	2013-07-26 22:19:04.594901
+964	Julia Schacht	2013-07-26 22:19:04.599804	2013-07-26 22:19:04.599804
+965	Jon Finch	2013-07-26 22:19:05.345827	2013-07-26 22:19:05.345827
+966	Alec McCowen	2013-07-26 22:19:05.351095	2013-07-26 22:19:05.351095
+967	Barry Foster	2013-07-26 22:19:05.356009	2013-07-26 22:19:05.356009
+968	Doris Day	2013-07-26 22:19:06.117339	2013-07-26 22:19:06.117339
+969	Brenda De Banzie	2013-07-26 22:19:06.122655	2013-07-26 22:19:06.122655
+970	Christian Berkel	2013-07-26 22:19:06.754462	2013-07-26 22:19:06.754462
+971	Oliver Stokowski	2013-07-26 22:19:06.759363	2013-07-26 22:19:06.759363
+972	William Holden	2013-07-26 22:19:07.417369	2013-07-26 22:19:07.417369
+973	Robert Ryan	2013-07-26 22:19:07.422748	2013-07-26 22:19:07.422748
+974	Roy Scheider	2013-07-26 22:19:08.976926	2013-07-26 22:19:08.976926
+975	Robert Shaw	2013-07-26 22:19:08.983685	2013-07-26 22:19:08.983685
+976	Lorraine Gary	2013-07-26 22:19:09.776328	2013-07-26 22:19:09.776328
+977	Murray Hamilton	2013-07-26 22:19:09.781611	2013-07-26 22:19:09.781611
+978	Lance Guest	2013-07-26 22:19:10.401211	2013-07-26 22:19:10.401211
+979	Mario Van Peebles	2013-07-26 22:19:10.406679	2013-07-26 22:19:10.406679
+980	Mary McDonnell	2013-07-26 22:19:11.147946	2013-07-26 22:19:11.147946
+981	Graham Greene	2013-07-26 22:19:11.153283	2013-07-26 22:19:11.153283
+982	Ulrich Mühe	2013-07-26 22:19:11.805996	2013-07-26 22:19:11.805996
+983	Sebastian Koch	2013-07-26 22:19:11.810719	2013-07-26 22:19:11.810719
+984	Graham Chapman	2013-07-26 22:19:12.5734	2013-07-26 22:19:12.5734
+985	John Cleese	2013-07-26 22:19:12.580429	2013-07-26 22:19:12.580429
+986	Terry Gilliam	2013-07-26 22:19:12.585195	2013-07-26 22:19:12.585195
+987	Paul Walker	2013-07-26 22:19:13.523413	2013-07-26 22:19:13.523413
+988	Tyrese Gibson	2013-07-26 22:19:13.530378	2013-07-26 22:19:13.530378
+989	Eva Mendes	2013-07-26 22:19:13.53577	2013-07-26 22:19:13.53577
+990	Billy Crystal	2013-07-26 22:19:14.965965	2013-07-26 22:19:14.965965
+991	Mary Gibbs	2013-07-26 22:19:14.971553	2013-07-26 22:19:14.971553
+992	Anne Heche	2013-07-26 22:19:15.649039	2013-07-26 22:19:15.649039
+993	Albert Finney	2013-07-26 22:19:16.829297	2013-07-26 22:19:16.829297
+994	Billy Crudup	2013-07-26 22:19:16.835357	2013-07-26 22:19:16.835357
+995	Radha Mitchell	2013-07-26 22:19:17.604246	2013-07-26 22:19:17.604246
+996	Laurie Holden	2013-07-26 22:19:17.614613	2013-07-26 22:19:17.614613
+997	John Cazale	2013-07-26 22:19:21.06532	2013-07-26 22:19:21.06532
+998	Frederic Forrest	2013-07-26 22:19:21.070281	2013-07-26 22:19:21.070281
+999	Донатас Банионис	2013-07-26 22:19:22.108609	2013-07-26 22:19:22.108609
+1000	Наталья Бондарчук	2013-07-26 22:19:22.113562	2013-07-26 22:19:22.113562
+1001	Юри Ярвет	2013-07-26 22:19:22.118368	2013-07-26 22:19:22.118368
+1002	Gregory Peck	2013-07-26 22:19:23.696734	2013-07-26 22:19:23.696734
+1003	Mary Badham	2013-07-26 22:19:23.704009	2013-07-26 22:19:23.704009
+1004	Phillip Alford	2013-07-26 22:19:23.70931	2013-07-26 22:19:23.70931
+1005	Jane Darwell	2013-07-26 22:19:24.379652	2013-07-26 22:19:24.379652
+1006	John Carradine	2013-07-26 22:19:24.384525	2013-07-26 22:19:24.384525
+1007	Frances Fisher	2013-07-26 22:19:25.153564	2013-07-26 22:19:25.153564
+1008	Alexandre Rodrigues	2013-07-26 22:19:26.277289	2013-07-26 22:19:26.277289
+1009	Leandro Firmino	2013-07-26 22:19:26.282233	2013-07-26 22:19:26.282233
+1010	Phellipe Haagensen	2013-07-26 22:19:26.2869	2013-07-26 22:19:26.2869
+1011	Gloria Swanson	2013-07-26 22:19:27.002345	2013-07-26 22:19:27.002345
+1012	Erich von Stroheim	2013-07-26 22:19:27.007487	2013-07-26 22:19:27.007487
+1013	Matthew Modine	2013-07-26 22:19:27.873278	2013-07-26 22:19:27.873278
+1014	Adam Baldwin	2013-07-26 22:19:27.879248	2013-07-26 22:19:27.879248
+1015	Vincent D'Onofrio	2013-07-26 22:19:27.883968	2013-07-26 22:19:27.883968
+1016	Henry Thomas	2013-07-26 22:19:28.625451	2013-07-26 22:19:28.625451
+1017	Peter Coyote	2013-07-26 22:19:28.630771	2013-07-26 22:19:28.630771
+1018	Will Smith	2013-07-26 22:19:29.859911	2013-07-26 22:19:29.859911
+1019	Bill Pullman	2013-07-26 22:19:29.867005	2013-07-26 22:19:29.867005
+1020	Laurence Fishburne	2013-07-26 22:19:30.825732	2013-07-26 22:19:30.825732
+1021	Klaus Maria Brandauer	2013-07-26 22:19:33.21702	2013-07-26 22:19:33.21702
+1022	Linda Fiorentino	2013-07-26 22:19:34.267474	2013-07-26 22:19:34.267474
+1023	Rip Torn	2013-07-26 22:19:35.102865	2013-07-26 22:19:35.102865
+1024	Craig T. Nelson	2013-07-26 22:19:35.814376	2013-07-26 22:19:35.814376
+1025	JoBeth Williams	2013-07-26 22:19:35.819429	2013-07-26 22:19:35.819429
+1026	Beatrice Straight	2013-07-26 22:19:35.825746	2013-07-26 22:19:35.825746
+1027	Eric Bana	2013-07-26 22:19:37.447663	2013-07-26 22:19:37.447663
+1028	Daniel Craig	2013-07-26 22:19:37.453169	2013-07-26 22:19:37.453169
+1029	Ciarán Hinds	2013-07-26 22:19:37.45827	2013-07-26 22:19:37.45827
+1030	Corinna Harfouch	2013-07-26 22:19:38.259598	2013-07-26 22:19:38.259598
+1031	Victor Sjöström	2013-07-26 22:19:38.881862	2013-07-26 22:19:38.881862
+1032	Bibi Andersson	2013-07-26 22:19:38.886974	2013-07-26 22:19:38.886974
+1033	Ingrid Thulin	2013-07-26 22:19:38.891581	2013-07-26 22:19:38.891581
+1034	James Caviezel	2013-07-26 22:19:39.575694	2013-07-26 22:19:39.575694
+1035	Maia Morgenstern	2013-07-26 22:19:39.581604	2013-07-26 22:19:39.581604
+1036	Christo Jivkov	2013-07-26 22:19:39.586412	2013-07-26 22:19:39.586412
+1037	Ken Watanabe	2013-07-26 22:19:40.460157	2013-07-26 22:19:40.460157
+1038	William Atherton	2013-07-26 22:19:40.465411	2013-07-26 22:19:40.465411
+1039	Lillian Gish	2013-07-26 22:19:41.677653	2013-07-26 22:19:41.677653
+1040	Mae Marsh	2013-07-26 22:19:41.68629	2013-07-26 22:19:41.68629
+1041	Henry B. Walthall	2013-07-26 22:19:41.692121	2013-07-26 22:19:41.692121
+1042	Whitney Houston	2013-07-26 22:19:42.349246	2013-07-26 22:19:42.349246
+1043	Michele Lamar Richards	2013-07-26 22:19:42.35753	2013-07-26 22:19:42.35753
+1044	John Travolta	2013-07-26 22:19:44.289164	2013-07-26 22:19:44.289164
+1045	Olivia Newton-John	2013-07-26 22:19:44.297313	2013-07-26 22:19:44.297313
+1046	Stockard Channing	2013-07-26 22:19:44.302252	2013-07-26 22:19:44.302252
+1047	Frank Langella	2013-07-26 22:19:45.126809	2013-07-26 22:19:45.126809
+1048	Lena Olin	2013-07-26 22:19:45.132781	2013-07-26 22:19:45.132781
+1049	Jamie Lee Curtis	2013-07-26 22:19:45.892028	2013-07-26 22:19:45.892028
+1050	Peter Fonda	2013-07-26 22:19:46.5859	2013-07-26 22:19:46.5859
+1051	Dennis Hopper	2013-07-26 22:19:46.59396	2013-07-26 22:19:46.59396
+1052	Antonio Mendoza	2013-07-26 22:19:46.599439	2013-07-26 22:19:46.599439
+1053	Sam Waterston	2013-07-26 22:19:47.257128	2013-07-26 22:19:47.257128
+1054	Haing S. Ngor	2013-07-26 22:19:47.264923	2013-07-26 22:19:47.264923
+1055	Jonny Lee Miller	2013-07-26 22:19:48.808532	2013-07-26 22:19:48.808532
+1056	Stephen Baldwin	2013-07-26 22:19:50.337577	2013-07-26 22:19:50.337577
+1057	Judy Garland	2013-07-26 22:19:51.205237	2013-07-26 22:19:51.205237
+1058	Frank Morgan	2013-07-26 22:19:51.23455	2013-07-26 22:19:51.23455
+1059	Ray Bolger	2013-07-26 22:19:51.240593	2013-07-26 22:19:51.240593
+1060	George O'Brien	2013-07-26 22:19:52.544324	2013-07-26 22:19:52.544324
+1061	Janet Gaynor	2013-07-26 22:19:52.549996	2013-07-26 22:19:52.549996
+1062	Margaret Livingston	2013-07-26 22:19:52.55498	2013-07-26 22:19:52.55498
+1063	Don Taylor	2013-07-26 22:19:54.072631	2013-07-26 22:19:54.072631
+1064	Otto Preminger	2013-07-26 22:19:54.07938	2013-07-26 22:19:54.07938
+1065	Jeroen Krabbé	2013-07-26 22:19:55.03988	2013-07-26 22:19:55.03988
+1066	Susan Penhaligon	2013-07-26 22:19:55.046686	2013-07-26 22:19:55.046686
+1067	Renée Zellweger	2013-07-26 22:19:55.833558	2013-07-26 22:19:55.833558
+1068	Colin Firth	2013-07-26 22:19:55.84146	2013-07-26 22:19:55.84146
+1069	Lisa Bonet	2013-07-26 22:19:56.590954	2013-07-26 22:19:56.590954
+1070	Donald Pleasence	2013-07-26 22:19:57.251332	2013-07-26 22:19:57.251332
+1071	Don Pedro Colley	2013-07-26 22:19:57.256332	2013-07-26 22:19:57.256332
+1072	Nicoletta Braschi	2013-07-26 22:19:57.976632	2013-07-26 22:19:57.976632
+1073	Roberto Benigni	2013-07-26 22:19:57.982467	2013-07-26 22:19:57.982467
+1074	Giorgio Cantarini	2013-07-26 22:19:57.987417	2013-07-26 22:19:57.987417
+1075	John Roselius	2013-07-26 22:19:58.845178	2013-07-26 22:19:58.845178
+1076	Christopher Walken	2013-07-26 22:20:00.647987	2013-07-26 22:20:00.647987
+1077	Ellen Burstyn	2013-07-26 22:20:01.529528	2013-07-26 22:20:01.529528
+1078	Jared Leto	2013-07-26 22:20:01.535026	2013-07-26 22:20:01.535026
+1079	Katharine Ross	2013-07-26 22:20:02.256909	2013-07-26 22:20:02.256909
+1080	Aleksandr Antonov	2013-07-26 22:20:03.177406	2013-07-26 22:20:03.177406
+1081	Vladimir Barsky	2013-07-26 22:20:03.182271	2013-07-26 22:20:03.182271
+1082	Григорий Александров	2013-07-26 22:20:03.188042	2013-07-26 22:20:03.188042
+1083	Haley Joel Osment	2013-07-26 22:20:04.099531	2013-07-26 22:20:04.099531
+1084	Frances O'Connor	2013-07-26 22:20:04.105131	2013-07-26 22:20:04.105131
+1085	Sam Robards	2013-07-26 22:20:04.109952	2013-07-26 22:20:04.109952
+1086	Ursula Andress	2013-07-26 22:20:05.818641	2013-07-26 22:20:05.818641
+1087	Joseph Wiseman	2013-07-26 22:20:05.823986	2013-07-26 22:20:05.823986
+1088	Takahiro Sakurai	2013-07-26 22:20:06.579916	2013-07-26 22:20:06.579916
+1089	Toshiyuki Morikawa	2013-07-26 22:20:06.585481	2013-07-26 22:20:06.585481
+1090	Ayumi Ito	2013-07-26 22:20:06.590544	2013-07-26 22:20:06.590544
+1091	Jean Marais	2013-07-26 22:20:07.744772	2013-07-26 22:20:07.744772
+1092	Josette Day	2013-07-26 22:20:07.752954	2013-07-26 22:20:07.752954
+1093	Marcel André	2013-07-26 22:20:07.757894	2013-07-26 22:20:07.757894
+1094	Jean Sorel	2013-07-26 22:20:08.630718	2013-07-26 22:20:08.630718
+1095	Ice Cube	2013-07-26 22:20:09.350367	2013-07-26 22:20:09.350367
+1096	Elliott Gould	2013-07-26 22:20:09.96655	2013-07-26 22:20:09.96655
+1097	Diane Kruger	2013-07-26 22:20:10.828353	2013-07-26 22:20:10.828353
+1098	Max Schreck	2013-07-26 22:20:11.43343	2013-07-26 22:20:11.43343
+1099	Gustav von Wangenheim	2013-07-26 22:20:11.440616	2013-07-26 22:20:11.440616
+1100	Greta Schröder	2013-07-26 22:20:11.445948	2013-07-26 22:20:11.445948
+1101	Karl Malden	2013-07-26 22:20:12.329788	2013-07-26 22:20:12.329788
+1102	Harry Dean Stanton	2013-07-26 22:20:13.025297	2013-07-26 22:20:13.025297
+1103	Dean Stockwell	2013-07-26 22:20:13.033868	2013-07-26 22:20:13.033868
+1104	Daniela Bianchi	2013-07-26 22:20:14.760662	2013-07-26 22:20:14.760662
+1105	Lotte Lenya	2013-07-26 22:20:14.76584	2013-07-26 22:20:14.76584
+1106	Honor Blackman	2013-07-26 22:20:15.859373	2013-07-26 22:20:15.859373
+1107	Gert Fröbe	2013-07-26 22:20:15.875123	2013-07-26 22:20:15.875123
+1108	Mario Adorf	2013-07-26 22:20:16.603086	2013-07-26 22:20:16.603086
+1109	Angela Winkler	2013-07-26 22:20:16.610627	2013-07-26 22:20:16.610627
+1110	David Bennent	2013-07-26 22:20:16.615373	2013-07-26 22:20:16.615373
+1111	Claudine Auger	2013-07-26 22:20:17.607516	2013-07-26 22:20:17.607516
+1112	Adolfo Celi	2013-07-26 22:20:17.612469	2013-07-26 22:20:17.612469
+1113	Klaus Löwitsch	2013-07-26 22:20:18.842327	2013-07-26 22:20:18.842327
+1114	Ivan Desny	2013-07-26 22:20:18.849754	2013-07-26 22:20:18.849754
+1115	Scott Patterson	2013-07-26 22:20:21.277979	2013-07-26 22:20:21.277979
+1116	Betsy Russell	2013-07-26 22:20:21.28279	2013-07-26 22:20:21.28279
+1117	Helen Hunt	2013-07-26 22:20:21.938968	2013-07-26 22:20:21.938968
+1118	Charlton Heston	2013-07-26 22:20:22.649626	2013-07-26 22:20:22.649626
+1119	Jack Hawkins	2013-07-26 22:20:22.65755	2013-07-26 22:20:22.65755
+1120	Haya Harareet	2013-07-26 22:20:22.662993	2013-07-26 22:20:22.662993
+1121	Fernanda Montenegro	2013-07-26 22:20:23.282065	2013-07-26 22:20:23.282065
+1122	Marília Pêra	2013-07-26 22:20:23.287325	2013-07-26 22:20:23.287325
+1123	Vinícius de Oliveira	2013-07-26 22:20:23.292798	2013-07-26 22:20:23.292798
+1124	Akiko Wakabayashi	2013-07-26 22:20:24.328836	2013-07-26 22:20:24.328836
+1125	Karin Dor	2013-07-26 22:20:24.33394	2013-07-26 22:20:24.33394
+1126	George Lazenby	2013-07-26 22:20:25.32976	2013-07-26 22:20:25.32976
+1127	Diana Rigg	2013-07-26 22:20:25.336792	2013-07-26 22:20:25.336792
+1128	Telly Savalas	2013-07-26 22:20:25.341973	2013-07-26 22:20:25.341973
+1129	Allakariallak	2013-07-26 22:20:26.090594	2013-07-26 22:20:26.090594
+1130	Nyla	2013-07-26 22:20:26.096201	2013-07-26 22:20:26.096201
+1131	Cunayou	2013-07-26 22:20:26.101349	2013-07-26 22:20:26.101349
+1132	Choi Min-sik	2013-07-26 22:20:26.853805	2013-07-26 22:20:26.853805
+1133	Dae-han Ji	2013-07-26 22:20:26.860457	2013-07-26 22:20:26.860457
+1134	Byeong-ok Kim	2013-07-26 22:20:26.867672	2013-07-26 22:20:26.867672
+1135	Daniel Radcliffe	2013-07-26 22:20:27.993157	2013-07-26 22:20:27.993157
+1136	Rupert Grint	2013-07-26 22:20:27.99827	2013-07-26 22:20:27.99827
+1137	Emma Watson	2013-07-26 22:20:28.002791	2013-07-26 22:20:28.002791
+1138	David Albritton	2013-07-26 22:20:33.961827	2013-07-26 22:20:33.961827
+1139	Jack Beresford	2013-07-26 22:20:33.966782	2013-07-26 22:20:33.966782
+1140	Henri de Baillet-Latour	2013-07-26 22:20:33.971378	2013-07-26 22:20:33.971378
+1141	Robert Mitchum	2013-07-26 22:20:34.579115	2013-07-26 22:20:34.579115
+1142	Jane Greer	2013-07-26 22:20:34.58607	2013-07-26 22:20:34.58607
+1143	Carrie Henn	2013-07-26 22:20:35.674338	2013-07-26 22:20:35.674338
+1144	Jill St. John	2013-07-26 22:20:37.826244	2013-07-26 22:20:37.826244
+1145	Charles Gray	2013-07-26 22:20:37.831293	2013-07-26 22:20:37.831293
+1146	Christopher Lee	2013-07-26 22:20:38.872201	2013-07-26 22:20:38.872201
+1147	Britt Ekland	2013-07-26 22:20:38.87851	2013-07-26 22:20:38.87851
+1148	Ralf Berzsenyi	2013-07-26 22:20:40.939485	2013-07-26 22:20:40.939485
+1149	Ferenc Csík	2013-07-26 22:20:40.944842	2013-07-26 22:20:40.944842
+1150	Matthew McConaughey	2013-07-26 22:20:41.590593	2013-07-26 22:20:41.590593
+1151	Robert Prosky	2013-07-26 22:20:42.665375	2013-07-26 22:20:42.665375
+1152	Annie Corley	2013-07-26 22:20:43.754657	2013-07-26 22:20:43.754657
+1153	Eva Kotamanidou	2013-07-26 22:20:44.572947	2013-07-26 22:20:44.572947
+1154	Aliki Georgouli	2013-07-26 22:20:44.578349	2013-07-26 22:20:44.578349
+1155	Stratos Pahis	2013-07-26 22:20:44.583911	2013-07-26 22:20:44.583911
+1156	Martin LaSalle	2013-07-26 22:20:45.471559	2013-07-26 22:20:45.471559
+1157	Marika Green	2013-07-26 22:20:45.479925	2013-07-26 22:20:45.479925
+1158	Jean Pélégri	2013-07-26 22:20:45.484952	2013-07-26 22:20:45.484952
+1159	Barbara Bach	2013-07-26 22:20:46.497715	2013-07-26 22:20:46.497715
+1160	Curd Jürgens	2013-07-26 22:20:46.503397	2013-07-26 22:20:46.503397
+1161	Divine	2013-07-26 22:20:47.309255	2013-07-26 22:20:47.309255
+1162	David Lochary	2013-07-26 22:20:47.316365	2013-07-26 22:20:47.316365
+1163	Mary Vivian Pearce	2013-07-26 22:20:47.321124	2013-07-26 22:20:47.321124
+1164	Teri Polo	2013-07-26 22:20:48.056138	2013-07-26 22:20:48.056138
+1165	Shelley Duvall	2013-07-26 22:20:49.098581	2013-07-26 22:20:49.098581
+1166	Danny Lloyd	2013-07-26 22:20:49.103542	2013-07-26 22:20:49.103542
+1167	Woody Allen	2013-07-26 22:20:50.917242	2013-07-26 22:20:50.917242
+1168	Michael Murphy	2013-07-26 22:20:50.925175	2013-07-26 22:20:50.925175
+1169	Vladimir Popov	2013-07-26 22:20:51.730078	2013-07-26 22:20:51.730078
+1170	Vasili Nikandrov	2013-07-26 22:20:51.735841	2013-07-26 22:20:51.735841
+1171	Layaschenko	2013-07-26 22:20:51.740869	2013-07-26 22:20:51.740869
+1172	Lois Chiles	2013-07-26 22:20:52.775275	2013-07-26 22:20:52.775275
+1173	Michael Lonsdale	2013-07-26 22:20:52.780798	2013-07-26 22:20:52.780798
+1174	Carole Bouquet	2013-07-26 22:20:54.005712	2013-07-26 22:20:54.005712
+1175	Topol	2013-07-26 22:20:54.010805	2013-07-26 22:20:54.010805
+1176	Maud Adams	2013-07-26 22:20:55.892006	2013-07-26 22:20:55.892006
+1177	Louis Jourdan	2013-07-26 22:20:55.89888	2013-07-26 22:20:55.89888
+1178	Joe Roberts	2013-07-26 22:20:56.459494	2013-07-26 22:20:56.459494
+1179	Natalie Talmadge	2013-07-26 22:20:56.466062	2013-07-26 22:20:56.466062
+1180	Ralph Bushman	2013-07-26 22:20:56.472432	2013-07-26 22:20:56.472432
+1181	Vivien Leigh	2013-07-26 22:20:57.30977	2013-07-26 22:20:57.30977
+1182	Kim Hunter	2013-07-26 22:20:57.31983	2013-07-26 22:20:57.31983
+1183	Tony Roberts	2013-07-26 22:20:57.94603	2013-07-26 22:20:57.94603
+1184	John Lennon	2013-07-26 22:20:58.584379	2013-07-26 22:20:58.584379
+1185	Paul McCartney	2013-07-26 22:20:58.58939	2013-07-26 22:20:58.58939
+1186	George Harrison	2013-07-26 22:20:58.594213	2013-07-26 22:20:58.594213
+1187	Anne Baxter	2013-07-26 22:20:59.254993	2013-07-26 22:20:59.254993
+1188	Wolfgang Schenck	2013-07-26 22:20:59.824158	2013-07-26 22:20:59.824158
+1189	Ulli Lommel	2013-07-26 22:20:59.829103	2013-07-26 22:20:59.829103
+1190	Tanya Roberts	2013-07-26 22:21:00.843024	2013-07-26 22:21:00.843024
+1191	Timothy Dalton	2013-07-26 22:21:02.501908	2013-07-26 22:21:02.501908
+1192	Maryam d'Abo	2013-07-26 22:21:02.50794	2013-07-26 22:21:02.50794
+1193	Carey Lowell	2013-07-26 22:21:03.331668	2013-07-26 22:21:03.331668
+1194	Robert Davi	2013-07-26 22:21:03.340318	2013-07-26 22:21:03.340318
+1195	Pierce Brosnan	2013-07-26 22:21:04.219494	2013-07-26 22:21:04.219494
+1196	Izabella Scorupco	2013-07-26 22:21:04.22981	2013-07-26 22:21:04.22981
+1197	Rob Brown	2013-07-26 22:21:04.851269	2013-07-26 22:21:04.851269
+1198	James Fleet	2013-07-26 22:21:05.466518	2013-07-26 22:21:05.466518
+1199	Lisa Lindgren	2013-07-26 22:21:22.051227	2013-07-26 22:21:22.051227
+1200	Emma Samuelsson	2013-07-26 22:21:22.059807	2013-07-26 22:21:22.059807
+1201	Outi Mäenpää	2013-07-26 22:21:22.586679	2013-07-26 22:21:22.586679
+1202	Peter Lohmeyer	2013-07-26 22:21:22.592001	2013-07-26 22:21:22.592001
+1203	Kelly McGillis	2013-07-26 22:21:23.327826	2013-07-26 22:21:23.327826
+1204	John Lone	2013-07-26 22:21:24.603268	2013-07-26 22:21:24.603268
+1205	Peter O'Toole	2013-07-26 22:21:24.611175	2013-07-26 22:21:24.611175
+1206	Joan Chen	2013-07-26 22:21:24.616047	2013-07-26 22:21:24.616047
+1207	Simon Pegg	2013-07-26 22:21:25.6006	2013-07-26 22:21:25.6006
+1208	Nick Frost	2013-07-26 22:21:25.607881	2013-07-26 22:21:25.607881
+1209	Kate Ashfield	2013-07-26 22:21:25.612952	2013-07-26 22:21:25.612952
+1210	Margaret Rutherford	2013-07-26 22:21:27.205033	2013-07-26 22:21:27.205033
+1211	Arthur Kennedy	2013-07-26 22:21:27.21012	2013-07-26 22:21:27.21012
+1212	Muriel Pavlow	2013-07-26 22:21:27.215118	2013-07-26 22:21:27.215118
+1213	Stringer Davis	2013-07-26 22:21:27.898153	2013-07-26 22:21:27.898153
+1214	Hugo Weaving	2013-07-26 22:21:28.798764	2013-07-26 22:21:28.798764
+1215	Stephen Rea	2013-07-26 22:21:28.803678	2013-07-26 22:21:28.803678
+1216	John Marley	2013-07-26 22:21:29.33024	2013-07-26 22:21:29.33024
+1217	Lynn Carlin	2013-07-26 22:21:29.335099	2013-07-26 22:21:29.335099
+1218	Joan Allen	2013-07-26 22:21:30.057484	2013-07-26 22:21:30.057484
+1219	Leopold Stokowski	2013-07-26 22:21:31.626273	2013-07-26 22:21:31.626273
+1220	Deems Taylor	2013-07-26 22:21:31.631913	2013-07-26 22:21:31.631913
+1221	Walt Disney	2013-07-26 22:21:31.636714	2013-07-26 22:21:31.636714
+1222	Ron Moody	2013-07-26 22:21:32.195727	2013-07-26 22:21:32.195727
+1223	Charles 'Bud' Tingwell	2013-07-26 22:21:32.200753	2013-07-26 22:21:32.200753
+1224	Lionel Jeffries	2013-07-26 22:21:32.732453	2013-07-26 22:21:32.732453
+1225	Jane Russell	2013-07-26 22:21:33.37139	2013-07-26 22:21:33.37139
+1226	Elliott Reid	2013-07-26 22:21:33.377764	2013-07-26 22:21:33.377764
+1227	Louis de Funès	2013-07-26 22:21:34.018067	2013-07-26 22:21:34.018067
+1228	Suzy Delair	2013-07-26 22:21:34.025845	2013-07-26 22:21:34.025845
+1229	Claude Giraud	2013-07-26 22:21:34.031064	2013-07-26 22:21:34.031064
+1230	Coluche	2013-07-26 22:21:34.621541	2013-07-26 22:21:34.621541
+1231	Claude Gensac	2013-07-26 22:21:34.626846	2013-07-26 22:21:34.626846
+1232	Eric Idle	2013-07-26 22:21:35.334943	2013-07-26 22:21:35.334943
+1233	Timothy Balme	2013-07-26 22:21:35.984971	2013-07-26 22:21:35.984971
+1234	Diana Peñalver	2013-07-26 22:21:35.992663	2013-07-26 22:21:35.992663
+1235	Elizabeth Moody	2013-07-26 22:21:35.997962	2013-07-26 22:21:35.997962
+1236	Bruce Campbell	2013-07-26 22:21:36.765057	2013-07-26 22:21:36.765057
+1237	Ellen Sandweiss	2013-07-26 22:21:36.772073	2013-07-26 22:21:36.772073
+1238	Richard DeManincor	2013-07-26 22:21:36.777151	2013-07-26 22:21:36.777151
+1239	Sarah Berry	2013-07-26 22:21:37.479479	2013-07-26 22:21:37.479479
+1240	Dan Hicks	2013-07-26 22:21:37.484385	2013-07-26 22:21:37.484385
+1241	Embeth Davidtz	2013-07-26 22:21:38.24665	2013-07-26 22:21:38.24665
+1242	Marcus Gilbert	2013-07-26 22:21:38.251492	2013-07-26 22:21:38.251492
+1243	Heather Graham	2013-07-26 22:21:39.771727	2013-07-26 22:21:39.771727
+1244	Ian Holm	2013-07-26 22:21:39.776463	2013-07-26 22:21:39.776463
+1245	Ray Liotta	2013-07-26 22:21:40.642835	2013-07-26 22:21:40.642835
+1246	Clark Gable	2013-07-26 22:21:41.937176	2013-07-26 22:21:41.937176
+1247	Olivia de Havilland	2013-07-26 22:21:41.942018	2013-07-26 22:21:41.942018
+1248	Macaulay Culkin	2013-07-26 22:21:42.665623	2013-07-26 22:21:42.665623
+1249	Daniel Stern	2013-07-26 22:21:42.674769	2013-07-26 22:21:42.674769
+1250	Catherine O'Hara	2013-07-26 22:21:43.404284	2013-07-26 22:21:43.404284
+1251	Abigail Breslin	2013-07-26 22:21:44.030897	2013-07-26 22:21:44.030897
+1252	Greg Kinnear	2013-07-26 22:21:44.040101	2013-07-26 22:21:44.040101
+1253	Nora Gregor	2013-07-26 22:21:45.844425	2013-07-26 22:21:45.844425
+1254	Paulette Dubost	2013-07-26 22:21:45.851024	2013-07-26 22:21:45.851024
+1255	Mila Parély	2013-07-26 22:21:45.856552	2013-07-26 22:21:45.856552
+1256	Jean Gabin	2013-07-26 22:21:46.465208	2013-07-26 22:21:46.465208
+1257	Dita Parlo	2013-07-26 22:21:46.472201	2013-07-26 22:21:46.472201
+1258	Pierre Fresnay	2013-07-26 22:21:46.477779	2013-07-26 22:21:46.477779
+1259	Nathalie Pascaud	2013-07-26 22:21:47.038673	2013-07-26 22:21:47.038673
+1260	Micheline Rolla	2013-07-26 22:21:47.04349	2013-07-26 22:21:47.04349
+1261	Julian West	2013-07-26 22:21:47.64532	2013-07-26 22:21:47.64532
+1262	Henriette Gérard	2013-07-26 22:21:47.651193	2013-07-26 22:21:47.651193
+1263	Jan Hieronimko	2013-07-26 22:21:47.657785	2013-07-26 22:21:47.657785
+1264	Maria Falconetti	2013-07-26 22:21:48.256665	2013-07-26 22:21:48.256665
+1265	Eugene Silvain	2013-07-26 22:21:48.262103	2013-07-26 22:21:48.262103
+1266	André Berley	2013-07-26 22:21:48.267369	2013-07-26 22:21:48.267369
+1267	Ulrich Matthes	2013-07-26 22:21:48.834211	2013-07-26 22:21:48.834211
+1268	Marie-Lou Sellem	2013-07-26 22:21:48.839836	2013-07-26 22:21:48.839836
+1269	Floriane Daniel	2013-07-26 22:21:48.845355	2013-07-26 22:21:48.845355
+1270	Jude Law	2013-07-26 22:21:49.531242	2013-07-26 22:21:49.531242
+1271	Gore Vidal	2013-07-26 22:21:49.537204	2013-07-26 22:21:49.537204
+1272	Rohini Hattangadi	2013-07-26 22:21:50.196245	2013-07-26 22:21:50.196245
+1273	Candice Bergen	2013-07-26 22:21:50.201605	2013-07-26 22:21:50.201605
+1274	Andrei Chalimon	2013-07-26 22:21:50.761515	2013-07-26 22:21:50.761515
+1275	Zdeněk Svěrák	2013-07-26 22:21:50.767969	2013-07-26 22:21:50.767969
+1276	Libuše Šafránková	2013-07-26 22:21:50.773428	2013-07-26 22:21:50.773428
+1277	Hertha Thiele	2013-07-26 22:21:51.376515	2013-07-26 22:21:51.376515
+1278	Martha Wolter	2013-07-26 22:21:51.383671	2013-07-26 22:21:51.383671
+1279	Lili Schoenborn-Anspach	2013-07-26 22:21:51.38884	2013-07-26 22:21:51.38884
+1280	Kate Hudson	2013-07-26 22:21:52.159398	2013-07-26 22:21:52.159398
+1281	Angelina Jolie	2013-07-26 22:21:53.027405	2013-07-26 22:21:53.027405
+1282	Vince Vaughn	2013-07-26 22:21:53.035881	2013-07-26 22:21:53.035881
+1283	Sally Field	2013-07-26 22:21:53.662109	2013-07-26 22:21:53.662109
+1284	Václav Neckář	2013-07-26 22:21:54.272945	2013-07-26 22:21:54.272945
+1285	Josef Somr	2013-07-26 22:21:54.278316	2013-07-26 22:21:54.278316
+1286	Vlastimil Brodský	2013-07-26 22:21:54.283958	2013-07-26 22:21:54.283958
+1287	Adrienne Barbeau	2013-07-26 22:21:54.947199	2013-07-26 22:21:54.947199
+1288	Janet Leigh	2013-07-26 22:21:54.955859	2013-07-26 22:21:54.955859
+1289	Tom Welling	2013-07-26 22:21:55.573082	2013-07-26 22:21:55.573082
+1290	Maggie Grace	2013-07-26 22:21:55.578326	2013-07-26 22:21:55.578326
+1291	Selma Blair	2013-07-26 22:21:55.58384	2013-07-26 22:21:55.58384
+1292	Tom Berenger	2013-07-26 22:21:56.411994	2013-07-26 22:21:56.411994
+1293	Charlie Sheen	2013-07-26 22:21:56.419191	2013-07-26 22:21:56.419191
+1294	Isabella Rossellini	2013-07-26 22:21:57.321906	2013-07-26 22:21:57.321906
+1295	Kyle MacLachlan	2013-07-26 22:21:57.326977	2013-07-26 22:21:57.326977
+1296	Andre Braugher	2013-07-26 22:21:59.745923	2013-07-26 22:21:59.745923
+1297	Sarah Michelle Gellar	2013-07-26 22:22:00.518877	2013-07-26 22:22:00.518877
+1298	Ryan Phillippe	2013-07-26 22:22:00.524192	2013-07-26 22:22:00.524192
+1299	Liv Ullmann	2013-07-26 22:22:01.629549	2013-07-26 22:22:01.629549
+1300	Margaretha Krook	2013-07-26 22:22:01.63458	2013-07-26 22:22:01.63458
+1301	Sabine Eggerth	2013-07-26 22:22:02.789997	2013-07-26 22:22:02.789997
+1302	Peter Feldt	2013-07-26 22:22:02.796796	2013-07-26 22:22:02.796796
+1303	Hertha Feiler	2013-07-26 22:22:02.801932	2013-07-26 22:22:02.801932
+1304	Elea Geissler	2013-07-26 22:22:03.725655	2013-07-26 22:22:03.725655
+1305	Max Felder	2013-07-26 22:22:03.732415	2013-07-26 22:22:03.732415
+1306	Juliane Köhler	2013-07-26 22:22:03.737903	2013-07-26 22:22:03.737903
+1307	Alfonso Mejía	2013-07-26 22:22:04.755937	2013-07-26 22:22:04.755937
+1308	Estela Inda	2013-07-26 22:22:04.761387	2013-07-26 22:22:04.761387
+1309	Miguel Inclán	2013-07-26 22:22:04.766492	2013-07-26 22:22:04.766492
+1310	Forest Whitaker	2013-07-26 22:22:05.629058	2013-07-26 22:22:05.629058
+1311	Tung Thanh Tran	2013-07-26 22:22:05.635628	2013-07-26 22:22:05.635628
+1312	Sue Lyon	2013-07-26 22:22:06.727539	2013-07-26 22:22:06.727539
+1313	Shelley Winters	2013-07-26 22:22:06.734077	2013-07-26 22:22:06.734077
+1314	Eddie Albert	2013-07-26 22:22:08.704078	2013-07-26 22:22:08.704078
+1315	Mia Farrow	2013-07-26 22:22:09.491674	2013-07-26 22:22:09.491674
+1316	John Cassavetes	2013-07-26 22:22:09.499207	2013-07-26 22:22:09.499207
+1317	Liev Schreiber	2013-07-26 22:22:10.127057	2013-07-26 22:22:10.127057
+1318	Julia Stiles	2013-07-26 22:22:10.133986	2013-07-26 22:22:10.133986
+1319	Seamus Davey-Fitzpatrick	2013-07-26 22:22:10.138962	2013-07-26 22:22:10.138962
+1320	Gwyneth Paltrow	2013-07-26 22:22:11.141142	2013-07-26 22:22:11.141142
+1321	Mike Myers	2013-07-26 22:22:12.063253	2013-07-26 22:22:12.063253
+1322	Cliff Potts	2013-07-26 22:22:14.710879	2013-07-26 22:22:14.710879
+1323	Ron Rifkin	2013-07-26 22:22:14.715795	2013-07-26 22:22:14.715795
+1324	Scott Weinger	2013-07-26 22:22:15.538676	2013-07-26 22:22:15.538676
+1325	Linda Larkin	2013-07-26 22:22:15.547028	2013-07-26 22:22:15.547028
+1326	Robert Hays	2013-07-26 22:22:16.479198	2013-07-26 22:22:16.479198
+1327	Julie Hagerty	2013-07-26 22:22:16.484263	2013-07-26 22:22:16.484263
+1328	Kareem Abdul-Jabbar	2013-07-26 22:22:16.489217	2013-07-26 22:22:16.489217
+1329	David Naughton	2013-07-26 22:22:17.416343	2013-07-26 22:22:17.416343
+1330	Jenny Agutter	2013-07-26 22:22:17.423434	2013-07-26 22:22:17.423434
+1331	Griffin Dunne	2013-07-26 22:22:17.428432	2013-07-26 22:22:17.428432
+1332	Kelsey Grammer	2013-07-26 22:22:18.327963	2013-07-26 22:22:18.327963
+1333	Julia Louis-Dreyfus	2013-07-26 22:22:18.338629	2013-07-26 22:22:18.338629
+1334	Elizabeth Hurley	2013-07-26 22:22:19.140854	2013-07-26 22:22:19.140854
+1335	Michael York	2013-07-26 22:22:19.14609	2013-07-26 22:22:19.14609
+1336	Beyoncé Knowles	2013-07-26 22:22:20.880172	2013-07-26 22:22:20.880172
+1337	Seth Green	2013-07-26 22:22:20.886022	2013-07-26 22:22:20.886022
+1338	Spencer Tracy	2013-07-26 22:22:22.981249	2013-07-26 22:22:22.981249
+1339	Burt Lancaster	2013-07-26 22:22:22.987213	2013-07-26 22:22:22.987213
+1340	Richard Widmark	2013-07-26 22:22:22.992243	2013-07-26 22:22:22.992243
+1341	Chhabi Biswas	2013-07-26 22:22:23.738581	2013-07-26 22:22:23.738581
+1342	Padmadevi	2013-07-26 22:22:23.746466	2013-07-26 22:22:23.746466
+1343	Kali Sarkar	2013-07-26 22:22:23.751354	2013-07-26 22:22:23.751354
+1344	Yoshikatsu Fujiki	2013-07-26 22:22:24.38003	2013-07-26 22:22:24.38003
+1345	Sumi Mutou	2013-07-26 22:22:24.387893	2013-07-26 22:22:24.387893
+1346	Hiroyuki Kinosha	2013-07-26 22:22:24.392876	2013-07-26 22:22:24.392876
+1347	Richard Roxburgh	2013-07-26 22:22:25.140743	2013-07-26 22:22:25.140743
+1348	April Grace	2013-07-26 22:22:27.518087	2013-07-26 22:22:27.518087
+1349	Patricia Clarkson	2013-07-26 22:22:27.522889	2013-07-26 22:22:27.522889
+1350	Alec Guinness	2013-07-26 22:22:28.281739	2013-07-26 22:22:28.281739
+1351	Simone Signoret	2013-07-26 22:22:29.681133	2013-07-26 22:22:29.681133
+1352	Véra Clouzot	2013-07-26 22:22:29.68794	2013-07-26 22:22:29.68794
+1353	Paul Meurisse	2013-07-26 22:22:29.69315	2013-07-26 22:22:29.69315
+1354	Michael Rennie	2013-07-26 22:22:30.396981	2013-07-26 22:22:30.396981
+1355	Hugh Marlowe	2013-07-26 22:22:30.407448	2013-07-26 22:22:30.407448
+1356	John Huston	2013-07-26 22:22:31.340725	2013-07-26 22:22:31.340725
+1357	Walter Pidgeon	2013-07-26 22:22:32.120163	2013-07-26 22:22:32.120163
+1358	Anne Francis	2013-07-26 22:22:32.125158	2013-07-26 22:22:32.125158
+1359	Leslie Nielsen	2013-07-26 22:22:32.13033	2013-07-26 22:22:32.13033
+1360	Jeff Morrow	2013-07-26 22:22:32.644015	2013-07-26 22:22:32.644015
+1361	Faith Domergue	2013-07-26 22:22:32.651059	2013-07-26 22:22:32.651059
+1362	Rex Reason	2013-07-26 22:22:32.655863	2013-07-26 22:22:32.655863
+1363	Peter Lorre	2013-07-26 22:22:33.355316	2013-07-26 22:22:33.355316
+1364	Ellen Widmann	2013-07-26 22:22:33.361765	2013-07-26 22:22:33.361765
+1365	Inge Landgut	2013-07-26 22:22:33.366773	2013-07-26 22:22:33.366773
+1366	Carlo Battisti	2013-07-26 22:22:34.353998	2013-07-26 22:22:34.353998
+1367	Maria-Pia Casilio	2013-07-26 22:22:34.359195	2013-07-26 22:22:34.359195
+1368	Lina Gennari	2013-07-26 22:22:34.364259	2013-07-26 22:22:34.364259
+1369	Tony Curran	2013-07-26 22:22:35.064403	2013-07-26 22:22:35.064403
+1370	Hans Albers	2013-07-26 22:22:36.020508	2013-07-26 22:22:36.020508
+1371	Sybille Schmitz	2013-07-26 22:22:36.028322	2013-07-26 22:22:36.028322
+1372	Paul Hartmann	2013-07-26 22:22:36.03338	2013-07-26 22:22:36.03338
+1373	Átila Iório	2013-07-26 22:22:36.540287	2013-07-26 22:22:36.540287
+1374	Maria Ribeiro	2013-07-26 22:22:36.548555	2013-07-26 22:22:36.548555
+1375	Orlando Macedo	2013-07-26 22:22:36.553429	2013-07-26 22:22:36.553429
+1376	Sonja Smits	2013-07-26 22:22:37.628071	2013-07-26 22:22:37.628071
+1377	Deborah Harry	2013-07-26 22:22:37.633444	2013-07-26 22:22:37.633444
+1378	Ron Howard	2013-07-26 22:22:38.395205	2013-07-26 22:22:38.395205
+1379	Paul Le Mat	2013-07-26 22:22:38.40036	2013-07-26 22:22:38.40036
+1380	Dennis Weaver	2013-07-26 22:22:40.058347	2013-07-26 22:22:40.058347
+1381	Eddie Firestone	2013-07-26 22:22:40.065023	2013-07-26 22:22:40.065023
+1382	Gene Dynarski	2013-07-26 22:22:40.069929	2013-07-26 22:22:40.069929
+1383	François Truffaut	2013-07-26 22:22:41.192157	2013-07-26 22:22:41.192157
+1384	Teri Garr	2013-07-26 22:22:41.197989	2013-07-26 22:22:41.197989
+1385	Francesca Annis	2013-07-26 22:22:41.976794	2013-07-26 22:22:41.976794
+1386	Leonardo Cimino	2013-07-26 22:22:41.984545	2013-07-26 22:22:41.984545
+1387	Brad Dourif	2013-07-26 22:22:41.989481	2013-07-26 22:22:41.989481
+1388	Siu Ping-Lam	2013-07-26 22:22:43.666188	2013-07-26 22:22:43.666188
+1389	Faye Wong	2013-07-26 22:22:44.291796	2013-07-26 22:22:44.291796
+1390	Farley Granger	2013-07-26 22:22:45.245195	2013-07-26 22:22:45.245195
+1391	Ruth Roman	2013-07-26 22:22:45.251708	2013-07-26 22:22:45.251708
+1392	Robert Walker	2013-07-26 22:22:45.256997	2013-07-26 22:22:45.256997
+1393	David Duchovny	2013-07-26 22:22:46.073849	2013-07-26 22:22:46.073849
+1394	Gillian Anderson	2013-07-26 22:22:46.081706	2013-07-26 22:22:46.081706
+1395	Warwick Davis	2013-07-26 22:22:46.779039	2013-07-26 22:22:46.779039
+1396	Joanne Whalley	2013-07-26 22:22:46.788543	2013-07-26 22:22:46.788543
+1397	Peter MacNicol	2013-07-26 22:22:47.978736	2013-07-26 22:22:47.978736
+1398	Caitlin Clarke	2013-07-26 22:22:47.986468	2013-07-26 22:22:47.986468
+1399	Ralph Richardson	2013-07-26 22:22:47.991388	2013-07-26 22:22:47.991388
+1400	Ken Marshall	2013-07-26 22:22:49.195792	2013-07-26 22:22:49.195792
+1401	Lysette Anthony	2013-07-26 22:22:49.203021	2013-07-26 22:22:49.203021
+1402	Melinda Dillon	2013-07-26 22:22:50.019694	2013-07-26 22:22:50.019694
+1403	Darren McGavin	2013-07-26 22:22:50.02733	2013-07-26 22:22:50.02733
+1404	Peter Billingsley	2013-07-26 22:22:50.032632	2013-07-26 22:22:50.032632
+1405	Celia Johnson	2013-07-26 22:22:50.652793	2013-07-26 22:22:50.652793
+1406	Trevor Howard	2013-07-26 22:22:50.661025	2013-07-26 22:22:50.661025
+1407	Stanley Holloway	2013-07-26 22:22:50.666065	2013-07-26 22:22:50.666065
+1408	Heinz Rühmann	2013-07-26 22:22:51.560412	2013-07-26 22:22:51.560412
+1409	Sigfrit Steiner	2013-07-26 22:22:51.565788	2013-07-26 22:22:51.565788
+1410	Siegfried Lowitz	2013-07-26 22:22:51.570603	2013-07-26 22:22:51.570603
+1411	Nancy Fish	2013-07-26 22:22:53.038869	2013-07-26 22:22:53.038869
+1412	Jason Isaacs	2013-07-26 22:22:53.93969	2013-07-26 22:22:53.93969
+1413	Bob Hoskins	2013-07-26 22:22:54.777588	2013-07-26 22:22:54.777588
+1414	Joanna Cassidy	2013-07-26 22:22:54.78995	2013-07-26 22:22:54.78995
+1415	Dennis Farina	2013-07-26 22:22:55.852031	2013-07-26 22:22:55.852031
+1416	Dabney Coleman	2013-07-26 22:22:57.89346	2013-07-26 22:22:57.89346
+1417	John Wood	2013-07-26 22:22:57.898181	2013-07-26 22:22:57.898181
+1418	Rachel Ticotin	2013-07-26 22:22:59.642796	2013-07-26 22:22:59.642796
+1419	Tim Allen	2013-07-26 22:23:00.873753	2013-07-26 22:23:00.873753
+1420	Don Rickles	2013-07-26 22:23:00.87901	2013-07-26 22:23:00.87901
+1421	Leon	2013-07-26 22:23:02.920858	2013-07-26 22:23:02.920858
+1422	Doug E. Doug	2013-07-26 22:23:02.928104	2013-07-26 22:23:02.928104
+1423	Rawle D. Lewis	2013-07-26 22:23:02.933354	2013-07-26 22:23:02.933354
+1424	Richard Dawson	2013-07-26 22:23:03.652631	2013-07-26 22:23:03.652631
+1425	Maria Conchita Alonso	2013-07-26 22:23:03.657813	2013-07-26 22:23:03.657813
+1426	Julie Christie	2013-07-26 22:23:04.344237	2013-07-26 22:23:04.344237
+1427	William Baldwin	2013-07-26 22:23:04.960205	2013-07-26 22:23:04.960205
+1428	Presley Chweneyagae	2013-07-26 22:23:05.904375	2013-07-26 22:23:05.904375
+1429	Jerry Mofokeng	2013-07-26 22:23:05.912824	2013-07-26 22:23:05.912824
+1430	Terry Pheto	2013-07-26 22:23:05.917463	2013-07-26 22:23:05.917463
+1431	Mark Wahlberg	2013-07-26 22:23:06.634422	2013-07-26 22:23:06.634422
+1432	Miho Kanno	2013-07-26 22:23:07.170347	2013-07-26 22:23:07.170347
+1433	Hidetoshi Nishijima	2013-07-26 22:23:07.177143	2013-07-26 22:23:07.177143
+1434	Tatsuya Mihashi	2013-07-26 22:23:07.18213	2013-07-26 22:23:07.18213
+1435	Roddy McDowall	2013-07-26 22:23:08.047171	2013-07-26 22:23:08.047171
+1436	Gene Kelly	2013-07-26 22:23:08.74256	2013-07-26 22:23:08.74256
+1437	Donald O'Connor	2013-07-26 22:23:08.747934	2013-07-26 22:23:08.747934
+1438	Debbie Reynolds	2013-07-26 22:23:08.752853	2013-07-26 22:23:08.752853
+1439	Whoopi Goldberg	2013-07-26 22:23:09.850093	2013-07-26 22:23:09.850093
+1440	Margaret Avery	2013-07-26 22:23:09.856168	2013-07-26 22:23:09.856168
+1441	Paul Scofield	2013-07-26 22:23:10.460921	2013-07-26 22:23:10.460921
+1442	Wendy Hiller	2013-07-26 22:23:10.468066	2013-07-26 22:23:10.468066
+1443	Leo McKern	2013-07-26 22:23:10.473074	2013-07-26 22:23:10.473074
+1444	Clive Brook	2013-07-26 22:23:11.226497	2013-07-26 22:23:11.226497
+1445	Anna May Wong	2013-07-26 22:23:11.231101	2013-07-26 22:23:11.231101
+1446	William Hurt	2013-07-26 22:23:11.889612	2013-07-26 22:23:11.889612
+1447	Alec Newman	2013-07-26 22:23:11.895055	2013-07-26 22:23:11.895055
+1448	Saskia Reeves	2013-07-26 22:23:11.899777	2013-07-26 22:23:11.899777
+1449	Paul Muni	2013-07-26 22:23:12.826021	2013-07-26 22:23:12.826021
+1450	Ann Dvorak	2013-07-26 22:23:12.831377	2013-07-26 22:23:12.831377
+1451	Karen Morley	2013-07-26 22:23:12.836187	2013-07-26 22:23:12.836187
+1452	Karin Himboldt	2013-07-26 22:23:13.710136	2013-07-26 22:23:13.710136
+1453	Hilde Sessak	2013-07-26 22:23:13.715219	2013-07-26 22:23:13.715219
+1454	Willeke van Ammelrooy	2013-07-26 22:23:15.512147	2013-07-26 22:23:15.512147
+1455	Els Dottermans	2013-07-26 22:23:15.520463	2013-07-26 22:23:15.520463
+1456	Dora van der Groen	2013-07-26 22:23:15.526033	2013-07-26 22:23:15.526033
+1457	Julia Martinek	2013-07-26 22:23:17.010888	2013-07-26 22:23:17.010888
+1458	David Hoppe	2013-07-26 22:23:17.015965	2013-07-26 22:23:17.015965
+1459	Fedor Hoppe	2013-07-26 22:23:17.020701	2013-07-26 22:23:17.020701
+1460	Steven Wright	2013-07-26 22:23:18.209711	2013-07-26 22:23:18.209711
+1461	Joie Lee	2013-07-26 22:23:18.215259	2013-07-26 22:23:18.215259
+1462	James Spader	2013-07-26 22:23:19.267602	2013-07-26 22:23:19.267602
+1463	Deborah Kara Unger	2013-07-26 22:23:19.274817	2013-07-26 22:23:19.274817
+1464	George Bancroft	2013-07-26 22:23:19.976929	2013-07-26 22:23:19.976929
+1465	Betty Compson	2013-07-26 22:23:19.982121	2013-07-26 22:23:19.982121
+1466	Steve McQueen	2013-07-26 22:23:20.941359	2013-07-26 22:23:20.941359
+1467	Edward G. Robinson	2013-07-26 22:23:20.94948	2013-07-26 22:23:20.94948
+1468	Ann-Margret	2013-07-26 22:23:20.954355	2013-07-26 22:23:20.954355
+1469	Fredric March	2013-07-26 22:23:21.617868	2013-07-26 22:23:21.617868
+1470	Myrna Loy	2013-07-26 22:23:21.624863	2013-07-26 22:23:21.624863
+1471	Dana Andrews	2013-07-26 22:23:21.629998	2013-07-26 22:23:21.629998
+1472	Elizabeth Perkins	2013-07-26 22:23:22.249494	2013-07-26 22:23:22.249494
+1473	Rick Moranis	2013-07-26 22:23:22.254514	2013-07-26 22:23:22.254514
+1474	Mark Addy	2013-07-26 22:23:22.927961	2013-07-26 22:23:22.927961
+1475	Kristen Johnston	2013-07-26 22:23:22.937269	2013-07-26 22:23:22.937269
+1476	André Eisermann	2013-07-26 22:23:23.460317	2013-07-26 22:23:23.460317
+1477	Dana Vávrová	2013-07-26 22:23:23.468037	2013-07-26 22:23:23.468037
+1478	Ben Becker	2013-07-26 22:23:23.473166	2013-07-26 22:23:23.473166
+1479	Jack Warden	2013-07-26 22:23:24.545698	2013-07-26 22:23:24.545698
+1480	Dominique Pinon	2013-07-26 22:23:25.600937	2013-07-26 22:23:25.600937
+1481	Marie-Laure Dougnac	2013-07-26 22:23:25.605945	2013-07-26 22:23:25.605945
+1482	Jean-Claude Dreyfus	2013-07-26 22:23:25.611338	2013-07-26 22:23:25.611338
+1483	Axel Prahl	2013-07-26 22:23:26.148637	2013-07-26 22:23:26.148637
+1484	Yevgeni Sitokhin	2013-07-26 22:23:26.153733	2013-07-26 22:23:26.153733
+1485	Anne Ratte-Polle	2013-07-26 22:23:27.008274	2013-07-26 22:23:27.008274
+1486	Анатолий Солоницын	2013-07-26 22:23:27.977186	2013-07-26 22:23:27.977186
+1487	Иван Лапиков	2013-07-26 22:23:27.982451	2013-07-26 22:23:27.982451
+1488	Nikolay Grinko	2013-07-26 22:23:27.987518	2013-07-26 22:23:27.987518
+1489	Soumitra Chatterjee	2013-07-26 22:23:28.508583	2013-07-26 22:23:28.508583
+1490	Sharmila Tagore	2013-07-26 22:23:28.516173	2013-07-26 22:23:28.516173
+1491	Alok Chakravarty	2013-07-26 22:23:28.521161	2013-07-26 22:23:28.521161
+1492	Kanu Bannerjee	2013-07-26 22:23:29.326965	2013-07-26 22:23:29.326965
+1493	Karuna Bannerjee	2013-07-26 22:23:29.333037	2013-07-26 22:23:29.333037
+1494	Smaran Ghosal	2013-07-26 22:23:29.337889	2013-07-26 22:23:29.337889
+1495	Thelma Ritter	2013-07-26 22:23:30.380678	2013-07-26 22:23:30.380678
+1496	Richard Barthelmess	2013-07-26 22:23:31.137354	2013-07-26 22:23:31.137354
+1497	Donald Crisp	2013-07-26 22:23:31.142611	2013-07-26 22:23:31.142611
+1498	May Robson	2013-07-26 22:23:31.886791	2013-07-26 22:23:31.886791
+1499	Charlie Chaplin	2013-07-26 22:23:32.497293	2013-07-26 22:23:32.497293
+1500	Virginia Cherrill	2013-07-26 22:23:32.504172	2013-07-26 22:23:32.504172
+1501	Florence Lee	2013-07-26 22:23:32.509162	2013-07-26 22:23:32.509162
+1502	Ron Perlman	2013-07-26 22:23:33.174771	2013-07-26 22:23:33.174771
+1503	Judith Vittet	2013-07-26 22:23:33.185079	2013-07-26 22:23:33.185079
+1504	George Kennedy	2013-07-26 22:23:33.976402	2013-07-26 22:23:33.976402
+1505	Luke Askew	2013-07-26 22:23:33.982001	2013-07-26 22:23:33.982001
+1506	Louise Brooks	2013-07-26 22:23:35.420862	2013-07-26 22:23:35.420862
+1507	Fritz Kortner	2013-07-26 22:23:35.428875	2013-07-26 22:23:35.428875
+1508	Francis Lederer	2013-07-26 22:23:35.433789	2013-07-26 22:23:35.433789
+1509	Lilian Harvey	2013-07-26 22:23:36.222282	2013-07-26 22:23:36.222282
+1510	Willy Fritsch	2013-07-26 22:23:36.227206	2013-07-26 22:23:36.227206
+1511	Oskar Karlweis	2013-07-26 22:23:36.23229	2013-07-26 22:23:36.23229
+1512	Geraldine Chaplin	2013-07-26 22:23:37.014106	2013-07-26 22:23:37.014106
+1513	Margaret O'Brien	2013-07-26 22:23:38.253678	2013-07-26 22:23:38.253678
+1514	Mary Astor	2013-07-26 22:23:38.258374	2013-07-26 22:23:38.258374
+1515	John Ridgely	2013-07-26 22:23:39.036977	2013-07-26 22:23:39.036977
+1516	W.C. Fields	2013-07-26 22:23:39.564938	2013-07-26 22:23:39.564938
+1517	Cora Witherspoon	2013-07-26 22:23:39.571726	2013-07-26 22:23:39.571726
+1518	Una Merkel	2013-07-26 22:23:39.576693	2013-07-26 22:23:39.576693
+1519	Paul Burke	2013-07-26 22:23:40.563387	2013-07-26 22:23:40.563387
+1520	Rene Russo	2013-07-26 22:23:41.196367	2013-07-26 22:23:41.196367
+1521	Jack Oakie	2013-07-26 22:23:41.961757	2013-07-26 22:23:41.961757
+1522	Reginald Gardiner	2013-07-26 22:23:41.967189	2013-07-26 22:23:41.967189
+1523	Robert Vaughn	2013-07-26 22:23:44.24302	2013-07-26 22:23:44.24302
+1524	Jacqueline Bisset	2013-07-26 22:23:44.248566	2013-07-26 22:23:44.248566
+1525	Nargis	2013-07-26 22:23:45.027054	2013-07-26 22:23:45.027054
+1526	Sunil Dutt	2013-07-26 22:23:45.034808	2013-07-26 22:23:45.034808
+1527	Rajendra Kumar	2013-07-26 22:23:45.039761	2013-07-26 22:23:45.039761
+1528	John Larroquette	2013-07-26 22:23:45.660659	2013-07-26 22:23:45.660659
+1529	Youki Kudoh	2013-07-26 22:23:46.605026	2013-07-26 22:23:46.605026
+1530	Saemi Nakamura	2013-07-26 22:23:46.612649	2013-07-26 22:23:46.612649
+1531	Joe Romersa	2013-07-26 22:23:46.618491	2013-07-26 22:23:46.618491
+1532	Owen Wilson	2013-07-26 22:23:47.367233	2013-07-26 22:23:47.367233
+1533	Paul Giamatti	2013-07-26 22:23:48.163589	2013-07-26 22:23:48.163589
+1534	Gary Farmer	2013-07-26 22:23:49.255606	2013-07-26 22:23:49.255606
+1535	Crispin Glover	2013-07-26 22:23:49.26039	2013-07-26 22:23:49.26039
+1536	David Emge	2013-07-26 22:23:50.024664	2013-07-26 22:23:50.024664
+1537	Ken Foree	2013-07-26 22:23:50.029634	2013-07-26 22:23:50.029634
+1538	Scott H. Reiniger	2013-07-26 22:23:50.03522	2013-07-26 22:23:50.03522
+1539	Ving Rhames	2013-07-26 22:23:50.809018	2013-07-26 22:23:50.809018
+1540	Jake Weber	2013-07-26 22:23:50.814021	2013-07-26 22:23:50.814021
+1541	Ossie Davis	2013-07-26 22:23:51.444907	2013-07-26 22:23:51.444907
+1542	Giancarlo Esposito	2013-07-26 22:23:51.455048	2013-07-26 22:23:51.455048
+1543	Zach Galligan	2013-07-26 22:23:53.034555	2013-07-26 22:23:53.034555
+1544	Phoebe Cates	2013-07-26 22:23:53.042174	2013-07-26 22:23:53.042174
+1545	Hoyt Axton	2013-07-26 22:23:53.047625	2013-07-26 22:23:53.047625
+1546	John Glover	2013-07-26 22:23:53.823816	2013-07-26 22:23:53.823816
+1547	Maria Pitillo	2013-07-26 22:23:54.655539	2013-07-26 22:23:54.655539
+1548	Zarah Leander	2013-07-26 22:23:55.392558	2013-07-26 22:23:55.392558
+1549	Grethe Weiser	2013-07-26 22:23:55.400991	2013-07-26 22:23:55.400991
+1550	Viktor Staal	2013-07-26 22:23:55.406153	2013-07-26 22:23:55.406153
+1551	Hilary Mason	2013-07-26 22:23:56.484509	2013-07-26 22:23:56.484509
+1552	Hildegard Knef	2013-07-26 22:23:57.017461	2013-07-26 22:23:57.017461
+1553	Ernst Wilhelm Borchert	2013-07-26 22:23:57.023075	2013-07-26 22:23:57.023075
+1554	Erna Sellmer	2013-07-26 22:23:57.027857	2013-07-26 22:23:57.027857
+1555	Frank Schöbel	2013-07-26 22:23:57.877916	2013-07-26 22:23:57.877916
+1556	Hanns-Michael Schmidt	2013-07-26 22:23:57.88315	2013-07-26 22:23:57.88315
+1557	Georg-Peter Welzel	2013-07-26 22:23:57.888814	2013-07-26 22:23:57.888814
+1558	Jean Servais	2013-07-26 22:23:58.834175	2013-07-26 22:23:58.834175
+1559	Carl Möhner	2013-07-26 22:23:58.841783	2013-07-26 22:23:58.841783
+1560	Robert Manuel	2013-07-26 22:23:58.846777	2013-07-26 22:23:58.846777
+1561	Peter Sellers	2013-07-26 22:23:59.689426	2013-07-26 22:23:59.689426
+1562	George C. Scott	2013-07-26 22:23:59.696362	2013-07-26 22:23:59.696362
+1563	David Niven	2013-07-26 22:24:00.822852	2013-07-26 22:24:00.822852
+1564	Robert Wagner	2013-07-26 22:24:00.827508	2013-07-26 22:24:00.827508
+1565	Gian Maria Volonté	2013-07-26 22:24:02.878777	2013-07-26 22:24:02.878777
+1566	Al Jolson	2013-07-26 22:24:03.720163	2013-07-26 22:24:03.720163
+1567	May McAvoy	2013-07-26 22:24:03.727781	2013-07-26 22:24:03.727781
+1568	Warner Oland	2013-07-26 22:24:03.732925	2013-07-26 22:24:03.732925
+1569	Margaret Lockwood	2013-07-26 22:24:04.535962	2013-07-26 22:24:04.535962
+1570	Mady Christians	2013-07-26 22:24:09.249838	2013-07-26 22:24:09.249838
+1571	Nancy Kyes	2013-07-26 22:24:10.788256	2013-07-26 22:24:10.788256
+1572	Penelope Ann Miller	2013-07-26 22:24:13.010506	2013-07-26 22:24:13.010506
+1573	Pamela Reed	2013-07-26 22:24:13.015593	2013-07-26 22:24:13.015593
+1574	Chris Rock	2013-07-26 22:24:14.221783	2013-07-26 22:24:14.221783
+1575	David Schwimmer	2013-07-26 22:24:14.227283	2013-07-26 22:24:14.227283
+1576	Jon Voight	2013-07-26 22:24:14.95653	2013-07-26 22:24:14.95653
+1577	Dougray Scott	2013-07-26 22:24:15.702096	2013-07-26 22:24:15.702096
+1578	Thandie Newton	2013-07-26 22:24:15.70899	2013-07-26 22:24:15.70899
+1579	Mel Brooks	2013-07-26 22:24:17.186032	2013-07-26 22:24:17.186032
+1580	Buster Keaton	2013-07-26 22:24:19.283467	2013-07-26 22:24:19.283467
+1581	Marion Mack	2013-07-26 22:24:19.288696	2013-07-26 22:24:19.288696
+1582	Glen Cavender	2013-07-26 22:24:19.293672	2013-07-26 22:24:19.293672
+1583	Georgia Hale	2013-07-26 22:24:19.960753	2013-07-26 22:24:19.960753
+1584	Mack Swain	2013-07-26 22:24:19.965796	2013-07-26 22:24:19.965796
+1585	Gladys George	2013-07-26 22:24:20.592186	2013-07-26 22:24:20.592186
+1586	Lon Chaney	2013-07-26 22:24:21.546581	2013-07-26 22:24:21.546581
+1587	Mary Philbin	2013-07-26 22:24:21.553202	2013-07-26 22:24:21.553202
+1588	Norman Kerry	2013-07-26 22:24:21.559409	2013-07-26 22:24:21.559409
+1589	Dolores Costello	2013-07-26 22:24:22.44096	2013-07-26 22:24:22.44096
+1590	Yul Brynner	2013-07-26 22:24:23.154039	2013-07-26 22:24:23.154039
+1591	Jean Simmons	2013-07-26 22:24:23.931132	2013-07-26 22:24:23.931132
+1592	Charles Durning	2013-07-26 22:24:24.62037	2013-07-26 22:24:24.62037
+1593	Ralph Meeker	2013-07-26 22:24:28.595067	2013-07-26 22:24:28.595067
+1594	Adolphe Menjou	2013-07-26 22:24:28.599973	2013-07-26 22:24:28.599973
+1595	Susan Harrison	2013-07-26 22:24:29.490453	2013-07-26 22:24:29.490453
+1596	Matahi	2013-07-26 22:24:30.016249	2013-07-26 22:24:30.016249
+1597	Anne Chevalier	2013-07-26 22:24:30.022558	2013-07-26 22:24:30.022558
+1598	Bill Bambridge	2013-07-26 22:24:30.02858	2013-07-26 22:24:30.02858
+1599	Jamyang Jamtsho Wangchuk	2013-07-26 22:24:30.740001	2013-07-26 22:24:30.740001
+1600	David Thewlis	2013-07-26 22:24:30.746171	2013-07-26 22:24:30.746171
+1601	Monica Bellucci	2013-07-26 22:24:31.439197	2013-07-26 22:24:31.439197
+1602	Albert Dupontel	2013-07-26 22:24:31.449594	2013-07-26 22:24:31.449594
+1603	Mary Beth Hughes	2013-07-26 22:24:32.257666	2013-07-26 22:24:32.257666
+1604	Laurence Harvey	2013-07-26 22:24:33.59942	2013-07-26 22:24:33.59942
+1605	Christopher Plummer	2013-07-26 22:24:34.242864	2013-07-26 22:24:34.242864
+1606	Andrew Robinson	2013-07-26 22:24:35.453927	2013-07-26 22:24:35.453927
+1607	John Vernon	2013-07-26 22:24:35.458878	2013-07-26 22:24:35.458878
+1608	Jack Nance	2013-07-26 22:24:36.37092	2013-07-26 22:24:36.37092
+1609	Charlotte Stewart	2013-07-26 22:24:36.37816	2013-07-26 22:24:36.37816
+1610	Allen Joseph	2013-07-26 22:24:36.384067	2013-07-26 22:24:36.384067
+1611	Jeanne Moreau	2013-07-26 22:24:37.196668	2013-07-26 22:24:37.196668
+1612	Robert Young	2013-07-26 22:24:40.311915	2013-07-26 22:24:40.311915
+1613	Jackie Gleason	2013-07-26 22:24:40.957788	2013-07-26 22:24:40.957788
+1614	Piper Laurie	2013-07-26 22:24:40.962437	2013-07-26 22:24:40.962437
+1615	David Bowie	2013-07-26 22:24:41.63042	2013-07-26 22:24:41.63042
+1616	Candy Clark	2013-07-26 22:24:41.640239	2013-07-26 22:24:41.640239
+1617	Kathryn McGuire	2013-07-26 22:24:42.643418	2013-07-26 22:24:42.643418
+1618	Joe Keaton	2013-07-26 22:24:42.648849	2013-07-26 22:24:42.648849
+1619	Alec Cawthorne	2013-07-26 22:24:43.225806	2013-07-26 22:24:43.225806
+1620	Susan George	2013-07-26 22:24:43.904401	2013-07-26 22:24:43.904401
+1621	Peter Vaughan	2013-07-26 22:24:43.909192	2013-07-26 22:24:43.909192
+1622	Claire Trevor	2013-07-26 22:24:44.596697	2013-07-26 22:24:44.596697
+1623	Andy Devine	2013-07-26 22:24:44.606781	2013-07-26 22:24:44.606781
+1624	Barbara Stanwyck	2013-07-26 22:24:45.326584	2013-07-26 22:24:45.326584
+\.
+
+
+--
+-- Name: actors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: apprentice
+--
+
+SELECT pg_catalog.setval('actors_id_seq', 1624, true);
+
+
+--
+-- Data for Name: actors_movies; Type: TABLE DATA; Schema: public; Owner: apprentice
+--
+
+COPY actors_movies (id, movie_id, actor_id, created_at, updated_at) FROM stdin;
+1	1	1	2013-07-26 22:12:09.412721	2013-07-26 22:12:09.412721
+2	1	2	2013-07-26 22:12:09.420656	2013-07-26 22:12:09.420656
+3	1	3	2013-07-26 22:12:09.426185	2013-07-26 22:12:09.426185
+4	2	3	2013-07-26 22:12:10.012052	2013-07-26 22:12:10.012052
+5	2	4	2013-07-26 22:12:10.019269	2013-07-26 22:12:10.019269
+6	2	5	2013-07-26 22:12:10.024022	2013-07-26 22:12:10.024022
+7	3	6	2013-07-26 22:12:11.235795	2013-07-26 22:12:11.235795
+8	3	7	2013-07-26 22:12:11.240454	2013-07-26 22:12:11.240454
+9	3	8	2013-07-26 22:12:11.244815	2013-07-26 22:12:11.244815
+10	4	9	2013-07-26 22:12:11.782458	2013-07-26 22:12:11.782458
+11	4	10	2013-07-26 22:12:11.787509	2013-07-26 22:12:11.787509
+12	4	11	2013-07-26 22:12:11.792394	2013-07-26 22:12:11.792394
+13	5	12	2013-07-26 22:12:12.904618	2013-07-26 22:12:12.904618
+14	5	12	2013-07-26 22:12:12.908842	2013-07-26 22:12:12.908842
+15	5	12	2013-07-26 22:12:12.912831	2013-07-26 22:12:12.912831
+16	6	13	2013-07-26 22:12:14.99635	2013-07-26 22:12:14.99635
+17	6	14	2013-07-26 22:12:15.001589	2013-07-26 22:12:15.001589
+18	6	15	2013-07-26 22:12:15.00672	2013-07-26 22:12:15.00672
+19	7	16	2013-07-26 22:12:15.912671	2013-07-26 22:12:15.912671
+20	7	17	2013-07-26 22:12:15.919084	2013-07-26 22:12:15.919084
+21	7	18	2013-07-26 22:12:15.923621	2013-07-26 22:12:15.923621
+22	8	19	2013-07-26 22:12:16.706956	2013-07-26 22:12:16.706956
+23	8	20	2013-07-26 22:12:16.712729	2013-07-26 22:12:16.712729
+24	8	21	2013-07-26 22:12:16.71854	2013-07-26 22:12:16.71854
+25	9	22	2013-07-26 22:12:17.562345	2013-07-26 22:12:17.562345
+26	9	23	2013-07-26 22:12:17.567703	2013-07-26 22:12:17.567703
+27	9	24	2013-07-26 22:12:17.572728	2013-07-26 22:12:17.572728
+28	10	25	2013-07-26 22:12:18.359334	2013-07-26 22:12:18.359334
+29	10	26	2013-07-26 22:12:18.364099	2013-07-26 22:12:18.364099
+30	10	27	2013-07-26 22:12:18.369714	2013-07-26 22:12:18.369714
+31	11	28	2013-07-26 22:12:19.003408	2013-07-26 22:12:19.003408
+32	11	29	2013-07-26 22:12:19.008397	2013-07-26 22:12:19.008397
+33	11	30	2013-07-26 22:12:19.014593	2013-07-26 22:12:19.014593
+34	12	31	2013-07-26 22:12:19.594567	2013-07-26 22:12:19.594567
+35	12	32	2013-07-26 22:12:19.599204	2013-07-26 22:12:19.599204
+36	12	33	2013-07-26 22:12:19.604216	2013-07-26 22:12:19.604216
+37	13	34	2013-07-26 22:12:20.379453	2013-07-26 22:12:20.379453
+38	13	35	2013-07-26 22:12:20.384564	2013-07-26 22:12:20.384564
+39	13	36	2013-07-26 22:12:20.389585	2013-07-26 22:12:20.389585
+40	14	37	2013-07-26 22:12:21.113694	2013-07-26 22:12:21.113694
+41	14	38	2013-07-26 22:12:21.118945	2013-07-26 22:12:21.118945
+42	14	39	2013-07-26 22:12:21.123589	2013-07-26 22:12:21.123589
+43	15	40	2013-07-26 22:12:21.797979	2013-07-26 22:12:21.797979
+44	15	41	2013-07-26 22:12:21.804694	2013-07-26 22:12:21.804694
+45	15	42	2013-07-26 22:12:21.809719	2013-07-26 22:12:21.809719
+46	16	43	2013-07-26 22:12:22.320223	2013-07-26 22:12:22.320223
+47	16	44	2013-07-26 22:12:22.325024	2013-07-26 22:12:22.325024
+48	16	12	2013-07-26 22:12:22.327916	2013-07-26 22:12:22.327916
+49	17	45	2013-07-26 22:12:23.185005	2013-07-26 22:12:23.185005
+50	17	46	2013-07-26 22:12:23.190228	2013-07-26 22:12:23.190228
+51	17	47	2013-07-26 22:12:23.194929	2013-07-26 22:12:23.194929
+52	18	48	2013-07-26 22:12:24.463787	2013-07-26 22:12:24.463787
+53	18	49	2013-07-26 22:12:24.470147	2013-07-26 22:12:24.470147
+54	18	50	2013-07-26 22:12:24.475068	2013-07-26 22:12:24.475068
+55	19	51	2013-07-26 22:12:25.798473	2013-07-26 22:12:25.798473
+56	19	52	2013-07-26 22:12:25.804243	2013-07-26 22:12:25.804243
+57	19	53	2013-07-26 22:12:25.809073	2013-07-26 22:12:25.809073
+58	20	54	2013-07-26 22:12:26.397421	2013-07-26 22:12:26.397421
+59	20	55	2013-07-26 22:12:26.402475	2013-07-26 22:12:26.402475
+60	20	56	2013-07-26 22:12:26.40844	2013-07-26 22:12:26.40844
+61	21	57	2013-07-26 22:12:27.041968	2013-07-26 22:12:27.041968
+62	21	58	2013-07-26 22:12:27.046652	2013-07-26 22:12:27.046652
+63	21	59	2013-07-26 22:12:27.052184	2013-07-26 22:12:27.052184
+64	22	60	2013-07-26 22:12:27.688819	2013-07-26 22:12:27.688819
+65	22	61	2013-07-26 22:12:27.693785	2013-07-26 22:12:27.693785
+66	22	62	2013-07-26 22:12:27.699946	2013-07-26 22:12:27.699946
+67	23	63	2013-07-26 22:12:30.707605	2013-07-26 22:12:30.707605
+68	23	64	2013-07-26 22:12:30.714452	2013-07-26 22:12:30.714452
+69	23	65	2013-07-26 22:12:30.719991	2013-07-26 22:12:30.719991
+70	24	66	2013-07-26 22:12:31.96951	2013-07-26 22:12:31.96951
+71	24	67	2013-07-26 22:12:31.975007	2013-07-26 22:12:31.975007
+72	24	68	2013-07-26 22:12:31.979744	2013-07-26 22:12:31.979744
+73	25	69	2013-07-26 22:12:33.67926	2013-07-26 22:12:33.67926
+74	25	70	2013-07-26 22:12:33.684289	2013-07-26 22:12:33.684289
+75	25	71	2013-07-26 22:12:33.689376	2013-07-26 22:12:33.689376
+76	26	72	2013-07-26 22:12:42.586587	2013-07-26 22:12:42.586587
+77	26	73	2013-07-26 22:12:42.591936	2013-07-26 22:12:42.591936
+78	26	74	2013-07-26 22:12:42.597853	2013-07-26 22:12:42.597853
+79	27	45	2013-07-26 22:12:44.520738	2013-07-26 22:12:44.520738
+80	27	47	2013-07-26 22:12:44.523996	2013-07-26 22:12:44.523996
+81	27	46	2013-07-26 22:12:44.527121	2013-07-26 22:12:44.527121
+82	28	75	2013-07-26 22:12:45.156969	2013-07-26 22:12:45.156969
+83	28	32	2013-07-26 22:12:45.160815	2013-07-26 22:12:45.160815
+84	28	76	2013-07-26 22:12:45.165337	2013-07-26 22:12:45.165337
+85	29	77	2013-07-26 22:12:47.12643	2013-07-26 22:12:47.12643
+86	29	78	2013-07-26 22:12:47.13093	2013-07-26 22:12:47.13093
+87	29	79	2013-07-26 22:12:47.135324	2013-07-26 22:12:47.135324
+88	30	34	2013-07-26 22:12:48.489225	2013-07-26 22:12:48.489225
+89	30	80	2013-07-26 22:12:48.495832	2013-07-26 22:12:48.495832
+90	30	81	2013-07-26 22:12:48.500574	2013-07-26 22:12:48.500574
+91	31	82	2013-07-26 22:12:49.209489	2013-07-26 22:12:49.209489
+92	31	83	2013-07-26 22:12:49.214414	2013-07-26 22:12:49.214414
+93	31	84	2013-07-26 22:12:49.219199	2013-07-26 22:12:49.219199
+94	32	85	2013-07-26 22:12:49.96976	2013-07-26 22:12:49.96976
+95	32	86	2013-07-26 22:12:49.97478	2013-07-26 22:12:49.97478
+96	32	87	2013-07-26 22:12:49.980127	2013-07-26 22:12:49.980127
+97	33	63	2013-07-26 22:12:50.583026	2013-07-26 22:12:50.583026
+98	33	64	2013-07-26 22:12:50.585818	2013-07-26 22:12:50.585818
+99	33	88	2013-07-26 22:12:50.59022	2013-07-26 22:12:50.59022
+100	34	89	2013-07-26 22:12:51.211279	2013-07-26 22:12:51.211279
+101	34	90	2013-07-26 22:12:51.216486	2013-07-26 22:12:51.216486
+102	34	91	2013-07-26 22:12:51.221029	2013-07-26 22:12:51.221029
+103	35	92	2013-07-26 22:12:52.401349	2013-07-26 22:12:52.401349
+104	35	93	2013-07-26 22:12:52.407699	2013-07-26 22:12:52.407699
+105	35	94	2013-07-26 22:12:52.413041	2013-07-26 22:12:52.413041
+106	36	95	2013-07-26 22:12:53.218912	2013-07-26 22:12:53.218912
+107	36	96	2013-07-26 22:12:53.22421	2013-07-26 22:12:53.22421
+108	36	97	2013-07-26 22:12:53.229706	2013-07-26 22:12:53.229706
+109	37	63	2013-07-26 22:12:53.916253	2013-07-26 22:12:53.916253
+110	37	98	2013-07-26 22:12:53.921755	2013-07-26 22:12:53.921755
+111	37	99	2013-07-26 22:12:53.927871	2013-07-26 22:12:53.927871
+112	38	100	2013-07-26 22:12:54.546703	2013-07-26 22:12:54.546703
+113	38	101	2013-07-26 22:12:54.551415	2013-07-26 22:12:54.551415
+114	38	102	2013-07-26 22:12:54.556301	2013-07-26 22:12:54.556301
+115	39	103	2013-07-26 22:12:55.94452	2013-07-26 22:12:55.94452
+116	39	104	2013-07-26 22:12:55.949693	2013-07-26 22:12:55.949693
+117	39	105	2013-07-26 22:12:55.954619	2013-07-26 22:12:55.954619
+118	40	106	2013-07-26 22:12:56.793651	2013-07-26 22:12:56.793651
+119	40	107	2013-07-26 22:12:56.798634	2013-07-26 22:12:56.798634
+120	40	108	2013-07-26 22:12:56.803335	2013-07-26 22:12:56.803335
+121	41	109	2013-07-26 22:12:57.523205	2013-07-26 22:12:57.523205
+122	41	110	2013-07-26 22:12:57.528049	2013-07-26 22:12:57.528049
+123	41	23	2013-07-26 22:12:57.531386	2013-07-26 22:12:57.531386
+124	42	111	2013-07-26 22:12:58.192676	2013-07-26 22:12:58.192676
+125	42	112	2013-07-26 22:12:58.198195	2013-07-26 22:12:58.198195
+126	42	113	2013-07-26 22:12:58.203175	2013-07-26 22:12:58.203175
+127	43	114	2013-07-26 22:12:58.903602	2013-07-26 22:12:58.903602
+128	43	115	2013-07-26 22:12:58.908627	2013-07-26 22:12:58.908627
+129	43	116	2013-07-26 22:12:58.913668	2013-07-26 22:12:58.913668
+130	44	15	2013-07-26 22:13:00.033043	2013-07-26 22:13:00.033043
+131	44	117	2013-07-26 22:13:00.03813	2013-07-26 22:13:00.03813
+132	44	118	2013-07-26 22:13:00.042879	2013-07-26 22:13:00.042879
+133	45	119	2013-07-26 22:13:00.834351	2013-07-26 22:13:00.834351
+134	45	120	2013-07-26 22:13:00.839407	2013-07-26 22:13:00.839407
+135	45	121	2013-07-26 22:13:00.844159	2013-07-26 22:13:00.844159
+136	46	112	2013-07-26 22:13:01.487892	2013-07-26 22:13:01.487892
+137	46	111	2013-07-26 22:13:01.491289	2013-07-26 22:13:01.491289
+138	46	122	2013-07-26 22:13:01.496628	2013-07-26 22:13:01.496628
+139	47	123	2013-07-26 22:13:02.37063	2013-07-26 22:13:02.37063
+140	47	124	2013-07-26 22:13:02.375254	2013-07-26 22:13:02.375254
+141	47	125	2013-07-26 22:13:02.380463	2013-07-26 22:13:02.380463
+142	48	51	2013-07-26 22:13:03.100207	2013-07-26 22:13:03.100207
+143	48	126	2013-07-26 22:13:03.106529	2013-07-26 22:13:03.106529
+144	48	127	2013-07-26 22:13:03.111203	2013-07-26 22:13:03.111203
+145	49	128	2013-07-26 22:13:03.919438	2013-07-26 22:13:03.919438
+146	49	129	2013-07-26 22:13:03.924332	2013-07-26 22:13:03.924332
+147	49	130	2013-07-26 22:13:03.928953	2013-07-26 22:13:03.928953
+148	50	15	2013-07-26 22:13:05.819209	2013-07-26 22:13:05.819209
+149	50	131	2013-07-26 22:13:05.824137	2013-07-26 22:13:05.824137
+150	50	132	2013-07-26 22:13:05.828842	2013-07-26 22:13:05.828842
+151	51	133	2013-07-26 22:13:07.010763	2013-07-26 22:13:07.010763
+152	51	134	2013-07-26 22:13:07.015798	2013-07-26 22:13:07.015798
+153	51	135	2013-07-26 22:13:07.020419	2013-07-26 22:13:07.020419
+154	52	15	2013-07-26 22:13:08.116406	2013-07-26 22:13:08.116406
+155	52	136	2013-07-26 22:13:08.121326	2013-07-26 22:13:08.121326
+156	52	137	2013-07-26 22:13:08.126008	2013-07-26 22:13:08.126008
+157	53	138	2013-07-26 22:13:09.054332	2013-07-26 22:13:09.054332
+158	53	139	2013-07-26 22:13:09.059159	2013-07-26 22:13:09.059159
+159	53	140	2013-07-26 22:13:09.063948	2013-07-26 22:13:09.063948
+160	54	15	2013-07-26 22:13:09.984745	2013-07-26 22:13:09.984745
+161	54	141	2013-07-26 22:13:09.98949	2013-07-26 22:13:09.98949
+162	54	142	2013-07-26 22:13:09.994043	2013-07-26 22:13:09.994043
+163	55	143	2013-07-26 22:13:10.807818	2013-07-26 22:13:10.807818
+164	55	144	2013-07-26 22:13:10.812454	2013-07-26 22:13:10.812454
+165	55	145	2013-07-26 22:13:10.817486	2013-07-26 22:13:10.817486
+166	56	146	2013-07-26 22:13:12.024652	2013-07-26 22:13:12.024652
+167	56	147	2013-07-26 22:13:12.029602	2013-07-26 22:13:12.029602
+168	56	148	2013-07-26 22:13:12.035252	2013-07-26 22:13:12.035252
+169	57	149	2013-07-26 22:13:13.239398	2013-07-26 22:13:13.239398
+170	57	150	2013-07-26 22:13:13.244095	2013-07-26 22:13:13.244095
+171	57	151	2013-07-26 22:13:13.249107	2013-07-26 22:13:13.249107
+172	58	34	2013-07-26 22:13:14.626562	2013-07-26 22:13:14.626562
+173	58	152	2013-07-26 22:13:14.633991	2013-07-26 22:13:14.633991
+174	58	153	2013-07-26 22:13:14.638833	2013-07-26 22:13:14.638833
+175	59	143	2013-07-26 22:13:15.406848	2013-07-26 22:13:15.406848
+176	59	144	2013-07-26 22:13:15.409981	2013-07-26 22:13:15.409981
+177	59	145	2013-07-26 22:13:15.41298	2013-07-26 22:13:15.41298
+178	60	154	2013-07-26 22:13:16.284665	2013-07-26 22:13:16.284665
+179	60	155	2013-07-26 22:13:16.28977	2013-07-26 22:13:16.28977
+180	60	156	2013-07-26 22:13:16.294244	2013-07-26 22:13:16.294244
+181	61	157	2013-07-26 22:13:17.336739	2013-07-26 22:13:17.336739
+182	61	95	2013-07-26 22:13:17.339804	2013-07-26 22:13:17.339804
+183	61	158	2013-07-26 22:13:17.344681	2013-07-26 22:13:17.344681
+184	62	159	2013-07-26 22:13:18.080852	2013-07-26 22:13:18.080852
+185	62	160	2013-07-26 22:13:18.088872	2013-07-26 22:13:18.088872
+186	62	161	2013-07-26 22:13:18.094273	2013-07-26 22:13:18.094273
+187	63	162	2013-07-26 22:13:18.983261	2013-07-26 22:13:18.983261
+188	63	163	2013-07-26 22:13:18.988382	2013-07-26 22:13:18.988382
+189	63	164	2013-07-26 22:13:18.993054	2013-07-26 22:13:18.993054
+190	64	165	2013-07-26 22:13:20.028274	2013-07-26 22:13:20.028274
+191	64	166	2013-07-26 22:13:20.036878	2013-07-26 22:13:20.036878
+192	64	167	2013-07-26 22:13:20.04196	2013-07-26 22:13:20.04196
+193	65	168	2013-07-26 22:13:20.983953	2013-07-26 22:13:20.983953
+194	65	169	2013-07-26 22:13:20.989563	2013-07-26 22:13:20.989563
+195	65	170	2013-07-26 22:13:20.994603	2013-07-26 22:13:20.994603
+196	66	93	2013-07-26 22:13:21.894518	2013-07-26 22:13:21.894518
+197	66	171	2013-07-26 22:13:21.899445	2013-07-26 22:13:21.899445
+198	66	172	2013-07-26 22:13:21.904477	2013-07-26 22:13:21.904477
+199	67	173	2013-07-26 22:13:22.687113	2013-07-26 22:13:22.687113
+200	67	134	2013-07-26 22:13:22.690534	2013-07-26 22:13:22.690534
+201	67	174	2013-07-26 22:13:22.695195	2013-07-26 22:13:22.695195
+202	68	175	2013-07-26 22:13:23.693896	2013-07-26 22:13:23.693896
+203	68	176	2013-07-26 22:13:23.698569	2013-07-26 22:13:23.698569
+204	68	177	2013-07-26 22:13:23.703518	2013-07-26 22:13:23.703518
+205	69	178	2013-07-26 22:13:24.674111	2013-07-26 22:13:24.674111
+206	69	179	2013-07-26 22:13:24.679082	2013-07-26 22:13:24.679082
+207	69	180	2013-07-26 22:13:24.684009	2013-07-26 22:13:24.684009
+208	70	181	2013-07-26 22:13:26.262257	2013-07-26 22:13:26.262257
+209	70	80	2013-07-26 22:13:26.265491	2013-07-26 22:13:26.265491
+210	70	182	2013-07-26 22:13:26.270745	2013-07-26 22:13:26.270745
+211	71	183	2013-07-26 22:13:26.978853	2013-07-26 22:13:26.978853
+212	71	184	2013-07-26 22:13:26.983533	2013-07-26 22:13:26.983533
+213	71	185	2013-07-26 22:13:26.988407	2013-07-26 22:13:26.988407
+214	72	186	2013-07-26 22:13:27.752691	2013-07-26 22:13:27.752691
+215	72	112	2013-07-26 22:13:27.756115	2013-07-26 22:13:27.756115
+216	72	187	2013-07-26 22:13:27.761591	2013-07-26 22:13:27.761591
+217	73	188	2013-07-26 22:13:28.552724	2013-07-26 22:13:28.552724
+218	73	189	2013-07-26 22:13:28.558024	2013-07-26 22:13:28.558024
+219	73	190	2013-07-26 22:13:28.563929	2013-07-26 22:13:28.563929
+220	74	191	2013-07-26 22:13:29.455906	2013-07-26 22:13:29.455906
+221	74	192	2013-07-26 22:13:29.461639	2013-07-26 22:13:29.461639
+222	74	193	2013-07-26 22:13:29.466837	2013-07-26 22:13:29.466837
+223	75	194	2013-07-26 22:13:30.013017	2013-07-26 22:13:30.013017
+224	75	195	2013-07-26 22:13:30.017961	2013-07-26 22:13:30.017961
+225	75	196	2013-07-26 22:13:30.023859	2013-07-26 22:13:30.023859
+226	76	197	2013-07-26 22:13:30.699019	2013-07-26 22:13:30.699019
+227	76	198	2013-07-26 22:13:30.705365	2013-07-26 22:13:30.705365
+228	76	199	2013-07-26 22:13:30.710564	2013-07-26 22:13:30.710564
+229	77	200	2013-07-26 22:13:31.442142	2013-07-26 22:13:31.442142
+230	77	201	2013-07-26 22:13:31.447821	2013-07-26 22:13:31.447821
+231	77	202	2013-07-26 22:13:31.452914	2013-07-26 22:13:31.452914
+232	78	154	2013-07-26 22:13:32.403617	2013-07-26 22:13:32.403617
+233	78	203	2013-07-26 22:13:32.40885	2013-07-26 22:13:32.40885
+234	78	204	2013-07-26 22:13:32.41538	2013-07-26 22:13:32.41538
+235	79	205	2013-07-26 22:13:33.289503	2013-07-26 22:13:33.289503
+236	79	206	2013-07-26 22:13:33.294907	2013-07-26 22:13:33.294907
+237	79	207	2013-07-26 22:13:33.300619	2013-07-26 22:13:33.300619
+238	80	208	2013-07-26 22:13:34.049269	2013-07-26 22:13:34.049269
+239	80	141	2013-07-26 22:13:34.052198	2013-07-26 22:13:34.052198
+240	80	93	2013-07-26 22:13:34.055152	2013-07-26 22:13:34.055152
+241	81	45	2013-07-26 22:13:34.796765	2013-07-26 22:13:34.796765
+242	81	209	2013-07-26 22:13:34.804166	2013-07-26 22:13:34.804166
+243	81	210	2013-07-26 22:13:34.81037	2013-07-26 22:13:34.81037
+244	82	71	2013-07-26 22:13:36.456497	2013-07-26 22:13:36.456497
+245	82	211	2013-07-26 22:13:36.461707	2013-07-26 22:13:36.461707
+246	82	75	2013-07-26 22:13:36.464715	2013-07-26 22:13:36.464715
+247	83	71	2013-07-26 22:13:38.275809	2013-07-26 22:13:38.275809
+248	83	211	2013-07-26 22:13:38.280526	2013-07-26 22:13:38.280526
+249	83	75	2013-07-26 22:13:38.283958	2013-07-26 22:13:38.283958
+250	84	71	2013-07-26 22:13:39.276238	2013-07-26 22:13:39.276238
+251	84	211	2013-07-26 22:13:39.280223	2013-07-26 22:13:39.280223
+252	84	75	2013-07-26 22:13:39.285512	2013-07-26 22:13:39.285512
+253	85	212	2013-07-26 22:13:39.920569	2013-07-26 22:13:39.920569
+254	85	213	2013-07-26 22:13:39.925475	2013-07-26 22:13:39.925475
+255	85	214	2013-07-26 22:13:39.930016	2013-07-26 22:13:39.930016
+256	86	215	2013-07-26 22:13:40.750453	2013-07-26 22:13:40.750453
+257	86	216	2013-07-26 22:13:40.800386	2013-07-26 22:13:40.800386
+258	86	217	2013-07-26 22:13:40.805524	2013-07-26 22:13:40.805524
+259	87	218	2013-07-26 22:13:42.106066	2013-07-26 22:13:42.106066
+260	87	219	2013-07-26 22:13:42.111854	2013-07-26 22:13:42.111854
+261	87	220	2013-07-26 22:13:42.117149	2013-07-26 22:13:42.117149
+262	88	221	2013-07-26 22:13:42.967723	2013-07-26 22:13:42.967723
+263	88	222	2013-07-26 22:13:42.974252	2013-07-26 22:13:42.974252
+264	88	223	2013-07-26 22:13:42.97951	2013-07-26 22:13:42.97951
+265	89	224	2013-07-26 22:13:43.707032	2013-07-26 22:13:43.707032
+266	89	225	2013-07-26 22:13:43.71293	2013-07-26 22:13:43.71293
+267	89	226	2013-07-26 22:13:43.718613	2013-07-26 22:13:43.718613
+268	90	227	2013-07-26 22:13:44.588738	2013-07-26 22:13:44.588738
+269	90	228	2013-07-26 22:13:44.59403	2013-07-26 22:13:44.59403
+270	90	229	2013-07-26 22:13:44.598889	2013-07-26 22:13:44.598889
+271	91	230	2013-07-26 22:13:46.788928	2013-07-26 22:13:46.788928
+272	91	231	2013-07-26 22:13:46.793795	2013-07-26 22:13:46.793795
+273	91	232	2013-07-26 22:13:46.798466	2013-07-26 22:13:46.798466
+274	92	233	2013-07-26 22:13:47.506623	2013-07-26 22:13:47.506623
+275	92	234	2013-07-26 22:13:47.512171	2013-07-26 22:13:47.512171
+276	92	12	2013-07-26 22:13:47.515126	2013-07-26 22:13:47.515126
+277	93	235	2013-07-26 22:13:48.517754	2013-07-26 22:13:48.517754
+278	93	236	2013-07-26 22:13:48.523239	2013-07-26 22:13:48.523239
+279	93	237	2013-07-26 22:13:48.528669	2013-07-26 22:13:48.528669
+280	94	238	2013-07-26 22:13:49.316875	2013-07-26 22:13:49.316875
+281	94	239	2013-07-26 22:13:49.322868	2013-07-26 22:13:49.322868
+282	94	240	2013-07-26 22:13:49.329631	2013-07-26 22:13:49.329631
+283	95	241	2013-07-26 22:13:49.971813	2013-07-26 22:13:49.971813
+284	95	242	2013-07-26 22:13:49.978018	2013-07-26 22:13:49.978018
+285	95	243	2013-07-26 22:13:49.983386	2013-07-26 22:13:49.983386
+286	96	244	2013-07-26 22:13:51.00483	2013-07-26 22:13:51.00483
+287	96	245	2013-07-26 22:13:51.009457	2013-07-26 22:13:51.009457
+288	96	246	2013-07-26 22:13:51.014592	2013-07-26 22:13:51.014592
+289	97	247	2013-07-26 22:13:51.960402	2013-07-26 22:13:51.960402
+290	97	248	2013-07-26 22:13:51.965755	2013-07-26 22:13:51.965755
+291	97	249	2013-07-26 22:13:51.971185	2013-07-26 22:13:51.971185
+292	98	250	2013-07-26 22:13:52.873381	2013-07-26 22:13:52.873381
+293	98	251	2013-07-26 22:13:52.879851	2013-07-26 22:13:52.879851
+294	98	252	2013-07-26 22:13:52.884745	2013-07-26 22:13:52.884745
+295	99	72	2013-07-26 22:13:54.092775	2013-07-26 22:13:54.092775
+296	99	253	2013-07-26 22:13:54.098597	2013-07-26 22:13:54.098597
+297	99	254	2013-07-26 22:13:54.10356	2013-07-26 22:13:54.10356
+298	100	52	2013-07-26 22:13:55.006991	2013-07-26 22:13:55.006991
+299	100	139	2013-07-26 22:13:55.011593	2013-07-26 22:13:55.011593
+300	100	255	2013-07-26 22:13:55.01727	2013-07-26 22:13:55.01727
+301	101	256	2013-07-26 22:13:55.772368	2013-07-26 22:13:55.772368
+302	101	52	2013-07-26 22:13:55.775602	2013-07-26 22:13:55.775602
+303	101	257	2013-07-26 22:13:55.781378	2013-07-26 22:13:55.781378
+304	102	258	2013-07-26 22:13:56.493985	2013-07-26 22:13:56.493985
+305	102	259	2013-07-26 22:13:56.499904	2013-07-26 22:13:56.499904
+306	102	260	2013-07-26 22:13:56.504827	2013-07-26 22:13:56.504827
+307	103	261	2013-07-26 22:13:57.286732	2013-07-26 22:13:57.286732
+308	103	262	2013-07-26 22:13:57.292793	2013-07-26 22:13:57.292793
+309	103	263	2013-07-26 22:13:57.298709	2013-07-26 22:13:57.298709
+310	104	264	2013-07-26 22:13:57.852087	2013-07-26 22:13:57.852087
+311	104	265	2013-07-26 22:13:57.858453	2013-07-26 22:13:57.858453
+312	104	266	2013-07-26 22:13:57.864557	2013-07-26 22:13:57.864557
+313	105	267	2013-07-26 22:13:58.607316	2013-07-26 22:13:58.607316
+314	105	268	2013-07-26 22:13:58.612366	2013-07-26 22:13:58.612366
+315	105	269	2013-07-26 22:13:58.617841	2013-07-26 22:13:58.617841
+316	106	270	2013-07-26 22:13:59.659914	2013-07-26 22:13:59.659914
+317	106	271	2013-07-26 22:13:59.665235	2013-07-26 22:13:59.665235
+318	106	272	2013-07-26 22:13:59.670802	2013-07-26 22:13:59.670802
+319	107	40	2013-07-26 22:14:00.20393	2013-07-26 22:14:00.20393
+320	107	273	2013-07-26 22:14:00.211886	2013-07-26 22:14:00.211886
+321	107	84	2013-07-26 22:14:00.216687	2013-07-26 22:14:00.216687
+322	108	274	2013-07-26 22:14:00.967296	2013-07-26 22:14:00.967296
+323	108	275	2013-07-26 22:14:00.97226	2013-07-26 22:14:00.97226
+324	108	276	2013-07-26 22:14:00.978501	2013-07-26 22:14:00.978501
+325	109	277	2013-07-26 22:14:01.787479	2013-07-26 22:14:01.787479
+326	109	143	2013-07-26 22:14:01.790511	2013-07-26 22:14:01.790511
+327	109	278	2013-07-26 22:14:01.795086	2013-07-26 22:14:01.795086
+328	110	279	2013-07-26 22:14:03.401686	2013-07-26 22:14:03.401686
+329	110	280	2013-07-26 22:14:03.444977	2013-07-26 22:14:03.444977
+330	110	281	2013-07-26 22:14:03.451303	2013-07-26 22:14:03.451303
+331	111	244	2013-07-26 22:14:04.105274	2013-07-26 22:14:04.105274
+332	111	206	2013-07-26 22:14:04.109922	2013-07-26 22:14:04.109922
+333	111	282	2013-07-26 22:14:04.114947	2013-07-26 22:14:04.114947
+334	112	279	2013-07-26 22:14:04.865242	2013-07-26 22:14:04.865242
+335	112	280	2013-07-26 22:14:04.868358	2013-07-26 22:14:04.868358
+336	112	283	2013-07-26 22:14:04.873385	2013-07-26 22:14:04.873385
+337	113	284	2013-07-26 22:14:05.919582	2013-07-26 22:14:05.919582
+338	113	256	2013-07-26 22:14:05.924419	2013-07-26 22:14:05.924419
+339	113	285	2013-07-26 22:14:05.92953	2013-07-26 22:14:05.92953
+340	114	286	2013-07-26 22:14:06.531311	2013-07-26 22:14:06.531311
+341	114	287	2013-07-26 22:14:06.536832	2013-07-26 22:14:06.536832
+342	114	288	2013-07-26 22:14:06.542733	2013-07-26 22:14:06.542733
+343	115	279	2013-07-26 22:14:07.297317	2013-07-26 22:14:07.297317
+344	115	280	2013-07-26 22:14:07.300728	2013-07-26 22:14:07.300728
+345	115	283	2013-07-26 22:14:07.303879	2013-07-26 22:14:07.303879
+346	116	289	2013-07-26 22:14:07.961863	2013-07-26 22:14:07.961863
+347	116	290	2013-07-26 22:14:07.967089	2013-07-26 22:14:07.967089
+348	116	291	2013-07-26 22:14:07.971763	2013-07-26 22:14:07.971763
+349	117	289	2013-07-26 22:14:09.145811	2013-07-26 22:14:09.145811
+350	117	292	2013-07-26 22:14:09.151467	2013-07-26 22:14:09.151467
+351	117	293	2013-07-26 22:14:09.156119	2013-07-26 22:14:09.156119
+352	118	235	2013-07-26 22:14:10.524975	2013-07-26 22:14:10.524975
+353	118	80	2013-07-26 22:14:10.530572	2013-07-26 22:14:10.530572
+354	118	294	2013-07-26 22:14:10.536429	2013-07-26 22:14:10.536429
+355	119	45	2013-07-26 22:14:11.226917	2013-07-26 22:14:11.226917
+356	119	295	2013-07-26 22:14:11.231657	2013-07-26 22:14:11.231657
+357	119	296	2013-07-26 22:14:11.236836	2013-07-26 22:14:11.236836
+358	120	235	2013-07-26 22:14:12.05836	2013-07-26 22:14:12.05836
+359	120	80	2013-07-26 22:14:12.061269	2013-07-26 22:14:12.061269
+360	120	297	2013-07-26 22:14:12.066245	2013-07-26 22:14:12.066245
+361	121	298	2013-07-26 22:14:12.915936	2013-07-26 22:14:12.915936
+362	121	299	2013-07-26 22:14:12.921206	2013-07-26 22:14:12.921206
+363	121	300	2013-07-26 22:14:12.926118	2013-07-26 22:14:12.926118
+364	122	175	2013-07-26 22:14:13.82511	2013-07-26 22:14:13.82511
+365	122	176	2013-07-26 22:14:13.827934	2013-07-26 22:14:13.827934
+366	122	177	2013-07-26 22:14:13.831092	2013-07-26 22:14:13.831092
+367	123	301	2013-07-26 22:14:14.472189	2013-07-26 22:14:14.472189
+368	123	302	2013-07-26 22:14:14.477312	2013-07-26 22:14:14.477312
+369	123	303	2013-07-26 22:14:14.482152	2013-07-26 22:14:14.482152
+370	124	154	2013-07-26 22:14:15.143054	2013-07-26 22:14:15.143054
+371	124	22	2013-07-26 22:14:15.147992	2013-07-26 22:14:15.147992
+372	124	304	2013-07-26 22:14:15.153355	2013-07-26 22:14:15.153355
+373	125	279	2013-07-26 22:14:15.844276	2013-07-26 22:14:15.844276
+374	125	280	2013-07-26 22:14:15.847074	2013-07-26 22:14:15.847074
+375	125	283	2013-07-26 22:14:15.852197	2013-07-26 22:14:15.852197
+376	126	305	2013-07-26 22:14:16.615105	2013-07-26 22:14:16.615105
+377	126	306	2013-07-26 22:14:16.621301	2013-07-26 22:14:16.621301
+378	126	307	2013-07-26 22:14:16.62598	2013-07-26 22:14:16.62598
+379	127	308	2013-07-26 22:14:17.582211	2013-07-26 22:14:17.582211
+380	127	309	2013-07-26 22:14:17.587606	2013-07-26 22:14:17.587606
+381	127	310	2013-07-26 22:14:17.592524	2013-07-26 22:14:17.592524
+382	128	301	2013-07-26 22:14:18.229222	2013-07-26 22:14:18.229222
+383	128	302	2013-07-26 22:14:18.232749	2013-07-26 22:14:18.232749
+384	128	303	2013-07-26 22:14:18.236228	2013-07-26 22:14:18.236228
+385	129	279	2013-07-26 22:14:18.936805	2013-07-26 22:14:18.936805
+386	129	280	2013-07-26 22:14:18.94075	2013-07-26 22:14:18.94075
+387	129	283	2013-07-26 22:14:18.943719	2013-07-26 22:14:18.943719
+388	130	311	2013-07-26 22:14:19.600965	2013-07-26 22:14:19.600965
+389	130	312	2013-07-26 22:14:19.606161	2013-07-26 22:14:19.606161
+390	130	313	2013-07-26 22:14:19.610728	2013-07-26 22:14:19.610728
+391	131	279	2013-07-26 22:14:20.23561	2013-07-26 22:14:20.23561
+392	131	280	2013-07-26 22:14:20.238649	2013-07-26 22:14:20.238649
+393	131	283	2013-07-26 22:14:20.242339	2013-07-26 22:14:20.242339
+394	132	314	2013-07-26 22:14:20.956482	2013-07-26 22:14:20.956482
+395	132	165	2013-07-26 22:14:20.961096	2013-07-26 22:14:20.961096
+396	132	315	2013-07-26 22:14:20.96611	2013-07-26 22:14:20.96611
+397	133	316	2013-07-26 22:14:21.681264	2013-07-26 22:14:21.681264
+398	133	317	2013-07-26 22:14:21.686512	2013-07-26 22:14:21.686512
+399	133	306	2013-07-26 22:14:21.689623	2013-07-26 22:14:21.689623
+400	134	154	2013-07-26 22:14:22.367876	2013-07-26 22:14:22.367876
+401	134	318	2013-07-26 22:14:22.374538	2013-07-26 22:14:22.374538
+402	134	319	2013-07-26 22:14:22.379393	2013-07-26 22:14:22.379393
+403	135	154	2013-07-26 22:14:22.898526	2013-07-26 22:14:22.898526
+404	135	320	2013-07-26 22:14:22.903749	2013-07-26 22:14:22.903749
+405	135	321	2013-07-26 22:14:22.908634	2013-07-26 22:14:22.908634
+406	136	322	2013-07-26 22:14:24.120281	2013-07-26 22:14:24.120281
+407	136	323	2013-07-26 22:14:24.125459	2013-07-26 22:14:24.125459
+408	136	324	2013-07-26 22:14:24.13051	2013-07-26 22:14:24.13051
+409	137	106	2013-07-26 22:14:24.875712	2013-07-26 22:14:24.875712
+410	137	325	2013-07-26 22:14:24.880438	2013-07-26 22:14:24.880438
+411	137	326	2013-07-26 22:14:24.885072	2013-07-26 22:14:24.885072
+412	138	235	2013-07-26 22:14:25.886584	2013-07-26 22:14:25.886584
+413	138	327	2013-07-26 22:14:25.891411	2013-07-26 22:14:25.891411
+414	138	328	2013-07-26 22:14:25.895983	2013-07-26 22:14:25.895983
+415	139	329	2013-07-26 22:14:26.448363	2013-07-26 22:14:26.448363
+416	139	330	2013-07-26 22:14:26.453481	2013-07-26 22:14:26.453481
+417	139	331	2013-07-26 22:14:26.45869	2013-07-26 22:14:26.45869
+418	140	332	2013-07-26 22:14:27.197845	2013-07-26 22:14:27.197845
+419	140	333	2013-07-26 22:14:27.20493	2013-07-26 22:14:27.20493
+420	140	334	2013-07-26 22:14:27.209906	2013-07-26 22:14:27.209906
+421	141	335	2013-07-26 22:14:28.210563	2013-07-26 22:14:28.210563
+422	141	336	2013-07-26 22:14:28.217837	2013-07-26 22:14:28.217837
+423	141	337	2013-07-26 22:14:28.223661	2013-07-26 22:14:28.223661
+424	142	338	2013-07-26 22:14:28.964412	2013-07-26 22:14:28.964412
+425	142	49	2013-07-26 22:14:28.967449	2013-07-26 22:14:28.967449
+426	142	99	2013-07-26 22:14:28.970682	2013-07-26 22:14:28.970682
+427	143	34	2013-07-26 22:14:29.795215	2013-07-26 22:14:29.795215
+428	143	339	2013-07-26 22:14:29.799994	2013-07-26 22:14:29.799994
+429	143	340	2013-07-26 22:14:29.80447	2013-07-26 22:14:29.80447
+430	144	12	2013-07-26 22:14:31.406299	2013-07-26 22:14:31.406299
+431	144	12	2013-07-26 22:14:31.409278	2013-07-26 22:14:31.409278
+432	144	12	2013-07-26 22:14:31.411944	2013-07-26 22:14:31.411944
+433	145	341	2013-07-26 22:14:31.975839	2013-07-26 22:14:31.975839
+434	145	342	2013-07-26 22:14:31.980739	2013-07-26 22:14:31.980739
+435	145	343	2013-07-26 22:14:31.985289	2013-07-26 22:14:31.985289
+436	146	141	2013-07-26 22:14:32.693126	2013-07-26 22:14:32.693126
+437	146	344	2013-07-26 22:14:32.698146	2013-07-26 22:14:32.698146
+438	146	345	2013-07-26 22:14:32.702608	2013-07-26 22:14:32.702608
+439	147	346	2013-07-26 22:14:33.466042	2013-07-26 22:14:33.466042
+440	147	347	2013-07-26 22:14:33.471917	2013-07-26 22:14:33.471917
+441	147	348	2013-07-26 22:14:33.477626	2013-07-26 22:14:33.477626
+442	148	349	2013-07-26 22:14:34.255474	2013-07-26 22:14:34.255474
+443	148	350	2013-07-26 22:14:34.261577	2013-07-26 22:14:34.261577
+444	148	351	2013-07-26 22:14:34.268253	2013-07-26 22:14:34.268253
+445	149	352	2013-07-26 22:14:34.792034	2013-07-26 22:14:34.792034
+446	149	353	2013-07-26 22:14:34.802322	2013-07-26 22:14:34.802322
+447	149	354	2013-07-26 22:14:34.809488	2013-07-26 22:14:34.809488
+448	150	175	2013-07-26 22:14:35.616078	2013-07-26 22:14:35.616078
+449	150	176	2013-07-26 22:14:35.61926	2013-07-26 22:14:35.61926
+450	150	355	2013-07-26 22:14:35.625517	2013-07-26 22:14:35.625517
+451	151	356	2013-07-26 22:14:36.4291	2013-07-26 22:14:36.4291
+452	151	357	2013-07-26 22:14:36.435428	2013-07-26 22:14:36.435428
+453	151	303	2013-07-26 22:14:36.439735	2013-07-26 22:14:36.439735
+454	152	358	2013-07-26 22:14:37.004012	2013-07-26 22:14:37.004012
+455	152	359	2013-07-26 22:14:37.010592	2013-07-26 22:14:37.010592
+456	152	360	2013-07-26 22:14:37.015876	2013-07-26 22:14:37.015876
+457	153	361	2013-07-26 22:14:37.720016	2013-07-26 22:14:37.720016
+458	153	362	2013-07-26 22:14:37.726379	2013-07-26 22:14:37.726379
+459	153	363	2013-07-26 22:14:37.734768	2013-07-26 22:14:37.734768
+460	154	346	2013-07-26 22:14:38.414107	2013-07-26 22:14:38.414107
+461	154	347	2013-07-26 22:14:38.418146	2013-07-26 22:14:38.418146
+462	154	348	2013-07-26 22:14:38.422161	2013-07-26 22:14:38.422161
+463	155	346	2013-07-26 22:14:39.122329	2013-07-26 22:14:39.122329
+464	155	347	2013-07-26 22:14:39.127463	2013-07-26 22:14:39.127463
+465	155	348	2013-07-26 22:14:39.130509	2013-07-26 22:14:39.130509
+466	156	172	2013-07-26 22:14:40.20602	2013-07-26 22:14:40.20602
+467	156	93	2013-07-26 22:14:40.209289	2013-07-26 22:14:40.209289
+468	156	364	2013-07-26 22:14:40.214817	2013-07-26 22:14:40.214817
+469	157	365	2013-07-26 22:14:40.860604	2013-07-26 22:14:40.860604
+470	157	366	2013-07-26 22:14:40.865568	2013-07-26 22:14:40.865568
+471	157	367	2013-07-26 22:14:40.870139	2013-07-26 22:14:40.870139
+472	158	368	2013-07-26 22:14:41.484917	2013-07-26 22:14:41.484917
+473	158	277	2013-07-26 22:14:41.488138	2013-07-26 22:14:41.488138
+474	158	369	2013-07-26 22:14:41.493673	2013-07-26 22:14:41.493673
+475	159	370	2013-07-26 22:14:43.116065	2013-07-26 22:14:43.116065
+476	159	371	2013-07-26 22:14:43.121085	2013-07-26 22:14:43.121085
+477	159	372	2013-07-26 22:14:43.126068	2013-07-26 22:14:43.126068
+478	160	318	2013-07-26 22:14:43.770984	2013-07-26 22:14:43.770984
+479	160	111	2013-07-26 22:14:43.773879	2013-07-26 22:14:43.773879
+480	160	373	2013-07-26 22:14:43.778791	2013-07-26 22:14:43.778791
+481	161	374	2013-07-26 22:14:46.905372	2013-07-26 22:14:46.905372
+482	161	375	2013-07-26 22:14:46.910389	2013-07-26 22:14:46.910389
+483	161	376	2013-07-26 22:14:46.915377	2013-07-26 22:14:46.915377
+484	162	377	2013-07-26 22:14:47.532185	2013-07-26 22:14:47.532185
+485	162	378	2013-07-26 22:14:47.53791	2013-07-26 22:14:47.53791
+486	162	379	2013-07-26 22:14:47.543555	2013-07-26 22:14:47.543555
+487	163	377	2013-07-26 22:14:48.319055	2013-07-26 22:14:48.319055
+488	163	380	2013-07-26 22:14:48.325635	2013-07-26 22:14:48.325635
+489	163	312	2013-07-26 22:14:48.328871	2013-07-26 22:14:48.328871
+490	164	381	2013-07-26 22:14:48.982885	2013-07-26 22:14:48.982885
+491	164	382	2013-07-26 22:14:48.988236	2013-07-26 22:14:48.988236
+492	164	383	2013-07-26 22:14:48.99309	2013-07-26 22:14:48.99309
+493	165	381	2013-07-26 22:14:49.692839	2013-07-26 22:14:49.692839
+494	165	384	2013-07-26 22:14:49.698009	2013-07-26 22:14:49.698009
+495	165	385	2013-07-26 22:14:49.702503	2013-07-26 22:14:49.702503
+496	166	386	2013-07-26 22:14:50.29925	2013-07-26 22:14:50.29925
+497	166	387	2013-07-26 22:14:50.304072	2013-07-26 22:14:50.304072
+498	166	388	2013-07-26 22:14:50.308684	2013-07-26 22:14:50.308684
+499	167	15	2013-07-26 22:14:51.717753	2013-07-26 22:14:51.717753
+500	167	327	2013-07-26 22:14:51.72055	2013-07-26 22:14:51.72055
+501	167	389	2013-07-26 22:14:51.725368	2013-07-26 22:14:51.725368
+502	168	178	2013-07-26 22:14:52.440203	2013-07-26 22:14:52.440203
+503	168	390	2013-07-26 22:14:52.446497	2013-07-26 22:14:52.446497
+504	168	391	2013-07-26 22:14:52.451329	2013-07-26 22:14:52.451329
+505	169	161	2013-07-26 22:14:53.054966	2013-07-26 22:14:53.054966
+506	169	392	2013-07-26 22:14:53.06157	2013-07-26 22:14:53.06157
+507	169	393	2013-07-26 22:14:53.067103	2013-07-26 22:14:53.067103
+508	170	394	2013-07-26 22:14:53.845412	2013-07-26 22:14:53.845412
+509	170	395	2013-07-26 22:14:53.850311	2013-07-26 22:14:53.850311
+510	170	379	2013-07-26 22:14:53.853316	2013-07-26 22:14:53.853316
+511	171	394	2013-07-26 22:14:54.518078	2013-07-26 22:14:54.518078
+512	171	396	2013-07-26 22:14:54.523567	2013-07-26 22:14:54.523567
+513	171	397	2013-07-26 22:14:54.528503	2013-07-26 22:14:54.528503
+514	172	398	2013-07-26 22:14:55.095025	2013-07-26 22:14:55.095025
+515	172	12	2013-07-26 22:14:55.098139	2013-07-26 22:14:55.098139
+516	172	12	2013-07-26 22:14:55.101099	2013-07-26 22:14:55.101099
+517	173	399	2013-07-26 22:14:55.893849	2013-07-26 22:14:55.893849
+518	173	400	2013-07-26 22:14:55.899585	2013-07-26 22:14:55.899585
+519	173	401	2013-07-26 22:14:55.904554	2013-07-26 22:14:55.904554
+520	174	402	2013-07-26 22:14:56.465461	2013-07-26 22:14:56.465461
+521	174	403	2013-07-26 22:14:56.470446	2013-07-26 22:14:56.470446
+522	174	403	2013-07-26 22:14:56.473665	2013-07-26 22:14:56.473665
+523	175	403	2013-07-26 22:14:57.011931	2013-07-26 22:14:57.011931
+524	175	402	2013-07-26 22:14:57.015297	2013-07-26 22:14:57.015297
+525	175	404	2013-07-26 22:14:57.020076	2013-07-26 22:14:57.020076
+526	176	98	2013-07-26 22:14:57.736983	2013-07-26 22:14:57.736983
+527	176	405	2013-07-26 22:14:57.742292	2013-07-26 22:14:57.742292
+528	176	406	2013-07-26 22:14:57.747316	2013-07-26 22:14:57.747316
+529	177	407	2013-07-26 22:14:58.391633	2013-07-26 22:14:58.391633
+530	177	408	2013-07-26 22:14:58.396724	2013-07-26 22:14:58.396724
+531	177	409	2013-07-26 22:14:58.401816	2013-07-26 22:14:58.401816
+532	178	410	2013-07-26 22:14:59.039491	2013-07-26 22:14:59.039491
+533	178	411	2013-07-26 22:14:59.044563	2013-07-26 22:14:59.044563
+534	178	412	2013-07-26 22:14:59.049912	2013-07-26 22:14:59.049912
+535	179	413	2013-07-26 22:14:59.684464	2013-07-26 22:14:59.684464
+536	179	414	2013-07-26 22:14:59.689383	2013-07-26 22:14:59.689383
+537	179	415	2013-07-26 22:14:59.694549	2013-07-26 22:14:59.694549
+538	180	235	2013-07-26 22:15:00.917956	2013-07-26 22:15:00.917956
+539	180	294	2013-07-26 22:15:00.922494	2013-07-26 22:15:00.922494
+540	180	416	2013-07-26 22:15:00.927427	2013-07-26 22:15:00.927427
+541	181	407	2013-07-26 22:15:01.559054	2013-07-26 22:15:01.559054
+542	181	339	2013-07-26 22:15:01.56245	2013-07-26 22:15:01.56245
+543	181	417	2013-07-26 22:15:01.568222	2013-07-26 22:15:01.568222
+544	182	418	2013-07-26 22:15:02.09274	2013-07-26 22:15:02.09274
+545	182	419	2013-07-26 22:15:02.098104	2013-07-26 22:15:02.098104
+546	182	131	2013-07-26 22:15:02.101504	2013-07-26 22:15:02.101504
+547	183	420	2013-07-26 22:15:02.62514	2013-07-26 22:15:02.62514
+548	183	421	2013-07-26 22:15:02.630662	2013-07-26 22:15:02.630662
+549	183	422	2013-07-26 22:15:02.636075	2013-07-26 22:15:02.636075
+550	184	423	2013-07-26 22:15:03.386411	2013-07-26 22:15:03.386411
+551	184	424	2013-07-26 22:15:03.391222	2013-07-26 22:15:03.391222
+552	184	425	2013-07-26 22:15:03.395768	2013-07-26 22:15:03.395768
+553	185	426	2013-07-26 22:15:03.989882	2013-07-26 22:15:03.989882
+554	185	427	2013-07-26 22:15:03.994993	2013-07-26 22:15:03.994993
+555	185	428	2013-07-26 22:15:04.00009	2013-07-26 22:15:04.00009
+556	186	429	2013-07-26 22:15:04.600107	2013-07-26 22:15:04.600107
+557	186	430	2013-07-26 22:15:04.605022	2013-07-26 22:15:04.605022
+558	186	431	2013-07-26 22:15:04.609881	2013-07-26 22:15:04.609881
+559	187	61	2013-07-26 22:15:05.449939	2013-07-26 22:15:05.449939
+560	187	191	2013-07-26 22:15:05.453253	2013-07-26 22:15:05.453253
+561	187	432	2013-07-26 22:15:05.458584	2013-07-26 22:15:05.458584
+562	188	433	2013-07-26 22:15:06.182437	2013-07-26 22:15:06.182437
+563	188	434	2013-07-26 22:15:06.187499	2013-07-26 22:15:06.187499
+564	188	435	2013-07-26 22:15:06.192057	2013-07-26 22:15:06.192057
+565	189	191	2013-07-26 22:15:06.951259	2013-07-26 22:15:06.951259
+566	189	62	2013-07-26 22:15:06.954426	2013-07-26 22:15:06.954426
+567	189	436	2013-07-26 22:15:06.959228	2013-07-26 22:15:06.959228
+568	190	437	2013-07-26 22:15:07.755029	2013-07-26 22:15:07.755029
+569	190	438	2013-07-26 22:15:07.759853	2013-07-26 22:15:07.759853
+570	190	439	2013-07-26 22:15:07.764687	2013-07-26 22:15:07.764687
+571	191	191	2013-07-26 22:15:08.640341	2013-07-26 22:15:08.640341
+572	191	436	2013-07-26 22:15:08.643661	2013-07-26 22:15:08.643661
+573	191	440	2013-07-26 22:15:08.648543	2013-07-26 22:15:08.648543
+574	192	441	2013-07-26 22:15:09.269097	2013-07-26 22:15:09.269097
+575	192	251	2013-07-26 22:15:09.272063	2013-07-26 22:15:09.272063
+576	192	442	2013-07-26 22:15:09.276504	2013-07-26 22:15:09.276504
+577	193	443	2013-07-26 22:15:10.015406	2013-07-26 22:15:10.015406
+578	193	444	2013-07-26 22:15:10.020416	2013-07-26 22:15:10.020416
+579	193	445	2013-07-26 22:15:10.025172	2013-07-26 22:15:10.025172
+580	194	446	2013-07-26 22:15:10.749858	2013-07-26 22:15:10.749858
+581	194	447	2013-07-26 22:15:10.755458	2013-07-26 22:15:10.755458
+582	194	426	2013-07-26 22:15:10.758787	2013-07-26 22:15:10.758787
+583	195	448	2013-07-26 22:15:11.406538	2013-07-26 22:15:11.406538
+584	195	449	2013-07-26 22:15:11.411081	2013-07-26 22:15:11.411081
+585	195	450	2013-07-26 22:15:11.415688	2013-07-26 22:15:11.415688
+586	196	451	2013-07-26 22:15:12.293039	2013-07-26 22:15:12.293039
+587	196	452	2013-07-26 22:15:12.299091	2013-07-26 22:15:12.299091
+588	196	453	2013-07-26 22:15:12.304409	2013-07-26 22:15:12.304409
+589	197	454	2013-07-26 22:15:12.893593	2013-07-26 22:15:12.893593
+590	197	455	2013-07-26 22:15:12.89865	2013-07-26 22:15:12.89865
+591	197	456	2013-07-26 22:15:12.904103	2013-07-26 22:15:12.904103
+592	198	457	2013-07-26 22:15:13.577992	2013-07-26 22:15:13.577992
+593	198	458	2013-07-26 22:15:13.582835	2013-07-26 22:15:13.582835
+594	198	459	2013-07-26 22:15:13.587594	2013-07-26 22:15:13.587594
+595	199	460	2013-07-26 22:15:14.189167	2013-07-26 22:15:14.189167
+596	199	461	2013-07-26 22:15:14.193868	2013-07-26 22:15:14.193868
+597	199	462	2013-07-26 22:15:14.198748	2013-07-26 22:15:14.198748
+598	200	139	2013-07-26 22:15:14.81291	2013-07-26 22:15:14.81291
+599	200	463	2013-07-26 22:15:14.820466	2013-07-26 22:15:14.820466
+600	200	464	2013-07-26 22:15:14.825076	2013-07-26 22:15:14.825076
+601	201	465	2013-07-26 22:15:15.48815	2013-07-26 22:15:15.48815
+602	201	466	2013-07-26 22:15:15.492898	2013-07-26 22:15:15.492898
+603	201	467	2013-07-26 22:15:15.497512	2013-07-26 22:15:15.497512
+604	202	468	2013-07-26 22:15:16.360034	2013-07-26 22:15:16.360034
+605	202	469	2013-07-26 22:15:16.364912	2013-07-26 22:15:16.364912
+606	202	470	2013-07-26 22:15:16.370196	2013-07-26 22:15:16.370196
+607	203	471	2013-07-26 22:15:17.12062	2013-07-26 22:15:17.12062
+608	203	472	2013-07-26 22:15:17.125291	2013-07-26 22:15:17.125291
+609	203	473	2013-07-26 22:15:17.129911	2013-07-26 22:15:17.129911
+610	204	270	2013-07-26 22:15:17.652434	2013-07-26 22:15:17.652434
+611	204	474	2013-07-26 22:15:17.657929	2013-07-26 22:15:17.657929
+612	204	475	2013-07-26 22:15:17.662523	2013-07-26 22:15:17.662523
+613	205	476	2013-07-26 22:15:18.939005	2013-07-26 22:15:18.939005
+614	205	477	2013-07-26 22:15:18.943907	2013-07-26 22:15:18.943907
+615	205	478	2013-07-26 22:15:18.948777	2013-07-26 22:15:18.948777
+616	206	270	2013-07-26 22:15:19.449387	2013-07-26 22:15:19.449387
+617	206	474	2013-07-26 22:15:19.452852	2013-07-26 22:15:19.452852
+618	206	479	2013-07-26 22:15:19.457521	2013-07-26 22:15:19.457521
+619	207	270	2013-07-26 22:15:19.975302	2013-07-26 22:15:19.975302
+620	207	480	2013-07-26 22:15:19.981788	2013-07-26 22:15:19.981788
+621	207	474	2013-07-26 22:15:19.985299	2013-07-26 22:15:19.985299
+622	208	481	2013-07-26 22:15:20.740591	2013-07-26 22:15:20.740591
+623	208	482	2013-07-26 22:15:20.747547	2013-07-26 22:15:20.747547
+624	208	483	2013-07-26 22:15:20.752815	2013-07-26 22:15:20.752815
+625	209	484	2013-07-26 22:15:21.4703	2013-07-26 22:15:21.4703
+626	209	485	2013-07-26 22:15:21.475456	2013-07-26 22:15:21.475456
+627	209	486	2013-07-26 22:15:21.518674	2013-07-26 22:15:21.518674
+628	210	93	2013-07-26 22:15:22.128223	2013-07-26 22:15:22.128223
+629	210	487	2013-07-26 22:15:22.133695	2013-07-26 22:15:22.133695
+630	210	488	2013-07-26 22:15:22.139347	2013-07-26 22:15:22.139347
+631	211	489	2013-07-26 22:15:23.942834	2013-07-26 22:15:23.942834
+632	211	490	2013-07-26 22:15:23.948454	2013-07-26 22:15:23.948454
+633	211	491	2013-07-26 22:15:23.953251	2013-07-26 22:15:23.953251
+634	212	492	2013-07-26 22:15:24.613747	2013-07-26 22:15:24.613747
+635	212	493	2013-07-26 22:15:24.618902	2013-07-26 22:15:24.618902
+636	212	494	2013-07-26 22:15:24.624054	2013-07-26 22:15:24.624054
+637	213	495	2013-07-26 22:15:25.241894	2013-07-26 22:15:25.241894
+638	213	496	2013-07-26 22:15:25.247776	2013-07-26 22:15:25.247776
+639	213	497	2013-07-26 22:15:25.252581	2013-07-26 22:15:25.252581
+640	214	498	2013-07-26 22:15:26.050028	2013-07-26 22:15:26.050028
+641	214	109	2013-07-26 22:15:26.052879	2013-07-26 22:15:26.052879
+642	214	87	2013-07-26 22:15:26.056016	2013-07-26 22:15:26.056016
+643	215	499	2013-07-26 22:15:26.696361	2013-07-26 22:15:26.696361
+644	215	500	2013-07-26 22:15:26.702763	2013-07-26 22:15:26.702763
+645	215	501	2013-07-26 22:15:26.708011	2013-07-26 22:15:26.708011
+646	216	502	2013-07-26 22:15:27.540842	2013-07-26 22:15:27.540842
+647	216	503	2013-07-26 22:15:27.545823	2013-07-26 22:15:27.545823
+648	216	504	2013-07-26 22:15:27.550509	2013-07-26 22:15:27.550509
+649	217	505	2013-07-26 22:15:28.160913	2013-07-26 22:15:28.160913
+650	217	506	2013-07-26 22:15:28.166396	2013-07-26 22:15:28.166396
+651	217	507	2013-07-26 22:15:28.171432	2013-07-26 22:15:28.171432
+652	218	284	2013-07-26 22:15:29.03707	2013-07-26 22:15:29.03707
+653	218	508	2013-07-26 22:15:29.04274	2013-07-26 22:15:29.04274
+654	218	509	2013-07-26 22:15:29.048255	2013-07-26 22:15:29.048255
+655	219	510	2013-07-26 22:15:29.787005	2013-07-26 22:15:29.787005
+656	219	511	2013-07-26 22:15:29.792636	2013-07-26 22:15:29.792636
+657	219	512	2013-07-26 22:15:29.797405	2013-07-26 22:15:29.797405
+658	220	513	2013-07-26 22:15:31.103759	2013-07-26 22:15:31.103759
+659	220	514	2013-07-26 22:15:31.111366	2013-07-26 22:15:31.111366
+660	220	515	2013-07-26 22:15:31.118705	2013-07-26 22:15:31.118705
+661	221	516	2013-07-26 22:15:31.900501	2013-07-26 22:15:31.900501
+662	221	517	2013-07-26 22:15:31.90505	2013-07-26 22:15:31.90505
+663	221	204	2013-07-26 22:15:31.908116	2013-07-26 22:15:31.908116
+664	222	510	2013-07-26 22:15:32.570343	2013-07-26 22:15:32.570343
+665	222	518	2013-07-26 22:15:32.577909	2013-07-26 22:15:32.577909
+666	222	519	2013-07-26 22:15:32.582636	2013-07-26 22:15:32.582636
+667	223	520	2013-07-26 22:15:33.301753	2013-07-26 22:15:33.301753
+668	223	42	2013-07-26 22:15:33.304646	2013-07-26 22:15:33.304646
+669	223	521	2013-07-26 22:15:33.309456	2013-07-26 22:15:33.309456
+670	224	273	2013-07-26 22:15:34.158296	2013-07-26 22:15:34.158296
+671	224	99	2013-07-26 22:15:34.163769	2013-07-26 22:15:34.163769
+672	224	522	2013-07-26 22:15:34.168616	2013-07-26 22:15:34.168616
+673	225	523	2013-07-26 22:15:34.9034	2013-07-26 22:15:34.9034
+674	225	524	2013-07-26 22:15:34.909174	2013-07-26 22:15:34.909174
+675	225	525	2013-07-26 22:15:34.914156	2013-07-26 22:15:34.914156
+676	226	178	2013-07-26 22:15:35.765711	2013-07-26 22:15:35.765711
+677	226	391	2013-07-26 22:15:35.768931	2013-07-26 22:15:35.768931
+678	226	104	2013-07-26 22:15:35.771893	2013-07-26 22:15:35.771893
+679	227	526	2013-07-26 22:15:36.393425	2013-07-26 22:15:36.393425
+680	227	527	2013-07-26 22:15:36.450007	2013-07-26 22:15:36.450007
+681	227	439	2013-07-26 22:15:36.453371	2013-07-26 22:15:36.453371
+682	228	435	2013-07-26 22:15:38.123631	2013-07-26 22:15:38.123631
+683	228	528	2013-07-26 22:15:38.128494	2013-07-26 22:15:38.128494
+684	228	529	2013-07-26 22:15:38.133018	2013-07-26 22:15:38.133018
+685	229	45	2013-07-26 22:15:38.882851	2013-07-26 22:15:38.882851
+686	229	46	2013-07-26 22:15:38.885671	2013-07-26 22:15:38.885671
+687	229	47	2013-07-26 22:15:38.888465	2013-07-26 22:15:38.888465
+688	230	530	2013-07-26 22:15:39.71123	2013-07-26 22:15:39.71123
+689	230	531	2013-07-26 22:15:39.716552	2013-07-26 22:15:39.716552
+690	230	532	2013-07-26 22:15:39.72248	2013-07-26 22:15:39.72248
+691	231	208	2013-07-26 22:15:40.380741	2013-07-26 22:15:40.380741
+692	231	533	2013-07-26 22:15:40.387212	2013-07-26 22:15:40.387212
+693	231	273	2013-07-26 22:15:40.390094	2013-07-26 22:15:40.390094
+694	232	534	2013-07-26 22:15:41.95396	2013-07-26 22:15:41.95396
+695	232	535	2013-07-26 22:15:41.959185	2013-07-26 22:15:41.959185
+696	232	536	2013-07-26 22:15:41.964415	2013-07-26 22:15:41.964415
+697	233	537	2013-07-26 22:15:42.714323	2013-07-26 22:15:42.714323
+698	233	538	2013-07-26 22:15:42.71927	2013-07-26 22:15:42.71927
+699	233	539	2013-07-26 22:15:42.724087	2013-07-26 22:15:42.724087
+700	234	236	2013-07-26 22:15:43.433521	2013-07-26 22:15:43.433521
+701	234	203	2013-07-26 22:15:43.436561	2013-07-26 22:15:43.436561
+702	234	540	2013-07-26 22:15:43.441127	2013-07-26 22:15:43.441127
+703	235	541	2013-07-26 22:15:44.009841	2013-07-26 22:15:44.009841
+704	235	542	2013-07-26 22:15:44.015031	2013-07-26 22:15:44.015031
+705	235	543	2013-07-26 22:15:44.0198	2013-07-26 22:15:44.0198
+706	236	544	2013-07-26 22:15:44.526895	2013-07-26 22:15:44.526895
+707	236	545	2013-07-26 22:15:44.533504	2013-07-26 22:15:44.533504
+708	236	546	2013-07-26 22:15:44.5381	2013-07-26 22:15:44.5381
+709	237	80	2013-07-26 22:15:45.149624	2013-07-26 22:15:45.149624
+710	237	547	2013-07-26 22:15:45.156482	2013-07-26 22:15:45.156482
+711	237	548	2013-07-26 22:15:45.161849	2013-07-26 22:15:45.161849
+712	238	549	2013-07-26 22:15:45.682934	2013-07-26 22:15:45.682934
+713	238	550	2013-07-26 22:15:45.68759	2013-07-26 22:15:45.68759
+714	238	551	2013-07-26 22:15:45.692225	2013-07-26 22:15:45.692225
+715	239	178	2013-07-26 22:15:47.020273	2013-07-26 22:15:47.020273
+716	239	552	2013-07-26 22:15:47.027973	2013-07-26 22:15:47.027973
+717	239	553	2013-07-26 22:15:47.03284	2013-07-26 22:15:47.03284
+718	240	80	2013-07-26 22:15:47.775626	2013-07-26 22:15:47.775626
+719	240	514	2013-07-26 22:15:47.779661	2013-07-26 22:15:47.779661
+720	240	554	2013-07-26 22:15:47.785298	2013-07-26 22:15:47.785298
+721	241	235	2013-07-26 22:15:48.590969	2013-07-26 22:15:48.590969
+722	241	294	2013-07-26 22:15:48.595769	2013-07-26 22:15:48.595769
+723	241	191	2013-07-26 22:15:48.601729	2013-07-26 22:15:48.601729
+724	242	555	2013-07-26 22:15:49.261314	2013-07-26 22:15:49.261314
+725	242	556	2013-07-26 22:15:49.26722	2013-07-26 22:15:49.26722
+726	242	557	2013-07-26 22:15:49.271949	2013-07-26 22:15:49.271949
+727	243	72	2013-07-26 22:15:49.876522	2013-07-26 22:15:49.876522
+728	243	558	2013-07-26 22:15:49.882258	2013-07-26 22:15:49.882258
+729	243	559	2013-07-26 22:15:49.887074	2013-07-26 22:15:49.887074
+730	244	560	2013-07-26 22:15:50.598706	2013-07-26 22:15:50.598706
+731	244	556	2013-07-26 22:15:50.601851	2013-07-26 22:15:50.601851
+732	244	561	2013-07-26 22:15:50.606603	2013-07-26 22:15:50.606603
+733	245	562	2013-07-26 22:15:51.224773	2013-07-26 22:15:51.224773
+734	245	563	2013-07-26 22:15:51.230374	2013-07-26 22:15:51.230374
+735	245	564	2013-07-26 22:15:51.235214	2013-07-26 22:15:51.235214
+736	246	377	2013-07-26 22:15:52.013225	2013-07-26 22:15:52.013225
+737	246	538	2013-07-26 22:15:52.016355	2013-07-26 22:15:52.016355
+738	246	565	2013-07-26 22:15:52.021186	2013-07-26 22:15:52.021186
+739	247	143	2013-07-26 22:15:53.809334	2013-07-26 22:15:53.809334
+740	247	144	2013-07-26 22:15:53.814948	2013-07-26 22:15:53.814948
+741	247	566	2013-07-26 22:15:53.82001	2013-07-26 22:15:53.82001
+742	248	567	2013-07-26 22:15:54.439025	2013-07-26 22:15:54.439025
+743	248	568	2013-07-26 22:15:54.444403	2013-07-26 22:15:54.444403
+744	248	569	2013-07-26 22:15:54.449469	2013-07-26 22:15:54.449469
+745	249	244	2013-07-26 22:15:55.054752	2013-07-26 22:15:55.054752
+746	249	112	2013-07-26 22:15:55.059337	2013-07-26 22:15:55.059337
+747	249	570	2013-07-26 22:15:55.064784	2013-07-26 22:15:55.064784
+748	250	571	2013-07-26 22:15:55.743943	2013-07-26 22:15:55.743943
+749	250	572	2013-07-26 22:15:55.749314	2013-07-26 22:15:55.749314
+750	250	573	2013-07-26 22:15:55.754098	2013-07-26 22:15:55.754098
+751	251	70	2013-07-26 22:15:56.362353	2013-07-26 22:15:56.362353
+752	251	574	2013-07-26 22:15:56.370193	2013-07-26 22:15:56.370193
+753	251	575	2013-07-26 22:15:56.374852	2013-07-26 22:15:56.374852
+754	252	93	2013-07-26 22:15:57.171022	2013-07-26 22:15:57.171022
+755	252	576	2013-07-26 22:15:57.175891	2013-07-26 22:15:57.175891
+756	252	577	2013-07-26 22:15:57.180891	2013-07-26 22:15:57.180891
+757	253	578	2013-07-26 22:15:57.701323	2013-07-26 22:15:57.701323
+758	253	579	2013-07-26 22:15:57.706134	2013-07-26 22:15:57.706134
+759	253	580	2013-07-26 22:15:57.710629	2013-07-26 22:15:57.710629
+760	254	581	2013-07-26 22:15:58.226882	2013-07-26 22:15:58.226882
+761	254	582	2013-07-26 22:15:58.23181	2013-07-26 22:15:58.23181
+762	254	115	2013-07-26 22:15:58.234664	2013-07-26 22:15:58.234664
+763	255	583	2013-07-26 22:15:58.868235	2013-07-26 22:15:58.868235
+764	255	584	2013-07-26 22:15:58.873502	2013-07-26 22:15:58.873502
+765	255	570	2013-07-26 22:15:58.876552	2013-07-26 22:15:58.876552
+766	256	585	2013-07-26 22:16:00.62887	2013-07-26 22:16:00.62887
+767	256	586	2013-07-26 22:16:00.634166	2013-07-26 22:16:00.634166
+768	256	587	2013-07-26 22:16:00.639276	2013-07-26 22:16:00.639276
+769	257	588	2013-07-26 22:16:01.150044	2013-07-26 22:16:01.150044
+770	257	589	2013-07-26 22:16:01.154892	2013-07-26 22:16:01.154892
+771	257	590	2013-07-26 22:16:01.159411	2013-07-26 22:16:01.159411
+772	258	591	2013-07-26 22:16:01.669396	2013-07-26 22:16:01.669396
+773	258	592	2013-07-26 22:16:01.673975	2013-07-26 22:16:01.673975
+774	258	593	2013-07-26 22:16:01.717607	2013-07-26 22:16:01.717607
+775	259	356	2013-07-26 22:16:02.341625	2013-07-26 22:16:02.341625
+776	259	35	2013-07-26 22:16:02.345557	2013-07-26 22:16:02.345557
+777	259	594	2013-07-26 22:16:02.353152	2013-07-26 22:16:02.353152
+778	260	344	2013-07-26 22:16:04.091932	2013-07-26 22:16:04.091932
+779	260	595	2013-07-26 22:16:04.097558	2013-07-26 22:16:04.097558
+780	260	596	2013-07-26 22:16:04.102577	2013-07-26 22:16:04.102577
+781	261	98	2013-07-26 22:16:04.802733	2013-07-26 22:16:04.802733
+782	261	191	2013-07-26 22:16:04.805653	2013-07-26 22:16:04.805653
+783	261	318	2013-07-26 22:16:04.80912	2013-07-26 22:16:04.80912
+784	262	597	2013-07-26 22:16:05.330541	2013-07-26 22:16:05.330541
+785	262	598	2013-07-26 22:16:05.335338	2013-07-26 22:16:05.335338
+786	262	599	2013-07-26 22:16:05.339871	2013-07-26 22:16:05.339871
+787	263	323	2013-07-26 22:16:05.954148	2013-07-26 22:16:05.954148
+788	263	273	2013-07-26 22:16:05.957182	2013-07-26 22:16:05.957182
+789	263	600	2013-07-26 22:16:05.961965	2013-07-26 22:16:05.961965
+790	264	333	2013-07-26 22:16:08.125062	2013-07-26 22:16:08.125062
+791	264	601	2013-07-26 22:16:08.132858	2013-07-26 22:16:08.132858
+792	264	602	2013-07-26 22:16:08.138136	2013-07-26 22:16:08.138136
+793	265	448	2013-07-26 22:16:08.755326	2013-07-26 22:16:08.755326
+794	265	603	2013-07-26 22:16:08.763093	2013-07-26 22:16:08.763093
+795	265	604	2013-07-26 22:16:08.769076	2013-07-26 22:16:08.769076
+796	266	12	2013-07-26 22:16:09.2859	2013-07-26 22:16:09.2859
+797	266	12	2013-07-26 22:16:09.288944	2013-07-26 22:16:09.288944
+798	266	12	2013-07-26 22:16:09.291658	2013-07-26 22:16:09.291658
+799	267	605	2013-07-26 22:16:10.029557	2013-07-26 22:16:10.029557
+800	267	606	2013-07-26 22:16:10.036645	2013-07-26 22:16:10.036645
+801	267	607	2013-07-26 22:16:10.041205	2013-07-26 22:16:10.041205
+802	268	607	2013-07-26 22:16:10.811981	2013-07-26 22:16:10.811981
+803	268	608	2013-07-26 22:16:10.816941	2013-07-26 22:16:10.816941
+804	268	609	2013-07-26 22:16:10.822285	2013-07-26 22:16:10.822285
+805	269	605	2013-07-26 22:16:11.594535	2013-07-26 22:16:11.594535
+806	269	516	2013-07-26 22:16:11.599461	2013-07-26 22:16:11.599461
+807	269	610	2013-07-26 22:16:11.604604	2013-07-26 22:16:11.604604
+808	270	611	2013-07-26 22:16:12.215423	2013-07-26 22:16:12.215423
+809	270	612	2013-07-26 22:16:12.220956	2013-07-26 22:16:12.220956
+810	270	613	2013-07-26 22:16:12.225766	2013-07-26 22:16:12.225766
+811	271	614	2013-07-26 22:16:12.74717	2013-07-26 22:16:12.74717
+812	271	615	2013-07-26 22:16:12.753137	2013-07-26 22:16:12.753137
+813	271	616	2013-07-26 22:16:12.758009	2013-07-26 22:16:12.758009
+814	272	608	2013-07-26 22:16:13.420351	2013-07-26 22:16:13.420351
+815	272	516	2013-07-26 22:16:13.424692	2013-07-26 22:16:13.424692
+816	272	617	2013-07-26 22:16:13.429511	2013-07-26 22:16:13.429511
+817	273	618	2013-07-26 22:16:14.221069	2013-07-26 22:16:14.221069
+818	273	619	2013-07-26 22:16:14.225825	2013-07-26 22:16:14.225825
+819	273	620	2013-07-26 22:16:14.230552	2013-07-26 22:16:14.230552
+820	274	621	2013-07-26 22:16:14.883232	2013-07-26 22:16:14.883232
+821	274	622	2013-07-26 22:16:14.889264	2013-07-26 22:16:14.889264
+822	274	623	2013-07-26 22:16:14.8945	2013-07-26 22:16:14.8945
+823	275	624	2013-07-26 22:16:15.431771	2013-07-26 22:16:15.431771
+824	275	625	2013-07-26 22:16:15.436943	2013-07-26 22:16:15.436943
+825	275	626	2013-07-26 22:16:15.441564	2013-07-26 22:16:15.441564
+826	276	510	2013-07-26 22:16:16.043023	2013-07-26 22:16:16.043023
+827	276	627	2013-07-26 22:16:16.048068	2013-07-26 22:16:16.048068
+828	276	628	2013-07-26 22:16:16.053244	2013-07-26 22:16:16.053244
+829	277	295	2013-07-26 22:16:16.700568	2013-07-26 22:16:16.700568
+830	277	629	2013-07-26 22:16:16.705993	2013-07-26 22:16:16.705993
+831	277	630	2013-07-26 22:16:16.710621	2013-07-26 22:16:16.710621
+832	278	71	2013-07-26 22:16:17.340743	2013-07-26 22:16:17.340743
+833	278	631	2013-07-26 22:16:17.347751	2013-07-26 22:16:17.347751
+834	278	632	2013-07-26 22:16:17.35271	2013-07-26 22:16:17.35271
+835	279	172	2013-07-26 22:16:18.035731	2013-07-26 22:16:18.035731
+836	279	633	2013-07-26 22:16:18.041093	2013-07-26 22:16:18.041093
+837	279	634	2013-07-26 22:16:18.045746	2013-07-26 22:16:18.045746
+838	280	635	2013-07-26 22:16:19.039086	2013-07-26 22:16:19.039086
+839	280	636	2013-07-26 22:16:19.04389	2013-07-26 22:16:19.04389
+840	280	637	2013-07-26 22:16:19.048752	2013-07-26 22:16:19.048752
+841	281	638	2013-07-26 22:16:19.670049	2013-07-26 22:16:19.670049
+842	281	639	2013-07-26 22:16:19.674964	2013-07-26 22:16:19.674964
+843	281	640	2013-07-26 22:16:19.679567	2013-07-26 22:16:19.679567
+844	282	641	2013-07-26 22:16:20.201708	2013-07-26 22:16:20.201708
+845	282	642	2013-07-26 22:16:20.206847	2013-07-26 22:16:20.206847
+846	282	643	2013-07-26 22:16:20.21124	2013-07-26 22:16:20.21124
+847	283	106	2013-07-26 22:16:21.312261	2013-07-26 22:16:21.312261
+848	283	322	2013-07-26 22:16:21.314998	2013-07-26 22:16:21.314998
+849	283	644	2013-07-26 22:16:21.322308	2013-07-26 22:16:21.322308
+850	284	645	2013-07-26 22:16:22.161325	2013-07-26 22:16:22.161325
+851	284	646	2013-07-26 22:16:22.166822	2013-07-26 22:16:22.166822
+852	284	647	2013-07-26 22:16:22.171996	2013-07-26 22:16:22.171996
+853	285	648	2013-07-26 22:16:22.689866	2013-07-26 22:16:22.689866
+854	285	649	2013-07-26 22:16:22.694688	2013-07-26 22:16:22.694688
+855	285	650	2013-07-26 22:16:22.699277	2013-07-26 22:16:22.699277
+856	286	582	2013-07-26 22:16:23.566203	2013-07-26 22:16:23.566203
+857	286	548	2013-07-26 22:16:23.569137	2013-07-26 22:16:23.569137
+858	286	651	2013-07-26 22:16:23.575582	2013-07-26 22:16:23.575582
+859	287	652	2013-07-26 22:16:24.15975	2013-07-26 22:16:24.15975
+860	287	626	2013-07-26 22:16:24.164066	2013-07-26 22:16:24.164066
+861	287	314	2013-07-26 22:16:24.167719	2013-07-26 22:16:24.167719
+862	288	653	2013-07-26 22:16:24.864952	2013-07-26 22:16:24.864952
+863	288	654	2013-07-26 22:16:24.869587	2013-07-26 22:16:24.869587
+864	288	655	2013-07-26 22:16:24.874381	2013-07-26 22:16:24.874381
+865	289	656	2013-07-26 22:16:25.431963	2013-07-26 22:16:25.431963
+866	289	657	2013-07-26 22:16:25.437342	2013-07-26 22:16:25.437342
+867	289	658	2013-07-26 22:16:25.442825	2013-07-26 22:16:25.442825
+868	290	659	2013-07-26 22:16:31.808052	2013-07-26 22:16:31.808052
+869	290	660	2013-07-26 22:16:31.813163	2013-07-26 22:16:31.813163
+870	290	661	2013-07-26 22:16:31.817756	2013-07-26 22:16:31.817756
+871	291	498	2013-07-26 22:16:32.768269	2013-07-26 22:16:32.768269
+872	291	459	2013-07-26 22:16:32.771013	2013-07-26 22:16:32.771013
+873	291	193	2013-07-26 22:16:32.775559	2013-07-26 22:16:32.775559
+874	292	662	2013-07-26 22:16:39.460167	2013-07-26 22:16:39.460167
+875	292	663	2013-07-26 22:16:39.46499	2013-07-26 22:16:39.46499
+876	292	45	2013-07-26 22:16:39.467814	2013-07-26 22:16:39.467814
+877	293	664	2013-07-26 22:16:40.101799	2013-07-26 22:16:40.101799
+878	293	665	2013-07-26 22:16:40.106849	2013-07-26 22:16:40.106849
+879	293	666	2013-07-26 22:16:40.112116	2013-07-26 22:16:40.112116
+880	294	667	2013-07-26 22:16:40.866863	2013-07-26 22:16:40.866863
+881	294	668	2013-07-26 22:16:40.873606	2013-07-26 22:16:40.873606
+882	294	236	2013-07-26 22:16:40.876948	2013-07-26 22:16:40.876948
+883	295	669	2013-07-26 22:16:41.504025	2013-07-26 22:16:41.504025
+884	295	106	2013-07-26 22:16:41.507199	2013-07-26 22:16:41.507199
+885	295	670	2013-07-26 22:16:41.512115	2013-07-26 22:16:41.512115
+886	296	377	2013-07-26 22:16:42.249017	2013-07-26 22:16:42.249017
+887	296	535	2013-07-26 22:16:42.251924	2013-07-26 22:16:42.251924
+888	296	671	2013-07-26 22:16:42.256661	2013-07-26 22:16:42.256661
+889	297	672	2013-07-26 22:16:43.25456	2013-07-26 22:16:43.25456
+890	297	673	2013-07-26 22:16:43.259688	2013-07-26 22:16:43.259688
+891	297	674	2013-07-26 22:16:43.264462	2013-07-26 22:16:43.264462
+892	298	675	2013-07-26 22:16:45.976208	2013-07-26 22:16:45.976208
+893	298	676	2013-07-26 22:16:45.98161	2013-07-26 22:16:45.98161
+894	298	677	2013-07-26 22:16:45.986441	2013-07-26 22:16:45.986441
+895	299	678	2013-07-26 22:16:46.69406	2013-07-26 22:16:46.69406
+896	299	513	2013-07-26 22:16:46.697323	2013-07-26 22:16:46.697323
+897	299	340	2013-07-26 22:16:46.700348	2013-07-26 22:16:46.700348
+898	300	618	2013-07-26 22:16:47.369879	2013-07-26 22:16:47.369879
+899	300	679	2013-07-26 22:16:47.376853	2013-07-26 22:16:47.376853
+900	300	680	2013-07-26 22:16:47.381967	2013-07-26 22:16:47.381967
+901	301	681	2013-07-26 22:16:48.266238	2013-07-26 22:16:48.266238
+902	301	682	2013-07-26 22:16:48.271249	2013-07-26 22:16:48.271249
+903	301	683	2013-07-26 22:16:48.275935	2013-07-26 22:16:48.275935
+904	302	63	2013-07-26 22:16:49.021079	2013-07-26 22:16:49.021079
+905	302	684	2013-07-26 22:16:49.027207	2013-07-26 22:16:49.027207
+906	302	685	2013-07-26 22:16:49.032372	2013-07-26 22:16:49.032372
+907	303	183	2013-07-26 22:16:49.660152	2013-07-26 22:16:49.660152
+908	303	686	2013-07-26 22:16:49.665462	2013-07-26 22:16:49.665462
+909	303	45	2013-07-26 22:16:49.668338	2013-07-26 22:16:49.668338
+910	304	48	2013-07-26 22:16:50.410414	2013-07-26 22:16:50.410414
+911	304	50	2013-07-26 22:16:50.413448	2013-07-26 22:16:50.413448
+912	304	687	2013-07-26 22:16:50.41818	2013-07-26 22:16:50.41818
+913	305	688	2013-07-26 22:16:51.685024	2013-07-26 22:16:51.685024
+914	305	689	2013-07-26 22:16:51.689749	2013-07-26 22:16:51.689749
+915	305	690	2013-07-26 22:16:51.694322	2013-07-26 22:16:51.694322
+916	306	484	2013-07-26 22:16:52.771446	2013-07-26 22:16:52.771446
+917	306	691	2013-07-26 22:16:52.777992	2013-07-26 22:16:52.777992
+918	306	692	2013-07-26 22:16:52.783591	2013-07-26 22:16:52.783591
+919	307	693	2013-07-26 22:16:53.309945	2013-07-26 22:16:53.309945
+920	307	694	2013-07-26 22:16:53.315336	2013-07-26 22:16:53.315336
+921	307	695	2013-07-26 22:16:53.319988	2013-07-26 22:16:53.319988
+922	308	696	2013-07-26 22:16:54.041113	2013-07-26 22:16:54.041113
+923	308	697	2013-07-26 22:16:54.046245	2013-07-26 22:16:54.046245
+924	308	698	2013-07-26 22:16:54.051116	2013-07-26 22:16:54.051116
+925	309	440	2013-07-26 22:16:55.198312	2013-07-26 22:16:55.198312
+926	309	176	2013-07-26 22:16:55.202056	2013-07-26 22:16:55.202056
+927	309	699	2013-07-26 22:16:55.207097	2013-07-26 22:16:55.207097
+928	310	700	2013-07-26 22:16:55.844955	2013-07-26 22:16:55.844955
+929	310	166	2013-07-26 22:16:55.848298	2013-07-26 22:16:55.848298
+930	310	406	2013-07-26 22:16:55.85162	2013-07-26 22:16:55.85162
+931	311	458	2013-07-26 22:16:56.62394	2013-07-26 22:16:56.62394
+932	311	570	2013-07-26 22:16:56.627172	2013-07-26 22:16:56.627172
+933	311	701	2013-07-26 22:16:56.633235	2013-07-26 22:16:56.633235
+934	312	99	2013-07-26 22:16:57.255302	2013-07-26 22:16:57.255302
+935	312	702	2013-07-26 22:16:57.262266	2013-07-26 22:16:57.262266
+936	312	703	2013-07-26 22:16:57.267625	2013-07-26 22:16:57.267625
+937	313	704	2013-07-26 22:16:57.899909	2013-07-26 22:16:57.899909
+938	313	705	2013-07-26 22:16:57.905058	2013-07-26 22:16:57.905058
+939	313	706	2013-07-26 22:16:57.909768	2013-07-26 22:16:57.909768
+940	314	707	2013-07-26 22:16:58.516728	2013-07-26 22:16:58.516728
+941	314	708	2013-07-26 22:16:58.521396	2013-07-26 22:16:58.521396
+942	314	709	2013-07-26 22:16:58.525833	2013-07-26 22:16:58.525833
+943	315	710	2013-07-26 22:16:59.134548	2013-07-26 22:16:59.134548
+944	315	711	2013-07-26 22:16:59.139458	2013-07-26 22:16:59.139458
+945	315	712	2013-07-26 22:16:59.144182	2013-07-26 22:16:59.144182
+946	316	713	2013-07-26 22:16:59.990141	2013-07-26 22:16:59.990141
+947	316	714	2013-07-26 22:16:59.997628	2013-07-26 22:16:59.997628
+948	316	715	2013-07-26 22:17:00.002742	2013-07-26 22:17:00.002742
+949	317	716	2013-07-26 22:17:00.759092	2013-07-26 22:17:00.759092
+950	317	717	2013-07-26 22:17:00.764015	2013-07-26 22:17:00.764015
+951	317	718	2013-07-26 22:17:00.769067	2013-07-26 22:17:00.769067
+952	318	526	2013-07-26 22:17:01.39676	2013-07-26 22:17:01.39676
+953	318	183	2013-07-26 22:17:01.400076	2013-07-26 22:17:01.400076
+954	318	719	2013-07-26 22:17:01.405301	2013-07-26 22:17:01.405301
+955	319	720	2013-07-26 22:17:02.21648	2013-07-26 22:17:02.21648
+956	319	721	2013-07-26 22:17:02.221489	2013-07-26 22:17:02.221489
+957	319	722	2013-07-26 22:17:02.226321	2013-07-26 22:17:02.226321
+958	320	723	2013-07-26 22:17:03.017682	2013-07-26 22:17:03.017682
+959	320	724	2013-07-26 22:17:03.022561	2013-07-26 22:17:03.022561
+960	320	725	2013-07-26 22:17:03.027276	2013-07-26 22:17:03.027276
+961	321	726	2013-07-26 22:17:04.864077	2013-07-26 22:17:04.864077
+962	321	320	2013-07-26 22:17:04.867866	2013-07-26 22:17:04.867866
+963	321	70	2013-07-26 22:17:04.871107	2013-07-26 22:17:04.871107
+964	322	235	2013-07-26 22:17:05.670441	2013-07-26 22:17:05.670441
+965	322	727	2013-07-26 22:17:05.67559	2013-07-26 22:17:05.67559
+966	322	728	2013-07-26 22:17:05.680516	2013-07-26 22:17:05.680516
+967	323	134	2013-07-26 22:17:08.161631	2013-07-26 22:17:08.161631
+968	323	729	2013-07-26 22:17:08.16719	2013-07-26 22:17:08.16719
+969	323	730	2013-07-26 22:17:08.172345	2013-07-26 22:17:08.172345
+970	324	244	2013-07-26 22:17:09.354235	2013-07-26 22:17:09.354235
+971	324	731	2013-07-26 22:17:09.359285	2013-07-26 22:17:09.359285
+972	324	327	2013-07-26 22:17:09.362395	2013-07-26 22:17:09.362395
+973	325	732	2013-07-26 22:17:10.572072	2013-07-26 22:17:10.572072
+974	325	619	2013-07-26 22:17:10.575066	2013-07-26 22:17:10.575066
+975	325	733	2013-07-26 22:17:10.579956	2013-07-26 22:17:10.579956
+976	326	473	2013-07-26 22:17:11.716588	2013-07-26 22:17:11.716588
+977	326	734	2013-07-26 22:17:11.722177	2013-07-26 22:17:11.722177
+978	326	735	2013-07-26 22:17:11.72729	2013-07-26 22:17:11.72729
+979	327	508	2013-07-26 22:17:12.484781	2013-07-26 22:17:12.484781
+980	327	477	2013-07-26 22:17:12.488046	2013-07-26 22:17:12.488046
+981	327	526	2013-07-26 22:17:12.491085	2013-07-26 22:17:12.491085
+982	328	736	2013-07-26 22:17:13.198191	2013-07-26 22:17:13.198191
+983	328	737	2013-07-26 22:17:13.204427	2013-07-26 22:17:13.204427
+984	328	11	2013-07-26 22:17:13.207412	2013-07-26 22:17:13.207412
+985	329	149	2013-07-26 22:17:13.949628	2013-07-26 22:17:13.949628
+986	329	738	2013-07-26 22:17:13.954785	2013-07-26 22:17:13.954785
+987	329	739	2013-07-26 22:17:13.959319	2013-07-26 22:17:13.959319
+988	330	740	2013-07-26 22:17:14.632199	2013-07-26 22:17:14.632199
+989	330	741	2013-07-26 22:17:14.637938	2013-07-26 22:17:14.637938
+990	330	742	2013-07-26 22:17:14.642756	2013-07-26 22:17:14.642756
+991	331	135	2013-07-26 22:17:15.229173	2013-07-26 22:17:15.229173
+992	331	743	2013-07-26 22:17:15.236582	2013-07-26 22:17:15.236582
+993	331	744	2013-07-26 22:17:15.243544	2013-07-26 22:17:15.243544
+994	332	745	2013-07-26 22:17:16.247976	2013-07-26 22:17:16.247976
+995	332	63	2013-07-26 22:17:16.251603	2013-07-26 22:17:16.251603
+996	332	746	2013-07-26 22:17:16.257448	2013-07-26 22:17:16.257448
+997	333	747	2013-07-26 22:17:18.24043	2013-07-26 22:17:18.24043
+998	333	748	2013-07-26 22:17:18.245061	2013-07-26 22:17:18.245061
+999	333	749	2013-07-26 22:17:18.249813	2013-07-26 22:17:18.249813
+1000	334	750	2013-07-26 22:17:18.979238	2013-07-26 22:17:18.979238
+1001	334	751	2013-07-26 22:17:18.984283	2013-07-26 22:17:18.984283
+1002	334	752	2013-07-26 22:17:18.989611	2013-07-26 22:17:18.989611
+1003	335	753	2013-07-26 22:17:20.356393	2013-07-26 22:17:20.356393
+1004	335	754	2013-07-26 22:17:20.361505	2013-07-26 22:17:20.361505
+1005	335	755	2013-07-26 22:17:20.366001	2013-07-26 22:17:20.366001
+1006	336	756	2013-07-26 22:17:21.434674	2013-07-26 22:17:21.434674
+1007	336	757	2013-07-26 22:17:21.440274	2013-07-26 22:17:21.440274
+1008	336	758	2013-07-26 22:17:21.445427	2013-07-26 22:17:21.445427
+1009	337	759	2013-07-26 22:17:22.141652	2013-07-26 22:17:22.141652
+1010	337	52	2013-07-26 22:17:22.144638	2013-07-26 22:17:22.144638
+1011	337	760	2013-07-26 22:17:22.149211	2013-07-26 22:17:22.149211
+1012	338	761	2013-07-26 22:17:23.202345	2013-07-26 22:17:23.202345
+1013	338	762	2013-07-26 22:17:23.207668	2013-07-26 22:17:23.207668
+1014	338	763	2013-07-26 22:17:23.21235	2013-07-26 22:17:23.21235
+1015	339	764	2013-07-26 22:17:24.628786	2013-07-26 22:17:24.628786
+1016	339	765	2013-07-26 22:17:24.635155	2013-07-26 22:17:24.635155
+1017	339	766	2013-07-26 22:17:24.642062	2013-07-26 22:17:24.642062
+1018	340	767	2013-07-26 22:17:25.706271	2013-07-26 22:17:25.706271
+1019	340	768	2013-07-26 22:17:25.711459	2013-07-26 22:17:25.711459
+1020	340	769	2013-07-26 22:17:25.716084	2013-07-26 22:17:25.716084
+1021	341	732	2013-07-26 22:17:26.36168	2013-07-26 22:17:26.36168
+1022	341	770	2013-07-26 22:17:26.367365	2013-07-26 22:17:26.367365
+1023	341	733	2013-07-26 22:17:26.370682	2013-07-26 22:17:26.370682
+1024	342	771	2013-07-26 22:17:27.067867	2013-07-26 22:17:27.067867
+1025	342	772	2013-07-26 22:17:27.072822	2013-07-26 22:17:27.072822
+1026	342	773	2013-07-26 22:17:27.077939	2013-07-26 22:17:27.077939
+1027	343	595	2013-07-26 22:17:27.623206	2013-07-26 22:17:27.623206
+1028	343	273	2013-07-26 22:17:27.626325	2013-07-26 22:17:27.626325
+1029	343	108	2013-07-26 22:17:27.629258	2013-07-26 22:17:27.629258
+1030	344	774	2013-07-26 22:17:28.195324	2013-07-26 22:17:28.195324
+1031	344	775	2013-07-26 22:17:28.200445	2013-07-26 22:17:28.200445
+1032	344	776	2013-07-26 22:17:28.205273	2013-07-26 22:17:28.205273
+1033	345	777	2013-07-26 22:17:29.847576	2013-07-26 22:17:29.847576
+1034	345	183	2013-07-26 22:17:29.850785	2013-07-26 22:17:29.850785
+1035	345	778	2013-07-26 22:17:29.855448	2013-07-26 22:17:29.855448
+1036	346	779	2013-07-26 22:17:31.016958	2013-07-26 22:17:31.016958
+1037	346	780	2013-07-26 22:17:31.021716	2013-07-26 22:17:31.021716
+1038	346	781	2013-07-26 22:17:31.026748	2013-07-26 22:17:31.026748
+1039	347	664	2013-07-26 22:17:34.121786	2013-07-26 22:17:34.121786
+1040	347	782	2013-07-26 22:17:34.128052	2013-07-26 22:17:34.128052
+1041	347	783	2013-07-26 22:17:34.133118	2013-07-26 22:17:34.133118
+1042	348	784	2013-07-26 22:17:35.448908	2013-07-26 22:17:35.448908
+1043	348	785	2013-07-26 22:17:35.454211	2013-07-26 22:17:35.454211
+1044	348	786	2013-07-26 22:17:35.459074	2013-07-26 22:17:35.459074
+1045	349	157	2013-07-26 22:17:36.2143	2013-07-26 22:17:36.2143
+1046	349	88	2013-07-26 22:17:36.219077	2013-07-26 22:17:36.219077
+1047	349	787	2013-07-26 22:17:36.224078	2013-07-26 22:17:36.224078
+1048	350	788	2013-07-26 22:17:36.926824	2013-07-26 22:17:36.926824
+1049	350	553	2013-07-26 22:17:36.929851	2013-07-26 22:17:36.929851
+1050	350	737	2013-07-26 22:17:36.933019	2013-07-26 22:17:36.933019
+1051	351	789	2013-07-26 22:17:38.3418	2013-07-26 22:17:38.3418
+1052	351	47	2013-07-26 22:17:38.344934	2013-07-26 22:17:38.344934
+1053	351	205	2013-07-26 22:17:38.34828	2013-07-26 22:17:38.34828
+1054	352	790	2013-07-26 22:17:39.925711	2013-07-26 22:17:39.925711
+1055	352	791	2013-07-26 22:17:39.93097	2013-07-26 22:17:39.93097
+1056	352	792	2013-07-26 22:17:39.935594	2013-07-26 22:17:39.935594
+1057	353	790	2013-07-26 22:17:40.570664	2013-07-26 22:17:40.570664
+1058	353	791	2013-07-26 22:17:40.573969	2013-07-26 22:17:40.573969
+1059	353	792	2013-07-26 22:17:40.577355	2013-07-26 22:17:40.577355
+1060	354	790	2013-07-26 22:17:41.32827	2013-07-26 22:17:41.32827
+1061	354	791	2013-07-26 22:17:41.331725	2013-07-26 22:17:41.331725
+1062	354	792	2013-07-26 22:17:41.33473	2013-07-26 22:17:41.33473
+1063	355	793	2013-07-26 22:17:42.252867	2013-07-26 22:17:42.252867
+1064	355	794	2013-07-26 22:17:42.257876	2013-07-26 22:17:42.257876
+1065	355	795	2013-07-26 22:17:42.263461	2013-07-26 22:17:42.263461
+1066	356	200	2013-07-26 22:17:43.411846	2013-07-26 22:17:43.411846
+1067	356	796	2013-07-26 22:17:43.417277	2013-07-26 22:17:43.417277
+1068	356	797	2013-07-26 22:17:43.422125	2013-07-26 22:17:43.422125
+1069	357	798	2013-07-26 22:17:45.205399	2013-07-26 22:17:45.205399
+1070	357	799	2013-07-26 22:17:45.210356	2013-07-26 22:17:45.210356
+1071	357	800	2013-07-26 22:17:45.215399	2013-07-26 22:17:45.215399
+1072	358	801	2013-07-26 22:17:46.120343	2013-07-26 22:17:46.120343
+1073	358	802	2013-07-26 22:17:46.125463	2013-07-26 22:17:46.125463
+1074	358	270	2013-07-26 22:17:46.128736	2013-07-26 22:17:46.128736
+1075	359	803	2013-07-26 22:17:47.01727	2013-07-26 22:17:47.01727
+1076	359	804	2013-07-26 22:17:47.02197	2013-07-26 22:17:47.02197
+1077	359	805	2013-07-26 22:17:47.026572	2013-07-26 22:17:47.026572
+1078	360	24	2013-07-26 22:17:47.999533	2013-07-26 22:17:47.999533
+1079	360	806	2013-07-26 22:17:48.006507	2013-07-26 22:17:48.006507
+1080	360	47	2013-07-26 22:17:48.009315	2013-07-26 22:17:48.009315
+1081	361	424	2013-07-26 22:17:49.02184	2013-07-26 22:17:49.02184
+1082	361	807	2013-07-26 22:17:49.027867	2013-07-26 22:17:49.027867
+1083	361	808	2013-07-26 22:17:49.03295	2013-07-26 22:17:49.03295
+1084	362	809	2013-07-26 22:17:49.642557	2013-07-26 22:17:49.642557
+1085	362	810	2013-07-26 22:17:49.648049	2013-07-26 22:17:49.648049
+1086	362	811	2013-07-26 22:17:49.65271	2013-07-26 22:17:49.65271
+1087	363	323	2013-07-26 22:17:50.399221	2013-07-26 22:17:50.399221
+1088	363	471	2013-07-26 22:17:50.402452	2013-07-26 22:17:50.402452
+1089	363	812	2013-07-26 22:17:50.407411	2013-07-26 22:17:50.407411
+1090	364	289	2013-07-26 22:17:51.356098	2013-07-26 22:17:51.356098
+1091	364	813	2013-07-26 22:17:51.362712	2013-07-26 22:17:51.362712
+1092	364	814	2013-07-26 22:17:51.367598	2013-07-26 22:17:51.367598
+1093	365	815	2013-07-26 22:17:52.570979	2013-07-26 22:17:52.570979
+1094	365	816	2013-07-26 22:17:52.575734	2013-07-26 22:17:52.575734
+1095	365	817	2013-07-26 22:17:52.580987	2013-07-26 22:17:52.580987
+1096	366	818	2013-07-26 22:17:54.170312	2013-07-26 22:17:54.170312
+1097	366	819	2013-07-26 22:17:54.176571	2013-07-26 22:17:54.176571
+1098	366	820	2013-07-26 22:17:54.183369	2013-07-26 22:17:54.183369
+1099	367	407	2013-07-26 22:17:54.837812	2013-07-26 22:17:54.837812
+1100	367	821	2013-07-26 22:17:54.842699	2013-07-26 22:17:54.842699
+1101	367	822	2013-07-26 22:17:54.847552	2013-07-26 22:17:54.847552
+1102	368	333	2013-07-26 22:17:56.497895	2013-07-26 22:17:56.497895
+1103	368	416	2013-07-26 22:17:56.502018	2013-07-26 22:17:56.502018
+1104	368	284	2013-07-26 22:17:56.505296	2013-07-26 22:17:56.505296
+1105	369	823	2013-07-26 22:17:57.24957	2013-07-26 22:17:57.24957
+1106	369	824	2013-07-26 22:17:57.254682	2013-07-26 22:17:57.254682
+1107	369	825	2013-07-26 22:17:57.260619	2013-07-26 22:17:57.260619
+1108	370	826	2013-07-26 22:17:58.305608	2013-07-26 22:17:58.305608
+1109	370	827	2013-07-26 22:17:58.311665	2013-07-26 22:17:58.311665
+1110	370	828	2013-07-26 22:17:58.318127	2013-07-26 22:17:58.318127
+1111	371	829	2013-07-26 22:17:59.446608	2013-07-26 22:17:59.446608
+1112	371	830	2013-07-26 22:17:59.452441	2013-07-26 22:17:59.452441
+1113	371	805	2013-07-26 22:17:59.455422	2013-07-26 22:17:59.455422
+1114	372	664	2013-07-26 22:18:00.657736	2013-07-26 22:18:00.657736
+1115	372	606	2013-07-26 22:18:00.660644	2013-07-26 22:18:00.660644
+1116	372	719	2013-07-26 22:18:00.66388	2013-07-26 22:18:00.66388
+1117	373	537	2013-07-26 22:18:04.301755	2013-07-26 22:18:04.301755
+1118	373	831	2013-07-26 22:18:04.307305	2013-07-26 22:18:04.307305
+1119	373	832	2013-07-26 22:18:04.314556	2013-07-26 22:18:04.314556
+1120	374	318	2013-07-26 22:18:05.654145	2013-07-26 22:18:05.654145
+1121	374	294	2013-07-26 22:18:05.657625	2013-07-26 22:18:05.657625
+1122	374	153	2013-07-26 22:18:05.66071	2013-07-26 22:18:05.66071
+1123	375	325	2013-07-26 22:18:06.378543	2013-07-26 22:18:06.378543
+1124	375	833	2013-07-26 22:18:06.383741	2013-07-26 22:18:06.383741
+1125	375	834	2013-07-26 22:18:06.391924	2013-07-26 22:18:06.391924
+1126	376	835	2013-07-26 22:18:07.119896	2013-07-26 22:18:07.119896
+1127	376	836	2013-07-26 22:18:07.125216	2013-07-26 22:18:07.125216
+1128	376	837	2013-07-26 22:18:07.130601	2013-07-26 22:18:07.130601
+1129	377	838	2013-07-26 22:18:07.86418	2013-07-26 22:18:07.86418
+1130	377	441	2013-07-26 22:18:07.867509	2013-07-26 22:18:07.867509
+1131	377	839	2013-07-26 22:18:07.915369	2013-07-26 22:18:07.915369
+1132	378	829	2013-07-26 22:18:08.835884	2013-07-26 22:18:08.835884
+1133	378	830	2013-07-26 22:18:08.839026	2013-07-26 22:18:08.839026
+1134	378	840	2013-07-26 22:18:08.844186	2013-07-26 22:18:08.844186
+1135	379	829	2013-07-26 22:18:09.806482	2013-07-26 22:18:09.806482
+1136	379	735	2013-07-26 22:18:09.809785	2013-07-26 22:18:09.809785
+1137	379	841	2013-07-26 22:18:09.815976	2013-07-26 22:18:09.815976
+1138	380	842	2013-07-26 22:18:11.174963	2013-07-26 22:18:11.174963
+1139	380	843	2013-07-26 22:18:11.180186	2013-07-26 22:18:11.180186
+1140	380	844	2013-07-26 22:18:11.185045	2013-07-26 22:18:11.185045
+1141	381	19	2013-07-26 22:18:12.025463	2013-07-26 22:18:12.025463
+1142	381	845	2013-07-26 22:18:12.030637	2013-07-26 22:18:12.030637
+1143	381	846	2013-07-26 22:18:12.035794	2013-07-26 22:18:12.035794
+1144	382	847	2013-07-26 22:18:13.110205	2013-07-26 22:18:13.110205
+1145	382	848	2013-07-26 22:18:13.11497	2013-07-26 22:18:13.11497
+1146	382	849	2013-07-26 22:18:13.120054	2013-07-26 22:18:13.120054
+1147	383	850	2013-07-26 22:18:13.997691	2013-07-26 22:18:13.997691
+1148	383	851	2013-07-26 22:18:14.004244	2013-07-26 22:18:14.004244
+1149	383	852	2013-07-26 22:18:14.009144	2013-07-26 22:18:14.009144
+1150	384	853	2013-07-26 22:18:14.56525	2013-07-26 22:18:14.56525
+1151	384	854	2013-07-26 22:18:14.57144	2013-07-26 22:18:14.57144
+1152	384	855	2013-07-26 22:18:14.576825	2013-07-26 22:18:14.576825
+1153	385	618	2013-07-26 22:18:15.20523	2013-07-26 22:18:15.20523
+1154	385	856	2013-07-26 22:18:15.210693	2013-07-26 22:18:15.210693
+1155	385	857	2013-07-26 22:18:15.216841	2013-07-26 22:18:15.216841
+1156	386	858	2013-07-26 22:18:15.920425	2013-07-26 22:18:15.920425
+1157	386	859	2013-07-26 22:18:15.925663	2013-07-26 22:18:15.925663
+1158	386	860	2013-07-26 22:18:15.930623	2013-07-26 22:18:15.930623
+1159	387	861	2013-07-26 22:18:16.611028	2013-07-26 22:18:16.611028
+1160	387	862	2013-07-26 22:18:16.615938	2013-07-26 22:18:16.615938
+1161	387	863	2013-07-26 22:18:16.621012	2013-07-26 22:18:16.621012
+1162	388	339	2013-07-26 22:18:17.260214	2013-07-26 22:18:17.260214
+1163	388	864	2013-07-26 22:18:17.26505	2013-07-26 22:18:17.26505
+1164	388	99	2013-07-26 22:18:17.267828	2013-07-26 22:18:17.267828
+1165	389	865	2013-07-26 22:18:18.09895	2013-07-26 22:18:18.09895
+1166	389	141	2013-07-26 22:18:18.103063	2013-07-26 22:18:18.103063
+1167	389	866	2013-07-26 22:18:18.108079	2013-07-26 22:18:18.108079
+1168	390	867	2013-07-26 22:18:18.666547	2013-07-26 22:18:18.666547
+1169	390	112	2013-07-26 22:18:18.670459	2013-07-26 22:18:18.670459
+1170	390	868	2013-07-26 22:18:18.675607	2013-07-26 22:18:18.675607
+1171	391	869	2013-07-26 22:18:19.556826	2013-07-26 22:18:19.556826
+1172	391	870	2013-07-26 22:18:19.5619	2013-07-26 22:18:19.5619
+1173	391	871	2013-07-26 22:18:19.566636	2013-07-26 22:18:19.566636
+1174	392	200	2013-07-26 22:18:20.352055	2013-07-26 22:18:20.352055
+1175	392	446	2013-07-26 22:18:20.356077	2013-07-26 22:18:20.356077
+1176	392	872	2013-07-26 22:18:20.361311	2013-07-26 22:18:20.361311
+1177	393	109	2013-07-26 22:18:21.462352	2013-07-26 22:18:21.462352
+1178	393	873	2013-07-26 22:18:21.467393	2013-07-26 22:18:21.467393
+1179	393	874	2013-07-26 22:18:21.472733	2013-07-26 22:18:21.472733
+1180	394	875	2013-07-26 22:18:21.996076	2013-07-26 22:18:21.996076
+1181	394	876	2013-07-26 22:18:22.000638	2013-07-26 22:18:22.000638
+1182	394	877	2013-07-26 22:18:22.00618	2013-07-26 22:18:22.00618
+1183	395	878	2013-07-26 22:18:22.820744	2013-07-26 22:18:22.820744
+1184	395	206	2013-07-26 22:18:22.82465	2013-07-26 22:18:22.82465
+1185	395	879	2013-07-26 22:18:22.829998	2013-07-26 22:18:22.829998
+1186	396	880	2013-07-26 22:18:23.396722	2013-07-26 22:18:23.396722
+1187	396	881	2013-07-26 22:18:23.402654	2013-07-26 22:18:23.402654
+1188	396	882	2013-07-26 22:18:23.40816	2013-07-26 22:18:23.40816
+1189	397	883	2013-07-26 22:18:27.690141	2013-07-26 22:18:27.690141
+1190	397	535	2013-07-26 22:18:27.69359	2013-07-26 22:18:27.69359
+1191	397	884	2013-07-26 22:18:27.698532	2013-07-26 22:18:27.698532
+1192	398	45	2013-07-26 22:18:28.494574	2013-07-26 22:18:28.494574
+1193	398	885	2013-07-26 22:18:28.500483	2013-07-26 22:18:28.500483
+1194	398	886	2013-07-26 22:18:28.505529	2013-07-26 22:18:28.505529
+1195	399	887	2013-07-26 22:18:29.052986	2013-07-26 22:18:29.052986
+1196	399	888	2013-07-26 22:18:29.057867	2013-07-26 22:18:29.057867
+1197	399	889	2013-07-26 22:18:29.062837	2013-07-26 22:18:29.062837
+1198	400	93	2013-07-26 22:18:29.750509	2013-07-26 22:18:29.750509
+1199	400	570	2013-07-26 22:18:29.753463	2013-07-26 22:18:29.753463
+1200	400	890	2013-07-26 22:18:29.759452	2013-07-26 22:18:29.759452
+1201	401	703	2013-07-26 22:18:30.688211	2013-07-26 22:18:30.688211
+1202	401	891	2013-07-26 22:18:30.693891	2013-07-26 22:18:30.693891
+1203	401	892	2013-07-26 22:18:30.699494	2013-07-26 22:18:30.699494
+1204	402	611	2013-07-26 22:18:31.545014	2013-07-26 22:18:31.545014
+1205	402	117	2013-07-26 22:18:31.549055	2013-07-26 22:18:31.549055
+1206	402	193	2013-07-26 22:18:31.552451	2013-07-26 22:18:31.552451
+1207	403	893	2013-07-26 22:18:32.186114	2013-07-26 22:18:32.186114
+1208	403	894	2013-07-26 22:18:32.194395	2013-07-26 22:18:32.194395
+1209	403	895	2013-07-26 22:18:32.201944	2013-07-26 22:18:32.201944
+1210	404	896	2013-07-26 22:18:37.257951	2013-07-26 22:18:37.257951
+1211	404	897	2013-07-26 22:18:37.263607	2013-07-26 22:18:37.263607
+1212	404	898	2013-07-26 22:18:37.269641	2013-07-26 22:18:37.269641
+1213	405	899	2013-07-26 22:18:38.253484	2013-07-26 22:18:38.253484
+1214	405	900	2013-07-26 22:18:38.258063	2013-07-26 22:18:38.258063
+1215	405	901	2013-07-26 22:18:38.262942	2013-07-26 22:18:38.262942
+1216	406	8	2013-07-26 22:18:38.865995	2013-07-26 22:18:38.865995
+1217	406	902	2013-07-26 22:18:38.870712	2013-07-26 22:18:38.870712
+1218	406	903	2013-07-26 22:18:38.875613	2013-07-26 22:18:38.875613
+1219	407	12	2013-07-26 22:18:39.450336	2013-07-26 22:18:39.450336
+1220	407	12	2013-07-26 22:18:39.455505	2013-07-26 22:18:39.455505
+1221	407	12	2013-07-26 22:18:39.458467	2013-07-26 22:18:39.458467
+1222	408	904	2013-07-26 22:18:39.980857	2013-07-26 22:18:39.980857
+1223	408	905	2013-07-26 22:18:39.986899	2013-07-26 22:18:39.986899
+1224	408	906	2013-07-26 22:18:39.993309	2013-07-26 22:18:39.993309
+1225	409	12	2013-07-26 22:18:40.561054	2013-07-26 22:18:40.561054
+1226	409	12	2013-07-26 22:18:40.56436	2013-07-26 22:18:40.56436
+1227	409	12	2013-07-26 22:18:40.567214	2013-07-26 22:18:40.567214
+1228	410	907	2013-07-26 22:18:41.660967	2013-07-26 22:18:41.660967
+1229	410	908	2013-07-26 22:18:41.668624	2013-07-26 22:18:41.668624
+1230	410	909	2013-07-26 22:18:41.676668	2013-07-26 22:18:41.676668
+1231	411	910	2013-07-26 22:18:42.200733	2013-07-26 22:18:42.200733
+1232	411	911	2013-07-26 22:18:42.205619	2013-07-26 22:18:42.205619
+1233	411	912	2013-07-26 22:18:42.21064	2013-07-26 22:18:42.21064
+1234	412	555	2013-07-26 22:18:42.724644	2013-07-26 22:18:42.724644
+1235	412	738	2013-07-26 22:18:42.729628	2013-07-26 22:18:42.729628
+1236	412	913	2013-07-26 22:18:42.735345	2013-07-26 22:18:42.735345
+1237	413	72	2013-07-26 22:18:43.333943	2013-07-26 22:18:43.333943
+1238	413	914	2013-07-26 22:18:43.34039	2013-07-26 22:18:43.34039
+1239	413	915	2013-07-26 22:18:43.345984	2013-07-26 22:18:43.345984
+1240	414	916	2013-07-26 22:18:44.040412	2013-07-26 22:18:44.040412
+1241	414	917	2013-07-26 22:18:44.047479	2013-07-26 22:18:44.047479
+1242	414	918	2013-07-26 22:18:44.052341	2013-07-26 22:18:44.052341
+1243	415	839	2013-07-26 22:18:44.865325	2013-07-26 22:18:44.865325
+1244	415	919	2013-07-26 22:18:44.870121	2013-07-26 22:18:44.870121
+1245	415	407	2013-07-26 22:18:44.872978	2013-07-26 22:18:44.872978
+1246	416	920	2013-07-26 22:18:45.995295	2013-07-26 22:18:45.995295
+1247	416	921	2013-07-26 22:18:46.000678	2013-07-26 22:18:46.000678
+1248	416	922	2013-07-26 22:18:46.005498	2013-07-26 22:18:46.005498
+1249	417	923	2013-07-26 22:18:46.594053	2013-07-26 22:18:46.594053
+1250	417	924	2013-07-26 22:18:46.599119	2013-07-26 22:18:46.599119
+1251	417	605	2013-07-26 22:18:46.602141	2013-07-26 22:18:46.602141
+1252	418	645	2013-07-26 22:18:47.321521	2013-07-26 22:18:47.321521
+1253	418	925	2013-07-26 22:18:47.32698	2013-07-26 22:18:47.32698
+1254	418	926	2013-07-26 22:18:47.332386	2013-07-26 22:18:47.332386
+1255	419	416	2013-07-26 22:18:47.865083	2013-07-26 22:18:47.865083
+1256	419	927	2013-07-26 22:18:47.870771	2013-07-26 22:18:47.870771
+1257	419	812	2013-07-26 22:18:47.873726	2013-07-26 22:18:47.873726
+1258	420	103	2013-07-26 22:18:48.990738	2013-07-26 22:18:48.990738
+1259	420	80	2013-07-26 22:18:48.993689	2013-07-26 22:18:48.993689
+1260	420	928	2013-07-26 22:18:48.998969	2013-07-26 22:18:48.998969
+1261	421	64	2013-07-26 22:18:49.701749	2013-07-26 22:18:49.701749
+1262	421	929	2013-07-26 22:18:49.70678	2013-07-26 22:18:49.70678
+1263	421	930	2013-07-26 22:18:49.711537	2013-07-26 22:18:49.711537
+1264	422	931	2013-07-26 22:18:51.009412	2013-07-26 22:18:51.009412
+1265	422	261	2013-07-26 22:18:51.013554	2013-07-26 22:18:51.013554
+1266	422	932	2013-07-26 22:18:51.020892	2013-07-26 22:18:51.020892
+1267	423	322	2013-07-26 22:18:51.637772	2013-07-26 22:18:51.637772
+1268	423	933	2013-07-26 22:18:51.642543	2013-07-26 22:18:51.642543
+1269	423	934	2013-07-26 22:18:51.647534	2013-07-26 22:18:51.647534
+1270	424	935	2013-07-26 22:18:52.25008	2013-07-26 22:18:52.25008
+1271	424	936	2013-07-26 22:18:52.255005	2013-07-26 22:18:52.255005
+1272	424	937	2013-07-26 22:18:52.260153	2013-07-26 22:18:52.260153
+1273	425	938	2013-07-26 22:18:52.783629	2013-07-26 22:18:52.783629
+1274	425	939	2013-07-26 22:18:52.788537	2013-07-26 22:18:52.788537
+1275	425	940	2013-07-26 22:18:52.793465	2013-07-26 22:18:52.793465
+1276	426	328	2013-07-26 22:18:53.984352	2013-07-26 22:18:53.984352
+1277	426	719	2013-07-26 22:18:53.989412	2013-07-26 22:18:53.989412
+1278	426	941	2013-07-26 22:18:53.994216	2013-07-26 22:18:53.994216
+1279	427	328	2013-07-26 22:18:54.753841	2013-07-26 22:18:54.753841
+1280	427	686	2013-07-26 22:18:54.757156	2013-07-26 22:18:54.757156
+1281	427	942	2013-07-26 22:18:54.762147	2013-07-26 22:18:54.762147
+1282	428	328	2013-07-26 22:18:55.525806	2013-07-26 22:18:55.525806
+1283	428	941	2013-07-26 22:18:55.528882	2013-07-26 22:18:55.528882
+1284	428	943	2013-07-26 22:18:55.53463	2013-07-26 22:18:55.53463
+1285	429	944	2013-07-26 22:18:56.12491	2013-07-26 22:18:56.12491
+1286	429	945	2013-07-26 22:18:56.129829	2013-07-26 22:18:56.129829
+1287	429	946	2013-07-26 22:18:56.135223	2013-07-26 22:18:56.135223
+1288	430	807	2013-07-26 22:18:56.877492	2013-07-26 22:18:56.877492
+1289	430	947	2013-07-26 22:18:56.883733	2013-07-26 22:18:56.883733
+1290	430	389	2013-07-26 22:18:56.886737	2013-07-26 22:18:56.886737
+1291	431	34	2013-07-26 22:18:57.610179	2013-07-26 22:18:57.610179
+1292	431	581	2013-07-26 22:18:57.614718	2013-07-26 22:18:57.614718
+1293	431	948	2013-07-26 22:18:57.622492	2013-07-26 22:18:57.622492
+1294	432	949	2013-07-26 22:18:58.473862	2013-07-26 22:18:58.473862
+1295	432	383	2013-07-26 22:18:58.476759	2013-07-26 22:18:58.476759
+1296	432	950	2013-07-26 22:18:58.481509	2013-07-26 22:18:58.481509
+1297	433	951	2013-07-26 22:18:59.306116	2013-07-26 22:18:59.306116
+1298	433	947	2013-07-26 22:18:59.311282	2013-07-26 22:18:59.311282
+1299	433	952	2013-07-26 22:18:59.319785	2013-07-26 22:18:59.319785
+1300	434	471	2013-07-26 22:19:00.061036	2013-07-26 22:19:00.061036
+1301	434	953	2013-07-26 22:19:00.067164	2013-07-26 22:19:00.067164
+1302	434	954	2013-07-26 22:19:00.072485	2013-07-26 22:19:00.072485
+1303	435	535	2013-07-26 22:19:01.391462	2013-07-26 22:19:01.391462
+1304	435	149	2013-07-26 22:19:01.395589	2013-07-26 22:19:01.395589
+1305	435	955	2013-07-26 22:19:01.402109	2013-07-26 22:19:01.402109
+1306	436	19	2013-07-26 22:19:02.127591	2013-07-26 22:19:02.127591
+1307	436	956	2013-07-26 22:19:02.137364	2013-07-26 22:19:02.137364
+1308	436	600	2013-07-26 22:19:02.140731	2013-07-26 22:19:02.140731
+1309	437	957	2013-07-26 22:19:03.23207	2013-07-26 22:19:03.23207
+1310	437	958	2013-07-26 22:19:03.238175	2013-07-26 22:19:03.238175
+1311	437	959	2013-07-26 22:19:03.242869	2013-07-26 22:19:03.242869
+1312	438	960	2013-07-26 22:19:03.973134	2013-07-26 22:19:03.973134
+1313	438	865	2013-07-26 22:19:03.976813	2013-07-26 22:19:03.976813
+1314	438	961	2013-07-26 22:19:03.981561	2013-07-26 22:19:03.981561
+1315	439	962	2013-07-26 22:19:04.592089	2013-07-26 22:19:04.592089
+1316	439	963	2013-07-26 22:19:04.596964	2013-07-26 22:19:04.596964
+1317	439	964	2013-07-26 22:19:04.602624	2013-07-26 22:19:04.602624
+1318	440	965	2013-07-26 22:19:05.348288	2013-07-26 22:19:05.348288
+1319	440	966	2013-07-26 22:19:05.353279	2013-07-26 22:19:05.353279
+1320	440	967	2013-07-26 22:19:05.358037	2013-07-26 22:19:05.358037
+1321	441	149	2013-07-26 22:19:06.11444	2013-07-26 22:19:06.11444
+1322	441	968	2013-07-26 22:19:06.119912	2013-07-26 22:19:06.119912
+1323	441	969	2013-07-26 22:19:06.124706	2013-07-26 22:19:06.124706
+1324	442	134	2013-07-26 22:19:06.750037	2013-07-26 22:19:06.750037
+1325	442	970	2013-07-26 22:19:06.756641	2013-07-26 22:19:06.756641
+1326	442	971	2013-07-26 22:19:06.761356	2013-07-26 22:19:06.761356
+1327	443	929	2013-07-26 22:19:07.414038	2013-07-26 22:19:07.414038
+1328	443	972	2013-07-26 22:19:07.419809	2013-07-26 22:19:07.419809
+1329	443	973	2013-07-26 22:19:07.424777	2013-07-26 22:19:07.424777
+1330	444	322	2013-07-26 22:19:08.099373	2013-07-26 22:19:08.099373
+1331	444	407	2013-07-26 22:19:08.10267	2013-07-26 22:19:08.10267
+1332	444	95	2013-07-26 22:19:08.105736	2013-07-26 22:19:08.105736
+1333	445	974	2013-07-26 22:19:08.979168	2013-07-26 22:19:08.979168
+1334	445	975	2013-07-26 22:19:08.986362	2013-07-26 22:19:08.986362
+1335	445	859	2013-07-26 22:19:08.989444	2013-07-26 22:19:08.989444
+1336	446	974	2013-07-26 22:19:09.771662	2013-07-26 22:19:09.771662
+1337	446	976	2013-07-26 22:19:09.778585	2013-07-26 22:19:09.778585
+1338	446	977	2013-07-26 22:19:09.783655	2013-07-26 22:19:09.783655
+1339	447	976	2013-07-26 22:19:10.396373	2013-07-26 22:19:10.396373
+1340	447	978	2013-07-26 22:19:10.403754	2013-07-26 22:19:10.403754
+1341	447	979	2013-07-26 22:19:10.408845	2013-07-26 22:19:10.408845
+1342	448	208	2013-07-26 22:19:11.144684	2013-07-26 22:19:11.144684
+1343	448	980	2013-07-26 22:19:11.150039	2013-07-26 22:19:11.150039
+1344	448	981	2013-07-26 22:19:11.155546	2013-07-26 22:19:11.155546
+1345	449	135	2013-07-26 22:19:11.802672	2013-07-26 22:19:11.802672
+1346	449	982	2013-07-26 22:19:11.808146	2013-07-26 22:19:11.808146
+1347	449	983	2013-07-26 22:19:11.812709	2013-07-26 22:19:11.812709
+1348	450	984	2013-07-26 22:19:12.577323	2013-07-26 22:19:12.577323
+1349	450	985	2013-07-26 22:19:12.582497	2013-07-26 22:19:12.582497
+1350	450	986	2013-07-26 22:19:12.587441	2013-07-26 22:19:12.587441
+1351	451	987	2013-07-26 22:19:13.525637	2013-07-26 22:19:13.525637
+1352	451	988	2013-07-26 22:19:13.532704	2013-07-26 22:19:13.532704
+1353	451	989	2013-07-26 22:19:13.538237	2013-07-26 22:19:13.538237
+1354	452	203	2013-07-26 22:19:14.962596	2013-07-26 22:19:14.962596
+1355	452	990	2013-07-26 22:19:14.968315	2013-07-26 22:19:14.968315
+1356	452	991	2013-07-26 22:19:14.974852	2013-07-26 22:19:14.974852
+1357	453	669	2013-07-26 22:19:15.643477	2013-07-26 22:19:15.643477
+1358	453	93	2013-07-26 22:19:15.646374	2013-07-26 22:19:15.646374
+1359	453	992	2013-07-26 22:19:15.651065	2013-07-26 22:19:15.651065
+1360	454	429	2013-07-26 22:19:16.823534	2013-07-26 22:19:16.823534
+1361	454	993	2013-07-26 22:19:16.83225	2013-07-26 22:19:16.83225
+1362	454	994	2013-07-26 22:19:16.837925	2013-07-26 22:19:16.837925
+1363	455	995	2013-07-26 22:19:17.608793	2013-07-26 22:19:17.608793
+1364	455	31	2013-07-26 22:19:17.611991	2013-07-26 22:19:17.611991
+1365	455	996	2013-07-26 22:19:17.616637	2013-07-26 22:19:17.616637
+1366	456	322	2013-07-26 22:19:19.351525	2013-07-26 22:19:19.351525
+1367	456	608	2013-07-26 22:19:19.354818	2013-07-26 22:19:19.354818
+1368	456	653	2013-07-26 22:19:19.358393	2013-07-26 22:19:19.358393
+1369	457	19	2013-07-26 22:19:20.286258	2013-07-26 22:19:20.286258
+1370	457	349	2013-07-26 22:19:20.28945	2013-07-26 22:19:20.28945
+1371	457	211	2013-07-26 22:19:20.292513	2013-07-26 22:19:20.292513
+1372	458	64	2013-07-26 22:19:21.062639	2013-07-26 22:19:21.062639
+1373	458	997	2013-07-26 22:19:21.067381	2013-07-26 22:19:21.067381
+1374	458	998	2013-07-26 22:19:21.072867	2013-07-26 22:19:21.072867
+1375	459	999	2013-07-26 22:19:22.11089	2013-07-26 22:19:22.11089
+1376	459	1000	2013-07-26 22:19:22.115598	2013-07-26 22:19:22.115598
+1377	459	1001	2013-07-26 22:19:22.120527	2013-07-26 22:19:22.120527
+1378	460	19	2013-07-26 22:19:23.011525	2013-07-26 22:19:23.011525
+1379	460	297	2013-07-26 22:19:23.014295	2013-07-26 22:19:23.014295
+1380	460	655	2013-07-26 22:19:23.018863	2013-07-26 22:19:23.018863
+1381	461	1002	2013-07-26 22:19:23.701193	2013-07-26 22:19:23.701193
+1382	461	1003	2013-07-26 22:19:23.706221	2013-07-26 22:19:23.706221
+1383	461	1004	2013-07-26 22:19:23.711384	2013-07-26 22:19:23.711384
+1384	462	618	2013-07-26 22:19:24.37509	2013-07-26 22:19:24.37509
+1385	462	1005	2013-07-26 22:19:24.381842	2013-07-26 22:19:24.381842
+1386	462	1006	2013-07-26 22:19:24.386566	2013-07-26 22:19:24.386566
+1387	463	69	2013-07-26 22:19:25.147755	2013-07-26 22:19:25.147755
+1388	463	788	2013-07-26 22:19:25.150621	2013-07-26 22:19:25.150621
+1389	463	1007	2013-07-26 22:19:25.155698	2013-07-26 22:19:25.155698
+1390	464	1008	2013-07-26 22:19:26.279555	2013-07-26 22:19:26.279555
+1391	464	1009	2013-07-26 22:19:26.284267	2013-07-26 22:19:26.284267
+1392	464	1010	2013-07-26 22:19:26.288894	2013-07-26 22:19:26.288894
+1393	465	972	2013-07-26 22:19:26.999459	2013-07-26 22:19:26.999459
+1394	465	1011	2013-07-26 22:19:27.0044	2013-07-26 22:19:27.0044
+1395	465	1012	2013-07-26 22:19:27.009674	2013-07-26 22:19:27.009674
+1396	466	1013	2013-07-26 22:19:27.876179	2013-07-26 22:19:27.876179
+1397	466	1014	2013-07-26 22:19:27.881303	2013-07-26 22:19:27.881303
+1398	466	1015	2013-07-26 22:19:27.885957	2013-07-26 22:19:27.885957
+1399	467	1016	2013-07-26 22:19:28.627806	2013-07-26 22:19:28.627806
+1400	467	1017	2013-07-26 22:19:28.632805	2013-07-26 22:19:28.632805
+1401	467	255	2013-07-26 22:19:28.63566	2013-07-26 22:19:28.63566
+1402	468	1018	2013-07-26 22:19:29.862152	2013-07-26 22:19:29.862152
+1403	468	1019	2013-07-26 22:19:29.869883	2013-07-26 22:19:29.869883
+1404	468	607	2013-07-26 22:19:29.876006	2013-07-26 22:19:29.876006
+1405	469	807	2013-07-26 22:19:30.822354	2013-07-26 22:19:30.822354
+1406	469	1020	2013-07-26 22:19:30.828164	2013-07-26 22:19:30.828164
+1407	469	115	2013-07-26 22:19:30.831472	2013-07-26 22:19:30.831472
+1408	470	807	2013-07-26 22:19:31.7514	2013-07-26 22:19:31.7514
+1409	470	1020	2013-07-26 22:19:31.754354	2013-07-26 22:19:31.754354
+1410	470	115	2013-07-26 22:19:31.757503	2013-07-26 22:19:31.757503
+1411	471	807	2013-07-26 22:19:32.53299	2013-07-26 22:19:32.53299
+1412	471	1020	2013-07-26 22:19:32.537062	2013-07-26 22:19:32.537062
+1413	471	115	2013-07-26 22:19:32.540019	2013-07-26 22:19:32.540019
+1414	472	653	2013-07-26 22:19:33.211179	2013-07-26 22:19:33.211179
+1415	472	923	2013-07-26 22:19:33.214204	2013-07-26 22:19:33.214204
+1416	472	1021	2013-07-26 22:19:33.219132	2013-07-26 22:19:33.219132
+1417	473	320	2013-07-26 22:19:34.259934	2013-07-26 22:19:34.259934
+1418	473	1018	2013-07-26 22:19:34.264493	2013-07-26 22:19:34.264493
+1419	473	1022	2013-07-26 22:19:34.269591	2013-07-26 22:19:34.269591
+1420	474	320	2013-07-26 22:19:35.0969	2013-07-26 22:19:35.0969
+1421	474	1018	2013-07-26 22:19:35.100013	2013-07-26 22:19:35.100013
+1422	474	1023	2013-07-26 22:19:35.104918	2013-07-26 22:19:35.104918
+1423	475	1024	2013-07-26 22:19:35.81667	2013-07-26 22:19:35.81667
+1424	475	1025	2013-07-26 22:19:35.821423	2013-07-26 22:19:35.821423
+1425	475	1026	2013-07-26 22:19:35.828094	2013-07-26 22:19:35.828094
+1426	476	1027	2013-07-26 22:19:37.449904	2013-07-26 22:19:37.449904
+1427	476	1028	2013-07-26 22:19:37.455324	2013-07-26 22:19:37.455324
+1428	476	1029	2013-07-26 22:19:37.460474	2013-07-26 22:19:37.460474
+1429	477	261	2013-07-26 22:19:38.253261	2013-07-26 22:19:38.253261
+1430	477	729	2013-07-26 22:19:38.256255	2013-07-26 22:19:38.256255
+1431	477	1030	2013-07-26 22:19:38.262501	2013-07-26 22:19:38.262501
+1432	478	1031	2013-07-26 22:19:38.884152	2013-07-26 22:19:38.884152
+1433	478	1032	2013-07-26 22:19:38.889035	2013-07-26 22:19:38.889035
+1434	478	1033	2013-07-26 22:19:38.893891	2013-07-26 22:19:38.893891
+1435	479	1034	2013-07-26 22:19:39.578278	2013-07-26 22:19:39.578278
+1436	479	1035	2013-07-26 22:19:39.583711	2013-07-26 22:19:39.583711
+1437	479	1036	2013-07-26 22:19:39.58842	2013-07-26 22:19:39.58842
+1438	480	106	2013-07-26 22:19:40.455946	2013-07-26 22:19:40.455946
+1439	480	1037	2013-07-26 22:19:40.462534	2013-07-26 22:19:40.462534
+1440	480	1038	2013-07-26 22:19:40.467574	2013-07-26 22:19:40.467574
+1441	481	407	2013-07-26 22:19:41.131578	2013-07-26 22:19:41.131578
+1442	481	600	2013-07-26 22:19:41.136295	2013-07-26 22:19:41.136295
+1443	481	950	2013-07-26 22:19:41.139445	2013-07-26 22:19:41.139445
+1444	482	1039	2013-07-26 22:19:41.681549	2013-07-26 22:19:41.681549
+1445	482	1040	2013-07-26 22:19:41.688603	2013-07-26 22:19:41.688603
+1446	482	1041	2013-07-26 22:19:41.694431	2013-07-26 22:19:41.694431
+1447	483	1042	2013-07-26 22:19:42.351962	2013-07-26 22:19:42.351962
+1448	483	208	2013-07-26 22:19:42.354871	2013-07-26 22:19:42.354871
+1449	483	1043	2013-07-26 22:19:42.359562	2013-07-26 22:19:42.359562
+1450	484	244	2013-07-26 22:19:43.499115	2013-07-26 22:19:43.499115
+1451	484	703	2013-07-26 22:19:43.502304	2013-07-26 22:19:43.502304
+1452	484	582	2013-07-26 22:19:43.505178	2013-07-26 22:19:43.505178
+1453	485	1044	2013-07-26 22:19:44.293772	2013-07-26 22:19:44.293772
+1454	485	1045	2013-07-26 22:19:44.299558	2013-07-26 22:19:44.299558
+1455	485	1046	2013-07-26 22:19:44.304339	2013-07-26 22:19:44.304339
+1456	486	45	2013-07-26 22:19:45.124139	2013-07-26 22:19:45.124139
+1457	486	1047	2013-07-26 22:19:45.129839	2013-07-26 22:19:45.129839
+1458	486	1048	2013-07-26 22:19:45.134813	2013-07-26 22:19:45.134813
+1459	487	985	2013-07-26 22:19:45.887285	2013-07-26 22:19:45.887285
+1460	487	1049	2013-07-26 22:19:45.894186	2013-07-26 22:19:45.894186
+1461	487	694	2013-07-26 22:19:45.897493	2013-07-26 22:19:45.897493
+1462	488	1050	2013-07-26 22:19:46.591016	2013-07-26 22:19:46.591016
+1463	488	1051	2013-07-26 22:19:46.596353	2013-07-26 22:19:46.596353
+1464	488	1052	2013-07-26 22:19:46.601739	2013-07-26 22:19:46.601739
+1465	489	1053	2013-07-26 22:19:47.261828	2013-07-26 22:19:47.261828
+1466	489	1054	2013-07-26 22:19:47.267132	2013-07-26 22:19:47.267132
+1467	489	838	2013-07-26 22:19:47.270128	2013-07-26 22:19:47.270128
+1468	490	429	2013-07-26 22:19:48.802022	2013-07-26 22:19:48.802022
+1469	490	690	2013-07-26 22:19:48.80527	2013-07-26 22:19:48.80527
+1470	490	1055	2013-07-26 22:19:48.81128	2013-07-26 22:19:48.81128
+1471	491	80	2013-07-26 22:19:49.515615	2013-07-26 22:19:49.515615
+1472	491	106	2013-07-26 22:19:49.520017	2013-07-26 22:19:49.520017
+1473	491	941	2013-07-26 22:19:49.523251	2013-07-26 22:19:49.523251
+1474	492	22	2013-07-26 22:19:50.334398	2013-07-26 22:19:50.334398
+1475	492	1056	2013-07-26 22:19:50.339726	2013-07-26 22:19:50.339726
+1476	492	667	2013-07-26 22:19:50.342639	2013-07-26 22:19:50.342639
+1477	493	1057	2013-07-26 22:19:51.228835	2013-07-26 22:19:51.228835
+1478	493	1058	2013-07-26 22:19:51.23749	2013-07-26 22:19:51.23749
+1479	493	1059	2013-07-26 22:19:51.243766	2013-07-26 22:19:51.243766
+1480	494	1060	2013-07-26 22:19:52.546834	2013-07-26 22:19:52.546834
+1481	494	1061	2013-07-26 22:19:52.552137	2013-07-26 22:19:52.552137
+1482	494	1062	2013-07-26 22:19:52.55726	2013-07-26 22:19:52.55726
+1483	495	972	2013-07-26 22:19:54.069976	2013-07-26 22:19:54.069976
+1484	495	1063	2013-07-26 22:19:54.076336	2013-07-26 22:19:54.076336
+1485	495	1064	2013-07-26 22:19:54.081668	2013-07-26 22:19:54.081668
+1486	496	117	2013-07-26 22:19:55.036618	2013-07-26 22:19:55.036618
+1487	496	1065	2013-07-26 22:19:55.042879	2013-07-26 22:19:55.042879
+1488	496	1066	2013-07-26 22:19:55.049986	2013-07-26 22:19:55.049986
+1489	497	1067	2013-07-26 22:19:55.838347	2013-07-26 22:19:55.838347
+1490	497	1068	2013-07-26 22:19:55.843569	2013-07-26 22:19:55.843569
+1491	497	446	2013-07-26 22:19:55.846607	2013-07-26 22:19:55.846607
+1492	498	339	2013-07-26 22:19:56.585434	2013-07-26 22:19:56.585434
+1493	498	93	2013-07-26 22:19:56.588319	2013-07-26 22:19:56.588319
+1494	498	1069	2013-07-26 22:19:56.592943	2013-07-26 22:19:56.592943
+1495	499	62	2013-07-26 22:19:57.248184	2013-07-26 22:19:57.248184
+1496	499	1070	2013-07-26 22:19:57.253493	2013-07-26 22:19:57.253493
+1497	499	1071	2013-07-26 22:19:57.258341	2013-07-26 22:19:57.258341
+1498	500	1072	2013-07-26 22:19:57.978883	2013-07-26 22:19:57.978883
+1499	500	1073	2013-07-26 22:19:57.984753	2013-07-26 22:19:57.984753
+1500	500	1074	2013-07-26 22:19:57.989574	2013-07-26 22:19:57.989574
+1501	501	1019	2013-07-26 22:19:58.836886	2013-07-26 22:19:58.836886
+1502	501	595	2013-07-26 22:19:58.842043	2013-07-26 22:19:58.842043
+1503	501	1075	2013-07-26 22:19:58.847367	2013-07-26 22:19:58.847367
+1504	502	693	2013-07-26 22:19:59.641476	2013-07-26 22:19:59.641476
+1505	502	990	2013-07-26 22:19:59.644632	2013-07-26 22:19:59.644632
+1506	502	14	2013-07-26 22:19:59.647695	2013-07-26 22:19:59.647695
+1507	503	788	2013-07-26 22:20:00.641284	2013-07-26 22:20:00.641284
+1508	503	19	2013-07-26 22:20:00.644863	2013-07-26 22:20:00.644863
+1509	503	1076	2013-07-26 22:20:00.650503	2013-07-26 22:20:00.650503
+1510	504	1077	2013-07-26 22:20:01.531939	2013-07-26 22:20:01.531939
+1511	504	1078	2013-07-26 22:20:01.537561	2013-07-26 22:20:01.537561
+1512	504	787	2013-07-26 22:20:01.540819	2013-07-26 22:20:01.540819
+1513	505	485	2013-07-26 22:20:02.249073	2013-07-26 22:20:02.249073
+1514	505	923	2013-07-26 22:20:02.254081	2013-07-26 22:20:02.254081
+1515	505	1079	2013-07-26 22:20:02.259104	2013-07-26 22:20:02.259104
+1516	506	1080	2013-07-26 22:20:03.179625	2013-07-26 22:20:03.179625
+1517	506	1081	2013-07-26 22:20:03.184815	2013-07-26 22:20:03.184815
+1518	506	1082	2013-07-26 22:20:03.190338	2013-07-26 22:20:03.190338
+1519	507	1083	2013-07-26 22:20:04.102258	2013-07-26 22:20:04.102258
+1520	507	1084	2013-07-26 22:20:04.107208	2013-07-26 22:20:04.107208
+1521	507	1085	2013-07-26 22:20:04.111981	2013-07-26 22:20:04.111981
+1522	508	141	2013-07-26 22:20:05.814218	2013-07-26 22:20:05.814218
+1523	508	1086	2013-07-26 22:20:05.820853	2013-07-26 22:20:05.820853
+1524	508	1087	2013-07-26 22:20:05.826574	2013-07-26 22:20:05.826574
+1525	509	1088	2013-07-26 22:20:06.582359	2013-07-26 22:20:06.582359
+1526	509	1089	2013-07-26 22:20:06.587818	2013-07-26 22:20:06.587818
+1527	509	1090	2013-07-26 22:20:06.59262	2013-07-26 22:20:06.59262
+1528	510	1091	2013-07-26 22:20:07.749773	2013-07-26 22:20:07.749773
+1529	510	1092	2013-07-26 22:20:07.755127	2013-07-26 22:20:07.755127
+1530	510	1093	2013-07-26 22:20:07.759926	2013-07-26 22:20:07.759926
+1531	511	29	2013-07-26 22:20:08.623638	2013-07-26 22:20:08.623638
+1532	511	493	2013-07-26 22:20:08.62772	2013-07-26 22:20:08.62772
+1533	511	1094	2013-07-26 22:20:08.6328	2013-07-26 22:20:08.6328
+1534	512	1020	2013-07-26 22:20:09.344365	2013-07-26 22:20:09.344365
+1535	512	10	2013-07-26 22:20:09.347755	2013-07-26 22:20:09.347755
+1536	512	1095	2013-07-26 22:20:09.352809	2013-07-26 22:20:09.352809
+1537	513	804	2013-07-26 22:20:09.962791	2013-07-26 22:20:09.962791
+1538	513	1096	2013-07-26 22:20:09.969081	2013-07-26 22:20:09.969081
+1539	513	548	2013-07-26 22:20:09.972261	2013-07-26 22:20:09.972261
+1540	514	80	2013-07-26 22:20:10.822131	2013-07-26 22:20:10.822131
+1541	514	46	2013-07-26 22:20:10.82535	2013-07-26 22:20:10.82535
+1542	514	1097	2013-07-26 22:20:10.83054	2013-07-26 22:20:10.83054
+1543	515	1098	2013-07-26 22:20:11.435844	2013-07-26 22:20:11.435844
+1544	515	1099	2013-07-26 22:20:11.442996	2013-07-26 22:20:11.442996
+1545	515	1100	2013-07-26 22:20:11.448036	2013-07-26 22:20:11.448036
+1546	516	61	2013-07-26 22:20:12.323686	2013-07-26 22:20:12.323686
+1547	516	679	2013-07-26 22:20:12.326698	2013-07-26 22:20:12.326698
+1548	516	1101	2013-07-26 22:20:12.331982	2013-07-26 22:20:12.331982
+1549	517	1102	2013-07-26 22:20:13.027592	2013-07-26 22:20:13.027592
+1550	517	372	2013-07-26 22:20:13.031231	2013-07-26 22:20:13.031231
+1551	517	1103	2013-07-26 22:20:13.035952	2013-07-26 22:20:13.035952
+1552	518	141	2013-07-26 22:20:14.754895	2013-07-26 22:20:14.754895
+1553	518	1104	2013-07-26 22:20:14.762944	2013-07-26 22:20:14.762944
+1554	518	1105	2013-07-26 22:20:14.7679	2013-07-26 22:20:14.7679
+1555	519	141	2013-07-26 22:20:15.855349	2013-07-26 22:20:15.855349
+1556	519	1106	2013-07-26 22:20:15.869973	2013-07-26 22:20:15.869973
+1557	519	1107	2013-07-26 22:20:15.878085	2013-07-26 22:20:15.878085
+1558	520	1108	2013-07-26 22:20:16.607744	2013-07-26 22:20:16.607744
+1559	520	1109	2013-07-26 22:20:16.61267	2013-07-26 22:20:16.61267
+1560	520	1110	2013-07-26 22:20:16.617416	2013-07-26 22:20:16.617416
+1561	521	141	2013-07-26 22:20:17.604352	2013-07-26 22:20:17.604352
+1562	521	1111	2013-07-26 22:20:17.609725	2013-07-26 22:20:17.609725
+1563	521	1112	2013-07-26 22:20:17.614536	2013-07-26 22:20:17.614536
+1564	522	489	2013-07-26 22:20:18.836623	2013-07-26 22:20:18.836623
+1565	522	1113	2013-07-26 22:20:18.845322	2013-07-26 22:20:18.845322
+1566	522	1114	2013-07-26 22:20:18.852686	2013-07-26 22:20:18.852686
+1567	523	381	2013-07-26 22:20:21.275271	2013-07-26 22:20:21.275271
+1568	523	1115	2013-07-26 22:20:21.280057	2013-07-26 22:20:21.280057
+1569	523	1116	2013-07-26 22:20:21.284801	2013-07-26 22:20:21.284801
+1570	524	1117	2013-07-26 22:20:21.943471	2013-07-26 22:20:21.943471
+1571	524	956	2013-07-26 22:20:21.946652	2013-07-26 22:20:21.946652
+1572	524	317	2013-07-26 22:20:21.949817	2013-07-26 22:20:21.949817
+1573	525	1118	2013-07-26 22:20:22.654199	2013-07-26 22:20:22.654199
+1574	525	1119	2013-07-26 22:20:22.65997	2013-07-26 22:20:22.65997
+1575	525	1120	2013-07-26 22:20:22.665081	2013-07-26 22:20:22.665081
+1576	526	1121	2013-07-26 22:20:23.284435	2013-07-26 22:20:23.284435
+1577	526	1122	2013-07-26 22:20:23.289623	2013-07-26 22:20:23.289623
+1578	526	1123	2013-07-26 22:20:23.294895	2013-07-26 22:20:23.294895
+1579	527	141	2013-07-26 22:20:24.325962	2013-07-26 22:20:24.325962
+1580	527	1124	2013-07-26 22:20:24.330881	2013-07-26 22:20:24.330881
+1581	527	1125	2013-07-26 22:20:24.336606	2013-07-26 22:20:24.336606
+1582	528	1126	2013-07-26 22:20:25.333756	2013-07-26 22:20:25.333756
+1583	528	1127	2013-07-26 22:20:25.338852	2013-07-26 22:20:25.338852
+1584	528	1128	2013-07-26 22:20:25.34418	2013-07-26 22:20:25.34418
+1585	529	1129	2013-07-26 22:20:26.093138	2013-07-26 22:20:26.093138
+1586	529	1130	2013-07-26 22:20:26.098537	2013-07-26 22:20:26.098537
+1587	529	1131	2013-07-26 22:20:26.103354	2013-07-26 22:20:26.103354
+1588	530	1132	2013-07-26 22:20:26.856662	2013-07-26 22:20:26.856662
+1589	530	1133	2013-07-26 22:20:26.864164	2013-07-26 22:20:26.864164
+1590	530	1134	2013-07-26 22:20:26.869951	2013-07-26 22:20:26.869951
+1591	531	1135	2013-07-26 22:20:27.995571	2013-07-26 22:20:27.995571
+1592	531	1136	2013-07-26 22:20:28.000292	2013-07-26 22:20:28.000292
+1593	531	1137	2013-07-26 22:20:28.004795	2013-07-26 22:20:28.004795
+1594	532	1135	2013-07-26 22:20:29.044354	2013-07-26 22:20:29.044354
+1595	532	1136	2013-07-26 22:20:29.047823	2013-07-26 22:20:29.047823
+1596	532	1137	2013-07-26 22:20:29.051334	2013-07-26 22:20:29.051334
+1597	533	1135	2013-07-26 22:20:30.089486	2013-07-26 22:20:30.089486
+1598	533	1136	2013-07-26 22:20:30.093978	2013-07-26 22:20:30.093978
+1599	533	1137	2013-07-26 22:20:30.097094	2013-07-26 22:20:30.097094
+1600	534	1135	2013-07-26 22:20:31.126491	2013-07-26 22:20:31.126491
+1601	534	1136	2013-07-26 22:20:31.130994	2013-07-26 22:20:31.130994
+1602	534	1137	2013-07-26 22:20:31.134191	2013-07-26 22:20:31.134191
+1603	535	1135	2013-07-26 22:20:32.188575	2013-07-26 22:20:32.188575
+1604	535	1136	2013-07-26 22:20:32.19372	2013-07-26 22:20:32.19372
+1605	535	1137	2013-07-26 22:20:32.19685	2013-07-26 22:20:32.19685
+1606	536	153	2013-07-26 22:20:33.012549	2013-07-26 22:20:33.012549
+1607	536	338	2013-07-26 22:20:33.015962	2013-07-26 22:20:33.015962
+1608	536	520	2013-07-26 22:20:33.01902	2013-07-26 22:20:33.01902
+1609	537	1138	2013-07-26 22:20:33.964112	2013-07-26 22:20:33.964112
+1610	537	1139	2013-07-26 22:20:33.968735	2013-07-26 22:20:33.968735
+1611	537	1140	2013-07-26 22:20:33.973501	2013-07-26 22:20:33.973501
+1612	538	1141	2013-07-26 22:20:34.583035	2013-07-26 22:20:34.583035
+1613	538	1142	2013-07-26 22:20:34.588133	2013-07-26 22:20:34.588133
+1614	538	311	2013-07-26 22:20:34.591146	2013-07-26 22:20:34.591146
+1615	539	582	2013-07-26 22:20:35.669061	2013-07-26 22:20:35.669061
+1616	539	1143	2013-07-26 22:20:35.676918	2013-07-26 22:20:35.676918
+1617	539	390	2013-07-26 22:20:35.680691	2013-07-26 22:20:35.680691
+1618	540	1044	2013-07-26 22:20:36.8067	2013-07-26 22:20:36.8067
+1619	540	333	2013-07-26 22:20:36.812216	2013-07-26 22:20:36.812216
+1620	540	48	2013-07-26 22:20:36.815043	2013-07-26 22:20:36.815043
+1621	541	141	2013-07-26 22:20:37.823453	2013-07-26 22:20:37.823453
+1622	541	1144	2013-07-26 22:20:37.828516	2013-07-26 22:20:37.828516
+1623	541	1145	2013-07-26 22:20:37.833338	2013-07-26 22:20:37.833338
+1624	542	468	2013-07-26 22:20:38.867804	2013-07-26 22:20:38.867804
+1625	542	1146	2013-07-26 22:20:38.87497	2013-07-26 22:20:38.87497
+1626	542	1147	2013-07-26 22:20:38.880666	2013-07-26 22:20:38.880666
+1627	543	1139	2013-07-26 22:20:40.936374	2013-07-26 22:20:40.936374
+1628	543	1148	2013-07-26 22:20:40.941612	2013-07-26 22:20:40.941612
+1629	543	1149	2013-07-26 22:20:40.947026	2013-07-26 22:20:40.947026
+1630	544	513	2013-07-26 22:20:41.581836	2013-07-26 22:20:41.581836
+1631	544	30	2013-07-26 22:20:41.587616	2013-07-26 22:20:41.587616
+1632	544	1150	2013-07-26 22:20:41.592769	2013-07-26 22:20:41.592769
+1633	545	533	2013-07-26 22:20:42.656438	2013-07-26 22:20:42.656438
+1634	545	323	2013-07-26 22:20:42.660902	2013-07-26 22:20:42.660902
+1635	545	1151	2013-07-26 22:20:42.669674	2013-07-26 22:20:42.669674
+1636	546	653	2013-07-26 22:20:43.748666	2013-07-26 22:20:43.748666
+1637	546	63	2013-07-26 22:20:43.751892	2013-07-26 22:20:43.751892
+1638	546	1152	2013-07-26 22:20:43.756711	2013-07-26 22:20:43.756711
+1639	547	1153	2013-07-26 22:20:44.575462	2013-07-26 22:20:44.575462
+1640	547	1154	2013-07-26 22:20:44.580966	2013-07-26 22:20:44.580966
+1641	547	1155	2013-07-26 22:20:44.586111	2013-07-26 22:20:44.586111
+1642	548	1156	2013-07-26 22:20:45.476481	2013-07-26 22:20:45.476481
+1643	548	1157	2013-07-26 22:20:45.482088	2013-07-26 22:20:45.482088
+1644	548	1158	2013-07-26 22:20:45.486993	2013-07-26 22:20:45.486993
+1645	549	468	2013-07-26 22:20:46.494534	2013-07-26 22:20:46.494534
+1646	549	1159	2013-07-26 22:20:46.500325	2013-07-26 22:20:46.500325
+1647	549	1160	2013-07-26 22:20:46.505913	2013-07-26 22:20:46.505913
+1648	550	1161	2013-07-26 22:20:47.313268	2013-07-26 22:20:47.313268
+1649	550	1162	2013-07-26 22:20:47.318431	2013-07-26 22:20:47.318431
+1650	550	1163	2013-07-26 22:20:47.323118	2013-07-26 22:20:47.323118
+1651	551	919	2013-07-26 22:20:48.051437	2013-07-26 22:20:48.051437
+1652	551	1164	2013-07-26 22:20:48.058409	2013-07-26 22:20:48.058409
+1653	551	93	2013-07-26 22:20:48.061602	2013-07-26 22:20:48.061602
+1654	552	109	2013-07-26 22:20:49.095593	2013-07-26 22:20:49.095593
+1655	552	1165	2013-07-26 22:20:49.100716	2013-07-26 22:20:49.100716
+1656	552	1166	2013-07-26 22:20:49.105665	2013-07-26 22:20:49.105665
+1657	553	608	2013-07-26 22:20:49.714963	2013-07-26 22:20:49.714963
+1658	553	245	2013-07-26 22:20:49.718122	2013-07-26 22:20:49.718122
+1659	553	273	2013-07-26 22:20:49.721124	2013-07-26 22:20:49.721124
+1660	554	1167	2013-07-26 22:20:50.919516	2013-07-26 22:20:50.919516
+1661	554	436	2013-07-26 22:20:50.922582	2013-07-26 22:20:50.922582
+1662	554	1168	2013-07-26 22:20:50.927152	2013-07-26 22:20:50.927152
+1663	555	1169	2013-07-26 22:20:51.732859	2013-07-26 22:20:51.732859
+1664	555	1170	2013-07-26 22:20:51.738077	2013-07-26 22:20:51.738077
+1665	555	1171	2013-07-26 22:20:51.743081	2013-07-26 22:20:51.743081
+1666	556	468	2013-07-26 22:20:52.772504	2013-07-26 22:20:52.772504
+1667	556	1172	2013-07-26 22:20:52.777769	2013-07-26 22:20:52.777769
+1668	556	1173	2013-07-26 22:20:52.783289	2013-07-26 22:20:52.783289
+1669	557	468	2013-07-26 22:20:54.002299	2013-07-26 22:20:54.002299
+1670	557	1174	2013-07-26 22:20:54.007947	2013-07-26 22:20:54.007947
+1671	557	1175	2013-07-26 22:20:54.012894	2013-07-26 22:20:54.012894
+1672	558	468	2013-07-26 22:20:55.887893	2013-07-26 22:20:55.887893
+1673	558	1176	2013-07-26 22:20:55.894968	2013-07-26 22:20:55.894968
+1674	558	1177	2013-07-26 22:20:55.901911	2013-07-26 22:20:55.901911
+1675	559	1178	2013-07-26 22:20:56.462709	2013-07-26 22:20:56.462709
+1676	559	1179	2013-07-26 22:20:56.469543	2013-07-26 22:20:56.469543
+1677	559	1180	2013-07-26 22:20:56.47518	2013-07-26 22:20:56.47518
+1678	560	1181	2013-07-26 22:20:57.312022	2013-07-26 22:20:57.312022
+1679	560	61	2013-07-26 22:20:57.316879	2013-07-26 22:20:57.316879
+1680	560	1182	2013-07-26 22:20:57.321973	2013-07-26 22:20:57.321973
+1681	561	1167	2013-07-26 22:20:57.940251	2013-07-26 22:20:57.940251
+1682	561	436	2013-07-26 22:20:57.943078	2013-07-26 22:20:57.943078
+1683	561	1183	2013-07-26 22:20:57.948076	2013-07-26 22:20:57.948076
+1684	562	1184	2013-07-26 22:20:58.586721	2013-07-26 22:20:58.586721
+1685	562	1185	2013-07-26 22:20:58.591433	2013-07-26 22:20:58.591433
+1686	562	1186	2013-07-26 22:20:58.596203	2013-07-26 22:20:58.596203
+1687	563	454	2013-07-26 22:20:59.252021	2013-07-26 22:20:59.252021
+1688	563	1187	2013-07-26 22:20:59.257074	2013-07-26 22:20:59.257074
+1689	563	401	2013-07-26 22:20:59.260066	2013-07-26 22:20:59.260066
+1690	564	489	2013-07-26 22:20:59.81832	2013-07-26 22:20:59.81832
+1691	564	1188	2013-07-26 22:20:59.826286	2013-07-26 22:20:59.826286
+1692	564	1189	2013-07-26 22:20:59.831273	2013-07-26 22:20:59.831273
+1693	565	468	2013-07-26 22:21:00.837015	2013-07-26 22:21:00.837015
+1694	565	1076	2013-07-26 22:21:00.840133	2013-07-26 22:21:00.840133
+1695	565	1190	2013-07-26 22:21:00.845078	2013-07-26 22:21:00.845078
+1696	566	1191	2013-07-26 22:21:02.504828	2013-07-26 22:21:02.504828
+1697	566	1192	2013-07-26 22:21:02.51031	2013-07-26 22:21:02.51031
+1698	566	1065	2013-07-26 22:21:02.513511	2013-07-26 22:21:02.513511
+1699	567	1191	2013-07-26 22:21:03.328061	2013-07-26 22:21:03.328061
+1700	567	1193	2013-07-26 22:21:03.336416	2013-07-26 22:21:03.336416
+1701	567	1194	2013-07-26 22:21:03.343419	2013-07-26 22:21:03.343419
+1702	568	1195	2013-07-26 22:21:04.224095	2013-07-26 22:21:04.224095
+1703	568	31	2013-07-26 22:21:04.227145	2013-07-26 22:21:04.227145
+1704	568	1196	2013-07-26 22:21:04.23181	2013-07-26 22:21:04.23181
+1705	569	141	2013-07-26 22:21:04.848313	2013-07-26 22:21:04.848313
+1706	569	1197	2013-07-26 22:21:04.854346	2013-07-26 22:21:04.854346
+1707	569	523	2013-07-26 22:21:04.858972	2013-07-26 22:21:04.858972
+1708	570	446	2013-07-26 22:21:05.460169	2013-07-26 22:21:05.460169
+1709	570	245	2013-07-26 22:21:05.463517	2013-07-26 22:21:05.463517
+1710	570	1198	2013-07-26 22:21:05.468778	2013-07-26 22:21:05.468778
+1711	571	665	2013-07-26 22:21:06.076494	2013-07-26 22:21:06.076494
+1712	571	172	2013-07-26 22:21:06.08168	2013-07-26 22:21:06.08168
+1713	571	605	2013-07-26 22:21:06.084814	2013-07-26 22:21:06.084814
+1714	572	1195	2013-07-26 22:21:07.065005	2013-07-26 22:21:07.065005
+1715	572	92	2013-07-26 22:21:07.070472	2013-07-26 22:21:07.070472
+1716	572	267	2013-07-26 22:21:07.073814	2013-07-26 22:21:07.073814
+1717	573	1199	2013-07-26 22:21:22.053582	2013-07-26 22:21:22.053582
+1718	573	798	2013-07-26 22:21:22.056787	2013-07-26 22:21:22.056787
+1719	573	1200	2013-07-26 22:21:22.061987	2013-07-26 22:21:22.061987
+1720	574	293	2013-07-26 22:21:22.582426	2013-07-26 22:21:22.582426
+1721	574	1201	2013-07-26 22:21:22.588874	2013-07-26 22:21:22.588874
+1722	574	1202	2013-07-26 22:21:22.594204	2013-07-26 22:21:22.594204
+1723	575	106	2013-07-26 22:21:23.324839	2013-07-26 22:21:23.324839
+1724	575	1203	2013-07-26 22:21:23.3303	2013-07-26 22:21:23.3303
+1725	575	726	2013-07-26 22:21:23.333412	2013-07-26 22:21:23.333412
+1726	576	34	2013-07-26 22:21:23.98558	2013-07-26 22:21:23.98558
+1727	576	1083	2013-07-26 22:21:23.988952	2013-07-26 22:21:23.988952
+1728	576	426	2013-07-26 22:21:23.992609	2013-07-26 22:21:23.992609
+1729	577	1204	2013-07-26 22:21:24.608184	2013-07-26 22:21:24.608184
+1730	577	1205	2013-07-26 22:21:24.613244	2013-07-26 22:21:24.613244
+1731	577	1206	2013-07-26 22:21:24.61817	2013-07-26 22:21:24.61817
+1732	578	1207	2013-07-26 22:21:25.604819	2013-07-26 22:21:25.604819
+1733	578	1208	2013-07-26 22:21:25.610069	2013-07-26 22:21:25.610069
+1734	578	1209	2013-07-26 22:21:25.615057	2013-07-26 22:21:25.615057
+1735	579	1210	2013-07-26 22:21:27.207274	2013-07-26 22:21:27.207274
+1736	579	1211	2013-07-26 22:21:27.212178	2013-07-26 22:21:27.212178
+1737	579	1212	2013-07-26 22:21:27.217084	2013-07-26 22:21:27.217084
+1738	580	1210	2013-07-26 22:21:27.892315	2013-07-26 22:21:27.892315
+1739	580	1213	2013-07-26 22:21:27.900496	2013-07-26 22:21:27.900496
+1740	580	832	2013-07-26 22:21:27.903598	2013-07-26 22:21:27.903598
+1741	581	166	2013-07-26 22:21:28.79571	2013-07-26 22:21:28.79571
+1742	581	1214	2013-07-26 22:21:28.800891	2013-07-26 22:21:28.800891
+1743	581	1215	2013-07-26 22:21:28.805834	2013-07-26 22:21:28.805834
+1744	582	629	2013-07-26 22:21:29.326837	2013-07-26 22:21:29.326837
+1745	582	1216	2013-07-26 22:21:29.332299	2013-07-26 22:21:29.332299
+1746	582	1217	2013-07-26 22:21:29.337125	2013-07-26 22:21:29.337125
+1747	583	1044	2013-07-26 22:21:30.05193	2013-07-26 22:21:30.05193
+1748	583	664	2013-07-26 22:21:30.054824	2013-07-26 22:21:30.054824
+1749	583	1218	2013-07-26 22:21:30.059702	2013-07-26 22:21:30.059702
+1750	584	235	2013-07-26 22:21:30.873315	2013-07-26 22:21:30.873315
+1751	584	6	2013-07-26 22:21:30.876525	2013-07-26 22:21:30.876525
+1752	584	172	2013-07-26 22:21:30.880047	2013-07-26 22:21:30.880047
+1753	585	1219	2013-07-26 22:21:31.629072	2013-07-26 22:21:31.629072
+1754	585	1220	2013-07-26 22:21:31.633979	2013-07-26 22:21:31.633979
+1755	585	1221	2013-07-26 22:21:31.638787	2013-07-26 22:21:31.638787
+1756	586	1210	2013-07-26 22:21:32.192488	2013-07-26 22:21:32.192488
+1757	586	1222	2013-07-26 22:21:32.197966	2013-07-26 22:21:32.197966
+1758	586	1223	2013-07-26 22:21:32.202883	2013-07-26 22:21:32.202883
+1759	587	1210	2013-07-26 22:21:32.729538	2013-07-26 22:21:32.729538
+1760	587	1224	2013-07-26 22:21:32.734513	2013-07-26 22:21:32.734513
+1761	587	1223	2013-07-26 22:21:32.737649	2013-07-26 22:21:32.737649
+1762	588	433	2013-07-26 22:21:33.36873	2013-07-26 22:21:33.36873
+1763	588	1225	2013-07-26 22:21:33.374557	2013-07-26 22:21:33.374557
+1764	588	1226	2013-07-26 22:21:33.380001	2013-07-26 22:21:33.380001
+1765	589	1227	2013-07-26 22:21:34.022744	2013-07-26 22:21:34.022744
+1766	589	1228	2013-07-26 22:21:34.02817	2013-07-26 22:21:34.02817
+1767	589	1229	2013-07-26 22:21:34.033224	2013-07-26 22:21:34.033224
+1768	590	1227	2013-07-26 22:21:34.618256	2013-07-26 22:21:34.618256
+1769	590	1230	2013-07-26 22:21:34.623619	2013-07-26 22:21:34.623619
+1770	590	1231	2013-07-26 22:21:34.629281	2013-07-26 22:21:34.629281
+1771	591	984	2013-07-26 22:21:35.328211	2013-07-26 22:21:35.328211
+1772	591	985	2013-07-26 22:21:35.331848	2013-07-26 22:21:35.331848
+1773	591	1232	2013-07-26 22:21:35.337134	2013-07-26 22:21:35.337134
+1774	592	1233	2013-07-26 22:21:35.987247	2013-07-26 22:21:35.987247
+1775	592	1234	2013-07-26 22:21:35.995091	2013-07-26 22:21:35.995091
+1776	592	1235	2013-07-26 22:21:36.000012	2013-07-26 22:21:36.000012
+1777	593	1236	2013-07-26 22:21:36.767351	2013-07-26 22:21:36.767351
+1778	593	1237	2013-07-26 22:21:36.774287	2013-07-26 22:21:36.774287
+1779	593	1238	2013-07-26 22:21:36.779526	2013-07-26 22:21:36.779526
+1780	594	1236	2013-07-26 22:21:37.475987	2013-07-26 22:21:37.475987
+1781	594	1239	2013-07-26 22:21:37.481633	2013-07-26 22:21:37.481633
+1782	594	1240	2013-07-26 22:21:37.486393	2013-07-26 22:21:37.486393
+1783	595	1236	2013-07-26 22:21:38.243752	2013-07-26 22:21:38.243752
+1784	595	1241	2013-07-26 22:21:38.248748	2013-07-26 22:21:38.248748
+1785	595	1242	2013-07-26 22:21:38.253878	2013-07-26 22:21:38.253878
+1786	596	1135	2013-07-26 22:21:39.107014	2013-07-26 22:21:39.107014
+1787	596	1136	2013-07-26 22:21:39.110125	2013-07-26 22:21:39.110125
+1788	596	1137	2013-07-26 22:21:39.113523	2013-07-26 22:21:39.113523
+1789	597	45	2013-07-26 22:21:39.768918	2013-07-26 22:21:39.768918
+1790	597	1243	2013-07-26 22:21:39.7738	2013-07-26 22:21:39.7738
+1791	597	1244	2013-07-26 22:21:39.778714	2013-07-26 22:21:39.778714
+1792	598	93	2013-07-26 22:21:40.640152	2013-07-26 22:21:40.640152
+1793	598	1245	2013-07-26 22:21:40.646001	2013-07-26 22:21:40.646001
+1794	598	890	2013-07-26 22:21:40.649153	2013-07-26 22:21:40.649153
+1795	599	1181	2013-07-26 22:21:41.934165	2013-07-26 22:21:41.934165
+1796	599	1246	2013-07-26 22:21:41.9393	2013-07-26 22:21:41.9393
+1797	599	1247	2013-07-26 22:21:41.944063	2013-07-26 22:21:41.944063
+1798	600	1248	2013-07-26 22:21:42.668547	2013-07-26 22:21:42.668547
+1799	600	890	2013-07-26 22:21:42.67174	2013-07-26 22:21:42.67174
+1800	600	1249	2013-07-26 22:21:42.677068	2013-07-26 22:21:42.677068
+1801	601	1248	2013-07-26 22:21:43.398062	2013-07-26 22:21:43.398062
+1802	601	890	2013-07-26 22:21:43.401508	2013-07-26 22:21:43.401508
+1803	601	1250	2013-07-26 22:21:43.406447	2013-07-26 22:21:43.406447
+1804	602	1251	2013-07-26 22:21:44.034119	2013-07-26 22:21:44.034119
+1805	602	426	2013-07-26 22:21:44.037371	2013-07-26 22:21:44.037371
+1806	602	1252	2013-07-26 22:21:44.042242	2013-07-26 22:21:44.042242
+1807	603	1253	2013-07-26 22:21:45.847503	2013-07-26 22:21:45.847503
+1808	603	1254	2013-07-26 22:21:45.853574	2013-07-26 22:21:45.853574
+1809	603	1255	2013-07-26 22:21:45.8588	2013-07-26 22:21:45.8588
+1810	604	1256	2013-07-26 22:21:46.467563	2013-07-26 22:21:46.467563
+1811	604	1257	2013-07-26 22:21:46.474823	2013-07-26 22:21:46.474823
+1812	604	1258	2013-07-26 22:21:46.479899	2013-07-26 22:21:46.479899
+1813	605	741	2013-07-26 22:21:47.035829	2013-07-26 22:21:47.035829
+1814	605	1259	2013-07-26 22:21:47.040761	2013-07-26 22:21:47.040761
+1815	605	1260	2013-07-26 22:21:47.045557	2013-07-26 22:21:47.045557
+1816	606	1261	2013-07-26 22:21:47.648029	2013-07-26 22:21:47.648029
+1817	606	1262	2013-07-26 22:21:47.654693	2013-07-26 22:21:47.654693
+1818	606	1263	2013-07-26 22:21:47.659867	2013-07-26 22:21:47.659867
+1819	607	1264	2013-07-26 22:21:48.258901	2013-07-26 22:21:48.258901
+1820	607	1265	2013-07-26 22:21:48.26445	2013-07-26 22:21:48.26445
+1821	607	1266	2013-07-26 22:21:48.269622	2013-07-26 22:21:48.269622
+1822	608	1267	2013-07-26 22:21:48.836798	2013-07-26 22:21:48.836798
+1823	608	1268	2013-07-26 22:21:48.842095	2013-07-26 22:21:48.842095
+1824	608	1269	2013-07-26 22:21:48.847883	2013-07-26 22:21:48.847883
+1825	609	111	2013-07-26 22:21:49.527863	2013-07-26 22:21:49.527863
+1826	609	1270	2013-07-26 22:21:49.53408	2013-07-26 22:21:49.53408
+1827	609	1271	2013-07-26 22:21:49.539341	2013-07-26 22:21:49.539341
+1828	610	477	2013-07-26 22:21:50.193349	2013-07-26 22:21:50.193349
+1829	610	1272	2013-07-26 22:21:50.198634	2013-07-26 22:21:50.198634
+1830	610	1273	2013-07-26 22:21:50.203646	2013-07-26 22:21:50.203646
+1831	611	1274	2013-07-26 22:21:50.764564	2013-07-26 22:21:50.764564
+1832	611	1275	2013-07-26 22:21:50.770667	2013-07-26 22:21:50.770667
+1833	611	1276	2013-07-26 22:21:50.775488	2013-07-26 22:21:50.775488
+1834	612	1277	2013-07-26 22:21:51.380146	2013-07-26 22:21:51.380146
+1835	612	1278	2013-07-26 22:21:51.385926	2013-07-26 22:21:51.385926
+1836	612	1279	2013-07-26 22:21:51.391018	2013-07-26 22:21:51.391018
+1837	613	1280	2013-07-26 22:21:52.162379	2013-07-26 22:21:52.162379
+1838	613	994	2013-07-26 22:21:52.166555	2013-07-26 22:21:52.166555
+1839	613	517	2013-07-26 22:21:52.169696	2013-07-26 22:21:52.169696
+1840	614	1281	2013-07-26 22:21:53.029799	2013-07-26 22:21:53.029799
+1841	614	80	2013-07-26 22:21:53.033143	2013-07-26 22:21:53.033143
+1842	614	1282	2013-07-26 22:21:53.037938	2013-07-26 22:21:53.037938
+1843	615	318	2013-07-26 22:21:53.659225	2013-07-26 22:21:53.659225
+1844	615	1283	2013-07-26 22:21:53.664203	2013-07-26 22:21:53.664203
+1845	615	1195	2013-07-26 22:21:53.667562	2013-07-26 22:21:53.667562
+1846	616	1284	2013-07-26 22:21:54.275408	2013-07-26 22:21:54.275408
+1847	616	1285	2013-07-26 22:21:54.280376	2013-07-26 22:21:54.280376
+1848	616	1286	2013-07-26 22:21:54.286237	2013-07-26 22:21:54.286237
+1849	617	1287	2013-07-26 22:21:54.949798	2013-07-26 22:21:54.949798
+1850	617	1049	2013-07-26 22:21:54.953039	2013-07-26 22:21:54.953039
+1851	617	1288	2013-07-26 22:21:54.958313	2013-07-26 22:21:54.958313
+1852	618	1289	2013-07-26 22:21:55.575399	2013-07-26 22:21:55.575399
+1853	618	1290	2013-07-26 22:21:55.580523	2013-07-26 22:21:55.580523
+1854	618	1291	2013-07-26 22:21:55.586062	2013-07-26 22:21:55.586062
+1855	619	1292	2013-07-26 22:21:56.414296	2013-07-26 22:21:56.414296
+1856	619	1293	2013-07-26 22:21:56.421407	2013-07-26 22:21:56.421407
+1857	619	719	2013-07-26 22:21:56.424306	2013-07-26 22:21:56.424306
+1858	620	1294	2013-07-26 22:21:57.324282	2013-07-26 22:21:57.324282
+1859	620	1295	2013-07-26 22:21:57.329041	2013-07-26 22:21:57.329041
+1860	620	1051	2013-07-26 22:21:57.332071	2013-07-26 22:21:57.332071
+1861	621	1002	2013-07-26 22:21:58.904724	2013-07-26 22:21:58.904724
+1862	621	150	2013-07-26 22:21:58.910549	2013-07-26 22:21:58.910549
+1863	621	156	2013-07-26 22:21:58.913497	2013-07-26 22:21:58.913497
+1864	622	664	2013-07-26 22:21:59.738404	2013-07-26 22:21:59.738404
+1865	622	693	2013-07-26 22:21:59.743061	2013-07-26 22:21:59.743061
+1866	622	1296	2013-07-26 22:21:59.747997	2013-07-26 22:21:59.747997
+1867	623	1297	2013-07-26 22:22:00.52142	2013-07-26 22:22:00.52142
+1868	623	1298	2013-07-26 22:22:00.526653	2013-07-26 22:22:00.526653
+1869	623	96	2013-07-26 22:22:00.530173	2013-07-26 22:22:00.530173
+1870	624	1032	2013-07-26 22:22:01.626736	2013-07-26 22:22:01.626736
+1871	624	1299	2013-07-26 22:22:01.631673	2013-07-26 22:22:01.631673
+1872	624	1300	2013-07-26 22:22:01.637114	2013-07-26 22:22:01.637114
+1873	625	1301	2013-07-26 22:22:02.793745	2013-07-26 22:22:02.793745
+1874	625	1302	2013-07-26 22:22:02.798854	2013-07-26 22:22:02.798854
+1875	625	1303	2013-07-26 22:22:02.804116	2013-07-26 22:22:02.804116
+1876	626	1304	2013-07-26 22:22:03.727864	2013-07-26 22:22:03.727864
+1877	626	1305	2013-07-26 22:22:03.734687	2013-07-26 22:22:03.734687
+1878	626	1306	2013-07-26 22:22:03.740018	2013-07-26 22:22:03.740018
+1879	627	1307	2013-07-26 22:22:04.758417	2013-07-26 22:22:04.758417
+1880	627	1308	2013-07-26 22:22:04.76352	2013-07-26 22:22:04.76352
+1881	627	1309	2013-07-26 22:22:04.768819	2013-07-26 22:22:04.768819
+1882	628	318	2013-07-26 22:22:05.626386	2013-07-26 22:22:05.626386
+1883	628	1310	2013-07-26 22:22:05.632524	2013-07-26 22:22:05.632524
+1884	628	1311	2013-07-26 22:22:05.63789	2013-07-26 22:22:05.63789
+1885	629	312	2013-07-26 22:22:06.724702	2013-07-26 22:22:06.724702
+1886	629	1312	2013-07-26 22:22:06.730961	2013-07-26 22:22:06.730961
+1887	629	1313	2013-07-26 22:22:06.736769	2013-07-26 22:22:06.736769
+1888	630	1002	2013-07-26 22:22:08.697997	2013-07-26 22:22:08.697997
+1889	630	298	2013-07-26 22:22:08.701059	2013-07-26 22:22:08.701059
+1890	630	1314	2013-07-26 22:22:08.706156	2013-07-26 22:22:08.706156
+1891	631	1315	2013-07-26 22:22:09.493919	2013-07-26 22:22:09.493919
+1892	631	1316	2013-07-26 22:22:09.501443	2013-07-26 22:22:09.501443
+1893	631	638	2013-07-26 22:22:09.504886	2013-07-26 22:22:09.504886
+1894	632	1317	2013-07-26 22:22:10.130936	2013-07-26 22:22:10.130936
+1895	632	1318	2013-07-26 22:22:10.136044	2013-07-26 22:22:10.136044
+1896	632	1319	2013-07-26 22:22:10.141018	2013-07-26 22:22:10.141018
+1897	633	80	2013-07-26 22:22:11.134521	2013-07-26 22:22:11.134521
+1898	633	99	2013-07-26 22:22:11.138051	2013-07-26 22:22:11.138051
+1899	633	1320	2013-07-26 22:22:11.143393	2013-07-26 22:22:11.143393
+1900	634	1321	2013-07-26 22:22:12.065599	2013-07-26 22:22:12.065599
+1901	634	143	2013-07-26 22:22:12.068601	2013-07-26 22:22:12.068601
+1902	634	839	2013-07-26 22:22:12.071784	2013-07-26 22:22:12.071784
+1903	635	1321	2013-07-26 22:22:12.917456	2013-07-26 22:22:12.917456
+1904	635	143	2013-07-26 22:22:12.920335	2013-07-26 22:22:12.920335
+1905	635	839	2013-07-26 22:22:12.923527	2013-07-26 22:22:12.923527
+1906	636	1321	2013-07-26 22:22:13.841457	2013-07-26 22:22:13.841457
+1907	636	143	2013-07-26 22:22:13.84444	2013-07-26 22:22:13.84444
+1908	636	839	2013-07-26 22:22:13.847475	2013-07-26 22:22:13.847475
+1909	637	863	2013-07-26 22:22:14.705879	2013-07-26 22:22:14.705879
+1910	637	1322	2013-07-26 22:22:14.713044	2013-07-26 22:22:14.713044
+1911	637	1323	2013-07-26 22:22:14.717869	2013-07-26 22:22:14.717869
+1912	638	1324	2013-07-26 22:22:15.541397	2013-07-26 22:22:15.541397
+1913	638	318	2013-07-26 22:22:15.544356	2013-07-26 22:22:15.544356
+1914	638	1325	2013-07-26 22:22:15.549036	2013-07-26 22:22:15.549036
+1915	639	1326	2013-07-26 22:22:16.481521	2013-07-26 22:22:16.481521
+1916	639	1327	2013-07-26 22:22:16.486289	2013-07-26 22:22:16.486289
+1917	639	1328	2013-07-26 22:22:16.491414	2013-07-26 22:22:16.491414
+1918	640	1329	2013-07-26 22:22:17.418686	2013-07-26 22:22:17.418686
+1919	640	1330	2013-07-26 22:22:17.425722	2013-07-26 22:22:17.425722
+1920	640	1331	2013-07-26 22:22:17.430533	2013-07-26 22:22:17.430533
+1921	641	1332	2013-07-26 22:22:18.332455	2013-07-26 22:22:18.332455
+1922	641	1244	2013-07-26 22:22:18.335673	2013-07-26 22:22:18.335673
+1923	641	1333	2013-07-26 22:22:18.341167	2013-07-26 22:22:18.341167
+1924	642	1321	2013-07-26 22:22:19.137699	2013-07-26 22:22:19.137699
+1925	642	1334	2013-07-26 22:22:19.143131	2013-07-26 22:22:19.143131
+1926	642	1335	2013-07-26 22:22:19.148141	2013-07-26 22:22:19.148141
+1927	643	1321	2013-07-26 22:22:19.957209	2013-07-26 22:22:19.957209
+1928	643	1243	2013-07-26 22:22:19.96278	2013-07-26 22:22:19.96278
+1929	643	1335	2013-07-26 22:22:19.965956	2013-07-26 22:22:19.965956
+1930	644	1321	2013-07-26 22:22:20.874465	2013-07-26 22:22:20.874465
+1931	644	1336	2013-07-26 22:22:20.882787	2013-07-26 22:22:20.882787
+1932	644	1337	2013-07-26 22:22:20.888256	2013-07-26 22:22:20.888256
+1933	645	600	2013-07-26 22:22:21.595694	2013-07-26 22:22:21.595694
+1934	645	994	2013-07-26 22:22:21.601458	2013-07-26 22:22:21.601458
+1935	645	93	2013-07-26 22:22:21.604437	2013-07-26 22:22:21.604437
+1936	646	208	2013-07-26 22:22:22.358166	2013-07-26 22:22:22.358166
+1937	646	320	2013-07-26 22:22:22.361185	2013-07-26 22:22:22.361185
+1938	646	36	2013-07-26 22:22:22.36416	2013-07-26 22:22:22.36416
+1939	647	1338	2013-07-26 22:22:22.984418	2013-07-26 22:22:22.984418
+1940	647	1339	2013-07-26 22:22:22.989247	2013-07-26 22:22:22.989247
+1941	647	1340	2013-07-26 22:22:22.994464	2013-07-26 22:22:22.994464
+1942	648	1341	2013-07-26 22:22:23.743468	2013-07-26 22:22:23.743468
+1943	648	1342	2013-07-26 22:22:23.748661	2013-07-26 22:22:23.748661
+1944	648	1343	2013-07-26 22:22:23.75338	2013-07-26 22:22:23.75338
+1945	649	1344	2013-07-26 22:22:24.384954	2013-07-26 22:22:24.384954
+1946	649	1345	2013-07-26 22:22:24.389954	2013-07-26 22:22:24.389954
+1947	649	1346	2013-07-26 22:22:24.395025	2013-07-26 22:22:24.395025
+1948	650	322	2013-07-26 22:22:25.134879	2013-07-26 22:22:25.134879
+1949	650	429	2013-07-26 22:22:25.137717	2013-07-26 22:22:25.137717
+1950	650	1347	2013-07-26 22:22:25.14317	2013-07-26 22:22:25.14317
+1951	651	759	2013-07-26 22:22:27.515213	2013-07-26 22:22:27.515213
+1952	651	1348	2013-07-26 22:22:27.520128	2013-07-26 22:22:27.520128
+1953	651	1349	2013-07-26 22:22:27.525084	2013-07-26 22:22:27.525084
+1954	652	972	2013-07-26 22:22:28.277426	2013-07-26 22:22:28.277426
+1955	652	1350	2013-07-26 22:22:28.283942	2013-07-26 22:22:28.283942
+1956	652	1119	2013-07-26 22:22:28.28718	2013-07-26 22:22:28.28718
+1957	653	1351	2013-07-26 22:22:29.683544	2013-07-26 22:22:29.683544
+1958	653	1352	2013-07-26 22:22:29.690127	2013-07-26 22:22:29.690127
+1959	653	1353	2013-07-26 22:22:29.695305	2013-07-26 22:22:29.695305
+1960	654	1354	2013-07-26 22:22:30.399275	2013-07-26 22:22:30.399275
+1961	654	300	2013-07-26 22:22:30.404383	2013-07-26 22:22:30.404383
+1962	654	1355	2013-07-26 22:22:30.409777	2013-07-26 22:22:30.409777
+1963	655	109	2013-07-26 22:22:31.334678	2013-07-26 22:22:31.334678
+1964	655	819	2013-07-26 22:22:31.337646	2013-07-26 22:22:31.337646
+1965	655	1356	2013-07-26 22:22:31.343114	2013-07-26 22:22:31.343114
+1966	656	1357	2013-07-26 22:22:32.122437	2013-07-26 22:22:32.122437
+1967	656	1358	2013-07-26 22:22:32.127393	2013-07-26 22:22:32.127393
+1968	656	1359	2013-07-26 22:22:32.132494	2013-07-26 22:22:32.132494
+1969	657	1360	2013-07-26 22:22:32.647839	2013-07-26 22:22:32.647839
+1970	657	1361	2013-07-26 22:22:32.653171	2013-07-26 22:22:32.653171
+1971	657	1362	2013-07-26 22:22:32.657885	2013-07-26 22:22:32.657885
+1972	658	1363	2013-07-26 22:22:33.358	2013-07-26 22:22:33.358
+1973	658	1364	2013-07-26 22:22:33.363865	2013-07-26 22:22:33.363865
+1974	658	1365	2013-07-26 22:22:33.368915	2013-07-26 22:22:33.368915
+1975	659	1366	2013-07-26 22:22:34.356207	2013-07-26 22:22:34.356207
+1976	659	1367	2013-07-26 22:22:34.361593	2013-07-26 22:22:34.361593
+1977	659	1368	2013-07-26 22:22:34.366239	2013-07-26 22:22:34.366239
+1978	660	520	2013-07-26 22:22:35.05735	2013-07-26 22:22:35.05735
+1979	660	42	2013-07-26 22:22:35.060102	2013-07-26 22:22:35.060102
+1980	660	1369	2013-07-26 22:22:35.066629	2013-07-26 22:22:35.066629
+1981	661	1370	2013-07-26 22:22:36.025083	2013-07-26 22:22:36.025083
+1982	661	1371	2013-07-26 22:22:36.030565	2013-07-26 22:22:36.030565
+1983	661	1372	2013-07-26 22:22:36.035593	2013-07-26 22:22:36.035593
+1984	662	1373	2013-07-26 22:22:36.545413	2013-07-26 22:22:36.545413
+1985	662	1374	2013-07-26 22:22:36.550623	2013-07-26 22:22:36.550623
+1986	662	1375	2013-07-26 22:22:36.555582	2013-07-26 22:22:36.555582
+1987	663	576	2013-07-26 22:22:37.625095	2013-07-26 22:22:37.625095
+1988	663	1376	2013-07-26 22:22:37.630553	2013-07-26 22:22:37.630553
+1989	663	1377	2013-07-26 22:22:37.635596	2013-07-26 22:22:37.635596
+1990	664	859	2013-07-26 22:22:38.392079	2013-07-26 22:22:38.392079
+1991	664	1378	2013-07-26 22:22:38.397626	2013-07-26 22:22:38.397626
+1992	664	1379	2013-07-26 22:22:38.402431	2013-07-26 22:22:38.402431
+1993	665	1380	2013-07-26 22:22:40.060554	2013-07-26 22:22:40.060554
+1994	665	1381	2013-07-26 22:22:40.06721	2013-07-26 22:22:40.06721
+1995	665	1382	2013-07-26 22:22:40.071893	2013-07-26 22:22:40.071893
+1996	666	859	2013-07-26 22:22:41.189362	2013-07-26 22:22:41.189362
+1997	666	1383	2013-07-26 22:22:41.194909	2013-07-26 22:22:41.194909
+1998	666	1384	2013-07-26 22:22:41.200104	2013-07-26 22:22:41.200104
+1999	667	1385	2013-07-26 22:22:41.979089	2013-07-26 22:22:41.979089
+2000	667	1386	2013-07-26 22:22:41.986789	2013-07-26 22:22:41.986789
+2001	667	1387	2013-07-26 22:22:41.991489	2013-07-26 22:22:41.991489
+2002	668	323	2013-07-26 22:22:42.971876	2013-07-26 22:22:42.971876
+2003	668	471	2013-07-26 22:22:42.974825	2013-07-26 22:22:42.974825
+2004	668	368	2013-07-26 22:22:42.977588	2013-07-26 22:22:42.977588
+2005	669	120	2013-07-26 22:22:43.659546	2013-07-26 22:22:43.659546
+2006	669	121	2013-07-26 22:22:43.663163	2013-07-26 22:22:43.663163
+2007	669	1388	2013-07-26 22:22:43.668329	2013-07-26 22:22:43.668329
+2008	670	120	2013-07-26 22:22:44.283514	2013-07-26 22:22:44.283514
+2009	670	268	2013-07-26 22:22:44.288623	2013-07-26 22:22:44.288623
+2010	670	1389	2013-07-26 22:22:44.294017	2013-07-26 22:22:44.294017
+2011	671	1390	2013-07-26 22:22:45.247994	2013-07-26 22:22:45.247994
+2012	671	1391	2013-07-26 22:22:45.254038	2013-07-26 22:22:45.254038
+2013	671	1392	2013-07-26 22:22:45.259246	2013-07-26 22:22:45.259246
+2014	672	1393	2013-07-26 22:22:46.078385	2013-07-26 22:22:46.078385
+2015	672	1394	2013-07-26 22:22:46.084005	2013-07-26 22:22:46.084005
+2016	672	885	2013-07-26 22:22:46.087116	2013-07-26 22:22:46.087116
+2017	673	1395	2013-07-26 22:22:46.782539	2013-07-26 22:22:46.782539
+2018	673	726	2013-07-26 22:22:46.785664	2013-07-26 22:22:46.785664
+2019	673	1396	2013-07-26 22:22:46.790793	2013-07-26 22:22:46.790793
+2020	674	1397	2013-07-26 22:22:47.983596	2013-07-26 22:22:47.983596
+2021	674	1398	2013-07-26 22:22:47.988529	2013-07-26 22:22:47.988529
+2022	674	1399	2013-07-26 22:22:47.993597	2013-07-26 22:22:47.993597
+2023	675	1400	2013-07-26 22:22:49.200171	2013-07-26 22:22:49.200171
+2024	675	1401	2013-07-26 22:22:49.205075	2013-07-26 22:22:49.205075
+2025	675	1385	2013-07-26 22:22:49.208189	2013-07-26 22:22:49.208189
+2026	676	1402	2013-07-26 22:22:50.024072	2013-07-26 22:22:50.024072
+2027	676	1403	2013-07-26 22:22:50.029543	2013-07-26 22:22:50.029543
+2028	676	1404	2013-07-26 22:22:50.03495	2013-07-26 22:22:50.03495
+2029	677	1405	2013-07-26 22:22:50.65794	2013-07-26 22:22:50.65794
+2030	677	1406	2013-07-26 22:22:50.66314	2013-07-26 22:22:50.66314
+2031	677	1407	2013-07-26 22:22:50.668158	2013-07-26 22:22:50.668158
+2032	678	1408	2013-07-26 22:22:51.562872	2013-07-26 22:22:51.562872
+2033	678	1409	2013-07-26 22:22:51.567901	2013-07-26 22:22:51.567901
+2034	678	1410	2013-07-26 22:22:51.572604	2013-07-26 22:22:51.572604
+2035	679	1270	2013-07-26 22:22:52.328658	2013-07-26 22:22:52.328658
+2036	679	947	2013-07-26 22:22:52.331906	2013-07-26 22:22:52.331906
+2037	679	88	2013-07-26 22:22:52.335195	2013-07-26 22:22:52.335195
+2038	680	70	2013-07-26 22:22:53.030236	2013-07-26 22:22:53.030236
+2039	680	839	2013-07-26 22:22:53.035859	2013-07-26 22:22:53.035859
+2040	680	1411	2013-07-26 22:22:53.041086	2013-07-26 22:22:53.041086
+2041	681	338	2013-07-26 22:22:53.934085	2013-07-26 22:22:53.934085
+2042	681	429	2013-07-26 22:22:53.936963	2013-07-26 22:22:53.936963
+2043	681	1412	2013-07-26 22:22:53.941673	2013-07-26 22:22:53.941673
+2044	682	1413	2013-07-26 22:22:54.77984	2013-07-26 22:22:54.77984
+2045	682	176	2013-07-26 22:22:54.784614	2013-07-26 22:22:54.784614
+2046	682	1414	2013-07-26 22:22:54.792139	2013-07-26 22:22:54.792139
+2047	683	19	2013-07-26 22:22:55.845956	2013-07-26 22:22:55.845956
+2048	683	439	2013-07-26 22:22:55.848967	2013-07-26 22:22:55.848967
+2049	683	1415	2013-07-26 22:22:55.854202	2013-07-26 22:22:55.854202
+2050	684	19	2013-07-26 22:22:56.475051	2013-07-26 22:22:56.475051
+2051	684	693	2013-07-26 22:22:56.47844	2013-07-26 22:22:56.47844
+2052	684	1019	2013-07-26 22:22:56.482082	2013-07-26 22:22:56.482082
+2053	685	110	2013-07-26 22:22:57.101968	2013-07-26 22:22:57.101968
+2054	685	838	2013-07-26 22:22:57.105134	2013-07-26 22:22:57.105134
+2055	685	193	2013-07-26 22:22:57.108193	2013-07-26 22:22:57.108193
+2056	686	611	2013-07-26 22:22:57.89063	2013-07-26 22:22:57.89063
+2057	686	1416	2013-07-26 22:22:57.895487	2013-07-26 22:22:57.895487
+2058	686	1417	2013-07-26 22:22:57.900404	2013-07-26 22:22:57.900404
+2059	687	178	2013-07-26 22:22:59.637014	2013-07-26 22:22:59.637014
+2060	687	570	2013-07-26 22:22:59.640061	2013-07-26 22:22:59.640061
+2061	687	1418	2013-07-26 22:22:59.644838	2013-07-26 22:22:59.644838
+2062	688	19	2013-07-26 22:23:00.868323	2013-07-26 22:23:00.868323
+2063	688	1419	2013-07-26 22:23:00.876079	2013-07-26 22:23:00.876079
+2064	688	1420	2013-07-26 22:23:00.881098	2013-07-26 22:23:00.881098
+2065	689	19	2013-07-26 22:23:02.239795	2013-07-26 22:23:02.239795
+2066	689	1419	2013-07-26 22:23:02.242778	2013-07-26 22:23:02.242778
+2067	689	1332	2013-07-26 22:23:02.245891	2013-07-26 22:23:02.245891
+2068	690	1421	2013-07-26 22:23:02.925002	2013-07-26 22:23:02.925002
+2069	690	1422	2013-07-26 22:23:02.930514	2013-07-26 22:23:02.930514
+2070	690	1423	2013-07-26 22:23:02.93555	2013-07-26 22:23:02.93555
+2071	691	178	2013-07-26 22:23:03.647684	2013-07-26 22:23:03.647684
+2072	691	1424	2013-07-26 22:23:03.655049	2013-07-26 22:23:03.655049
+2073	691	1425	2013-07-26 22:23:03.65982	2013-07-26 22:23:03.65982
+2074	692	45	2013-07-26 22:23:04.337397	2013-07-26 22:23:04.337397
+2075	692	69	2013-07-26 22:23:04.341108	2013-07-26 22:23:04.341108
+2076	692	1426	2013-07-26 22:23:04.346934	2013-07-26 22:23:04.346934
+2077	693	570	2013-07-26 22:23:04.95728	2013-07-26 22:23:04.95728
+2078	693	1427	2013-07-26 22:23:04.962245	2013-07-26 22:23:04.962245
+2079	693	1292	2013-07-26 22:23:04.965163	2013-07-26 22:23:04.965163
+2080	694	1428	2013-07-26 22:23:05.909758	2013-07-26 22:23:05.909758
+2081	694	1429	2013-07-26 22:23:05.914856	2013-07-26 22:23:05.914856
+2082	694	1430	2013-07-26 22:23:05.919649	2013-07-26 22:23:05.919649
+2083	695	1431	2013-07-26 22:23:06.636798	2013-07-26 22:23:06.636798
+2084	695	850	2013-07-26 22:23:06.641578	2013-07-26 22:23:06.641578
+2085	695	928	2013-07-26 22:23:06.644809	2013-07-26 22:23:06.644809
+2086	696	1432	2013-07-26 22:23:07.172671	2013-07-26 22:23:07.172671
+2087	696	1433	2013-07-26 22:23:07.179267	2013-07-26 22:23:07.179267
+2088	696	1434	2013-07-26 22:23:07.184203	2013-07-26 22:23:07.184203
+2089	697	1118	2013-07-26 22:23:08.043827	2013-07-26 22:23:08.043827
+2090	697	1435	2013-07-26 22:23:08.049249	2013-07-26 22:23:08.049249
+2091	697	1182	2013-07-26 22:23:08.052267	2013-07-26 22:23:08.052267
+2092	698	1436	2013-07-26 22:23:08.745041	2013-07-26 22:23:08.745041
+2093	698	1437	2013-07-26 22:23:08.750029	2013-07-26 22:23:08.750029
+2094	698	1438	2013-07-26 22:23:08.755471	2013-07-26 22:23:08.755471
+2095	699	1439	2013-07-26 22:23:09.852398	2013-07-26 22:23:09.852398
+2096	699	1440	2013-07-26 22:23:09.85836	2013-07-26 22:23:09.85836
+2097	699	306	2013-07-26 22:23:09.861274	2013-07-26 22:23:09.861274
+2098	700	1441	2013-07-26 22:23:10.463176	2013-07-26 22:23:10.463176
+2099	700	1442	2013-07-26 22:23:10.470176	2013-07-26 22:23:10.470176
+2100	700	1443	2013-07-26 22:23:10.475176	2013-07-26 22:23:10.475176
+2101	701	411	2013-07-26 22:23:11.223543	2013-07-26 22:23:11.223543
+2102	701	1444	2013-07-26 22:23:11.228495	2013-07-26 22:23:11.228495
+2103	701	1445	2013-07-26 22:23:11.233116	2013-07-26 22:23:11.233116
+2104	702	1446	2013-07-26 22:23:11.892194	2013-07-26 22:23:11.892194
+2105	702	1447	2013-07-26 22:23:11.897117	2013-07-26 22:23:11.897117
+2106	702	1448	2013-07-26 22:23:11.901817	2013-07-26 22:23:11.901817
+2107	703	1449	2013-07-26 22:23:12.828406	2013-07-26 22:23:12.828406
+2108	703	1450	2013-07-26 22:23:12.833451	2013-07-26 22:23:12.833451
+2109	703	1451	2013-07-26 22:23:12.838479	2013-07-26 22:23:12.838479
+2110	704	1408	2013-07-26 22:23:13.704584	2013-07-26 22:23:13.704584
+2111	704	1452	2013-07-26 22:23:13.712432	2013-07-26 22:23:13.712432
+2112	704	1453	2013-07-26 22:23:13.717221	2013-07-26 22:23:13.717221
+2113	705	318	2013-07-26 22:23:14.43142	2013-07-26 22:23:14.43142
+2114	705	669	2013-07-26 22:23:14.434528	2013-07-26 22:23:14.434528
+2115	705	200	2013-07-26 22:23:14.437649	2013-07-26 22:23:14.437649
+2116	706	1454	2013-07-26 22:23:15.517375	2013-07-26 22:23:15.517375
+2117	706	1455	2013-07-26 22:23:15.52296	2013-07-26 22:23:15.52296
+2118	706	1456	2013-07-26 22:23:15.528164	2013-07-26 22:23:15.528164
+2119	707	106	2013-07-26 22:23:16.239382	2013-07-26 22:23:16.239382
+2120	707	109	2013-07-26 22:23:16.242708	2013-07-26 22:23:16.242708
+2121	707	463	2013-07-26 22:23:16.245768	2013-07-26 22:23:16.245768
+2122	708	1457	2013-07-26 22:23:17.013236	2013-07-26 22:23:17.013236
+2123	708	1458	2013-07-26 22:23:17.01795	2013-07-26 22:23:17.01795
+2124	708	1459	2013-07-26 22:23:17.022808	2013-07-26 22:23:17.022808
+2125	709	1073	2013-07-26 22:23:18.205129	2013-07-26 22:23:18.205129
+2126	709	1460	2013-07-26 22:23:18.212141	2013-07-26 22:23:18.212141
+2127	709	1461	2013-07-26 22:23:18.217467	2013-07-26 22:23:18.217467
+2128	710	1462	2013-07-26 22:23:19.269843	2013-07-26 22:23:19.269843
+2129	710	1463	2013-07-26 22:23:19.277041	2013-07-26 22:23:19.277041
+2130	710	665	2013-07-26 22:23:19.279999	2013-07-26 22:23:19.279999
+2131	711	1464	2013-07-26 22:23:19.979204	2013-07-26 22:23:19.979204
+2132	711	1465	2013-07-26 22:23:19.984233	2013-07-26 22:23:19.984233
+2133	711	243	2013-07-26 22:23:19.987066	2013-07-26 22:23:19.987066
+2134	712	1466	2013-07-26 22:23:20.946283	2013-07-26 22:23:20.946283
+2135	712	1467	2013-07-26 22:23:20.951652	2013-07-26 22:23:20.951652
+2136	712	1468	2013-07-26 22:23:20.956389	2013-07-26 22:23:20.956389
+2137	713	1469	2013-07-26 22:23:21.620139	2013-07-26 22:23:21.620139
+2138	713	1470	2013-07-26 22:23:21.627164	2013-07-26 22:23:21.627164
+2139	713	1471	2013-07-26 22:23:21.632057	2013-07-26 22:23:21.632057
+2140	714	203	2013-07-26 22:23:22.24469	2013-07-26 22:23:22.24469
+2141	714	1472	2013-07-26 22:23:22.251725	2013-07-26 22:23:22.251725
+2142	714	1473	2013-07-26 22:23:22.256635	2013-07-26 22:23:22.256635
+2143	715	1474	2013-07-26 22:23:22.930993	2013-07-26 22:23:22.930993
+2144	715	1056	2013-07-26 22:23:22.934455	2013-07-26 22:23:22.934455
+2145	715	1475	2013-07-26 22:23:22.939283	2013-07-26 22:23:22.939283
+2146	716	1476	2013-07-26 22:23:23.464773	2013-07-26 22:23:23.464773
+2147	716	1477	2013-07-26 22:23:23.47033	2013-07-26 22:23:23.47033
+2148	716	1478	2013-07-26 22:23:23.475454	2013-07-26 22:23:23.475454
+2149	717	669	2013-07-26 22:23:24.539842	2013-07-26 22:23:24.539842
+2150	717	923	2013-07-26 22:23:24.542969	2013-07-26 22:23:24.542969
+2151	717	1479	2013-07-26 22:23:24.547826	2013-07-26 22:23:24.547826
+2152	718	1480	2013-07-26 22:23:25.603237	2013-07-26 22:23:25.603237
+2153	718	1481	2013-07-26 22:23:25.608194	2013-07-26 22:23:25.608194
+2154	718	1482	2013-07-26 22:23:25.613467	2013-07-26 22:23:25.613467
+2155	719	589	2013-07-26 22:23:26.145486	2013-07-26 22:23:26.145486
+2156	719	1483	2013-07-26 22:23:26.150864	2013-07-26 22:23:26.150864
+2157	719	1484	2013-07-26 22:23:26.155797	2013-07-26 22:23:26.155797
+2158	720	1483	2013-07-26 22:23:27.002189	2013-07-26 22:23:27.002189
+2159	720	720	2013-07-26 22:23:27.005115	2013-07-26 22:23:27.005115
+2160	720	1485	2013-07-26 22:23:27.010744	2013-07-26 22:23:27.010744
+2161	721	1486	2013-07-26 22:23:27.979664	2013-07-26 22:23:27.979664
+2162	721	1487	2013-07-26 22:23:27.984626	2013-07-26 22:23:27.984626
+2163	721	1488	2013-07-26 22:23:27.989572	2013-07-26 22:23:27.989572
+2164	722	1489	2013-07-26 22:23:28.5112	2013-07-26 22:23:28.5112
+2165	722	1490	2013-07-26 22:23:28.518412	2013-07-26 22:23:28.518412
+2166	722	1491	2013-07-26 22:23:28.523191	2013-07-26 22:23:28.523191
+2167	723	1492	2013-07-26 22:23:29.329357	2013-07-26 22:23:29.329357
+2168	723	1493	2013-07-26 22:23:29.335162	2013-07-26 22:23:29.335162
+2169	723	1494	2013-07-26 22:23:29.339874	2013-07-26 22:23:29.339874
+2170	724	1339	2013-07-26 22:23:30.374342	2013-07-26 22:23:30.374342
+2171	724	1101	2013-07-26 22:23:30.377854	2013-07-26 22:23:30.377854
+2172	724	1495	2013-07-26 22:23:30.382726	2013-07-26 22:23:30.382726
+2173	725	1039	2013-07-26 22:23:31.134045	2013-07-26 22:23:31.134045
+2174	725	1496	2013-07-26 22:23:31.139575	2013-07-26 22:23:31.139575
+2175	725	1497	2013-07-26 22:23:31.145126	2013-07-26 22:23:31.145126
+2176	726	831	2013-07-26 22:23:31.881125	2013-07-26 22:23:31.881125
+2177	726	377	2013-07-26 22:23:31.884018	2013-07-26 22:23:31.884018
+2178	726	1498	2013-07-26 22:23:31.888788	2013-07-26 22:23:31.888788
+2179	727	1499	2013-07-26 22:23:32.501071	2013-07-26 22:23:32.501071
+2180	727	1500	2013-07-26 22:23:32.506286	2013-07-26 22:23:32.506286
+2181	727	1501	2013-07-26 22:23:32.511692	2013-07-26 22:23:32.511692
+2182	728	1502	2013-07-26 22:23:33.179033	2013-07-26 22:23:33.179033
+2183	728	1480	2013-07-26 22:23:33.182314	2013-07-26 22:23:33.182314
+2184	728	1503	2013-07-26 22:23:33.187087	2013-07-26 22:23:33.187087
+2185	729	485	2013-07-26 22:23:33.972385	2013-07-26 22:23:33.972385
+2186	729	1504	2013-07-26 22:23:33.978893	2013-07-26 22:23:33.978893
+2187	729	1505	2013-07-26 22:23:33.984081	2013-07-26 22:23:33.984081
+2188	730	1506	2013-07-26 22:23:35.425514	2013-07-26 22:23:35.425514
+2189	730	1507	2013-07-26 22:23:35.431106	2013-07-26 22:23:35.431106
+2190	730	1508	2013-07-26 22:23:35.435811	2013-07-26 22:23:35.435811
+2191	731	1509	2013-07-26 22:23:36.224498	2013-07-26 22:23:36.224498
+2192	731	1510	2013-07-26 22:23:36.229452	2013-07-26 22:23:36.229452
+2193	731	1511	2013-07-26 22:23:36.234345	2013-07-26 22:23:36.234345
+2194	732	624	2013-07-26 22:23:37.007723	2013-07-26 22:23:37.007723
+2195	732	1426	2013-07-26 22:23:37.011	2013-07-26 22:23:37.011
+2196	732	1512	2013-07-26 22:23:37.016158	2013-07-26 22:23:37.016158
+2197	733	12	2013-07-26 22:23:37.589222	2013-07-26 22:23:37.589222
+2198	733	12	2013-07-26 22:23:37.592837	2013-07-26 22:23:37.592837
+2199	733	12	2013-07-26 22:23:37.595788	2013-07-26 22:23:37.595788
+2200	734	1057	2013-07-26 22:23:38.250884	2013-07-26 22:23:38.250884
+2201	734	1513	2013-07-26 22:23:38.255701	2013-07-26 22:23:38.255701
+2202	734	1514	2013-07-26 22:23:38.260362	2013-07-26 22:23:38.260362
+2203	735	537	2013-07-26 22:23:39.030016	2013-07-26 22:23:39.030016
+2204	735	934	2013-07-26 22:23:39.034016	2013-07-26 22:23:39.034016
+2205	735	1515	2013-07-26 22:23:39.039006	2013-07-26 22:23:39.039006
+2206	736	1516	2013-07-26 22:23:39.568731	2013-07-26 22:23:39.568731
+2207	736	1517	2013-07-26 22:23:39.573804	2013-07-26 22:23:39.573804
+2208	736	1518	2013-07-26 22:23:39.578769	2013-07-26 22:23:39.578769
+2209	737	1466	2013-07-26 22:23:40.556855	2013-07-26 22:23:40.556855
+2210	737	819	2013-07-26 22:23:40.559887	2013-07-26 22:23:40.559887
+2211	737	1519	2013-07-26 22:23:40.565631	2013-07-26 22:23:40.565631
+2212	738	1195	2013-07-26 22:23:41.193453	2013-07-26 22:23:41.193453
+2213	738	1520	2013-07-26 22:23:41.198749	2013-07-26 22:23:41.198749
+2214	738	11	2013-07-26 22:23:41.20157	2013-07-26 22:23:41.20157
+2215	739	1499	2013-07-26 22:23:41.959057	2013-07-26 22:23:41.959057
+2216	739	1521	2013-07-26 22:23:41.964029	2013-07-26 22:23:41.964029
+2217	739	1522	2013-07-26 22:23:41.969252	2013-07-26 22:23:41.969252
+2218	740	1466	2013-07-26 22:23:44.239804	2013-07-26 22:23:44.239804
+2219	740	1523	2013-07-26 22:23:44.245199	2013-07-26 22:23:44.245199
+2220	740	1524	2013-07-26 22:23:44.250744	2013-07-26 22:23:44.250744
+2221	741	1525	2013-07-26 22:23:45.031612	2013-07-26 22:23:45.031612
+2222	741	1526	2013-07-26 22:23:45.037006	2013-07-26 22:23:45.037006
+2223	741	1527	2013-07-26 22:23:45.041805	2013-07-26 22:23:45.041805
+2224	742	87	2013-07-26 22:23:45.653901	2013-07-26 22:23:45.653901
+2225	742	34	2013-07-26 22:23:45.657864	2013-07-26 22:23:45.657864
+2226	742	1528	2013-07-26 22:23:45.663327	2013-07-26 22:23:45.663327
+2227	743	1529	2013-07-26 22:23:46.609578	2013-07-26 22:23:46.609578
+2228	743	1530	2013-07-26 22:23:46.6151	2013-07-26 22:23:46.6151
+2229	743	1531	2013-07-26 22:23:46.622154	2013-07-26 22:23:46.622154
+2230	744	1532	2013-07-26 22:23:47.369589	2013-07-26 22:23:47.369589
+2231	744	485	2013-07-26 22:23:47.372642	2013-07-26 22:23:47.372642
+2232	744	846	2013-07-26 22:23:47.375619	2013-07-26 22:23:47.375619
+2233	745	157	2013-07-26 22:23:48.156987	2013-07-26 22:23:48.156987
+2234	745	1067	2013-07-26 22:23:48.160107	2013-07-26 22:23:48.160107
+2235	745	1533	2013-07-26 22:23:48.165966	2013-07-26 22:23:48.165966
+2236	746	45	2013-07-26 22:23:49.252883	2013-07-26 22:23:49.252883
+2237	746	1534	2013-07-26 22:23:49.257601	2013-07-26 22:23:49.257601
+2238	746	1535	2013-07-26 22:23:49.262376	2013-07-26 22:23:49.262376
+2239	747	1536	2013-07-26 22:23:50.026889	2013-07-26 22:23:50.026889
+2240	747	1537	2013-07-26 22:23:50.032008	2013-07-26 22:23:50.032008
+2241	747	1538	2013-07-26 22:23:50.037371	2013-07-26 22:23:50.037371
+2242	748	40	2013-07-26 22:23:50.806136	2013-07-26 22:23:50.806136
+2243	748	1539	2013-07-26 22:23:50.811164	2013-07-26 22:23:50.811164
+2244	748	1540	2013-07-26 22:23:50.816228	2013-07-26 22:23:50.816228
+2245	749	1541	2013-07-26 22:23:51.447311	2013-07-26 22:23:51.447311
+2246	749	167	2013-07-26 22:23:51.451947	2013-07-26 22:23:51.451947
+2247	749	1542	2013-07-26 22:23:51.457311	2013-07-26 22:23:51.457311
+2248	750	1419	2013-07-26 22:23:52.306208	2013-07-26 22:23:52.306208
+2249	750	582	2013-07-26 22:23:52.310226	2013-07-26 22:23:52.310226
+2250	750	581	2013-07-26 22:23:52.31318	2013-07-26 22:23:52.31318
+2251	751	1543	2013-07-26 22:23:53.039244	2013-07-26 22:23:53.039244
+2252	751	1544	2013-07-26 22:23:53.044276	2013-07-26 22:23:53.044276
+2253	751	1545	2013-07-26 22:23:53.050206	2013-07-26 22:23:53.050206
+2254	752	1543	2013-07-26 22:23:53.81757	2013-07-26 22:23:53.81757
+2255	752	1544	2013-07-26 22:23:53.82086	2013-07-26 22:23:53.82086
+2256	752	1546	2013-07-26 22:23:53.825868	2013-07-26 22:23:53.825868
+2257	753	611	2013-07-26 22:23:54.64938	2013-07-26 22:23:54.64938
+2258	753	165	2013-07-26 22:23:54.652557	2013-07-26 22:23:54.652557
+2259	753	1547	2013-07-26 22:23:54.657657	2013-07-26 22:23:54.657657
+2260	754	1548	2013-07-26 22:23:55.39722	2013-07-26 22:23:55.39722
+2261	754	1549	2013-07-26 22:23:55.403399	2013-07-26 22:23:55.403399
+2262	754	1550	2013-07-26 22:23:55.408192	2013-07-26 22:23:55.408192
+2263	755	1426	2013-07-26 22:23:56.477286	2013-07-26 22:23:56.477286
+2264	755	804	2013-07-26 22:23:56.481106	2013-07-26 22:23:56.481106
+2265	755	1551	2013-07-26 22:23:56.486715	2013-07-26 22:23:56.486715
+2266	756	1552	2013-07-26 22:23:57.020231	2013-07-26 22:23:57.020231
+2267	756	1553	2013-07-26 22:23:57.025118	2013-07-26 22:23:57.025118
+2268	756	1554	2013-07-26 22:23:57.029885	2013-07-26 22:23:57.029885
+2269	757	1555	2013-07-26 22:23:57.880228	2013-07-26 22:23:57.880228
+2270	757	1556	2013-07-26 22:23:57.886021	2013-07-26 22:23:57.886021
+2271	757	1557	2013-07-26 22:23:57.890847	2013-07-26 22:23:57.890847
+2272	758	1558	2013-07-26 22:23:58.838584	2013-07-26 22:23:58.838584
+2273	758	1559	2013-07-26 22:23:58.843914	2013-07-26 22:23:58.843914
+2274	758	1560	2013-07-26 22:23:58.848822	2013-07-26 22:23:58.848822
+2275	759	1561	2013-07-26 22:23:59.692279	2013-07-26 22:23:59.692279
+2276	759	1562	2013-07-26 22:23:59.698829	2013-07-26 22:23:59.698829
+2277	759	451	2013-07-26 22:23:59.702683	2013-07-26 22:23:59.702683
+2278	760	1561	2013-07-26 22:24:00.820066	2013-07-26 22:24:00.820066
+2279	760	1563	2013-07-26 22:24:00.824852	2013-07-26 22:24:00.824852
+2280	760	1564	2013-07-26 22:24:00.829481	2013-07-26 22:24:00.829481
+2281	761	63	2013-07-26 22:24:02.872092	2013-07-26 22:24:02.872092
+2282	761	746	2013-07-26 22:24:02.875153	2013-07-26 22:24:02.875153
+2283	761	1565	2013-07-26 22:24:02.881143	2013-07-26 22:24:02.881143
+2284	762	1566	2013-07-26 22:24:03.724517	2013-07-26 22:24:03.724517
+2285	762	1567	2013-07-26 22:24:03.729924	2013-07-26 22:24:03.729924
+2286	762	1568	2013-07-26 22:24:03.735066	2013-07-26 22:24:03.735066
+2287	763	1569	2013-07-26 22:24:04.538925	2013-07-26 22:24:04.538925
+2288	763	945	2013-07-26 22:24:04.542084	2013-07-26 22:24:04.542084
+2289	763	313	2013-07-26 22:24:04.545034	2013-07-26 22:24:04.545034
+2290	764	356	2013-07-26 22:24:05.487538	2013-07-26 22:24:05.487538
+2291	764	306	2013-07-26 22:24:05.490861	2013-07-26 22:24:05.490861
+2292	764	307	2013-07-26 22:24:05.493912	2013-07-26 22:24:05.493912
+2293	765	356	2013-07-26 22:24:06.283567	2013-07-26 22:24:06.283567
+2294	765	306	2013-07-26 22:24:06.287615	2013-07-26 22:24:06.287615
+2295	765	890	2013-07-26 22:24:06.291197	2013-07-26 22:24:06.291197
+2296	766	356	2013-07-26 22:24:07.092468	2013-07-26 22:24:07.092468
+2297	766	306	2013-07-26 22:24:07.095477	2013-07-26 22:24:07.095477
+2298	766	890	2013-07-26 22:24:07.098831	2013-07-26 22:24:07.098831
+2299	767	356	2013-07-26 22:24:07.928566	2013-07-26 22:24:07.928566
+2300	767	306	2013-07-26 22:24:07.932598	2013-07-26 22:24:07.932598
+2301	767	890	2013-07-26 22:24:07.936677	2013-07-26 22:24:07.936677
+2302	768	400	2013-07-26 22:24:09.243012	2013-07-26 22:24:09.243012
+2303	768	1177	2013-07-26 22:24:09.246409	2013-07-26 22:24:09.246409
+2304	768	1570	2013-07-26 22:24:09.252532	2013-07-26 22:24:09.252532
+2305	769	1205	2013-07-26 22:24:10.007934	2013-07-26 22:24:10.007934
+2306	769	1350	2013-07-26 22:24:10.011362	2013-07-26 22:24:10.011362
+2307	769	707	2013-07-26 22:24:10.014608	2013-07-26 22:24:10.014608
+2308	770	1070	2013-07-26 22:24:10.780627	2013-07-26 22:24:10.780627
+2309	770	1049	2013-07-26 22:24:10.784312	2013-07-26 22:24:10.784312
+2310	770	1571	2013-07-26 22:24:10.791108	2013-07-26 22:24:10.791108
+2311	771	191	2013-07-26 22:24:11.574646	2013-07-26 22:24:11.574646
+2312	771	93	2013-07-26 22:24:11.577922	2013-07-26 22:24:11.577922
+2313	771	726	2013-07-26 22:24:11.581001	2013-07-26 22:24:11.581001
+2314	772	736	2013-07-26 22:24:12.338733	2013-07-26 22:24:12.338733
+2315	772	737	2013-07-26 22:24:12.34204	2013-07-26 22:24:12.34204
+2316	772	11	2013-07-26 22:24:12.345097	2013-07-26 22:24:12.345097
+2317	773	178	2013-07-26 22:24:13.007299	2013-07-26 22:24:13.007299
+2318	773	1572	2013-07-26 22:24:13.01274	2013-07-26 22:24:13.01274
+2319	773	1573	2013-07-26 22:24:13.017632	2013-07-26 22:24:13.017632
+2320	774	919	2013-07-26 22:24:14.218613	2013-07-26 22:24:14.218613
+2321	774	1574	2013-07-26 22:24:14.224391	2013-07-26 22:24:14.224391
+2322	774	1575	2013-07-26 22:24:14.229298	2013-07-26 22:24:14.229298
+2323	775	106	2013-07-26 22:24:14.953531	2013-07-26 22:24:14.953531
+2324	775	1576	2013-07-26 22:24:14.95871	2013-07-26 22:24:14.95871
+2325	775	633	2013-07-26 22:24:14.961671	2013-07-26 22:24:14.961671
+2326	776	106	2013-07-26 22:24:15.698276	2013-07-26 22:24:15.698276
+2327	776	1577	2013-07-26 22:24:15.704972	2013-07-26 22:24:15.704972
+2328	776	1578	2013-07-26 22:24:15.711245	2013-07-26 22:24:15.711245
+2329	777	106	2013-07-26 22:24:16.564545	2013-07-26 22:24:16.564545
+2330	777	696	2013-07-26 22:24:16.567955	2013-07-26 22:24:16.567955
+2331	777	1539	2013-07-26 22:24:16.571643	2013-07-26 22:24:16.571643
+2332	778	1579	2013-07-26 22:24:17.188468	2013-07-26 22:24:17.188468
+2333	778	1473	2013-07-26 22:24:17.191697	2013-07-26 22:24:17.191697
+2334	778	1019	2013-07-26 22:24:17.194834	2013-07-26 22:24:17.194834
+2335	779	1580	2013-07-26 22:24:19.285742	2013-07-26 22:24:19.285742
+2336	779	1581	2013-07-26 22:24:19.290896	2013-07-26 22:24:19.290896
+2337	779	1582	2013-07-26 22:24:19.29567	2013-07-26 22:24:19.29567
+2338	780	1499	2013-07-26 22:24:19.957314	2013-07-26 22:24:19.957314
+2339	780	1583	2013-07-26 22:24:19.962894	2013-07-26 22:24:19.962894
+2340	780	1584	2013-07-26 22:24:19.967861	2013-07-26 22:24:19.967861
+2341	781	537	2013-07-26 22:24:20.585943	2013-07-26 22:24:20.585943
+2342	781	1514	2013-07-26 22:24:20.589156	2013-07-26 22:24:20.589156
+2343	781	1585	2013-07-26 22:24:20.594367	2013-07-26 22:24:20.594367
+2344	782	1586	2013-07-26 22:24:21.549201	2013-07-26 22:24:21.549201
+2345	782	1587	2013-07-26 22:24:21.556116	2013-07-26 22:24:21.556116
+2346	782	1588	2013-07-26 22:24:21.56149	2013-07-26 22:24:21.56149
+2347	783	25	2013-07-26 22:24:22.437022	2013-07-26 22:24:22.437022
+2348	783	1589	2013-07-26 22:24:22.443428	2013-07-26 22:24:22.443428
+2349	783	1187	2013-07-26 22:24:22.446552	2013-07-26 22:24:22.446552
+2350	784	1590	2013-07-26 22:24:23.156482	2013-07-26 22:24:23.156482
+2351	784	745	2013-07-26 22:24:23.159674	2013-07-26 22:24:23.159674
+2352	784	1466	2013-07-26 22:24:23.162761	2013-07-26 22:24:23.162761
+2353	785	311	2013-07-26 22:24:23.923882	2013-07-26 22:24:23.923882
+2354	785	399	2013-07-26 22:24:23.928007	2013-07-26 22:24:23.928007
+2355	785	1591	2013-07-26 22:24:23.933282	2013-07-26 22:24:23.933282
+2356	786	191	2013-07-26 22:24:24.612455	2013-07-26 22:24:24.612455
+2357	786	997	2013-07-26 22:24:24.616783	2013-07-26 22:24:24.616783
+2358	786	1592	2013-07-26 22:24:24.623068	2013-07-26 22:24:24.623068
+2359	787	311	2013-07-26 22:24:28.591588	2013-07-26 22:24:28.591588
+2360	787	1593	2013-07-26 22:24:28.597152	2013-07-26 22:24:28.597152
+2361	787	1594	2013-07-26 22:24:28.602008	2013-07-26 22:24:28.602008
+2362	788	1339	2013-07-26 22:24:29.483258	2013-07-26 22:24:29.483258
+2363	788	434	2013-07-26 22:24:29.486859	2013-07-26 22:24:29.486859
+2364	788	1595	2013-07-26 22:24:29.493251	2013-07-26 22:24:29.493251
+2365	789	1596	2013-07-26 22:24:30.01972	2013-07-26 22:24:30.01972
+2366	789	1597	2013-07-26 22:24:30.025185	2013-07-26 22:24:30.025185
+2367	789	1598	2013-07-26 22:24:30.03066	2013-07-26 22:24:30.03066
+2368	790	80	2013-07-26 22:24:30.736335	2013-07-26 22:24:30.736335
+2369	790	1599	2013-07-26 22:24:30.742749	2013-07-26 22:24:30.742749
+2370	790	1600	2013-07-26 22:24:30.748325	2013-07-26 22:24:30.748325
+2371	791	1601	2013-07-26 22:24:31.442406	2013-07-26 22:24:31.442406
+2372	791	710	2013-07-26 22:24:31.446585	2013-07-26 22:24:31.446585
+2373	791	1602	2013-07-26 22:24:31.451659	2013-07-26 22:24:31.451659
+2374	792	618	2013-07-26 22:24:32.251277	2013-07-26 22:24:32.251277
+2375	792	1471	2013-07-26 22:24:32.254702	2013-07-26 22:24:32.254702
+2376	792	1603	2013-07-26 22:24:32.259838	2013-07-26 22:24:32.259838
+2377	793	377	2013-07-26 22:24:32.883897	2013-07-26 22:24:32.883897
+2378	793	831	2013-07-26 22:24:32.887651	2013-07-26 22:24:32.887651
+2379	793	149	2013-07-26 22:24:32.890776	2013-07-26 22:24:32.890776
+2380	794	555	2013-07-26 22:24:33.592613	2013-07-26 22:24:33.592613
+2381	794	1288	2013-07-26 22:24:33.596409	2013-07-26 22:24:33.596409
+2382	794	1604	2013-07-26 22:24:33.601632	2013-07-26 22:24:33.601632
+2383	795	141	2013-07-26 22:24:34.236475	2013-07-26 22:24:34.236475
+2384	795	509	2013-07-26 22:24:34.239687	2013-07-26 22:24:34.239687
+2385	795	1605	2013-07-26 22:24:34.245614	2013-07-26 22:24:34.245614
+2386	796	63	2013-07-26 22:24:35.450681	2013-07-26 22:24:35.450681
+2387	796	1606	2013-07-26 22:24:35.456048	2013-07-26 22:24:35.456048
+2388	796	1607	2013-07-26 22:24:35.460895	2013-07-26 22:24:35.460895
+2389	797	1608	2013-07-26 22:24:36.374218	2013-07-26 22:24:36.374218
+2390	797	1609	2013-07-26 22:24:36.380965	2013-07-26 22:24:36.380965
+2391	797	1610	2013-07-26 22:24:36.386225	2013-07-26 22:24:36.386225
+2392	798	26	2013-07-26 22:24:37.192961	2013-07-26 22:24:37.192961
+2393	798	1611	2013-07-26 22:24:37.199429	2013-07-26 22:24:37.199429
+2394	798	1210	2013-07-26 22:24:37.20275	2013-07-26 22:24:37.20275
+2395	799	435	2013-07-26 22:24:38.400327	2013-07-26 22:24:38.400327
+2396	799	856	2013-07-26 22:24:38.403165	2013-07-26 22:24:38.403165
+2397	799	533	2013-07-26 22:24:38.405963	2013-07-26 22:24:38.405963
+2398	800	803	2013-07-26 22:24:39.4211	2013-07-26 22:24:39.4211
+2399	800	435	2013-07-26 22:24:39.424764	2013-07-26 22:24:39.424764
+2400	800	458	2013-07-26 22:24:39.428968	2013-07-26 22:24:39.428968
+2401	801	149	2013-07-26 22:24:40.308387	2013-07-26 22:24:40.308387
+2402	801	1612	2013-07-26 22:24:40.314659	2013-07-26 22:24:40.314659
+2403	801	1058	2013-07-26 22:24:40.318347	2013-07-26 22:24:40.318347
+2404	802	485	2013-07-26 22:24:40.954903	2013-07-26 22:24:40.954903
+2405	802	1613	2013-07-26 22:24:40.959832	2013-07-26 22:24:40.959832
+2406	802	1614	2013-07-26 22:24:40.96451	2013-07-26 22:24:40.96451
+2407	803	1615	2013-07-26 22:24:41.633542	2013-07-26 22:24:41.633542
+2408	803	1023	2013-07-26 22:24:41.636862	2013-07-26 22:24:41.636862
+2409	803	1616	2013-07-26 22:24:41.642827	2013-07-26 22:24:41.642827
+2410	804	1580	2013-07-26 22:24:42.640105	2013-07-26 22:24:42.640105
+2411	804	1617	2013-07-26 22:24:42.645659	2013-07-26 22:24:42.645659
+2412	804	1618	2013-07-26 22:24:42.651255	2013-07-26 22:24:42.651255
+2413	805	399	2013-07-26 22:24:43.219239	2013-07-26 22:24:43.219239
+2414	805	509	2013-07-26 22:24:43.222698	2013-07-26 22:24:43.222698
+2415	805	1619	2013-07-26 22:24:43.22833	2013-07-26 22:24:43.22833
+2416	806	669	2013-07-26 22:24:43.901458	2013-07-26 22:24:43.901458
+2417	806	1620	2013-07-26 22:24:43.90642	2013-07-26 22:24:43.90642
+2418	806	1621	2013-07-26 22:24:43.911179	2013-07-26 22:24:43.911179
+2419	807	1622	2013-07-26 22:24:44.600709	2013-07-26 22:24:44.600709
+2420	807	560	2013-07-26 22:24:44.603874	2013-07-26 22:24:44.603874
+2421	807	1623	2013-07-26 22:24:44.609488	2013-07-26 22:24:44.609488
+2422	808	529	2013-07-26 22:24:45.323759	2013-07-26 22:24:45.323759
+2423	808	1624	2013-07-26 22:24:45.328615	2013-07-26 22:24:45.328615
+2424	808	1467	2013-07-26 22:24:45.331874	2013-07-26 22:24:45.331874
+\.
+
+
+--
+-- Name: actors_movies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: apprentice
+--
+
+SELECT pg_catalog.setval('actors_movies_id_seq', 2424, true);
+
+
+--
+-- Data for Name: directors; Type: TABLE DATA; Schema: public; Owner: apprentice
+--
+
+COPY directors (id, name, created_at, updated_at) FROM stdin;
+1	Aki Kaurismäki	2013-07-26 22:12:09.32089	2013-07-26 22:12:09.32089
+2	Quentin Tarantino	2013-07-26 22:12:11.206676	2013-07-26 22:12:11.206676
+3	Robert Rodriguez	2013-07-26 22:12:11.213592	2013-07-26 22:12:11.213592
+4	Alexandre Rockwell	2013-07-26 22:12:11.220764	2013-07-26 22:12:11.220764
+5	Allison Anders	2013-07-26 22:12:11.226857	2013-07-26 22:12:11.226857
+6	Stephen Hopkins	2013-07-26 22:12:11.773492	2013-07-26 22:12:11.773492
+7	Timo Novotny	2013-07-26 22:12:12.895648	2013-07-26 22:12:12.895648
+8	George Lucas	2013-07-26 22:12:14.988101	2013-07-26 22:12:14.988101
+9	Andrew Stanton	2013-07-26 22:12:15.897636	2013-07-26 22:12:15.897636
+10	Lee Unkrich	2013-07-26 22:12:15.904575	2013-07-26 22:12:15.904575
+11	Robert Zemeckis	2013-07-26 22:12:16.697052	2013-07-26 22:12:16.697052
+12	Sam Mendes	2013-07-26 22:12:17.552766	2013-07-26 22:12:17.552766
+13	Orson Welles	2013-07-26 22:12:18.351523	2013-07-26 22:12:18.351523
+14	Lars von Trier	2013-07-26 22:12:18.993604	2013-07-26 22:12:18.993604
+15	John Fawcett	2013-07-26 22:12:19.586631	2013-07-26 22:12:19.586631
+16	Luc Besson	2013-07-26 22:12:20.371206	2013-07-26 22:12:20.371206
+17	Fritz Lang	2013-07-26 22:12:21.106792	2013-07-26 22:12:21.106792
+18	Isabel Coixet	2013-07-26 22:12:21.788025	2013-07-26 22:12:21.788025
+19	Bruce Brown	2013-07-26 22:12:22.310697	2013-07-26 22:12:22.310697
+20	Gore Verbinski	2013-07-26 22:12:23.177545	2013-07-26 22:12:23.177545
+21	Eytan Fox	2013-07-26 22:12:26.388947	2013-07-26 22:12:26.388947
+22	Michael Winterbottom	2013-07-26 22:12:27.034293	2013-07-26 22:12:27.034293
+23	Francis Ford Coppola	2013-07-26 22:12:27.67948	2013-07-26 22:12:27.67948
+24	Clint Eastwood	2013-07-26 22:12:30.697939	2013-07-26 22:12:30.697939
+25	David Silverman	2013-07-26 22:12:31.960627	2013-07-26 22:12:31.960627
+26	Michel Gondry	2013-07-26 22:12:33.669468	2013-07-26 22:12:33.669468
+27	Alejandro González Iñárritu	2013-07-26 22:12:42.576513	2013-07-26 22:12:42.576513
+28	David Cronenberg	2013-07-26 22:12:45.14992	2013-07-26 22:12:45.14992
+29	Stanley Kubrick	2013-07-26 22:12:47.119092	2013-07-26 22:12:47.119092
+30	Terry Gilliam	2013-07-26 22:12:48.483687	2013-07-26 22:12:48.483687
+31	Pedro Almodóvar	2013-07-26 22:12:49.201985	2013-07-26 22:12:49.201985
+32	Curtis Hanson	2013-07-26 22:12:49.960278	2013-07-26 22:12:49.960278
+33	Hany Abu-Assad	2013-07-26 22:12:51.201696	2013-07-26 22:12:51.201696
+34	James Mangold	2013-07-26 22:12:53.210193	2013-07-26 22:12:53.210193
+35	Stephen Daldry	2013-07-26 22:12:54.538114	2013-07-26 22:12:54.538114
+36	Tony Kaye	2013-07-26 22:12:55.934628	2013-07-26 22:12:55.934628
+37	Steven Spielberg	2013-07-26 22:12:56.786732	2013-07-26 22:12:56.786732
+38	Tim Burton	2013-07-26 22:12:57.516127	2013-07-26 22:12:57.516127
+39	Richard Linklater	2013-07-26 22:12:58.182945	2013-07-26 22:12:58.182945
+40	Christopher Nolan	2013-07-26 22:12:58.893296	2013-07-26 22:12:58.893296
+41	Ridley Scott	2013-07-26 22:13:00.026463	2013-07-26 22:13:00.026463
+42	Zhang Yimou	2013-07-26 22:13:00.824198	2013-07-26 22:13:00.824198
+43	Hayao Miyazaki	2013-07-26 22:13:02.361836	2013-07-26 22:13:02.361836
+44	Michael Mann	2013-07-26 22:13:03.094258	2013-07-26 22:13:03.094258
+45	Chris Kentis	2013-07-26 22:13:03.910337	2013-07-26 22:13:03.910337
+46	Oskar Roehler	2013-07-26 22:13:07.001279	2013-07-26 22:13:07.001279
+47	Emile Ardolino	2013-07-26 22:13:09.044303	2013-07-26 22:13:09.044303
+48	Martin Brest	2013-07-26 22:13:10.800689	2013-07-26 22:13:10.800689
+49	Michael Glawogger	2013-07-26 22:13:12.014603	2013-07-26 22:13:12.014603
+50	Otto Preminger	2013-07-26 22:13:13.231594	2013-07-26 22:13:13.231594
+51	Michael Bay	2013-07-26 22:13:14.621282	2013-07-26 22:13:14.621282
+52	Tony Scott	2013-07-26 22:13:15.39754	2013-07-26 22:13:15.39754
+53	Steven Lisberger	2013-07-26 22:13:16.27663	2013-07-26 22:13:16.27663
+54	Guy Ritchie	2013-07-26 22:13:18.974623	2013-07-26 22:13:18.974623
+55	Susanne Bier	2013-07-26 22:13:20.974748	2013-07-26 22:13:20.974748
+56	Martin Scorsese	2013-07-26 22:13:21.887832	2013-07-26 22:13:21.887832
+57	Tom Tykwer	2013-07-26 22:13:22.675673	2013-07-26 22:13:22.675673
+58	John McTiernan	2013-07-26 22:13:24.664909	2013-07-26 22:13:24.664909
+59	Krzysztof Kieślowski	2013-07-26 22:13:26.971239	2013-07-26 22:13:26.971239
+60	Krzysztof Kieslowski	2013-07-26 22:13:27.74454	2013-07-26 22:13:27.74454
+61	Brian De Palma	2013-07-26 22:13:29.444835	2013-07-26 22:13:29.444835
+62	Lone Scherfig	2013-07-26 22:13:30.00301	2013-07-26 22:13:30.00301
+63	Kim Ki-duk	2013-07-26 22:13:30.690159	2013-07-26 22:13:30.690159
+64	Garry Marshall	2013-07-26 22:13:31.433092	2013-07-26 22:13:31.433092
+65	Joel Coen	2013-07-26 22:13:32.39037	2013-07-26 22:13:32.39037
+66	Ethan Coen	2013-07-26 22:13:32.397009	2013-07-26 22:13:32.397009
+67	Woody Allen	2013-07-26 22:13:33.280378	2013-07-26 22:13:33.280378
+68	Peter Jackson	2013-07-26 22:13:36.447819	2013-07-26 22:13:36.447819
+69	Ralph Bakshi	2013-07-26 22:13:39.9132	2013-07-26 22:13:39.9132
+70	Hanna Krall	2013-07-26 22:13:42.098223	2013-07-26 22:13:42.098223
+71	Albert Maysles	2013-07-26 22:13:46.772943	2013-07-26 22:13:46.772943
+72	Charlotte Zwerin	2013-07-26 22:13:46.777934	2013-07-26 22:13:46.777934
+73	David Maysles	2013-07-26 22:13:46.782244	2013-07-26 22:13:46.782244
+74	Robert Drew	2013-07-26 22:13:47.495583	2013-07-26 22:13:47.495583
+75	D.A. Pennebaker	2013-07-26 22:13:49.307472	2013-07-26 22:13:49.307472
+76	Tod Browning	2013-07-26 22:13:49.963216	2013-07-26 22:13:49.963216
+77	Harold Ramis	2013-07-26 22:13:50.996684	2013-07-26 22:13:50.996684
+78	Søren Kragh-Jacobsen	2013-07-26 22:13:52.863138	2013-07-26 22:13:52.863138
+79	Richard Kelly	2013-07-26 22:13:54.999224	2013-07-26 22:13:54.999224
+80	Ang Lee	2013-07-26 22:13:55.764021	2013-07-26 22:13:55.764021
+81	Lewis Milestone	2013-07-26 22:13:56.480761	2013-07-26 22:13:56.480761
+82	Wim Wenders	2013-07-26 22:13:57.277148	2013-07-26 22:13:57.277148
+83	François Truffaut	2013-07-26 22:13:59.652619	2013-07-26 22:13:59.652619
+84	Katsuhiro Ōtomo	2013-07-26 22:14:00.957386	2013-07-26 22:14:00.957386
+85	Walter Hill	2013-07-26 22:14:01.778559	2013-07-26 22:14:01.778559
+86	Robert Wise	2013-07-26 22:14:03.39426	2013-07-26 22:14:03.39426
+87	Sofia Coppola	2013-07-26 22:14:04.099969	2013-07-26 22:14:04.099969
+88	Nicholas Meyer	2013-07-26 22:14:04.817584	2013-07-26 22:14:04.817584
+89	Leonard Nimoy	2013-07-26 22:14:07.291008	2013-07-26 22:14:07.291008
+90	Thomas Jahn	2013-07-26 22:14:07.947505	2013-07-26 22:14:07.947505
+91	Sophie Allet-Coche	2013-07-26 22:14:07.95296	2013-07-26 22:14:07.95296
+92	Sönke Wortmann	2013-07-26 22:14:09.139994	2013-07-26 22:14:09.139994
+93	Steven Soderbergh	2013-07-26 22:14:10.519557	2013-07-26 22:14:10.519557
+94	Blake Edwards	2013-07-26 22:14:12.90571	2013-07-26 22:14:12.90571
+95	Claude Pinoteau	2013-07-26 22:14:14.462516	2013-07-26 22:14:14.462516
+96	Iain Softley	2013-07-26 22:14:15.13765	2013-07-26 22:14:15.13765
+97	Danny Boyle	2013-07-26 22:14:17.572589	2013-07-26 22:14:17.572589
+98	William Shatner	2013-07-26 22:14:18.930622	2013-07-26 22:14:18.930622
+99	Richard Fleischer	2013-07-26 22:14:19.591088	2013-07-26 22:14:19.591088
+100	James Wan	2013-07-26 22:14:21.671958	2013-07-26 22:14:21.671958
+101	Sydney Pollack	2013-07-26 22:14:24.109698	2013-07-26 22:14:24.109698
+102	Todd Holland	2013-07-26 22:14:26.438528	2013-07-26 22:14:26.438528
+103	Paul McGuigan	2013-07-26 22:14:28.950014	2013-07-26 22:14:28.950014
+104	Frank Miller	2013-07-26 22:14:29.785268	2013-07-26 22:14:29.785268
+105	Timo Mugele	2013-07-26 22:14:31.39311	2013-07-26 22:14:31.39311
+106	Marcus Niehaves	2013-07-26 22:14:31.398607	2013-07-26 22:14:31.398607
+107	Christian Petzold	2013-07-26 22:14:31.918746	2013-07-26 22:14:31.918746
+108	Candy Birkmeyer	2013-07-26 22:14:31.967748	2013-07-26 22:14:31.967748
+109	Jean-Jacques Annaud	2013-07-26 22:14:32.686972	2013-07-26 22:14:32.686972
+110	David Carson	2013-07-26 22:14:33.456194	2013-07-26 22:14:33.456194
+111	Jean-Pierre Jeunet	2013-07-26 22:14:34.245725	2013-07-26 22:14:34.245725
+112	Ernst Lubitsch	2013-07-26 22:14:34.77742	2013-07-26 22:14:34.77742
+113	Mel Gibson	2013-07-26 22:14:36.418845	2013-07-26 22:14:36.418845
+114	Jonathan Frakes	2013-07-26 22:14:37.709876	2013-07-26 22:14:37.709876
+115	Stuart Baird	2013-07-26 22:14:39.116843	2013-07-26 22:14:39.116843
+116	Henri-Georges Clouzot	2013-07-26 22:14:40.851874	2013-07-26 22:14:40.851874
+117	Terry George	2013-07-26 22:14:41.476158	2013-07-26 22:14:41.476158
+118	Mario Andreacchio	2013-07-26 22:14:43.107368	2013-07-26 22:14:43.107368
+119	Peter Weir	2013-07-26 22:14:43.765544	2013-07-26 22:14:43.765544
+120	Hannes Stöhr	2013-07-26 22:14:46.898205	2013-07-26 22:14:46.898205
+121	Frank Capra	2013-07-26 22:14:47.522438	2013-07-26 22:14:47.522438
+122	Alfred Hitchcock	2013-07-26 22:14:48.31353	2013-07-26 22:14:48.31353
+123	Darren Lynn Bousman	2013-07-26 22:14:48.972642	2013-07-26 22:14:48.972642
+124	Rainer Werner Fassbinder	2013-07-26 22:14:50.291611	2013-07-26 22:14:50.291611
+125	James Cameron	2013-07-26 22:14:52.434798	2013-07-26 22:14:52.434798
+126	Elia Kazan	2013-07-26 22:14:53.836262	2013-07-26 22:14:53.836262
+127	Nicholas Ray	2013-07-26 22:14:54.507674	2013-07-26 22:14:54.507674
+128	Walter Ruttmann	2013-07-26 22:14:55.086247	2013-07-26 22:14:55.086247
+129	Andrzej Wajda	2013-07-26 22:14:56.453046	2013-07-26 22:14:56.453046
+130	Kimberly Peirce	2013-07-26 22:14:57.729349	2013-07-26 22:14:57.729349
+131	Josef von Sternberg	2013-07-26 22:14:59.030165	2013-07-26 22:14:59.030165
+132	James Whale	2013-07-26 22:14:59.67445	2013-07-26 22:14:59.67445
+133	Stephen Gaghan	2013-07-26 22:15:00.912161	2013-07-26 22:15:00.912161
+134	Philip Kaufman	2013-07-26 22:15:02.082424	2013-07-26 22:15:02.082424
+135	Robert Wiene	2013-07-26 22:15:02.615345	2013-07-26 22:15:02.615345
+136	Rob Reiner	2013-07-26 22:15:03.378538	2013-07-26 22:15:03.378538
+137	P.J. Hogan	2013-07-26 22:15:03.979635	2013-07-26 22:15:03.979635
+138	David Mackenzie	2013-07-26 22:15:04.589721	2013-07-26 22:15:04.589721
+139	Billy Wilder	2013-07-26 22:15:06.17289	2013-07-26 22:15:06.17289
+140	Oliver Stone	2013-07-26 22:15:07.746502	2013-07-26 22:15:07.746502
+141	Stephen Frears	2013-07-26 22:15:09.261399	2013-07-26 22:15:09.261399
+142	Merian C. Cooper	2013-07-26 22:15:10.00207	2013-07-26 22:15:10.00207
+143	Ernest B. Schoedsack	2013-07-26 22:15:10.008005	2013-07-26 22:15:10.008005
+144	Chris Weitz	2013-07-26 22:15:10.736157	2013-07-26 22:15:10.736157
+145	Paul Weitz	2013-07-26 22:15:10.742617	2013-07-26 22:15:10.742617
+146	Takeshi Kitano	2013-07-26 22:15:11.398621	2013-07-26 22:15:11.398621
+147	Danny DeVito	2013-07-26 22:15:13.568269	2013-07-26 22:15:13.568269
+148	Lasse Spang Olsen	2013-07-26 22:15:14.181463	2013-07-26 22:15:14.181463
+149	Jerry Zucker	2013-07-26 22:15:14.807541	2013-07-26 22:15:14.807541
+150	Mel Stuart	2013-07-26 22:15:15.478193	2013-07-26 22:15:15.478193
+151	Guy Hamilton	2013-07-26 22:15:16.352797	2013-07-26 22:15:16.352797
+152	Roman Polanski	2013-07-26 22:15:18.930011	2013-07-26 22:15:18.930011
+153	Richard Brooks	2013-07-26 22:15:21.462754	2013-07-26 22:15:21.462754
+154	Jean-Luc Godard	2013-07-26 22:15:24.603934	2013-07-26 22:15:24.603934
+155	Marc Meyer	2013-07-26 22:15:27.530942	2013-07-26 22:15:27.530942
+156	Tage Danielsson	2013-07-26 22:15:28.151099	2013-07-26 22:15:28.151099
+157	Hans Weingartner	2013-07-26 22:15:29.777872	2013-07-26 22:15:29.777872
+158	Jonathan Demme	2013-07-26 22:15:31.092007	2013-07-26 22:15:31.092007
+159	Len Wiseman	2013-07-26 22:15:33.294385	2013-07-26 22:15:33.294385
+160	Frank Darabont	2013-07-26 22:15:34.15289	2013-07-26 22:15:34.15289
+161	Miloš Forman	2013-07-26 22:15:34.893525	2013-07-26 22:15:34.893525
+162	Kathryn Bigelow	2013-07-26 22:15:36.384915	2013-07-26 22:15:36.384915
+163	Ron Shelton	2013-07-26 22:15:40.375116	2013-07-26 22:15:40.375116
+164	Fred Zinnemann	2013-07-26 22:15:41.944076	2013-07-26 22:15:41.944076
+165	Michael Curtiz	2013-07-26 22:15:42.706864	2013-07-26 22:15:42.706864
+166	Stacy Peralta	2013-07-26 22:15:44.002212	2013-07-26 22:15:44.002212
+167	Robert Redford	2013-07-26 22:15:45.144138	2013-07-26 22:15:45.144138
+168	Donna Deitch	2013-07-26 22:15:45.674656	2013-07-26 22:15:45.674656
+169	Jonathan Mostow	2013-07-26 22:15:47.014903	2013-07-26 22:15:47.014903
+170	Howard Hawks	2013-07-26 22:15:50.588703	2013-07-26 22:15:50.588703
+171	François Ozon	2013-07-26 22:15:51.21494	2013-07-26 22:15:51.21494
+172	John Landis	2013-07-26 22:15:53.803892	2013-07-26 22:15:53.803892
+173	Roberto Rossellini	2013-07-26 22:15:54.429656	2013-07-26 22:15:54.429656
+174	Jim Jarmusch	2013-07-26 22:15:55.049215	2013-07-26 22:15:55.049215
+175	Thomas Vinterberg	2013-07-26 22:15:55.73402	2013-07-26 22:15:55.73402
+176	Tom Shadyac	2013-07-26 22:15:56.35714	2013-07-26 22:15:56.35714
+177	Sergio Leone	2013-07-26 22:15:57.164795	2013-07-26 22:15:57.164795
+178	Caroline Link	2013-07-26 22:15:57.691034	2013-07-26 22:15:57.691034
+179	Marc Evans	2013-07-26 22:15:58.219901	2013-07-26 22:15:58.219901
+180	Pitof	2013-07-26 22:15:58.858362	2013-07-26 22:15:58.858362
+181	Russ Meyer	2013-07-26 22:16:00.620041	2013-07-26 22:16:00.620041
+182	Andreas Dresen	2013-07-26 22:16:01.139958	2013-07-26 22:16:01.139958
+183	Jasmila Žbanić	2013-07-26 22:16:01.66178	2013-07-26 22:16:01.66178
+184	Émile Gaudreault	2013-07-26 22:16:05.32316	2013-07-26 22:16:05.32316
+185	David R. Ellis	2013-07-26 22:16:08.119451	2013-07-26 22:16:08.119451
+186	Joe Johnston	2013-07-26 22:16:11.588785	2013-07-26 22:16:11.588785
+187	David Kellogg	2013-07-26 22:16:12.205652	2013-07-26 22:16:12.205652
+188	Deepa Mehta	2013-07-26 22:16:12.737214	2013-07-26 22:16:12.737214
+189	Paul Thomas Anderson	2013-07-26 22:16:13.414627	2013-07-26 22:16:13.414627
+190	François Dupeyron	2013-07-26 22:16:15.42183	2013-07-26 22:16:15.42183
+191	Wolfgang Becker	2013-07-26 22:16:16.037214	2013-07-26 22:16:16.037214
+192	Liev Schreiber	2013-07-26 22:16:17.334795	2013-07-26 22:16:17.334795
+193	Manuel Pradal	2013-07-26 22:16:18.029539	2013-07-26 22:16:18.029539
+194	Marco Kreuzpaintner	2013-07-26 22:16:19.026255	2013-07-26 22:16:19.026255
+195	Benedict Hoermann	2013-07-26 22:16:19.031004	2013-07-26 22:16:19.031004
+196	Hal Ashby	2013-07-26 22:16:19.660029	2013-07-26 22:16:19.660029
+197	Peter Thorwarth	2013-07-26 22:16:20.194272	2013-07-26 22:16:20.194272
+198	Akira Kurosawa	2013-07-26 22:16:22.151347	2013-07-26 22:16:22.151347
+199	Curt Siodmak	2013-07-26 22:16:22.667775	2013-07-26 22:16:22.667775
+200	Robert Siodmak	2013-07-26 22:16:22.673362	2013-07-26 22:16:22.673362
+201	Edgar G. Ulmer	2013-07-26 22:16:22.682401	2013-07-26 22:16:22.682401
+202	Olivier Ducastel	2013-07-26 22:16:24.141097	2013-07-26 22:16:24.141097
+203	Jacques Martineau	2013-07-26 22:16:24.14998	2013-07-26 22:16:24.14998
+204	David Frankel	2013-07-26 22:16:24.856975	2013-07-26 22:16:24.856975
+205	Valeska Grisebach	2013-07-26 22:16:25.422123	2013-07-26 22:16:25.422123
+206	Fatih Akin	2013-07-26 22:16:31.798417	2013-07-26 22:16:31.798417
+207	Wes Craven	2013-07-26 22:16:39.450868	2013-07-26 22:16:39.450868
+208	Barry Levinson	2013-07-26 22:16:41.49443	2013-07-26 22:16:41.49443
+209	Gus Van Sant	2013-07-26 22:16:43.244039	2013-07-26 22:16:43.244039
+210	Wolfgang Petersen	2013-07-26 22:16:45.965907	2013-07-26 22:16:45.965907
+211	Spike Lee	2013-07-26 22:16:46.686628	2013-07-26 22:16:46.686628
+212	Sidney Lumet	2013-07-26 22:16:47.364387	2013-07-26 22:16:47.364387
+213	Lasse Hallström	2013-07-26 22:16:49.654399	2013-07-26 22:16:49.654399
+214	Paul W.S. Anderson	2013-07-26 22:16:51.675321	2013-07-26 22:16:51.675321
+215	Mike Nichols	2013-07-26 22:16:52.765629	2013-07-26 22:16:52.765629
+216	Lawrence Kasdan	2013-07-26 22:16:53.299799	2013-07-26 22:16:53.299799
+217	Bennett Miller	2013-07-26 22:16:54.033869	2013-07-26 22:16:54.033869
+218	Gary Fleder	2013-07-26 22:16:55.192413	2013-07-26 22:16:55.192413
+219	Zach Braff	2013-07-26 22:16:55.835367	2013-07-26 22:16:55.835367
+220	Paul Verhoeven	2013-07-26 22:16:56.616478	2013-07-26 22:16:56.616478
+221	Bruce Beresford	2013-07-26 22:16:57.249625	2013-07-26 22:16:57.249625
+222	David Lynch	2013-07-26 22:16:57.890132	2013-07-26 22:16:57.890132
+223	Federico Fellini	2013-07-26 22:16:58.508254	2013-07-26 22:16:58.508254
+224	Mathieu Kassovitz	2013-07-26 22:16:59.125946	2013-07-26 22:16:59.125946
+225	David Hand	2013-07-26 22:17:00.749943	2013-07-26 22:17:00.749943
+226	Anthony Minghella	2013-07-26 22:17:01.39005	2013-07-26 22:17:01.39005
+227	Andrew Adamson	2013-07-26 22:17:03.008587	2013-07-26 22:17:03.008587
+228	Joel Schumacher	2013-07-26 22:17:04.853645	2013-07-26 22:17:04.853645
+229	Helmut Dietl	2013-07-26 22:17:08.154679	2013-07-26 22:17:08.154679
+230	Wes Anderson	2013-07-26 22:17:09.348185	2013-07-26 22:17:09.348185
+231	Chris Wedge	2013-07-26 22:17:13.183065	2013-07-26 22:17:13.183065
+232	Carlos Saldanha	2013-07-26 22:17:13.188907	2013-07-26 22:17:13.188907
+233	Jacques Tati	2013-07-26 22:17:14.623546	2013-07-26 22:17:14.623546
+234	Stefan Krohmer	2013-07-26 22:17:15.213329	2013-07-26 22:17:15.213329
+235	Petra Misovic	2013-07-26 22:17:15.220101	2013-07-26 22:17:15.220101
+236	Vincenzo Natali	2013-07-26 22:17:18.970522	2013-07-26 22:17:18.970522
+237	Robert Stevenson	2013-07-26 22:17:20.347368	2013-07-26 22:17:20.347368
+238	Detlev Buck	2013-07-26 22:17:21.426096	2013-07-26 22:17:21.426096
+239	Roland Emmerich	2013-07-26 22:17:22.133995	2013-07-26 22:17:22.133995
+240	Joshua Marston	2013-07-26 22:17:23.194814	2013-07-26 22:17:23.194814
+241	Andrzej Sekula	2013-07-26 22:17:24.61738	2013-07-26 22:17:24.61738
+242	Ernie Barbarash	2013-07-26 22:17:25.696439	2013-07-26 22:17:25.696439
+243	Colin Strause	2013-07-26 22:17:27.055919	2013-07-26 22:17:27.055919
+244	Greg Strause	2013-07-26 22:17:27.060946	2013-07-26 22:17:27.060946
+245	Reza Bagher	2013-07-26 22:17:28.185082	2013-07-26 22:17:28.185082
+246	Michael Haneke	2013-07-26 22:17:29.837303	2013-07-26 22:17:29.837303
+247	Hans-Christian Schmid	2013-07-26 22:17:31.009324	2013-07-26 22:17:31.009324
+248	Mike Figgis	2013-07-26 22:17:34.113948	2013-07-26 22:17:34.113948
+249	Ron Howard	2013-07-26 22:17:36.208814	2013-07-26 22:17:36.208814
+250	Baz Luhrmann	2013-07-26 22:17:36.919081	2013-07-26 22:17:36.919081
+251	Gurinder Chadha	2013-07-26 22:17:38.332537	2013-07-26 22:17:38.332537
+252	Ernst Marischka	2013-07-26 22:17:39.917847	2013-07-26 22:17:39.917847
+253	Dani Levy	2013-07-26 22:17:42.244859	2013-07-26 22:17:42.244859
+254	Kay Pollak	2013-07-26 22:17:45.198014	2013-07-26 22:17:45.198014
+255	Catherine Breillat	2013-07-26 22:17:46.110018	2013-07-26 22:17:46.110018
+256	Alan J. Pakula	2013-07-26 22:17:47.008144	2013-07-26 22:17:47.008144
+257	Nick Hamm	2013-07-26 22:17:47.994055	2013-07-26 22:17:47.994055
+258	Maciej Dejczer	2013-07-26 22:17:51.348451	2013-07-26 22:17:51.348451
+259	Darren Aronofsky	2013-07-26 22:17:52.563039	2013-07-26 22:17:52.563039
+260	Arthur Penn	2013-07-26 22:17:54.159747	2013-07-26 22:17:54.159747
+261	John Singleton	2013-07-26 22:17:56.48644	2013-07-26 22:17:56.48644
+262	Mira Nair	2013-07-26 22:17:57.239005	2013-07-26 22:17:57.239005
+263	Alberto Rodríguez	2013-07-26 22:17:58.297079	2013-07-26 22:17:58.297079
+264	Gordon Parks	2013-07-26 22:17:59.432434	2013-07-26 22:17:59.432434
+265	John Huston	2013-07-26 22:18:04.295425	2013-07-26 22:18:04.295425
+266	Ingmar Bergman	2013-07-26 22:18:06.370847	2013-07-26 22:18:06.370847
+267	Christian Wagner	2013-07-26 22:18:07.108379	2013-07-26 22:18:07.108379
+268	Spike Jonze	2013-07-26 22:18:07.856063	2013-07-26 22:18:07.856063
+269	John Guillermin	2013-07-26 22:18:09.798755	2013-07-26 22:18:09.798755
+270	Larry Charles	2013-07-26 22:18:11.165426	2013-07-26 22:18:11.165426
+271	Agnès Varda	2013-07-26 22:18:13.102081	2013-07-26 22:18:13.102081
+272	Werner Herzog	2013-07-26 22:18:14.555609	2013-07-26 22:18:14.555609
+273	Patty Jenkins	2013-07-26 22:18:16.601342	2013-07-26 22:18:16.601342
+274	Roger Avary	2013-07-26 22:18:18.656611	2013-07-26 22:18:18.656611
+275	Richard Curtis	2013-07-26 22:18:19.545983	2013-07-26 22:18:19.545983
+276	Roger Michell	2013-07-26 22:18:20.344744	2013-07-26 22:18:20.344744
+277	Richard Donner	2013-07-26 22:18:31.537634	2013-07-26 22:18:31.537634
+278	Lee Tamahori	2013-07-26 22:18:32.174979	2013-07-26 22:18:32.174979
+279	Nick Park	2013-07-26 22:18:37.242761	2013-07-26 22:18:37.242761
+280	Steve Box	2013-07-26 22:18:37.248035	2013-07-26 22:18:37.248035
+281	Joseph McGinty Nichol	2013-07-26 22:18:38.245806	2013-07-26 22:18:38.245806
+282	Adrian Lyne	2013-07-26 22:18:38.860075	2013-07-26 22:18:38.860075
+283	Sandra Jakisch	2013-07-26 22:18:39.44479	2013-07-26 22:18:39.44479
+284	Stéphane Brizé	2013-07-26 22:18:39.970496	2013-07-26 22:18:39.970496
+285	Teresa Renn	2013-07-26 22:18:40.553589	2013-07-26 22:18:40.553589
+286	Angela Robinson	2013-07-26 22:18:42.191578	2013-07-26 22:18:42.191578
+287	Carlos Carrera	2013-07-26 22:18:43.326482	2013-07-26 22:18:43.326482
+288	Peter Farrelly	2013-07-26 22:18:44.854765	2013-07-26 22:18:44.854765
+289	Bobby Farrelly	2013-07-26 22:18:44.859461	2013-07-26 22:18:44.859461
+290	Duncan Tucker	2013-07-26 22:18:45.984989	2013-07-26 22:18:45.984989
+291	Julian Schnabel	2013-07-26 22:18:47.859339	2013-07-26 22:18:47.859339
+292	David Fincher	2013-07-26 22:18:48.984297	2013-07-26 22:18:48.984297
+293	Ronald Neame	2013-07-26 22:18:49.694414	2013-07-26 22:18:49.694414
+294	Silvio Soldini	2013-07-26 22:18:50.998814	2013-07-26 22:18:50.998814
+295	Aleksandr Rogozhkin	2013-07-26 22:18:52.240701	2013-07-26 22:18:52.240701
+296	Romed Wyder	2013-07-26 22:18:52.769367	2013-07-26 22:18:52.769367
+297	Nicole Borgeat	2013-07-26 22:18:52.775159	2013-07-26 22:18:52.775159
+298	Sam Raimi	2013-07-26 22:18:53.978906	2013-07-26 22:18:53.978906
+299	William Holland	2013-07-26 22:18:56.117658	2013-07-26 22:18:56.117658
+300	Francis Lawrence	2013-07-26 22:18:56.870144	2013-07-26 22:18:56.870144
+301	Stephen Sommers	2013-07-26 22:18:59.294347	2013-07-26 22:18:59.294347
+302	Pål Sletaune	2013-07-26 22:19:04.582017	2013-07-26 22:19:04.582017
+303	Oliver Hirschbiegel	2013-07-26 22:19:06.744696	2013-07-26 22:19:06.744696
+304	Sam Peckinpah	2013-07-26 22:19:07.407545	2013-07-26 22:19:07.407545
+305	Jeannot Szwarc	2013-07-26 22:19:09.765437	2013-07-26 22:19:09.765437
+306	Joseph Sargent	2013-07-26 22:19:10.390939	2013-07-26 22:19:10.390939
+307	Kevin Costner	2013-07-26 22:19:11.137367	2013-07-26 22:19:11.137367
+308	Florian Henckel von Donnersmarck	2013-07-26 22:19:11.796739	2013-07-26 22:19:11.796739
+309	Terry Jones	2013-07-26 22:19:12.567582	2013-07-26 22:19:12.567582
+310	Pete Docter	2013-07-26 22:19:14.956487	2013-07-26 22:19:14.956487
+311	Christophe Gans	2013-07-26 22:19:17.598889	2013-07-26 22:19:17.598889
+312	Andrei Tarkovsky	2013-07-26 22:19:22.102688	2013-07-26 22:19:22.102688
+313	Robert Mulligan	2013-07-26 22:19:23.69116	2013-07-26 22:19:23.69116
+314	John Ford	2013-07-26 22:19:24.36902	2013-07-26 22:19:24.36902
+315	Fernando Meirelles	2013-07-26 22:19:26.271694	2013-07-26 22:19:26.271694
+316	Lana Wachowski	2013-07-26 22:19:30.80986	2013-07-26 22:19:30.80986
+317	Andy Wachowski	2013-07-26 22:19:30.814636	2013-07-26 22:19:30.814636
+318	Barry Sonnenfeld	2013-07-26 22:19:34.253878	2013-07-26 22:19:34.253878
+319	Tobe Hooper	2013-07-26 22:19:35.808754	2013-07-26 22:19:35.808754
+320	Edward Zwick	2013-07-26 22:19:40.450474	2013-07-26 22:19:40.450474
+321	John McNaughton	2013-07-26 22:19:41.125655	2013-07-26 22:19:41.125655
+322	D.W. Griffith	2013-07-26 22:19:41.670545	2013-07-26 22:19:41.670545
+323	Mick Jackson	2013-07-26 22:19:42.343285	2013-07-26 22:19:42.343285
+324	Ivan Reitman	2013-07-26 22:19:43.492733	2013-07-26 22:19:43.492733
+325	Randal Kleiser	2013-07-26 22:19:44.28389	2013-07-26 22:19:44.28389
+326	Charles Crichton	2013-07-26 22:19:45.881808	2013-07-26 22:19:45.881808
+327	Dennis Hopper	2013-07-26 22:19:46.580814	2013-07-26 22:19:46.580814
+328	Roland Joffé	2013-07-26 22:19:47.25188	2013-07-26 22:19:47.25188
+329	Neil Jordan	2013-07-26 22:19:49.50985	2013-07-26 22:19:49.50985
+330	Bryan Singer	2013-07-26 22:19:50.328501	2013-07-26 22:19:50.328501
+331	King Vidor	2013-07-26 22:19:51.180398	2013-07-26 22:19:51.180398
+332	Mervyn LeRoy	2013-07-26 22:19:51.185321	2013-07-26 22:19:51.185321
+333	George Cukor	2013-07-26 22:19:51.192745	2013-07-26 22:19:51.192745
+334	Victor Fleming	2013-07-26 22:19:51.197614	2013-07-26 22:19:51.197614
+335	F.W. Murnau	2013-07-26 22:19:52.531218	2013-07-26 22:19:52.531218
+336	Herman Bing	2013-07-26 22:19:52.53841	2013-07-26 22:19:52.53841
+337	Sharon Maguire	2013-07-26 22:19:55.828297	2013-07-26 22:19:55.828297
+338	Alan Parker	2013-07-26 22:19:56.579417	2013-07-26 22:19:56.579417
+339	Roberto Benigni	2013-07-26 22:19:57.971603	2013-07-26 22:19:57.971603
+340	George Roy Hill	2013-07-26 22:20:02.243566	2013-07-26 22:20:02.243566
+341	Sergei M. Eisenstein	2013-07-26 22:20:03.172376	2013-07-26 22:20:03.172376
+342	Terence Young	2013-07-26 22:20:05.808684	2013-07-26 22:20:05.808684
+343	Tetsuya Nomura	2013-07-26 22:20:06.569629	2013-07-26 22:20:06.569629
+344	Takeshi Nozue	2013-07-26 22:20:06.574544	2013-07-26 22:20:06.574544
+345	Jean Cocteau	2013-07-26 22:20:07.739932	2013-07-26 22:20:07.739932
+346	Luis Buñuel	2013-07-26 22:20:08.617607	2013-07-26 22:20:08.617607
+347	Robert Altman	2013-07-26 22:20:09.956869	2013-07-26 22:20:09.956869
+348	Volker Schlöndorff	2013-07-26 22:20:16.597917	2013-07-26 22:20:16.597917
+349	Jan de Bont	2013-07-26 22:20:21.933754	2013-07-26 22:20:21.933754
+350	William Wyler	2013-07-26 22:20:22.644631	2013-07-26 22:20:22.644631
+351	Walter Salles	2013-07-26 22:20:23.277175	2013-07-26 22:20:23.277175
+352	Lewis Gilbert	2013-07-26 22:20:24.319919	2013-07-26 22:20:24.319919
+353	Peter R. Hunt	2013-07-26 22:20:25.324684	2013-07-26 22:20:25.324684
+354	Robert J. Flaherty	2013-07-26 22:20:26.083806	2013-07-26 22:20:26.083806
+355	Chan-wook Park	2013-07-26 22:20:26.847797	2013-07-26 22:20:26.847797
+356	Chris Columbus	2013-07-26 22:20:27.987992	2013-07-26 22:20:27.987992
+357	Alfonso Cuarón	2013-07-26 22:20:30.083677	2013-07-26 22:20:30.083677
+358	Mike Newell	2013-07-26 22:20:31.120419	2013-07-26 22:20:31.120419
+359	David Yates	2013-07-26 22:20:32.18291	2013-07-26 22:20:32.18291
+360	Leni Riefenstahl	2013-07-26 22:20:33.956136	2013-07-26 22:20:33.956136
+361	Jacques Tourneur	2013-07-26 22:20:34.573619	2013-07-26 22:20:34.573619
+362	Tim Robbins	2013-07-26 22:20:42.645906	2013-07-26 22:20:42.645906
+363	Theodoros Angelopoulos	2013-07-26 22:20:44.567523	2013-07-26 22:20:44.567523
+364	Robert Bresson	2013-07-26 22:20:45.466087	2013-07-26 22:20:45.466087
+365	John Waters	2013-07-26 22:20:47.303464	2013-07-26 22:20:47.303464
+366	Jay Roach	2013-07-26 22:20:48.045678	2013-07-26 22:20:48.045678
+489	Alan Crosland	2013-07-26 22:24:03.71478	2013-07-26 22:24:03.71478
+367	Григорий Александров	2013-07-26 22:20:51.720041	2013-07-26 22:20:51.720041
+368	John Glen	2013-07-26 22:20:53.996167	2013-07-26 22:20:53.996167
+369	John G. Blystone	2013-07-26 22:20:56.443537	2013-07-26 22:20:56.443537
+370	Buster Keaton	2013-07-26 22:20:56.448667	2013-07-26 22:20:56.448667
+371	Richard Lester	2013-07-26 22:20:58.578932	2013-07-26 22:20:58.578932
+372	Joseph L. Mankiewicz	2013-07-26 22:20:59.246124	2013-07-26 22:20:59.246124
+373	Martin Campbell	2013-07-26 22:21:04.213968	2013-07-26 22:21:04.213968
+374	Jane Campion	2013-07-26 22:21:06.071069	2013-07-26 22:21:06.071069
+375	Roger Spottiswoode	2013-07-26 22:21:07.059473	2013-07-26 22:21:07.059473
+376	Lukas Moodysson	2013-07-26 22:21:22.041464	2013-07-26 22:21:22.041464
+377	Malin Fornander	2013-07-26 22:21:22.046463	2013-07-26 22:21:22.046463
+378	Peter Lichtefeld	2013-07-26 22:21:22.5767	2013-07-26 22:21:22.5767
+379	M. Night Shyamalan	2013-07-26 22:21:23.97892	2013-07-26 22:21:23.97892
+380	Bernardo Bertolucci	2013-07-26 22:21:24.598266	2013-07-26 22:21:24.598266
+381	Edgar Wright	2013-07-26 22:21:25.595596	2013-07-26 22:21:25.595596
+382	George Pollock	2013-07-26 22:21:27.19958	2013-07-26 22:21:27.19958
+383	James McTeigue	2013-07-26 22:21:28.789432	2013-07-26 22:21:28.789432
+384	John Cassavetes	2013-07-26 22:21:29.320599	2013-07-26 22:21:29.320599
+385	John Woo	2013-07-26 22:21:30.046021	2013-07-26 22:21:30.046021
+386	Ben Sharpsteen	2013-07-26 22:21:31.568656	2013-07-26 22:21:31.568656
+387	Jim Handley	2013-07-26 22:21:31.573501	2013-07-26 22:21:31.573501
+388	Bill Roberts	2013-07-26 22:21:31.581039	2013-07-26 22:21:31.581039
+389	Paul Satterfield	2013-07-26 22:21:31.586573	2013-07-26 22:21:31.586573
+390	Hamilton Luske	2013-07-26 22:21:31.592203	2013-07-26 22:21:31.592203
+391	James Algar	2013-07-26 22:21:31.597516	2013-07-26 22:21:31.597516
+392	Ford Beebe	2013-07-26 22:21:31.602789	2013-07-26 22:21:31.602789
+393	T. Hee	2013-07-26 22:21:31.607409	2013-07-26 22:21:31.607409
+394	Norman Ferguson	2013-07-26 22:21:31.612245	2013-07-26 22:21:31.612245
+395	Wilfred Jackson	2013-07-26 22:21:31.617052	2013-07-26 22:21:31.617052
+396	Samuel Armstrong	2013-07-26 22:21:31.621403	2013-07-26 22:21:31.621403
+397	Gérard Oury	2013-07-26 22:21:34.012838	2013-07-26 22:21:34.012838
+398	Claude Zidi	2013-07-26 22:21:34.612554	2013-07-26 22:21:34.612554
+399	Albert Hughes	2013-07-26 22:21:39.756575	2013-07-26 22:21:39.756575
+400	Allen Hughes	2013-07-26 22:21:39.761525	2013-07-26 22:21:39.761525
+401	Sam Wood	2013-07-26 22:21:41.920635	2013-07-26 22:21:41.920635
+402	Jonathan Dayton	2013-07-26 22:21:44.017791	2013-07-26 22:21:44.017791
+403	Valerie Faris	2013-07-26 22:21:44.022817	2013-07-26 22:21:44.022817
+404	Jean Renoir	2013-07-26 22:21:45.837626	2013-07-26 22:21:45.837626
+405	Carl Theodor Dreyer	2013-07-26 22:21:47.640278	2013-07-26 22:21:47.640278
+406	Andrew Niccol	2013-07-26 22:21:49.520022	2013-07-26 22:21:49.520022
+407	Richard Attenborough	2013-07-26 22:21:50.186552	2013-07-26 22:21:50.186552
+408	Jan Svěrák	2013-07-26 22:21:50.753684	2013-07-26 22:21:50.753684
+409	Cameron Crowe	2013-07-26 22:21:52.153107	2013-07-26 22:21:52.153107
+410	Doug Liman	2013-07-26 22:21:53.020909	2013-07-26 22:21:53.020909
+411	Jiří Menzel	2013-07-26 22:21:54.266396	2013-07-26 22:21:54.266396
+412	John Carpenter	2013-07-26 22:21:54.941967	2013-07-26 22:21:54.941967
+413	Rupert Wainwright	2013-07-26 22:21:55.568013	2013-07-26 22:21:55.568013
+414	Brad Silberling	2013-07-26 22:21:59.732348	2013-07-26 22:21:59.732348
+415	Roger Kumble	2013-07-26 22:22:00.513256	2013-07-26 22:22:00.513256
+416	Thomas Engel	2013-07-26 22:22:02.784413	2013-07-26 22:22:02.784413
+417	John Moore	2013-07-26 22:22:10.121386	2013-07-26 22:22:10.121386
+418	Vicky Jenson	2013-07-26 22:22:12.0567	2013-07-26 22:22:12.0567
+419	Kelly Asbury	2013-07-26 22:22:12.905374	2013-07-26 22:22:12.905374
+420	Conrad Vernon	2013-07-26 22:22:12.912061	2013-07-26 22:22:12.912061
+421	Raman Hui	2013-07-26 22:22:13.827521	2013-07-26 22:22:13.827521
+422	Chris Miller	2013-07-26 22:22:13.83346	2013-07-26 22:22:13.83346
+423	Douglas Trumbull	2013-07-26 22:22:14.699962	2013-07-26 22:22:14.699962
+424	John Musker	2013-07-26 22:22:15.527843	2013-07-26 22:22:15.527843
+425	Ron Clements	2013-07-26 22:22:15.532482	2013-07-26 22:22:15.532482
+426	David Zucker	2013-07-26 22:22:16.467966	2013-07-26 22:22:16.467966
+427	Jim Abrahams	2013-07-26 22:22:16.47432	2013-07-26 22:22:16.47432
+428	John Stephenson	2013-07-26 22:22:18.322562	2013-07-26 22:22:18.322562
+429	Stanley Kramer	2013-07-26 22:22:22.975993	2013-07-26 22:22:22.975993
+430	Satyajit Ray	2013-07-26 22:22:23.733446	2013-07-26 22:22:23.733446
+431	Hiroyuki Okiura	2013-07-26 22:22:24.374769	2013-07-26 22:22:24.374769
+432	Willard Carroll	2013-07-26 22:22:27.509274	2013-07-26 22:22:27.509274
+433	David Lean	2013-07-26 22:22:28.271461	2013-07-26 22:22:28.271461
+434	Fred M. Wilcox	2013-07-26 22:22:32.115161	2013-07-26 22:22:32.115161
+435	Joseph M. Newman	2013-07-26 22:22:32.638048	2013-07-26 22:22:32.638048
+436	Vittorio De Sica	2013-07-26 22:22:34.349131	2013-07-26 22:22:34.349131
+437	Karl Hartl	2013-07-26 22:22:36.01553	2013-07-26 22:22:36.01553
+438	Nelson Pereira dos Santos	2013-07-26 22:22:36.534995	2013-07-26 22:22:36.534995
+439	Niels Mueller	2013-07-26 22:22:42.956695	2013-07-26 22:22:42.956695
+440	Roland Manarin	2013-07-26 22:22:42.961609	2013-07-26 22:22:42.961609
+441	Stuart B. Hagen	2013-07-26 22:22:42.96699	2013-07-26 22:22:42.96699
+442	Wong Kar-Wai	2013-07-26 22:22:43.653924	2013-07-26 22:22:43.653924
+443	Rob Bowman	2013-07-26 22:22:46.068775	2013-07-26 22:22:46.068775
+444	Matthew Robbins	2013-07-26 22:22:47.97365	2013-07-26 22:22:47.97365
+445	Peter Yates	2013-07-26 22:22:49.190695	2013-07-26 22:22:49.190695
+446	Bob Clark	2013-07-26 22:22:50.013997	2013-07-26 22:22:50.013997
+447	Ladislao Vajda	2013-07-26 22:22:51.554502	2013-07-26 22:22:51.554502
+448	Chuck Russell	2013-07-26 22:22:53.024934	2013-07-26 22:22:53.024934
+449	Nora Ephron	2013-07-26 22:22:56.468233	2013-07-26 22:22:56.468233
+450	John Badham	2013-07-26 22:22:57.884825	2013-07-26 22:22:57.884825
+451	John Lasseter	2013-07-26 22:23:00.862762	2013-07-26 22:23:00.862762
+452	Jon Turteltaub	2013-07-26 22:23:02.91526	2013-07-26 22:23:02.91526
+453	Paul Michael Glaser	2013-07-26 22:23:03.642278	2013-07-26 22:23:03.642278
+454	Marc Forster	2013-07-26 22:23:04.329875	2013-07-26 22:23:04.329875
+455	Phillip Noyce	2013-07-26 22:23:04.950808	2013-07-26 22:23:04.950808
+456	Gavin Hood	2013-07-26 22:23:05.89913	2013-07-26 22:23:05.89913
+457	Franklin J. Schaffner	2013-07-26 22:23:08.037872	2013-07-26 22:23:08.037872
+458	Gene Kelly	2013-07-26 22:23:08.729849	2013-07-26 22:23:08.729849
+459	Stanley Donen	2013-07-26 22:23:08.734754	2013-07-26 22:23:08.734754
+460	John Harrison	2013-07-26 22:23:11.88367	2013-07-26 22:23:11.88367
+461	Helmut Weiss	2013-07-26 22:23:13.698899	2013-07-26 22:23:13.698899
+462	Marleen Gorris	2013-07-26 22:23:15.506894	2013-07-26 22:23:15.506894
+463	Arend Agthe	2013-07-26 22:23:17.004835	2013-07-26 22:23:17.004835
+464	Norman Jewison	2013-07-26 22:23:20.936275	2013-07-26 22:23:20.936275
+465	Brian Levant	2013-07-26 22:23:22.239313	2013-07-26 22:23:22.239313
+466	Joseph Vilsmaier	2013-07-26 22:23:23.454571	2013-07-26 22:23:23.454571
+467	Marc Caro	2013-07-26 22:23:25.593175	2013-07-26 22:23:25.593175
+468	John Frankenheimer	2013-07-26 22:23:30.368254	2013-07-26 22:23:30.368254
+469	Charlie Chaplin	2013-07-26 22:23:32.49114	2013-07-26 22:23:32.49114
+470	Stuart Rosenberg	2013-07-26 22:23:33.964633	2013-07-26 22:23:33.964633
+471	Georg Wilhelm Pabst	2013-07-26 22:23:35.415692	2013-07-26 22:23:35.415692
+472	Wilhelm Thiele	2013-07-26 22:23:36.21713	2013-07-26 22:23:36.21713
+473	Martin Koolhoven	2013-07-26 22:23:37.583343	2013-07-26 22:23:37.583343
+474	Vincente Minnelli	2013-07-26 22:23:38.244659	2013-07-26 22:23:38.244659
+475	Edward F. Cline	2013-07-26 22:23:39.559044	2013-07-26 22:23:39.559044
+476	Mehboob Khan	2013-07-26 22:23:45.021549	2013-07-26 22:23:45.021549
+477	Hiroyuki Kitakubo	2013-07-26 22:23:46.600019	2013-07-26 22:23:46.600019
+478	Joe Ranft	2013-07-26 22:23:47.357514	2013-07-26 22:23:47.357514
+479	George A. Romero	2013-07-26 22:23:50.019578	2013-07-26 22:23:50.019578
+480	Zack Snyder	2013-07-26 22:23:50.800441	2013-07-26 22:23:50.800441
+481	Dean Parisot	2013-07-26 22:23:52.300615	2013-07-26 22:23:52.300615
+482	Joe Dante	2013-07-26 22:23:53.028931	2013-07-26 22:23:53.028931
+483	Rolf Hansen	2013-07-26 22:23:55.387242	2013-07-26 22:23:55.387242
+484	Nicolas Roeg	2013-07-26 22:23:56.468874	2013-07-26 22:23:56.468874
+485	Hans Heinrich	2013-07-26 22:23:57.004992	2013-07-26 22:23:57.004992
+486	Wolfgang Staudte	2013-07-26 22:23:57.009773	2013-07-26 22:23:57.009773
+487	Joachim Hasler	2013-07-26 22:23:57.872485	2013-07-26 22:23:57.872485
+488	Jules Dassin	2013-07-26 22:23:58.828867	2013-07-26 22:23:58.828867
+490	Max Ophüls	2013-07-26 22:24:09.23507	2013-07-26 22:24:09.23507
+491	Tom McGrath	2013-07-26 22:24:14.208728	2013-07-26 22:24:14.208728
+492	Eric Darnell	2013-07-26 22:24:14.213523	2013-07-26 22:24:14.213523
+493	J.J. Abrams	2013-07-26 22:24:16.557136	2013-07-26 22:24:16.557136
+494	Mel Brooks	2013-07-26 22:24:17.180838	2013-07-26 22:24:17.180838
+495	Clyde Bruckman	2013-07-26 22:24:19.275332	2013-07-26 22:24:19.275332
+496	Rupert Julian	2013-07-26 22:24:21.539149	2013-07-26 22:24:21.539149
+497	Fred Fleck	2013-07-26 22:24:22.430832	2013-07-26 22:24:22.430832
+498	John Sturges	2013-07-26 22:24:23.148849	2013-07-26 22:24:23.148849
+499	Alexander Mackendrick	2013-07-26 22:24:29.475849	2013-07-26 22:24:29.475849
+500	Gaspar Noé	2013-07-26 22:24:31.431785	2013-07-26 22:24:31.431785
+501	William A. Wellman	2013-07-26 22:24:32.243707	2013-07-26 22:24:32.243707
+502	Don Siegel	2013-07-26 22:24:35.443874	2013-07-26 22:24:35.443874
+503	James Bridges	2013-07-26 22:24:39.412898	2013-07-26 22:24:39.412898
+504	Frank Borzage	2013-07-26 22:24:40.301283	2013-07-26 22:24:40.301283
+505	Robert Rossen	2013-07-26 22:24:40.949088	2013-07-26 22:24:40.949088
+\.
+
+
+--
+-- Name: directors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: apprentice
+--
+
+SELECT pg_catalog.setval('directors_id_seq', 505, true);
+
+
+--
+-- Data for Name: directors_movies; Type: TABLE DATA; Schema: public; Owner: apprentice
+--
+
+COPY directors_movies (id, director_id, movie_id) FROM stdin;
+1	1	1
+2	1	2
+3	2	3
+4	3	3
+5	4	3
+6	5	3
+7	6	4
+8	7	5
+9	8	6
+10	9	7
+11	10	7
+12	11	8
+13	12	9
+14	13	10
+15	14	11
+16	15	12
+17	16	13
+18	17	14
+19	18	15
+20	19	16
+21	20	17
+22	2	18
+23	12	19
+24	21	20
+25	22	21
+26	23	22
+27	24	23
+28	25	24
+29	26	25
+30	27	26
+31	20	27
+32	28	28
+33	29	29
+34	30	30
+35	31	31
+36	32	32
+37	24	33
+38	33	34
+39	30	35
+40	34	36
+41	24	37
+42	35	38
+43	36	39
+44	37	40
+45	38	41
+46	39	42
+47	40	43
+48	41	44
+49	42	45
+50	39	46
+51	43	47
+52	44	48
+53	45	49
+54	37	50
+55	46	51
+56	37	52
+57	47	53
+58	37	54
+59	48	55
+60	49	56
+61	50	57
+62	51	58
+63	52	59
+64	53	60
+65	41	61
+66	31	62
+67	54	63
+68	16	64
+69	55	65
+70	56	66
+71	57	67
+72	11	68
+73	58	69
+74	54	70
+75	59	71
+76	60	72
+77	60	73
+78	61	74
+79	62	75
+80	63	76
+81	64	77
+82	65	78
+83	66	78
+84	67	79
+85	61	80
+86	38	81
+87	68	82
+88	68	83
+89	68	84
+90	69	85
+91	60	86
+92	59	87
+93	70	87
+94	59	88
+95	43	89
+96	43	90
+97	71	91
+98	72	91
+99	73	91
+100	74	92
+101	65	93
+102	66	93
+103	75	94
+104	76	95
+105	77	96
+106	76	97
+107	78	98
+108	31	99
+109	79	100
+110	80	101
+111	81	102
+112	82	103
+113	14	104
+114	80	105
+115	83	106
+116	18	107
+117	84	108
+118	85	109
+119	86	110
+120	87	111
+121	88	112
+122	40	113
+123	62	114
+124	89	115
+125	90	116
+126	91	116
+127	92	117
+128	93	118
+129	38	119
+130	93	120
+131	94	121
+132	11	122
+133	95	123
+134	96	124
+135	89	125
+136	6	126
+137	97	127
+138	95	128
+139	98	129
+140	99	130
+141	88	131
+142	16	132
+143	100	133
+144	30	134
+145	6	135
+146	101	136
+147	37	137
+148	93	138
+149	102	139
+150	2	140
+151	29	141
+152	103	142
+153	104	143
+154	3	143
+155	105	144
+156	106	144
+157	107	145
+158	108	145
+159	109	146
+160	110	147
+161	111	148
+162	112	149
+163	11	150
+164	113	151
+165	112	152
+166	114	153
+167	114	154
+168	115	155
+169	56	156
+170	116	157
+171	117	158
+172	118	159
+173	119	160
+174	120	161
+175	121	162
+176	122	163
+177	123	164
+178	123	165
+179	124	166
+180	37	167
+181	125	168
+182	31	169
+183	126	170
+184	127	171
+185	128	172
+186	122	173
+187	129	174
+188	129	175
+189	130	176
+190	23	177
+191	131	178
+192	132	179
+193	133	180
+194	23	181
+195	134	182
+196	135	183
+197	136	184
+198	137	185
+199	138	186
+200	23	187
+201	139	188
+202	23	189
+203	140	190
+204	23	191
+205	141	192
+206	142	193
+207	143	193
+208	144	194
+209	145	194
+210	146	195
+211	29	196
+212	121	197
+213	147	198
+214	148	199
+215	149	200
+216	150	201
+217	151	202
+218	68	203
+219	83	204
+220	152	205
+221	83	206
+222	83	207
+223	122	208
+224	153	209
+225	56	210
+226	124	211
+227	154	212
+228	31	213
+229	38	214
+230	154	215
+231	155	216
+232	156	217
+233	40	218
+234	157	219
+235	158	220
+236	65	221
+237	66	221
+238	157	222
+239	159	223
+240	160	224
+241	161	225
+242	125	226
+243	162	227
+244	139	228
+245	20	229
+246	92	230
+247	163	231
+248	164	232
+249	165	233
+250	66	234
+251	65	234
+252	166	235
+253	26	236
+254	167	237
+255	168	238
+256	169	239
+257	48	240
+258	93	241
+259	81	242
+260	26	243
+261	170	244
+262	171	245
+263	122	246
+264	172	247
+265	173	248
+266	174	249
+267	175	250
+268	176	251
+269	177	252
+270	178	253
+271	179	254
+272	180	255
+273	181	256
+274	182	257
+275	183	258
+276	82	259
+277	52	260
+278	40	261
+279	184	262
+280	24	263
+281	185	264
+282	146	265
+283	37	267
+284	37	268
+285	186	269
+286	187	270
+287	188	271
+288	189	272
+289	177	273
+290	177	274
+291	190	275
+292	191	276
+293	174	277
+294	192	278
+295	193	279
+296	194	280
+297	195	280
+298	196	281
+299	197	282
+300	29	283
+301	198	284
+302	199	285
+303	200	285
+304	164	285
+305	201	285
+306	41	286
+307	202	287
+308	203	287
+309	204	288
+310	205	289
+311	206	290
+312	38	291
+313	207	292
+314	66	293
+315	65	293
+316	65	294
+317	208	295
+318	122	296
+319	209	297
+320	210	298
+321	211	299
+322	212	300
+323	82	301
+324	177	302
+325	213	303
+326	2	304
+327	214	305
+328	215	306
+329	216	307
+330	217	308
+331	218	309
+332	219	310
+333	220	311
+334	221	312
+335	222	313
+336	223	314
+337	224	315
+338	206	316
+339	225	317
+340	226	318
+341	182	319
+342	227	320
+343	228	321
+344	228	322
+345	229	323
+346	230	324
+347	223	325
+348	152	326
+349	37	327
+350	231	328
+351	232	328
+352	122	329
+353	233	330
+354	234	331
+355	235	331
+356	177	332
+357	139	333
+358	236	334
+359	237	335
+360	238	336
+361	239	337
+362	240	338
+363	241	339
+364	242	340
+365	223	341
+366	243	342
+367	244	342
+368	26	343
+369	245	344
+370	246	345
+371	247	346
+372	248	347
+373	14	348
+374	249	349
+375	250	350
+376	251	351
+377	252	352
+378	252	353
+379	252	354
+380	253	355
+381	93	356
+382	254	357
+383	255	358
+384	256	359
+385	257	360
+386	209	361
+387	174	362
+388	27	363
+389	258	364
+390	259	365
+391	260	366
+392	209	367
+393	261	368
+394	262	369
+395	263	370
+396	264	371
+397	222	372
+398	265	373
+399	209	374
+400	266	375
+401	267	376
+402	268	377
+403	264	378
+404	269	379
+405	270	380
+406	160	381
+407	271	382
+408	2	383
+409	272	384
+410	212	385
+411	210	386
+412	273	387
+413	85	388
+414	122	389
+415	274	390
+416	275	391
+417	276	392
+418	161	393
+419	129	394
+420	67	395
+421	188	396
+422	122	397
+423	38	398
+424	247	399
+425	56	400
+426	172	401
+427	277	402
+428	278	403
+429	279	404
+430	280	404
+431	281	405
+432	282	406
+433	283	407
+434	284	408
+435	285	409
+436	122	410
+437	286	411
+438	50	412
+439	287	413
+440	122	414
+441	288	415
+442	289	415
+443	290	416
+444	167	417
+445	198	418
+446	291	419
+447	292	420
+448	293	421
+449	294	422
+450	14	423
+451	295	424
+452	296	425
+453	297	425
+454	298	426
+455	298	427
+456	298	428
+457	17	429
+458	299	429
+459	300	430
+460	58	431
+461	220	432
+462	301	433
+463	20	434
+464	122	435
+465	249	436
+466	255	437
+467	122	438
+468	302	439
+469	122	440
+470	122	441
+471	303	442
+472	304	443
+473	209	444
+474	37	445
+475	305	446
+476	306	447
+477	307	448
+478	308	449
+479	309	450
+480	261	451
+481	10	452
+482	25	452
+483	310	452
+484	208	453
+485	38	454
+486	311	455
+487	35	456
+488	249	457
+489	23	458
+490	312	459
+491	37	460
+492	313	461
+493	314	462
+494	125	463
+495	315	464
+496	139	465
+497	29	466
+498	37	467
+499	239	468
+500	316	469
+501	317	469
+502	316	470
+503	317	470
+504	317	471
+505	316	471
+506	101	472
+507	318	473
+508	318	474
+509	319	475
+510	37	476
+511	303	477
+512	266	478
+513	113	479
+514	320	480
+515	321	481
+516	322	482
+517	323	483
+518	324	484
+519	325	485
+520	152	486
+521	326	487
+522	327	488
+523	328	489
+524	97	490
+525	329	491
+526	330	492
+527	331	493
+528	332	493
+529	333	493
+530	334	493
+531	335	494
+532	336	494
+533	139	495
+534	220	496
+535	337	497
+536	338	498
+537	8	499
+538	339	500
+539	222	501
+540	136	502
+541	37	503
+542	259	504
+543	340	505
+544	341	506
+545	37	507
+546	342	508
+547	343	509
+548	344	509
+549	345	510
+550	346	511
+551	261	512
+552	347	513
+553	210	514
+554	335	515
+555	126	516
+556	82	517
+557	342	518
+558	151	519
+559	348	520
+560	342	521
+561	124	522
+562	123	523
+563	349	524
+564	350	525
+565	351	526
+566	352	527
+567	353	528
+568	354	529
+569	355	530
+570	356	531
+571	356	532
+572	357	533
+573	358	534
+574	359	535
+575	51	536
+576	360	537
+577	361	538
+578	125	539
+579	2	540
+580	151	541
+581	151	542
+582	360	543
+583	11	544
+584	362	545
+585	24	546
+586	363	547
+587	364	548
+588	352	549
+589	365	550
+590	366	551
+591	29	552
+592	347	553
+593	67	554
+594	367	555
+595	341	555
+596	352	556
+597	368	557
+598	368	558
+599	369	559
+600	370	559
+601	126	560
+602	67	561
+603	371	562
+604	372	563
+605	124	564
+606	368	565
+607	368	566
+608	368	567
+609	373	568
+610	209	569
+611	358	570
+612	374	571
+613	375	572
+614	376	573
+615	377	573
+616	378	574
+617	52	575
+618	379	576
+619	380	577
+620	381	578
+621	382	579
+622	382	580
+623	383	581
+624	384	582
+625	385	583
+626	3	584
+627	386	585
+628	387	585
+629	388	585
+630	389	585
+631	390	585
+632	391	585
+633	392	585
+634	393	585
+635	394	585
+636	395	585
+637	396	585
+638	382	586
+639	382	587
+640	170	588
+641	397	589
+642	398	590
+643	309	591
+644	30	591
+645	68	592
+646	298	593
+647	298	594
+648	298	595
+649	359	596
+650	399	597
+651	400	597
+652	56	598
+653	401	599
+654	333	599
+655	334	599
+656	356	600
+657	356	601
+658	402	602
+659	403	602
+660	404	603
+661	404	604
+662	233	605
+663	405	606
+664	405	607
+665	57	608
+666	406	609
+667	407	610
+668	408	611
+669	409	613
+670	410	614
+671	356	615
+672	411	616
+673	412	617
+674	413	618
+675	140	619
+676	222	620
+677	277	621
+678	414	622
+679	415	623
+680	266	624
+681	416	625
+682	178	626
+683	346	627
+684	208	628
+685	29	629
+686	350	630
+687	152	631
+688	417	632
+689	292	633
+690	227	634
+691	418	634
+692	227	635
+693	419	635
+694	420	635
+695	421	636
+696	422	636
+697	423	637
+698	424	638
+699	425	638
+700	149	639
+701	426	639
+702	427	639
+703	172	640
+704	428	641
+705	366	642
+706	366	643
+707	366	644
+708	208	645
+709	140	646
+710	429	647
+711	430	648
+712	431	649
+713	250	650
+714	432	651
+715	433	652
+716	116	653
+717	86	654
+718	152	655
+719	434	656
+720	435	657
+721	17	658
+722	436	659
+723	159	660
+724	437	661
+725	438	662
+726	28	663
+727	8	664
+728	37	665
+729	37	666
+730	222	667
+731	439	668
+732	440	668
+733	441	668
+734	442	669
+735	442	670
+736	122	671
+737	443	672
+738	249	673
+739	444	674
+740	445	675
+741	446	676
+742	433	677
+743	447	678
+744	109	679
+745	448	680
+746	41	681
+747	11	682
+748	37	683
+749	449	684
+750	141	685
+751	450	686
+752	220	687
+753	451	688
+754	451	689
+755	452	690
+756	453	691
+757	454	692
+758	455	693
+759	456	694
+760	38	695
+761	146	696
+762	457	697
+763	458	698
+764	459	698
+765	37	699
+766	164	700
+767	131	701
+768	460	702
+769	170	703
+770	461	704
+771	37	705
+772	462	706
+773	136	707
+774	463	708
+775	174	709
+776	28	710
+777	131	711
+778	464	712
+779	350	713
+780	465	714
+781	465	715
+782	466	716
+783	256	717
+784	467	718
+785	111	718
+786	182	719
+787	182	720
+788	312	721
+789	430	722
+790	430	723
+791	468	724
+792	322	725
+793	170	726
+794	469	727
+795	467	728
+796	111	728
+797	470	729
+798	471	730
+799	472	731
+800	433	732
+801	473	733
+802	474	734
+803	170	735
+804	475	736
+805	464	737
+806	58	738
+807	469	739
+808	445	740
+809	476	741
+810	94	742
+811	477	743
+812	478	744
+813	451	744
+814	249	745
+815	174	746
+816	479	747
+817	480	748
+818	211	749
+819	481	750
+820	482	751
+821	482	752
+822	239	753
+823	483	754
+824	484	755
+825	485	756
+826	486	756
+827	487	757
+828	488	758
+829	29	759
+830	94	760
+831	177	761
+832	489	762
+833	122	763
+834	277	764
+835	277	765
+836	277	766
+837	277	767
+838	490	768
+839	433	769
+840	412	770
+841	44	771
+842	232	772
+843	324	773
+844	491	774
+845	492	774
+846	61	775
+847	385	776
+848	493	777
+849	494	778
+850	495	779
+851	370	779
+852	469	780
+853	265	781
+854	496	782
+855	13	783
+856	497	783
+857	498	784
+858	29	785
+859	212	786
+860	29	787
+861	499	788
+862	335	789
+863	109	790
+864	500	791
+865	501	792
+866	333	793
+867	468	794
+868	265	795
+869	502	796
+870	222	797
+871	13	798
+872	139	799
+873	503	800
+874	504	801
+875	505	802
+876	484	803
+877	370	804
+878	372	805
+879	304	806
+880	314	807
+881	139	808
+\.
+
+
+--
+-- Name: directors_movies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: apprentice
+--
+
+SELECT pg_catalog.setval('directors_movies_id_seq', 881, true);
+
+
+--
+-- Data for Name: genres; Type: TABLE DATA; Schema: public; Owner: apprentice
+--
+
+COPY genres (id, name, created_at, updated_at) FROM stdin;
+1	Animation	2013-07-26 22:12:09.448187	2013-07-26 22:12:09.448187
+2	Drama	2013-07-26 22:12:09.469223	2013-07-26 22:12:09.469223
+3	Foreign	2013-07-26 22:12:09.474606	2013-07-26 22:12:09.474606
+4	Indie	2013-07-26 22:12:09.479181	2013-07-26 22:12:09.479181
+5	Comedy	2013-07-26 22:12:10.027287	2013-07-26 22:12:10.027287
+6	Action	2013-07-26 22:12:11.795989	2013-07-26 22:12:11.795989
+7	Thriller	2013-07-26 22:12:11.802435	2013-07-26 22:12:11.802435
+8	Crime	2013-07-26 22:12:11.80732	2013-07-26 22:12:11.80732
+9	Documentary	2013-07-26 22:12:12.916383	2013-07-26 22:12:12.916383
+10	Adventure	2013-07-26 22:12:15.0096	2013-07-26 22:12:15.0096
+11	Fantasy	2013-07-26 22:12:15.016875	2013-07-26 22:12:15.016875
+12	Science Fiction	2013-07-26 22:12:15.024736	2013-07-26 22:12:15.024736
+13	Family	2013-07-26 22:12:15.029281	2013-07-26 22:12:15.029281
+14	Romance	2013-07-26 22:12:16.73026	2013-07-26 22:12:16.73026
+15	Music	2013-07-26 22:12:19.024775	2013-07-26 22:12:19.024775
+16	Horror	2013-07-26 22:12:19.606981	2013-07-26 22:12:19.606981
+17	Mystery	2013-07-26 22:12:19.614389	2013-07-26 22:12:19.614389
+18	History	2013-07-26 22:12:25.822532	2013-07-26 22:12:25.822532
+19	War	2013-07-26 22:12:25.827058	2013-07-26 22:12:25.827058
+20	Western	2013-07-26 22:12:30.731363	2013-07-26 22:12:30.731363
+21	Suspense	2013-07-26 22:12:50.599093	2013-07-26 22:12:50.599093
+22	Sport	2013-07-26 22:12:53.933571	2013-07-26 22:12:53.933571
+23	Musical	2013-07-26 22:13:48.540276	2013-07-26 22:13:48.540276
+24	Road Movie	2013-07-26 22:14:07.980258	2013-07-26 22:14:07.980258
+25	Sports Film	2013-07-26 22:15:40.398741	2013-07-26 22:15:40.398741
+26	Disaster	2013-07-26 22:16:08.144027	2013-07-26 22:16:08.144027
+27	Film Noir	2013-07-26 22:17:13.968731	2013-07-26 22:17:13.968731
+28	Holiday	2013-07-26 22:18:19.575296	2013-07-26 22:18:19.575296
+\.
+
+
+--
+-- Name: genres_id_seq; Type: SEQUENCE SET; Schema: public; Owner: apprentice
+--
+
+SELECT pg_catalog.setval('genres_id_seq', 28, true);
+
+
+--
+-- Data for Name: genres_movies; Type: TABLE DATA; Schema: public; Owner: apprentice
+--
+
+COPY genres_movies (id, genre_id, movie_id, created_at, updated_at) FROM stdin;
+1	1	1	2013-07-26 22:12:09.463471	2013-07-26 22:12:09.463471
+2	2	1	2013-07-26 22:12:09.471889	2013-07-26 22:12:09.471889
+3	3	1	2013-07-26 22:12:09.476686	2013-07-26 22:12:09.476686
+4	4	1	2013-07-26 22:12:09.48131	2013-07-26 22:12:09.48131
+5	5	2	2013-07-26 22:12:10.03034	2013-07-26 22:12:10.03034
+6	2	2	2013-07-26 22:12:10.034484	2013-07-26 22:12:10.034484
+7	3	2	2013-07-26 22:12:10.037686	2013-07-26 22:12:10.037686
+8	4	2	2013-07-26 22:12:10.04048	2013-07-26 22:12:10.04048
+9	5	3	2013-07-26 22:12:11.247957	2013-07-26 22:12:11.247957
+10	2	3	2013-07-26 22:12:11.2512	2013-07-26 22:12:11.2512
+11	4	3	2013-07-26 22:12:11.255181	2013-07-26 22:12:11.255181
+12	6	4	2013-07-26 22:12:11.799417	2013-07-26 22:12:11.799417
+13	7	4	2013-07-26 22:12:11.804652	2013-07-26 22:12:11.804652
+14	8	4	2013-07-26 22:12:11.809296	2013-07-26 22:12:11.809296
+15	9	5	2013-07-26 22:12:12.919327	2013-07-26 22:12:12.919327
+16	10	6	2013-07-26 22:12:15.01285	2013-07-26 22:12:15.01285
+17	11	6	2013-07-26 22:12:15.019319	2013-07-26 22:12:15.019319
+18	6	6	2013-07-26 22:12:15.022255	2013-07-26 22:12:15.022255
+19	12	6	2013-07-26 22:12:15.026717	2013-07-26 22:12:15.026717
+20	13	6	2013-07-26 22:12:15.031255	2013-07-26 22:12:15.031255
+21	1	7	2013-07-26 22:12:15.926789	2013-07-26 22:12:15.926789
+22	13	7	2013-07-26 22:12:15.929519	2013-07-26 22:12:15.929519
+23	5	7	2013-07-26 22:12:15.932549	2013-07-26 22:12:15.932549
+24	5	8	2013-07-26 22:12:16.722971	2013-07-26 22:12:16.722971
+25	2	8	2013-07-26 22:12:16.726989	2013-07-26 22:12:16.726989
+26	14	8	2013-07-26 22:12:16.733515	2013-07-26 22:12:16.733515
+27	2	9	2013-07-26 22:12:17.576575	2013-07-26 22:12:17.576575
+28	14	9	2013-07-26 22:12:17.580253	2013-07-26 22:12:17.580253
+29	2	10	2013-07-26 22:12:18.373039	2013-07-26 22:12:18.373039
+30	2	11	2013-07-26 22:12:19.019115	2013-07-26 22:12:19.019115
+31	8	11	2013-07-26 22:12:19.022166	2013-07-26 22:12:19.022166
+32	15	11	2013-07-26 22:12:19.026778	2013-07-26 22:12:19.026778
+33	16	12	2013-07-26 22:12:19.609199	2013-07-26 22:12:19.609199
+34	7	12	2013-07-26 22:12:19.611984	2013-07-26 22:12:19.611984
+35	17	12	2013-07-26 22:12:19.617394	2013-07-26 22:12:19.617394
+36	3	12	2013-07-26 22:12:19.621315	2013-07-26 22:12:19.621315
+37	10	13	2013-07-26 22:12:20.392993	2013-07-26 22:12:20.392993
+38	11	13	2013-07-26 22:12:20.400123	2013-07-26 22:12:20.400123
+39	6	13	2013-07-26 22:12:20.403849	2013-07-26 22:12:20.403849
+40	7	13	2013-07-26 22:12:20.406897	2013-07-26 22:12:20.406897
+41	12	13	2013-07-26 22:12:20.409709	2013-07-26 22:12:20.409709
+42	2	14	2013-07-26 22:12:21.126782	2013-07-26 22:12:21.126782
+43	3	14	2013-07-26 22:12:21.129586	2013-07-26 22:12:21.129586
+44	12	14	2013-07-26 22:12:21.132247	2013-07-26 22:12:21.132247
+45	2	15	2013-07-26 22:12:21.812961	2013-07-26 22:12:21.812961
+46	14	15	2013-07-26 22:12:21.81585	2013-07-26 22:12:21.81585
+47	9	16	2013-07-26 22:12:22.331053	2013-07-26 22:12:22.331053
+48	10	17	2013-07-26 22:12:23.198634	2013-07-26 22:12:23.198634
+49	11	17	2013-07-26 22:12:23.201675	2013-07-26 22:12:23.201675
+50	6	17	2013-07-26 22:12:23.204618	2013-07-26 22:12:23.204618
+51	5	17	2013-07-26 22:12:23.207765	2013-07-26 22:12:23.207765
+52	12	17	2013-07-26 22:12:23.211304	2013-07-26 22:12:23.211304
+53	6	18	2013-07-26 22:12:24.478323	2013-07-26 22:12:24.478323
+54	8	18	2013-07-26 22:12:24.481821	2013-07-26 22:12:24.481821
+55	7	18	2013-07-26 22:12:24.48549	2013-07-26 22:12:24.48549
+56	6	19	2013-07-26 22:12:25.812355	2013-07-26 22:12:25.812355
+57	10	19	2013-07-26 22:12:25.815774	2013-07-26 22:12:25.815774
+58	2	19	2013-07-26 22:12:25.819535	2013-07-26 22:12:25.819535
+59	18	19	2013-07-26 22:12:25.824545	2013-07-26 22:12:25.824545
+60	19	19	2013-07-26 22:12:25.829022	2013-07-26 22:12:25.829022
+61	2	20	2013-07-26 22:12:26.411716	2013-07-26 22:12:26.411716
+62	3	20	2013-07-26 22:12:26.414565	2013-07-26 22:12:26.414565
+63	2	21	2013-07-26 22:12:27.056151	2013-07-26 22:12:27.056151
+64	15	21	2013-07-26 22:12:27.059199	2013-07-26 22:12:27.059199
+65	14	21	2013-07-26 22:12:27.062061	2013-07-26 22:12:27.062061
+66	3	21	2013-07-26 22:12:27.065483	2013-07-26 22:12:27.065483
+67	2	22	2013-07-26 22:12:27.704442	2013-07-26 22:12:27.704442
+68	6	22	2013-07-26 22:12:27.707551	2013-07-26 22:12:27.707551
+69	19	22	2013-07-26 22:12:27.710466	2013-07-26 22:12:27.710466
+70	6	23	2013-07-26 22:12:30.723993	2013-07-26 22:12:30.723993
+71	2	23	2013-07-26 22:12:30.727724	2013-07-26 22:12:30.727724
+72	20	23	2013-07-26 22:12:30.733978	2013-07-26 22:12:30.733978
+73	1	24	2013-07-26 22:12:31.982843	2013-07-26 22:12:31.982843
+74	5	24	2013-07-26 22:12:31.985666	2013-07-26 22:12:31.985666
+75	13	24	2013-07-26 22:12:31.98886	2013-07-26 22:12:31.98886
+76	11	25	2013-07-26 22:12:33.692565	2013-07-26 22:12:33.692565
+77	2	25	2013-07-26 22:12:33.695655	2013-07-26 22:12:33.695655
+78	5	25	2013-07-26 22:12:33.698401	2013-07-26 22:12:33.698401
+79	12	25	2013-07-26 22:12:33.701241	2013-07-26 22:12:33.701241
+80	14	25	2013-07-26 22:12:33.704304	2013-07-26 22:12:33.704304
+81	2	26	2013-07-26 22:12:42.601279	2013-07-26 22:12:42.601279
+82	3	26	2013-07-26 22:12:42.60427	2013-07-26 22:12:42.60427
+83	4	26	2013-07-26 22:12:42.607827	2013-07-26 22:12:42.607827
+84	7	26	2013-07-26 22:12:42.611153	2013-07-26 22:12:42.611153
+85	10	27	2013-07-26 22:12:44.530521	2013-07-26 22:12:44.530521
+86	11	27	2013-07-26 22:12:44.533639	2013-07-26 22:12:44.533639
+87	6	27	2013-07-26 22:12:44.536627	2013-07-26 22:12:44.536627
+88	5	27	2013-07-26 22:12:44.539468	2013-07-26 22:12:44.539468
+89	12	27	2013-07-26 22:12:44.542981	2013-07-26 22:12:44.542981
+90	2	28	2013-07-26 22:12:45.168561	2013-07-26 22:12:45.168561
+91	6	28	2013-07-26 22:12:45.171432	2013-07-26 22:12:45.171432
+92	7	28	2013-07-26 22:12:45.174145	2013-07-26 22:12:45.174145
+93	8	28	2013-07-26 22:12:45.178509	2013-07-26 22:12:45.178509
+94	10	29	2013-07-26 22:12:47.138396	2013-07-26 22:12:47.138396
+95	7	29	2013-07-26 22:12:47.142003	2013-07-26 22:12:47.142003
+96	12	29	2013-07-26 22:12:47.14557	2013-07-26 22:12:47.14557
+97	12	30	2013-07-26 22:12:48.503747	2013-07-26 22:12:48.503747
+98	7	30	2013-07-26 22:12:48.506608	2013-07-26 22:12:48.506608
+99	17	30	2013-07-26 22:12:48.510112	2013-07-26 22:12:48.510112
+100	2	31	2013-07-26 22:12:49.222445	2013-07-26 22:12:49.222445
+101	3	31	2013-07-26 22:12:49.225476	2013-07-26 22:12:49.225476
+102	14	31	2013-07-26 22:12:49.228792	2013-07-26 22:12:49.228792
+103	2	32	2013-07-26 22:12:49.983618	2013-07-26 22:12:49.983618
+104	15	32	2013-07-26 22:12:49.98676	2013-07-26 22:12:49.98676
+105	8	33	2013-07-26 22:12:50.593585	2013-07-26 22:12:50.593585
+106	2	33	2013-07-26 22:12:50.596567	2013-07-26 22:12:50.596567
+107	21	33	2013-07-26 22:12:50.601132	2013-07-26 22:12:50.601132
+108	7	33	2013-07-26 22:12:50.604043	2013-07-26 22:12:50.604043
+109	6	34	2013-07-26 22:12:51.224217	2013-07-26 22:12:51.224217
+110	2	34	2013-07-26 22:12:51.227657	2013-07-26 22:12:51.227657
+111	3	34	2013-07-26 22:12:51.230695	2013-07-26 22:12:51.230695
+112	7	34	2013-07-26 22:12:51.234616	2013-07-26 22:12:51.234616
+113	5	35	2013-07-26 22:12:52.416221	2013-07-26 22:12:52.416221
+114	3	35	2013-07-26 22:12:52.418994	2013-07-26 22:12:52.418994
+115	12	35	2013-07-26 22:12:52.421771	2013-07-26 22:12:52.421771
+116	2	36	2013-07-26 22:12:53.233008	2013-07-26 22:12:53.233008
+117	15	36	2013-07-26 22:12:53.235964	2013-07-26 22:12:53.235964
+118	14	36	2013-07-26 22:12:53.238727	2013-07-26 22:12:53.238727
+119	2	37	2013-07-26 22:12:53.931071	2013-07-26 22:12:53.931071
+120	22	37	2013-07-26 22:12:53.935487	2013-07-26 22:12:53.935487
+121	2	38	2013-07-26 22:12:54.559529	2013-07-26 22:12:54.559529
+122	5	38	2013-07-26 22:12:54.562381	2013-07-26 22:12:54.562381
+123	15	38	2013-07-26 22:12:54.565127	2013-07-26 22:12:54.565127
+124	3	38	2013-07-26 22:12:54.568345	2013-07-26 22:12:54.568345
+125	2	39	2013-07-26 22:12:55.958028	2013-07-26 22:12:55.958028
+126	10	40	2013-07-26 22:12:56.806545	2013-07-26 22:12:56.806545
+127	2	40	2013-07-26 22:12:56.8094	2013-07-26 22:12:56.8094
+128	6	40	2013-07-26 22:12:56.812705	2013-07-26 22:12:56.812705
+129	7	40	2013-07-26 22:12:56.81578	2013-07-26 22:12:56.81578
+130	12	40	2013-07-26 22:12:56.818938	2013-07-26 22:12:56.818938
+131	6	41	2013-07-26 22:12:57.534649	2013-07-26 22:12:57.534649
+132	5	41	2013-07-26 22:12:57.537577	2013-07-26 22:12:57.537577
+133	12	41	2013-07-26 22:12:57.540194	2013-07-26 22:12:57.540194
+134	11	41	2013-07-26 22:12:57.542897	2013-07-26 22:12:57.542897
+135	5	42	2013-07-26 22:12:58.206417	2013-07-26 22:12:58.206417
+136	2	42	2013-07-26 22:12:58.20934	2013-07-26 22:12:58.20934
+137	14	42	2013-07-26 22:12:58.212992	2013-07-26 22:12:58.212992
+138	7	43	2013-07-26 22:12:58.917178	2013-07-26 22:12:58.917178
+139	2	43	2013-07-26 22:12:58.919978	2013-07-26 22:12:58.919978
+140	17	43	2013-07-26 22:12:58.922684	2013-07-26 22:12:58.922684
+141	12	44	2013-07-26 22:13:00.046253	2013-07-26 22:13:00.046253
+142	2	44	2013-07-26 22:13:00.04942	2013-07-26 22:13:00.04942
+143	7	44	2013-07-26 22:13:00.052557	2013-07-26 22:13:00.052557
+144	10	45	2013-07-26 22:13:00.847941	2013-07-26 22:13:00.847941
+145	6	45	2013-07-26 22:13:00.850864	2013-07-26 22:13:00.850864
+146	18	45	2013-07-26 22:13:00.854016	2013-07-26 22:13:00.854016
+147	3	45	2013-07-26 22:13:00.857551	2013-07-26 22:13:00.857551
+148	2	46	2013-07-26 22:13:01.501064	2013-07-26 22:13:01.501064
+149	14	46	2013-07-26 22:13:01.504892	2013-07-26 22:13:01.504892
+150	10	47	2013-07-26 22:13:02.383989	2013-07-26 22:13:02.383989
+151	11	47	2013-07-26 22:13:02.38686	2013-07-26 22:13:02.38686
+152	1	47	2013-07-26 22:13:02.390264	2013-07-26 22:13:02.390264
+153	6	47	2013-07-26 22:13:02.393816	2013-07-26 22:13:02.393816
+154	12	47	2013-07-26 22:13:02.398033	2013-07-26 22:13:02.398033
+155	3	47	2013-07-26 22:13:02.401211	2013-07-26 22:13:02.401211
+156	6	48	2013-07-26 22:13:03.114764	2013-07-26 22:13:03.114764
+157	10	48	2013-07-26 22:13:03.117724	2013-07-26 22:13:03.117724
+158	8	48	2013-07-26 22:13:03.120566	2013-07-26 22:13:03.120566
+159	7	48	2013-07-26 22:13:03.123397	2013-07-26 22:13:03.123397
+160	2	49	2013-07-26 22:13:03.932486	2013-07-26 22:13:03.932486
+161	7	49	2013-07-26 22:13:03.935622	2013-07-26 22:13:03.935622
+162	10	50	2013-07-26 22:13:05.832552	2013-07-26 22:13:05.832552
+163	6	50	2013-07-26 22:13:05.835477	2013-07-26 22:13:05.835477
+164	5	51	2013-07-26 22:13:07.023585	2013-07-26 22:13:07.023585
+165	2	51	2013-07-26 22:13:07.027018	2013-07-26 22:13:07.027018
+166	10	52	2013-07-26 22:13:08.129325	2013-07-26 22:13:08.129325
+167	6	52	2013-07-26 22:13:08.132681	2013-07-26 22:13:08.132681
+168	2	53	2013-07-26 22:13:09.067409	2013-07-26 22:13:09.067409
+169	14	53	2013-07-26 22:13:09.070351	2013-07-26 22:13:09.070351
+170	10	54	2013-07-26 22:13:09.997495	2013-07-26 22:13:09.997495
+171	6	54	2013-07-26 22:13:10.000645	2013-07-26 22:13:10.000645
+172	6	55	2013-07-26 22:13:10.820827	2013-07-26 22:13:10.820827
+173	5	55	2013-07-26 22:13:10.823599	2013-07-26 22:13:10.823599
+174	8	55	2013-07-26 22:13:10.826308	2013-07-26 22:13:10.826308
+175	9	56	2013-07-26 22:13:12.038515	2013-07-26 22:13:12.038515
+176	8	57	2013-07-26 22:13:13.252769	2013-07-26 22:13:13.252769
+177	2	57	2013-07-26 22:13:13.255568	2013-07-26 22:13:13.255568
+178	17	57	2013-07-26 22:13:13.258283	2013-07-26 22:13:13.258283
+179	7	57	2013-07-26 22:13:13.261035	2013-07-26 22:13:13.261035
+180	6	58	2013-07-26 22:13:14.64223	2013-07-26 22:13:14.64223
+181	7	58	2013-07-26 22:13:14.645159	2013-07-26 22:13:14.645159
+182	12	58	2013-07-26 22:13:14.648398	2013-07-26 22:13:14.648398
+183	6	59	2013-07-26 22:13:15.416757	2013-07-26 22:13:15.416757
+184	5	59	2013-07-26 22:13:15.420132	2013-07-26 22:13:15.420132
+185	8	59	2013-07-26 22:13:15.423098	2013-07-26 22:13:15.423098
+186	10	60	2013-07-26 22:13:16.297364	2013-07-26 22:13:16.297364
+187	6	60	2013-07-26 22:13:16.300207	2013-07-26 22:13:16.300207
+188	7	60	2013-07-26 22:13:16.303294	2013-07-26 22:13:16.303294
+189	12	60	2013-07-26 22:13:16.306555	2013-07-26 22:13:16.306555
+190	6	61	2013-07-26 22:13:17.348764	2013-07-26 22:13:17.348764
+191	2	61	2013-07-26 22:13:17.352355	2013-07-26 22:13:17.352355
+192	10	61	2013-07-26 22:13:17.355341	2013-07-26 22:13:17.355341
+193	5	62	2013-07-26 22:13:18.098806	2013-07-26 22:13:18.098806
+194	2	62	2013-07-26 22:13:18.102491	2013-07-26 22:13:18.102491
+195	3	62	2013-07-26 22:13:18.105406	2013-07-26 22:13:18.105406
+196	6	63	2013-07-26 22:13:18.996796	2013-07-26 22:13:18.996796
+197	5	63	2013-07-26 22:13:19.000765	2013-07-26 22:13:19.000765
+198	7	63	2013-07-26 22:13:19.004213	2013-07-26 22:13:19.004213
+199	8	63	2013-07-26 22:13:19.007062	2013-07-26 22:13:19.007062
+200	3	63	2013-07-26 22:13:19.00983	2013-07-26 22:13:19.00983
+201	6	64	2013-07-26 22:13:20.045913	2013-07-26 22:13:20.045913
+202	7	64	2013-07-26 22:13:20.091489	2013-07-26 22:13:20.091489
+203	8	64	2013-07-26 22:13:20.095095	2013-07-26 22:13:20.095095
+204	3	64	2013-07-26 22:13:20.098107	2013-07-26 22:13:20.098107
+205	2	65	2013-07-26 22:13:20.997831	2013-07-26 22:13:20.997831
+206	9	65	2013-07-26 22:13:21.000582	2013-07-26 22:13:21.000582
+207	14	65	2013-07-26 22:13:21.003765	2013-07-26 22:13:21.003765
+208	3	65	2013-07-26 22:13:21.007237	2013-07-26 22:13:21.007237
+209	8	66	2013-07-26 22:13:21.908363	2013-07-26 22:13:21.908363
+210	2	66	2013-07-26 22:13:21.911354	2013-07-26 22:13:21.911354
+211	7	66	2013-07-26 22:13:21.914067	2013-07-26 22:13:21.914067
+212	6	67	2013-07-26 22:13:22.698373	2013-07-26 22:13:22.698373
+213	2	67	2013-07-26 22:13:22.701078	2013-07-26 22:13:22.701078
+214	3	67	2013-07-26 22:13:22.704359	2013-07-26 22:13:22.704359
+215	7	67	2013-07-26 22:13:22.707335	2013-07-26 22:13:22.707335
+216	10	68	2013-07-26 22:13:23.707409	2013-07-26 22:13:23.707409
+217	5	68	2013-07-26 22:13:23.710273	2013-07-26 22:13:23.710273
+218	12	68	2013-07-26 22:13:23.712985	2013-07-26 22:13:23.712985
+219	13	68	2013-07-26 22:13:23.715699	2013-07-26 22:13:23.715699
+220	6	69	2013-07-26 22:13:24.687863	2013-07-26 22:13:24.687863
+221	10	69	2013-07-26 22:13:24.691247	2013-07-26 22:13:24.691247
+222	12	69	2013-07-26 22:13:24.69418	2013-07-26 22:13:24.69418
+223	16	69	2013-07-26 22:13:24.69709	2013-07-26 22:13:24.69709
+224	6	70	2013-07-26 22:13:26.274237	2013-07-26 22:13:26.274237
+225	5	70	2013-07-26 22:13:26.277138	2013-07-26 22:13:26.277138
+226	7	70	2013-07-26 22:13:26.280312	2013-07-26 22:13:26.280312
+227	8	70	2013-07-26 22:13:26.284045	2013-07-26 22:13:26.284045
+228	3	70	2013-07-26 22:13:26.28801	2013-07-26 22:13:26.28801
+229	2	71	2013-07-26 22:13:26.991559	2013-07-26 22:13:26.991559
+230	17	71	2013-07-26 22:13:26.994453	2013-07-26 22:13:26.994453
+231	15	71	2013-07-26 22:13:26.997219	2013-07-26 22:13:26.997219
+232	3	71	2013-07-26 22:13:27.000324	2013-07-26 22:13:27.000324
+233	5	72	2013-07-26 22:13:27.765293	2013-07-26 22:13:27.765293
+234	2	72	2013-07-26 22:13:27.769083	2013-07-26 22:13:27.769083
+235	17	72	2013-07-26 22:13:27.772485	2013-07-26 22:13:27.772485
+236	2	73	2013-07-26 22:13:28.568149	2013-07-26 22:13:28.568149
+237	17	73	2013-07-26 22:13:28.572114	2013-07-26 22:13:28.572114
+238	14	73	2013-07-26 22:13:28.575623	2013-07-26 22:13:28.575623
+239	3	73	2013-07-26 22:13:28.578722	2013-07-26 22:13:28.578722
+240	6	74	2013-07-26 22:13:29.470216	2013-07-26 22:13:29.470216
+241	10	74	2013-07-26 22:13:29.473376	2013-07-26 22:13:29.473376
+242	8	74	2013-07-26 22:13:29.476655	2013-07-26 22:13:29.476655
+243	2	74	2013-07-26 22:13:29.479746	2013-07-26 22:13:29.479746
+244	7	74	2013-07-26 22:13:29.48277	2013-07-26 22:13:29.48277
+245	5	75	2013-07-26 22:13:30.02833	2013-07-26 22:13:30.02833
+246	2	75	2013-07-26 22:13:30.032012	2013-07-26 22:13:30.032012
+247	3	75	2013-07-26 22:13:30.035792	2013-07-26 22:13:30.035792
+248	14	75	2013-07-26 22:13:30.039865	2013-07-26 22:13:30.039865
+249	2	76	2013-07-26 22:13:30.7136	2013-07-26 22:13:30.7136
+250	3	76	2013-07-26 22:13:30.71637	2013-07-26 22:13:30.71637
+251	5	77	2013-07-26 22:13:31.456682	2013-07-26 22:13:31.456682
+252	14	77	2013-07-26 22:13:31.459728	2013-07-26 22:13:31.459728
+253	5	78	2013-07-26 22:13:32.418645	2013-07-26 22:13:32.418645
+254	8	78	2013-07-26 22:13:32.421754	2013-07-26 22:13:32.421754
+255	2	79	2013-07-26 22:13:33.30476	2013-07-26 22:13:33.30476
+256	7	79	2013-07-26 22:13:33.308167	2013-07-26 22:13:33.308167
+257	8	79	2013-07-26 22:13:33.311136	2013-07-26 22:13:33.311136
+258	14	79	2013-07-26 22:13:33.314062	2013-07-26 22:13:33.314062
+259	6	80	2013-07-26 22:13:34.058834	2013-07-26 22:13:34.058834
+260	8	80	2013-07-26 22:13:34.061952	2013-07-26 22:13:34.061952
+261	2	80	2013-07-26 22:13:34.064829	2013-07-26 22:13:34.064829
+262	18	80	2013-07-26 22:13:34.068087	2013-07-26 22:13:34.068087
+263	7	80	2013-07-26 22:13:34.070874	2013-07-26 22:13:34.070874
+264	10	81	2013-07-26 22:13:34.815142	2013-07-26 22:13:34.815142
+265	11	81	2013-07-26 22:13:34.818278	2013-07-26 22:13:34.818278
+266	5	81	2013-07-26 22:13:34.8211	2013-07-26 22:13:34.8211
+267	12	81	2013-07-26 22:13:34.82397	2013-07-26 22:13:34.82397
+268	13	81	2013-07-26 22:13:34.8268	2013-07-26 22:13:34.8268
+269	10	82	2013-07-26 22:13:36.468573	2013-07-26 22:13:36.468573
+270	11	82	2013-07-26 22:13:36.472605	2013-07-26 22:13:36.472605
+271	6	82	2013-07-26 22:13:36.475839	2013-07-26 22:13:36.475839
+272	12	82	2013-07-26 22:13:36.478827	2013-07-26 22:13:36.478827
+273	10	83	2013-07-26 22:13:38.288177	2013-07-26 22:13:38.288177
+274	11	83	2013-07-26 22:13:38.293489	2013-07-26 22:13:38.293489
+275	6	83	2013-07-26 22:13:38.297966	2013-07-26 22:13:38.297966
+276	12	83	2013-07-26 22:13:38.301709	2013-07-26 22:13:38.301709
+277	10	84	2013-07-26 22:13:39.291846	2013-07-26 22:13:39.291846
+278	11	84	2013-07-26 22:13:39.297909	2013-07-26 22:13:39.297909
+279	2	84	2013-07-26 22:13:39.302604	2013-07-26 22:13:39.302604
+280	6	84	2013-07-26 22:13:39.309659	2013-07-26 22:13:39.309659
+281	12	84	2013-07-26 22:13:39.31488	2013-07-26 22:13:39.31488
+282	10	85	2013-07-26 22:13:39.933536	2013-07-26 22:13:39.933536
+283	11	85	2013-07-26 22:13:39.936677	2013-07-26 22:13:39.936677
+284	1	85	2013-07-26 22:13:39.939878	2013-07-26 22:13:39.939878
+285	2	85	2013-07-26 22:13:39.943041	2013-07-26 22:13:39.943041
+286	12	85	2013-07-26 22:13:39.94616	2013-07-26 22:13:39.94616
+287	13	85	2013-07-26 22:13:39.949385	2013-07-26 22:13:39.949385
+288	11	86	2013-07-26 22:13:40.809077	2013-07-26 22:13:40.809077
+289	2	86	2013-07-26 22:13:40.812146	2013-07-26 22:13:40.812146
+290	9	86	2013-07-26 22:13:40.814984	2013-07-26 22:13:40.814984
+291	12	86	2013-07-26 22:13:40.817782	2013-07-26 22:13:40.817782
+292	3	86	2013-07-26 22:13:40.820765	2013-07-26 22:13:40.820765
+293	2	87	2013-07-26 22:13:42.121032	2013-07-26 22:13:42.121032
+294	2	88	2013-07-26 22:13:42.983239	2013-07-26 22:13:42.983239
+295	10	89	2013-07-26 22:13:43.722766	2013-07-26 22:13:43.722766
+296	11	89	2013-07-26 22:13:43.726313	2013-07-26 22:13:43.726313
+297	1	89	2013-07-26 22:13:43.768195	2013-07-26 22:13:43.768195
+298	12	89	2013-07-26 22:13:43.771762	2013-07-26 22:13:43.771762
+299	3	89	2013-07-26 22:13:43.774861	2013-07-26 22:13:43.774861
+300	10	90	2013-07-26 22:13:44.602536	2013-07-26 22:13:44.602536
+301	1	90	2013-07-26 22:13:44.606141	2013-07-26 22:13:44.606141
+302	13	90	2013-07-26 22:13:44.610166	2013-07-26 22:13:44.610166
+303	3	90	2013-07-26 22:13:44.613328	2013-07-26 22:13:44.613328
+304	9	91	2013-07-26 22:13:46.801873	2013-07-26 22:13:46.801873
+305	15	91	2013-07-26 22:13:46.805139	2013-07-26 22:13:46.805139
+306	9	92	2013-07-26 22:13:47.518216	2013-07-26 22:13:47.518216
+307	6	93	2013-07-26 22:13:48.53188	2013-07-26 22:13:48.53188
+308	10	93	2013-07-26 22:13:48.534677	2013-07-26 22:13:48.534677
+309	5	93	2013-07-26 22:13:48.537396	2013-07-26 22:13:48.537396
+310	23	93	2013-07-26 22:13:48.542861	2013-07-26 22:13:48.542861
+311	9	94	2013-07-26 22:13:49.332843	2013-07-26 22:13:49.332843
+312	23	94	2013-07-26 22:13:49.336032	2013-07-26 22:13:49.336032
+313	2	95	2013-07-26 22:13:49.986678	2013-07-26 22:13:49.986678
+314	16	95	2013-07-26 22:13:49.98979	2013-07-26 22:13:49.98979
+315	7	95	2013-07-26 22:13:49.992862	2013-07-26 22:13:49.992862
+316	11	96	2013-07-26 22:13:51.018048	2013-07-26 22:13:51.018048
+317	2	96	2013-07-26 22:13:51.020953	2013-07-26 22:13:51.020953
+318	5	96	2013-07-26 22:13:51.024011	2013-07-26 22:13:51.024011
+319	12	96	2013-07-26 22:13:51.027013	2013-07-26 22:13:51.027013
+320	14	96	2013-07-26 22:13:51.031119	2013-07-26 22:13:51.031119
+321	16	97	2013-07-26 22:13:51.974986	2013-07-26 22:13:51.974986
+322	5	98	2013-07-26 22:13:52.888021	2013-07-26 22:13:52.888021
+323	2	98	2013-07-26 22:13:52.890906	2013-07-26 22:13:52.890906
+324	8	99	2013-07-26 22:13:54.106887	2013-07-26 22:13:54.106887
+325	2	99	2013-07-26 22:13:54.109776	2013-07-26 22:13:54.109776
+326	3	99	2013-07-26 22:13:54.112778	2013-07-26 22:13:54.112778
+327	14	99	2013-07-26 22:13:54.115581	2013-07-26 22:13:54.115581
+328	7	99	2013-07-26 22:13:54.118267	2013-07-26 22:13:54.118267
+329	2	100	2013-07-26 22:13:55.020713	2013-07-26 22:13:55.020713
+330	7	100	2013-07-26 22:13:55.023757	2013-07-26 22:13:55.023757
+331	12	100	2013-07-26 22:13:55.027537	2013-07-26 22:13:55.027537
+332	17	100	2013-07-26 22:13:55.0309	2013-07-26 22:13:55.0309
+333	2	101	2013-07-26 22:13:55.784511	2013-07-26 22:13:55.784511
+334	14	101	2013-07-26 22:13:55.787343	2013-07-26 22:13:55.787343
+335	6	102	2013-07-26 22:13:56.508529	2013-07-26 22:13:56.508529
+336	2	102	2013-07-26 22:13:56.555249	2013-07-26 22:13:56.555249
+337	18	102	2013-07-26 22:13:56.558731	2013-07-26 22:13:56.558731
+338	19	102	2013-07-26 22:13:56.562086	2013-07-26 22:13:56.562086
+339	2	103	2013-07-26 22:13:57.301976	2013-07-26 22:13:57.301976
+340	11	103	2013-07-26 22:13:57.305047	2013-07-26 22:13:57.305047
+341	3	103	2013-07-26 22:13:57.308033	2013-07-26 22:13:57.308033
+342	14	103	2013-07-26 22:13:57.310753	2013-07-26 22:13:57.310753
+343	12	103	2013-07-26 22:13:57.313765	2013-07-26 22:13:57.313765
+344	2	104	2013-07-26 22:13:57.867825	2013-07-26 22:13:57.867825
+345	13	104	2013-07-26 22:13:57.870599	2013-07-26 22:13:57.870599
+346	3	104	2013-07-26 22:13:57.873281	2013-07-26 22:13:57.873281
+347	4	104	2013-07-26 22:13:57.875978	2013-07-26 22:13:57.875978
+348	14	104	2013-07-26 22:13:57.878924	2013-07-26 22:13:57.878924
+349	10	105	2013-07-26 22:13:58.621281	2013-07-26 22:13:58.621281
+350	2	105	2013-07-26 22:13:58.624094	2013-07-26 22:13:58.624094
+351	6	105	2013-07-26 22:13:58.626875	2013-07-26 22:13:58.626875
+352	14	105	2013-07-26 22:13:58.630085	2013-07-26 22:13:58.630085
+353	3	105	2013-07-26 22:13:58.633674	2013-07-26 22:13:58.633674
+354	2	106	2013-07-26 22:13:59.67414	2013-07-26 22:13:59.67414
+355	3	106	2013-07-26 22:13:59.676921	2013-07-26 22:13:59.676921
+356	4	106	2013-07-26 22:13:59.680178	2013-07-26 22:13:59.680178
+357	2	107	2013-07-26 22:14:00.220803	2013-07-26 22:14:00.220803
+358	14	107	2013-07-26 22:14:00.224263	2013-07-26 22:14:00.224263
+359	3	107	2013-07-26 22:14:00.228538	2013-07-26 22:14:00.228538
+360	1	108	2013-07-26 22:14:00.982293	2013-07-26 22:14:00.982293
+361	12	108	2013-07-26 22:14:00.985535	2013-07-26 22:14:00.985535
+362	6	108	2013-07-26 22:14:00.988435	2013-07-26 22:14:00.988435
+363	6	109	2013-07-26 22:14:01.798483	2013-07-26 22:14:01.798483
+364	10	109	2013-07-26 22:14:01.84047	2013-07-26 22:14:01.84047
+365	5	109	2013-07-26 22:14:01.843443	2013-07-26 22:14:01.843443
+366	8	109	2013-07-26 22:14:01.846656	2013-07-26 22:14:01.846656
+367	10	110	2013-07-26 22:14:03.454642	2013-07-26 22:14:03.454642
+368	6	110	2013-07-26 22:14:03.457493	2013-07-26 22:14:03.457493
+369	12	110	2013-07-26 22:14:03.460264	2013-07-26 22:14:03.460264
+370	13	110	2013-07-26 22:14:03.463285	2013-07-26 22:14:03.463285
+371	2	111	2013-07-26 22:14:04.118371	2013-07-26 22:14:04.118371
+372	5	111	2013-07-26 22:14:04.121315	2013-07-26 22:14:04.121315
+373	10	112	2013-07-26 22:14:04.876636	2013-07-26 22:14:04.876636
+374	6	112	2013-07-26 22:14:04.879689	2013-07-26 22:14:04.879689
+375	12	112	2013-07-26 22:14:04.883288	2013-07-26 22:14:04.883288
+376	13	112	2013-07-26 22:14:04.886447	2013-07-26 22:14:04.886447
+377	2	113	2013-07-26 22:14:05.933146	2013-07-26 22:14:05.933146
+378	6	113	2013-07-26 22:14:05.936132	2013-07-26 22:14:05.936132
+379	8	113	2013-07-26 22:14:05.939204	2013-07-26 22:14:05.939204
+380	5	114	2013-07-26 22:14:06.547204	2013-07-26 22:14:06.547204
+381	2	114	2013-07-26 22:14:06.551267	2013-07-26 22:14:06.551267
+382	3	114	2013-07-26 22:14:06.555114	2013-07-26 22:14:06.555114
+383	14	114	2013-07-26 22:14:06.558735	2013-07-26 22:14:06.558735
+384	10	115	2013-07-26 22:14:07.307361	2013-07-26 22:14:07.307361
+385	6	115	2013-07-26 22:14:07.31045	2013-07-26 22:14:07.31045
+386	12	115	2013-07-26 22:14:07.313471	2013-07-26 22:14:07.313471
+387	13	115	2013-07-26 22:14:07.316704	2013-07-26 22:14:07.316704
+388	5	116	2013-07-26 22:14:07.97497	2013-07-26 22:14:07.97497
+389	8	116	2013-07-26 22:14:07.977753	2013-07-26 22:14:07.977753
+390	24	116	2013-07-26 22:14:07.982489	2013-07-26 22:14:07.982489
+391	5	117	2013-07-26 22:14:09.159555	2013-07-26 22:14:09.159555
+392	2	117	2013-07-26 22:14:09.162648	2013-07-26 22:14:09.162648
+393	6	118	2013-07-26 22:14:10.53973	2013-07-26 22:14:10.53973
+394	5	118	2013-07-26 22:14:10.543054	2013-07-26 22:14:10.543054
+395	7	118	2013-07-26 22:14:10.546007	2013-07-26 22:14:10.546007
+396	8	118	2013-07-26 22:14:10.549541	2013-07-26 22:14:10.549541
+397	11	119	2013-07-26 22:14:11.240032	2013-07-26 22:14:11.240032
+398	2	119	2013-07-26 22:14:11.24277	2013-07-26 22:14:11.24277
+399	5	119	2013-07-26 22:14:11.245545	2013-07-26 22:14:11.245545
+400	12	119	2013-07-26 22:14:11.248272	2013-07-26 22:14:11.248272
+401	14	119	2013-07-26 22:14:11.251251	2013-07-26 22:14:11.251251
+402	13	119	2013-07-26 22:14:11.254289	2013-07-26 22:14:11.254289
+403	6	120	2013-07-26 22:14:12.069837	2013-07-26 22:14:12.069837
+404	5	120	2013-07-26 22:14:12.07282	2013-07-26 22:14:12.07282
+405	8	120	2013-07-26 22:14:12.075506	2013-07-26 22:14:12.075506
+406	5	121	2013-07-26 22:14:12.929495	2013-07-26 22:14:12.929495
+407	2	121	2013-07-26 22:14:12.932543	2013-07-26 22:14:12.932543
+408	14	121	2013-07-26 22:14:12.935972	2013-07-26 22:14:12.935972
+409	10	122	2013-07-26 22:14:13.83482	2013-07-26 22:14:13.83482
+410	5	122	2013-07-26 22:14:13.838099	2013-07-26 22:14:13.838099
+411	13	122	2013-07-26 22:14:13.841097	2013-07-26 22:14:13.841097
+412	12	122	2013-07-26 22:14:13.844329	2013-07-26 22:14:13.844329
+413	6	122	2013-07-26 22:14:13.847306	2013-07-26 22:14:13.847306
+414	5	123	2013-07-26 22:14:14.48573	2013-07-26 22:14:14.48573
+415	2	123	2013-07-26 22:14:14.489844	2013-07-26 22:14:14.489844
+416	14	123	2013-07-26 22:14:14.493117	2013-07-26 22:14:14.493117
+417	2	124	2013-07-26 22:14:15.156753	2013-07-26 22:14:15.156753
+418	12	124	2013-07-26 22:14:15.159653	2013-07-26 22:14:15.159653
+419	10	125	2013-07-26 22:14:15.855661	2013-07-26 22:14:15.855661
+420	6	125	2013-07-26 22:14:15.858525	2013-07-26 22:14:15.858525
+421	12	125	2013-07-26 22:14:15.861257	2013-07-26 22:14:15.861257
+422	13	125	2013-07-26 22:14:15.863938	2013-07-26 22:14:15.863938
+423	6	126	2013-07-26 22:14:16.629141	2013-07-26 22:14:16.629141
+424	12	126	2013-07-26 22:14:16.632497	2013-07-26 22:14:16.632497
+425	7	126	2013-07-26 22:14:16.635763	2013-07-26 22:14:16.635763
+426	16	126	2013-07-26 22:14:16.638628	2013-07-26 22:14:16.638628
+427	16	127	2013-07-26 22:14:17.595826	2013-07-26 22:14:17.595826
+428	7	127	2013-07-26 22:14:17.599001	2013-07-26 22:14:17.599001
+429	12	127	2013-07-26 22:14:17.602391	2013-07-26 22:14:17.602391
+430	3	127	2013-07-26 22:14:17.605361	2013-07-26 22:14:17.605361
+431	5	128	2013-07-26 22:14:18.239884	2013-07-26 22:14:18.239884
+432	12	129	2013-07-26 22:14:18.946972	2013-07-26 22:14:18.946972
+433	6	129	2013-07-26 22:14:18.949947	2013-07-26 22:14:18.949947
+434	10	129	2013-07-26 22:14:18.953353	2013-07-26 22:14:18.953353
+435	6	130	2013-07-26 22:14:19.613773	2013-07-26 22:14:19.613773
+436	10	130	2013-07-26 22:14:19.617185	2013-07-26 22:14:19.617185
+437	13	130	2013-07-26 22:14:19.620739	2013-07-26 22:14:19.620739
+438	12	130	2013-07-26 22:14:19.624631	2013-07-26 22:14:19.624631
+439	6	131	2013-07-26 22:14:20.245801	2013-07-26 22:14:20.245801
+440	12	131	2013-07-26 22:14:20.248753	2013-07-26 22:14:20.248753
+441	17	131	2013-07-26 22:14:20.252069	2013-07-26 22:14:20.252069
+442	13	131	2013-07-26 22:14:20.255379	2013-07-26 22:14:20.255379
+443	10	132	2013-07-26 22:14:20.9697	2013-07-26 22:14:20.9697
+444	2	132	2013-07-26 22:14:20.972664	2013-07-26 22:14:20.972664
+445	14	132	2013-07-26 22:14:20.975394	2013-07-26 22:14:20.975394
+446	16	133	2013-07-26 22:14:21.692772	2013-07-26 22:14:21.692772
+447	7	133	2013-07-26 22:14:21.69555	2013-07-26 22:14:21.69555
+448	11	134	2013-07-26 22:14:22.382688	2013-07-26 22:14:22.382688
+449	2	134	2013-07-26 22:14:22.385934	2013-07-26 22:14:22.385934
+450	5	134	2013-07-26 22:14:22.389319	2013-07-26 22:14:22.389319
+451	12	134	2013-07-26 22:14:22.392164	2013-07-26 22:14:22.392164
+452	6	135	2013-07-26 22:14:22.91174	2013-07-26 22:14:22.91174
+453	7	135	2013-07-26 22:14:22.914537	2013-07-26 22:14:22.914537
+454	8	136	2013-07-26 22:14:24.135002	2013-07-26 22:14:24.135002
+455	2	136	2013-07-26 22:14:24.138687	2013-07-26 22:14:24.138687
+456	21	136	2013-07-26 22:14:24.141786	2013-07-26 22:14:24.141786
+457	7	136	2013-07-26 22:14:24.144683	2013-07-26 22:14:24.144683
+458	6	137	2013-07-26 22:14:24.88839	2013-07-26 22:14:24.88839
+459	7	137	2013-07-26 22:14:24.891344	2013-07-26 22:14:24.891344
+460	12	137	2013-07-26 22:14:24.894121	2013-07-26 22:14:24.894121
+461	17	137	2013-07-26 22:14:24.89704	2013-07-26 22:14:24.89704
+462	2	138	2013-07-26 22:14:25.899025	2013-07-26 22:14:25.899025
+463	7	138	2013-07-26 22:14:25.901825	2013-07-26 22:14:25.901825
+464	8	138	2013-07-26 22:14:25.904857	2013-07-26 22:14:25.904857
+465	17	138	2013-07-26 22:14:25.907632	2013-07-26 22:14:25.907632
+466	14	138	2013-07-26 22:14:25.910414	2013-07-26 22:14:25.910414
+467	5	139	2013-07-26 22:14:26.4625	2013-07-26 22:14:26.4625
+468	2	139	2013-07-26 22:14:26.465643	2013-07-26 22:14:26.465643
+469	13	139	2013-07-26 22:14:26.468571	2013-07-26 22:14:26.468571
+470	24	139	2013-07-26 22:14:26.471848	2013-07-26 22:14:26.471848
+471	2	140	2013-07-26 22:14:27.213282	2013-07-26 22:14:27.213282
+472	6	140	2013-07-26 22:14:27.216197	2013-07-26 22:14:27.216197
+473	7	140	2013-07-26 22:14:27.21975	2013-07-26 22:14:27.21975
+474	8	140	2013-07-26 22:14:27.22365	2013-07-26 22:14:27.22365
+475	2	141	2013-07-26 22:14:28.226845	2013-07-26 22:14:28.226845
+476	8	141	2013-07-26 22:14:28.2297	2013-07-26 22:14:28.2297
+477	12	141	2013-07-26 22:14:28.232761	2013-07-26 22:14:28.232761
+478	3	141	2013-07-26 22:14:28.235658	2013-07-26 22:14:28.235658
+479	2	142	2013-07-26 22:14:28.975093	2013-07-26 22:14:28.975093
+480	6	142	2013-07-26 22:14:28.978588	2013-07-26 22:14:28.978588
+481	7	142	2013-07-26 22:14:28.982028	2013-07-26 22:14:28.982028
+482	8	142	2013-07-26 22:14:28.986041	2013-07-26 22:14:28.986041
+483	17	142	2013-07-26 22:14:28.989752	2013-07-26 22:14:28.989752
+484	6	143	2013-07-26 22:14:29.807715	2013-07-26 22:14:29.807715
+485	7	143	2013-07-26 22:14:29.810765	2013-07-26 22:14:29.810765
+486	8	143	2013-07-26 22:14:29.813559	2013-07-26 22:14:29.813559
+487	9	144	2013-07-26 22:14:31.414995	2013-07-26 22:14:31.414995
+488	2	145	2013-07-26 22:14:31.988956	2013-07-26 22:14:31.988956
+489	2	146	2013-07-26 22:14:32.705791	2013-07-26 22:14:32.705791
+490	7	146	2013-07-26 22:14:32.708848	2013-07-26 22:14:32.708848
+491	17	146	2013-07-26 22:14:32.711918	2013-07-26 22:14:32.711918
+492	3	146	2013-07-26 22:14:32.714822	2013-07-26 22:14:32.714822
+493	12	147	2013-07-26 22:14:33.481466	2013-07-26 22:14:33.481466
+494	6	147	2013-07-26 22:14:33.484978	2013-07-26 22:14:33.484978
+495	17	147	2013-07-26 22:14:33.489075	2013-07-26 22:14:33.489075
+496	11	148	2013-07-26 22:14:34.272866	2013-07-26 22:14:34.272866
+497	2	148	2013-07-26 22:14:34.276385	2013-07-26 22:14:34.276385
+498	5	148	2013-07-26 22:14:34.27951	2013-07-26 22:14:34.27951
+499	14	148	2013-07-26 22:14:34.282777	2013-07-26 22:14:34.282777
+500	3	148	2013-07-26 22:14:34.286363	2013-07-26 22:14:34.286363
+501	5	149	2013-07-26 22:14:34.813136	2013-07-26 22:14:34.813136
+502	14	149	2013-07-26 22:14:34.816576	2013-07-26 22:14:34.816576
+503	10	150	2013-07-26 22:14:35.629482	2013-07-26 22:14:35.629482
+504	6	150	2013-07-26 22:14:35.632813	2013-07-26 22:14:35.632813
+505	5	150	2013-07-26 22:14:35.635821	2013-07-26 22:14:35.635821
+506	12	150	2013-07-26 22:14:35.639158	2013-07-26 22:14:35.639158
+507	13	150	2013-07-26 22:14:35.643249	2013-07-26 22:14:35.643249
+508	6	151	2013-07-26 22:14:36.444373	2013-07-26 22:14:36.444373
+509	2	151	2013-07-26 22:14:36.448629	2013-07-26 22:14:36.448629
+510	18	151	2013-07-26 22:14:36.45229	2013-07-26 22:14:36.45229
+511	5	152	2013-07-26 22:14:37.019535	2013-07-26 22:14:37.019535
+512	2	152	2013-07-26 22:14:37.022782	2013-07-26 22:14:37.022782
+513	18	152	2013-07-26 22:14:37.026686	2013-07-26 22:14:37.026686
+514	12	153	2013-07-26 22:14:37.739312	2013-07-26 22:14:37.739312
+515	6	153	2013-07-26 22:14:37.743778	2013-07-26 22:14:37.743778
+516	10	153	2013-07-26 22:14:37.747888	2013-07-26 22:14:37.747888
+517	12	154	2013-07-26 22:14:38.426769	2013-07-26 22:14:38.426769
+518	6	154	2013-07-26 22:14:38.430775	2013-07-26 22:14:38.430775
+519	10	154	2013-07-26 22:14:38.434882	2013-07-26 22:14:38.434882
+520	12	155	2013-07-26 22:14:39.133765	2013-07-26 22:14:39.133765
+521	6	155	2013-07-26 22:14:39.136539	2013-07-26 22:14:39.136539
+522	10	155	2013-07-26 22:14:39.139437	2013-07-26 22:14:39.139437
+523	2	156	2013-07-26 22:14:40.218017	2013-07-26 22:14:40.218017
+524	6	156	2013-07-26 22:14:40.220889	2013-07-26 22:14:40.220889
+525	8	156	2013-07-26 22:14:40.224572	2013-07-26 22:14:40.224572
+526	2	157	2013-07-26 22:14:40.873339	2013-07-26 22:14:40.873339
+527	7	157	2013-07-26 22:14:40.876489	2013-07-26 22:14:40.876489
+528	3	157	2013-07-26 22:14:40.879342	2013-07-26 22:14:40.879342
+529	2	158	2013-07-26 22:14:41.4969	2013-07-26 22:14:41.4969
+530	18	158	2013-07-26 22:14:41.499812	2013-07-26 22:14:41.499812
+531	3	158	2013-07-26 22:14:41.502845	2013-07-26 22:14:41.502845
+532	2	159	2013-07-26 22:14:43.129526	2013-07-26 22:14:43.129526
+533	2	160	2013-07-26 22:14:43.781815	2013-07-26 22:14:43.781815
+534	13	160	2013-07-26 22:14:43.784588	2013-07-26 22:14:43.784588
+535	5	161	2013-07-26 22:14:46.918531	2013-07-26 22:14:46.918531
+536	2	161	2013-07-26 22:14:46.92137	2013-07-26 22:14:46.92137
+537	5	162	2013-07-26 22:14:47.547023	2013-07-26 22:14:47.547023
+538	2	162	2013-07-26 22:14:47.550134	2013-07-26 22:14:47.550134
+539	6	163	2013-07-26 22:14:48.332103	2013-07-26 22:14:48.332103
+540	10	163	2013-07-26 22:14:48.334863	2013-07-26 22:14:48.334863
+541	2	163	2013-07-26 22:14:48.337573	2013-07-26 22:14:48.337573
+542	17	163	2013-07-26 22:14:48.340363	2013-07-26 22:14:48.340363
+543	21	163	2013-07-26 22:14:48.343571	2013-07-26 22:14:48.343571
+544	7	163	2013-07-26 22:14:48.346504	2013-07-26 22:14:48.346504
+545	16	164	2013-07-26 22:14:48.996531	2013-07-26 22:14:48.996531
+546	7	164	2013-07-26 22:14:48.999719	2013-07-26 22:14:48.999719
+547	16	165	2013-07-26 22:14:49.705479	2013-07-26 22:14:49.705479
+548	7	165	2013-07-26 22:14:49.708483	2013-07-26 22:14:49.708483
+549	2	166	2013-07-26 22:14:50.312193	2013-07-26 22:14:50.312193
+550	3	166	2013-07-26 22:14:50.315186	2013-07-26 22:14:50.315186
+551	14	166	2013-07-26 22:14:50.318065	2013-07-26 22:14:50.318065
+552	10	167	2013-07-26 22:14:51.728757	2013-07-26 22:14:51.728757
+553	6	167	2013-07-26 22:14:51.731876	2013-07-26 22:14:51.731876
+554	6	168	2013-07-26 22:14:52.454448	2013-07-26 22:14:52.454448
+555	7	168	2013-07-26 22:14:52.457352	2013-07-26 22:14:52.457352
+556	12	168	2013-07-26 22:14:52.460279	2013-07-26 22:14:52.460279
+557	5	169	2013-07-26 22:14:53.115502	2013-07-26 22:14:53.115502
+558	2	169	2013-07-26 22:14:53.119398	2013-07-26 22:14:53.119398
+559	3	169	2013-07-26 22:14:53.122452	2013-07-26 22:14:53.122452
+560	14	169	2013-07-26 22:14:53.125178	2013-07-26 22:14:53.125178
+561	2	170	2013-07-26 22:14:53.856459	2013-07-26 22:14:53.856459
+562	2	171	2013-07-26 22:14:54.532278	2013-07-26 22:14:54.532278
+563	9	172	2013-07-26 22:14:55.10437	2013-07-26 22:14:55.10437
+564	18	172	2013-07-26 22:14:55.107149	2013-07-26 22:14:55.107149
+565	2	173	2013-07-26 22:14:55.907765	2013-07-26 22:14:55.907765
+566	17	173	2013-07-26 22:14:55.910693	2013-07-26 22:14:55.910693
+567	14	173	2013-07-26 22:14:55.913867	2013-07-26 22:14:55.913867
+568	21	173	2013-07-26 22:14:55.916843	2013-07-26 22:14:55.916843
+569	7	173	2013-07-26 22:14:55.919766	2013-07-26 22:14:55.919766
+570	2	174	2013-07-26 22:14:56.476813	2013-07-26 22:14:56.476813
+571	3	174	2013-07-26 22:14:56.479907	2013-07-26 22:14:56.479907
+572	18	174	2013-07-26 22:14:56.482883	2013-07-26 22:14:56.482883
+573	2	175	2013-07-26 22:14:57.023381	2013-07-26 22:14:57.023381
+574	3	175	2013-07-26 22:14:57.026125	2013-07-26 22:14:57.026125
+575	18	175	2013-07-26 22:14:57.029133	2013-07-26 22:14:57.029133
+576	6	176	2013-07-26 22:14:57.750561	2013-07-26 22:14:57.750561
+577	2	176	2013-07-26 22:14:57.753426	2013-07-26 22:14:57.753426
+578	8	176	2013-07-26 22:14:57.756337	2013-07-26 22:14:57.756337
+579	14	176	2013-07-26 22:14:57.759188	2013-07-26 22:14:57.759188
+580	8	177	2013-07-26 22:14:58.404923	2013-07-26 22:14:58.404923
+581	2	177	2013-07-26 22:14:58.407857	2013-07-26 22:14:58.407857
+582	2	178	2013-07-26 22:14:59.053107	2013-07-26 22:14:59.053107
+583	16	179	2013-07-26 22:14:59.698252	2013-07-26 22:14:59.698252
+584	12	179	2013-07-26 22:14:59.701538	2013-07-26 22:14:59.701538
+585	2	180	2013-07-26 22:15:00.931303	2013-07-26 22:15:00.931303
+586	6	180	2013-07-26 22:15:00.934534	2013-07-26 22:15:00.934534
+587	7	180	2013-07-26 22:15:00.937447	2013-07-26 22:15:00.937447
+588	14	180	2013-07-26 22:15:00.940035	2013-07-26 22:15:00.940035
+589	6	181	2013-07-26 22:15:01.571555	2013-07-26 22:15:01.571555
+590	10	181	2013-07-26 22:15:01.574409	2013-07-26 22:15:01.574409
+591	8	181	2013-07-26 22:15:01.577141	2013-07-26 22:15:01.577141
+592	2	181	2013-07-26 22:15:01.579836	2013-07-26 22:15:01.579836
+593	14	181	2013-07-26 22:15:01.582936	2013-07-26 22:15:01.582936
+594	6	182	2013-07-26 22:15:02.104574	2013-07-26 22:15:02.104574
+595	10	182	2013-07-26 22:15:02.107508	2013-07-26 22:15:02.107508
+596	2	182	2013-07-26 22:15:02.110396	2013-07-26 22:15:02.110396
+597	23	182	2013-07-26 22:15:02.113666	2013-07-26 22:15:02.113666
+598	14	182	2013-07-26 22:15:02.116902	2013-07-26 22:15:02.116902
+599	2	183	2013-07-26 22:15:02.639369	2013-07-26 22:15:02.639369
+600	16	183	2013-07-26 22:15:02.64226	2013-07-26 22:15:02.64226
+601	7	183	2013-07-26 22:15:02.645068	2013-07-26 22:15:02.645068
+602	8	183	2013-07-26 22:15:02.648058	2013-07-26 22:15:02.648058
+603	3	183	2013-07-26 22:15:02.651134	2013-07-26 22:15:02.651134
+604	8	184	2013-07-26 22:15:03.399328	2013-07-26 22:15:03.399328
+605	2	184	2013-07-26 22:15:03.402536	2013-07-26 22:15:03.402536
+606	2	185	2013-07-26 22:15:04.003432	2013-07-26 22:15:04.003432
+607	5	185	2013-07-26 22:15:04.006558	2013-07-26 22:15:04.006558
+608	14	185	2013-07-26 22:15:04.009297	2013-07-26 22:15:04.009297
+609	3	185	2013-07-26 22:15:04.012068	2013-07-26 22:15:04.012068
+610	2	186	2013-07-26 22:15:04.613239	2013-07-26 22:15:04.613239
+611	7	186	2013-07-26 22:15:04.616427	2013-07-26 22:15:04.616427
+612	8	186	2013-07-26 22:15:04.619367	2013-07-26 22:15:04.619367
+613	14	186	2013-07-26 22:15:04.62218	2013-07-26 22:15:04.62218
+614	3	186	2013-07-26 22:15:04.625751	2013-07-26 22:15:04.625751
+615	2	187	2013-07-26 22:15:05.461815	2013-07-26 22:15:05.461815
+616	6	187	2013-07-26 22:15:05.464738	2013-07-26 22:15:05.464738
+617	8	187	2013-07-26 22:15:05.468155	2013-07-26 22:15:05.468155
+618	5	188	2013-07-26 22:15:06.19519	2013-07-26 22:15:06.19519
+619	8	188	2013-07-26 22:15:06.198543	2013-07-26 22:15:06.198543
+620	23	188	2013-07-26 22:15:06.201804	2013-07-26 22:15:06.201804
+621	14	188	2013-07-26 22:15:06.20469	2013-07-26 22:15:06.20469
+622	15	188	2013-07-26 22:15:06.207502	2013-07-26 22:15:06.207502
+623	2	189	2013-07-26 22:15:06.962385	2013-07-26 22:15:06.962385
+624	6	189	2013-07-26 22:15:06.965416	2013-07-26 22:15:06.965416
+625	7	189	2013-07-26 22:15:06.968727	2013-07-26 22:15:06.968727
+626	8	189	2013-07-26 22:15:06.971477	2013-07-26 22:15:06.971477
+627	6	190	2013-07-26 22:15:07.768244	2013-07-26 22:15:07.768244
+628	10	190	2013-07-26 22:15:07.771489	2013-07-26 22:15:07.771489
+629	5	190	2013-07-26 22:15:07.774378	2013-07-26 22:15:07.774378
+630	8	190	2013-07-26 22:15:07.777215	2013-07-26 22:15:07.777215
+631	7	190	2013-07-26 22:15:07.780385	2013-07-26 22:15:07.780385
+632	2	191	2013-07-26 22:15:08.652193	2013-07-26 22:15:08.652193
+633	6	191	2013-07-26 22:15:08.654949	2013-07-26 22:15:08.654949
+634	7	191	2013-07-26 22:15:08.657636	2013-07-26 22:15:08.657636
+635	8	191	2013-07-26 22:15:08.660305	2013-07-26 22:15:08.660305
+636	5	192	2013-07-26 22:15:09.279744	2013-07-26 22:15:09.279744
+637	2	192	2013-07-26 22:15:09.283214	2013-07-26 22:15:09.283214
+638	14	192	2013-07-26 22:15:09.286025	2013-07-26 22:15:09.286025
+639	15	192	2013-07-26 22:15:09.28874	2013-07-26 22:15:09.28874
+640	6	193	2013-07-26 22:15:10.0284	2013-07-26 22:15:10.0284
+641	10	193	2013-07-26 22:15:10.031356	2013-07-26 22:15:10.031356
+642	2	193	2013-07-26 22:15:10.034459	2013-07-26 22:15:10.034459
+643	16	193	2013-07-26 22:15:10.037396	2013-07-26 22:15:10.037396
+644	7	193	2013-07-26 22:15:10.040266	2013-07-26 22:15:10.040266
+645	2	194	2013-07-26 22:15:10.763175	2013-07-26 22:15:10.763175
+646	5	194	2013-07-26 22:15:10.767038	2013-07-26 22:15:10.767038
+647	14	194	2013-07-26 22:15:10.771031	2013-07-26 22:15:10.771031
+648	3	194	2013-07-26 22:15:10.775214	2013-07-26 22:15:10.775214
+649	10	195	2013-07-26 22:15:11.419302	2013-07-26 22:15:11.419302
+650	2	195	2013-07-26 22:15:11.422167	2013-07-26 22:15:11.422167
+651	6	195	2013-07-26 22:15:11.424889	2013-07-26 22:15:11.424889
+652	3	195	2013-07-26 22:15:11.427687	2013-07-26 22:15:11.427687
+653	2	196	2013-07-26 22:15:12.307636	2013-07-26 22:15:12.307636
+654	6	196	2013-07-26 22:15:12.31052	2013-07-26 22:15:12.31052
+655	7	196	2013-07-26 22:15:12.313252	2013-07-26 22:15:12.313252
+656	8	196	2013-07-26 22:15:12.315937	2013-07-26 22:15:12.315937
+657	2	197	2013-07-26 22:15:12.907545	2013-07-26 22:15:12.907545
+658	6	197	2013-07-26 22:15:12.910621	2013-07-26 22:15:12.910621
+659	5	197	2013-07-26 22:15:12.913337	2013-07-26 22:15:12.913337
+660	8	197	2013-07-26 22:15:12.91635	2013-07-26 22:15:12.91635
+661	5	198	2013-07-26 22:15:13.590784	2013-07-26 22:15:13.590784
+662	2	198	2013-07-26 22:15:13.59359	2013-07-26 22:15:13.59359
+663	7	198	2013-07-26 22:15:13.596429	2013-07-26 22:15:13.596429
+664	6	199	2013-07-26 22:15:14.202305	2013-07-26 22:15:14.202305
+665	5	199	2013-07-26 22:15:14.205437	2013-07-26 22:15:14.205437
+666	3	199	2013-07-26 22:15:14.20847	2013-07-26 22:15:14.20847
+667	11	200	2013-07-26 22:15:14.828243	2013-07-26 22:15:14.828243
+668	2	200	2013-07-26 22:15:14.830976	2013-07-26 22:15:14.830976
+669	7	200	2013-07-26 22:15:14.833874	2013-07-26 22:15:14.833874
+670	12	200	2013-07-26 22:15:14.837195	2013-07-26 22:15:14.837195
+671	17	200	2013-07-26 22:15:14.84008	2013-07-26 22:15:14.84008
+672	14	200	2013-07-26 22:15:14.842834	2013-07-26 22:15:14.842834
+673	11	201	2013-07-26 22:15:15.500777	2013-07-26 22:15:15.500777
+674	15	201	2013-07-26 22:15:15.504069	2013-07-26 22:15:15.504069
+675	13	201	2013-07-26 22:15:15.507114	2013-07-26 22:15:15.507114
+676	10	202	2013-07-26 22:15:16.373601	2013-07-26 22:15:16.373601
+677	6	202	2013-07-26 22:15:16.377813	2013-07-26 22:15:16.377813
+678	7	202	2013-07-26 22:15:16.380701	2013-07-26 22:15:16.380701
+679	3	202	2013-07-26 22:15:16.383464	2013-07-26 22:15:16.383464
+680	10	203	2013-07-26 22:15:17.133274	2013-07-26 22:15:17.133274
+681	2	203	2013-07-26 22:15:17.136643	2013-07-26 22:15:17.136643
+682	16	203	2013-07-26 22:15:17.139876	2013-07-26 22:15:17.139876
+683	6	203	2013-07-26 22:15:17.143178	2013-07-26 22:15:17.143178
+684	7	203	2013-07-26 22:15:17.146562	2013-07-26 22:15:17.146562
+685	3	203	2013-07-26 22:15:17.149431	2013-07-26 22:15:17.149431
+686	5	204	2013-07-26 22:15:17.665633	2013-07-26 22:15:17.665633
+687	2	204	2013-07-26 22:15:17.66867	2013-07-26 22:15:17.66867
+688	3	204	2013-07-26 22:15:17.671962	2013-07-26 22:15:17.671962
+689	14	204	2013-07-26 22:15:17.674713	2013-07-26 22:15:17.674713
+690	2	205	2013-07-26 22:15:18.952161	2013-07-26 22:15:18.952161
+691	13	205	2013-07-26 22:15:18.955651	2013-07-26 22:15:18.955651
+692	3	205	2013-07-26 22:15:18.958545	2013-07-26 22:15:18.958545
+693	5	206	2013-07-26 22:15:19.460807	2013-07-26 22:15:19.460807
+694	2	206	2013-07-26 22:15:19.463585	2013-07-26 22:15:19.463585
+695	3	206	2013-07-26 22:15:19.466316	2013-07-26 22:15:19.466316
+696	4	206	2013-07-26 22:15:19.469268	2013-07-26 22:15:19.469268
+697	14	206	2013-07-26 22:15:19.472446	2013-07-26 22:15:19.472446
+698	2	207	2013-07-26 22:15:19.989069	2013-07-26 22:15:19.989069
+699	5	207	2013-07-26 22:15:19.991905	2013-07-26 22:15:19.991905
+700	14	207	2013-07-26 22:15:19.99465	2013-07-26 22:15:19.99465
+701	3	207	2013-07-26 22:15:19.997349	2013-07-26 22:15:19.997349
+702	6	208	2013-07-26 22:15:20.756668	2013-07-26 22:15:20.756668
+703	7	208	2013-07-26 22:15:20.760007	2013-07-26 22:15:20.760007
+704	17	208	2013-07-26 22:15:20.763451	2013-07-26 22:15:20.763451
+705	3	208	2013-07-26 22:15:20.76678	2013-07-26 22:15:20.76678
+706	2	209	2013-07-26 22:15:21.522812	2013-07-26 22:15:21.522812
+707	14	209	2013-07-26 22:15:21.525764	2013-07-26 22:15:21.525764
+708	5	210	2013-07-26 22:15:22.142528	2013-07-26 22:15:22.142528
+709	8	210	2013-07-26 22:15:22.145308	2013-07-26 22:15:22.145308
+710	2	210	2013-07-26 22:15:22.147997	2013-07-26 22:15:22.147997
+711	2	211	2013-07-26 22:15:23.956669	2013-07-26 22:15:23.956669
+712	18	211	2013-07-26 22:15:23.959758	2013-07-26 22:15:23.959758
+713	2	212	2013-07-26 22:15:24.627289	2013-07-26 22:15:24.627289
+714	14	212	2013-07-26 22:15:24.630152	2013-07-26 22:15:24.630152
+715	3	212	2013-07-26 22:15:24.633163	2013-07-26 22:15:24.633163
+716	2	213	2013-07-26 22:15:25.256094	2013-07-26 22:15:25.256094
+717	3	213	2013-07-26 22:15:25.25911	2013-07-26 22:15:25.25911
+718	14	213	2013-07-26 22:15:25.261811	2013-07-26 22:15:25.261811
+719	7	213	2013-07-26 22:15:25.264441	2013-07-26 22:15:25.264441
+720	11	214	2013-07-26 22:15:26.059313	2013-07-26 22:15:26.059313
+721	6	214	2013-07-26 22:15:26.062175	2013-07-26 22:15:26.062175
+722	7	214	2013-07-26 22:15:26.06487	2013-07-26 22:15:26.06487
+723	8	214	2013-07-26 22:15:26.067594	2013-07-26 22:15:26.067594
+724	12	214	2013-07-26 22:15:26.070712	2013-07-26 22:15:26.070712
+725	8	215	2013-07-26 22:15:26.711326	2013-07-26 22:15:26.711326
+726	2	215	2013-07-26 22:15:26.714115	2013-07-26 22:15:26.714115
+727	3	215	2013-07-26 22:15:26.716756	2013-07-26 22:15:26.716756
+728	4	215	2013-07-26 22:15:26.719679	2013-07-26 22:15:26.719679
+729	5	216	2013-07-26 22:15:27.553688	2013-07-26 22:15:27.553688
+730	2	216	2013-07-26 22:15:27.557254	2013-07-26 22:15:27.557254
+731	11	216	2013-07-26 22:15:27.559992	2013-07-26 22:15:27.559992
+732	10	217	2013-07-26 22:15:28.175102	2013-07-26 22:15:28.175102
+733	2	217	2013-07-26 22:15:28.178324	2013-07-26 22:15:28.178324
+734	11	217	2013-07-26 22:15:28.181338	2013-07-26 22:15:28.181338
+735	6	218	2013-07-26 22:15:29.051736	2013-07-26 22:15:29.051736
+736	8	218	2013-07-26 22:15:29.054943	2013-07-26 22:15:29.054943
+737	2	218	2013-07-26 22:15:29.058171	2013-07-26 22:15:29.058171
+738	11	218	2013-07-26 22:15:29.061077	2013-07-26 22:15:29.061077
+739	10	218	2013-07-26 22:15:29.06382	2013-07-26 22:15:29.06382
+740	2	219	2013-07-26 22:15:29.800671	2013-07-26 22:15:29.800671
+741	8	220	2013-07-26 22:15:31.123284	2013-07-26 22:15:31.123284
+742	2	220	2013-07-26 22:15:31.126809	2013-07-26 22:15:31.126809
+743	21	220	2013-07-26 22:15:31.129645	2013-07-26 22:15:31.129645
+744	7	220	2013-07-26 22:15:31.132527	2013-07-26 22:15:31.132527
+745	5	221	2013-07-26 22:15:31.911317	2013-07-26 22:15:31.911317
+746	8	221	2013-07-26 22:15:31.914169	2013-07-26 22:15:31.914169
+747	2	221	2013-07-26 22:15:31.916868	2013-07-26 22:15:31.916868
+748	2	222	2013-07-26 22:15:32.585876	2013-07-26 22:15:32.585876
+749	5	222	2013-07-26 22:15:32.58869	2013-07-26 22:15:32.58869
+750	3	222	2013-07-26 22:15:32.591921	2013-07-26 22:15:32.591921
+751	11	223	2013-07-26 22:15:33.312677	2013-07-26 22:15:33.312677
+752	6	223	2013-07-26 22:15:33.315495	2013-07-26 22:15:33.315495
+753	7	223	2013-07-26 22:15:33.318182	2013-07-26 22:15:33.318182
+754	12	223	2013-07-26 22:15:33.321048	2013-07-26 22:15:33.321048
+755	2	224	2013-07-26 22:15:34.171776	2013-07-26 22:15:34.171776
+756	8	224	2013-07-26 22:15:34.175064	2013-07-26 22:15:34.175064
+757	2	225	2013-07-26 22:15:34.917409	2013-07-26 22:15:34.917409
+758	18	225	2013-07-26 22:15:34.9203	2013-07-26 22:15:34.9203
+759	15	225	2013-07-26 22:15:34.922967	2013-07-26 22:15:34.922967
+760	6	226	2013-07-26 22:15:35.776838	2013-07-26 22:15:35.776838
+761	7	226	2013-07-26 22:15:35.7807	2013-07-26 22:15:35.7807
+762	12	226	2013-07-26 22:15:35.785811	2013-07-26 22:15:35.785811
+763	12	227	2013-07-26 22:15:36.457051	2013-07-26 22:15:36.457051
+764	21	227	2013-07-26 22:15:36.46034	2013-07-26 22:15:36.46034
+765	7	227	2013-07-26 22:15:36.46332	2013-07-26 22:15:36.46332
+766	5	228	2013-07-26 22:15:38.136143	2013-07-26 22:15:38.136143
+767	2	228	2013-07-26 22:15:38.139	2013-07-26 22:15:38.139
+768	14	228	2013-07-26 22:15:38.142342	2013-07-26 22:15:38.142342
+769	10	229	2013-07-26 22:15:38.891614	2013-07-26 22:15:38.891614
+770	11	229	2013-07-26 22:15:38.894661	2013-07-26 22:15:38.894661
+771	6	229	2013-07-26 22:15:38.897536	2013-07-26 22:15:38.897536
+772	5	229	2013-07-26 22:15:38.900392	2013-07-26 22:15:38.900392
+773	12	229	2013-07-26 22:15:38.903209	2013-07-26 22:15:38.903209
+774	9	230	2013-07-26 22:15:39.726357	2013-07-26 22:15:39.726357
+775	5	231	2013-07-26 22:15:40.393352	2013-07-26 22:15:40.393352
+776	14	231	2013-07-26 22:15:40.396231	2013-07-26 22:15:40.396231
+777	25	231	2013-07-26 22:15:40.400749	2013-07-26 22:15:40.400749
+778	2	232	2013-07-26 22:15:41.967478	2013-07-26 22:15:41.967478
+779	6	232	2013-07-26 22:15:41.970216	2013-07-26 22:15:41.970216
+780	20	232	2013-07-26 22:15:41.973559	2013-07-26 22:15:41.973559
+781	8	233	2013-07-26 22:15:42.727317	2013-07-26 22:15:42.727317
+782	2	233	2013-07-26 22:15:42.730256	2013-07-26 22:15:42.730256
+783	14	233	2013-07-26 22:15:42.733127	2013-07-26 22:15:42.733127
+784	5	234	2013-07-26 22:15:43.444397	2013-07-26 22:15:43.444397
+785	2	234	2013-07-26 22:15:43.447401	2013-07-26 22:15:43.447401
+786	7	234	2013-07-26 22:15:43.450098	2013-07-26 22:15:43.450098
+787	9	235	2013-07-26 22:15:44.022988	2013-07-26 22:15:44.022988
+788	5	236	2013-07-26 22:15:44.541236	2013-07-26 22:15:44.541236
+789	9	236	2013-07-26 22:15:44.544471	2013-07-26 22:15:44.544471
+790	23	236	2013-07-26 22:15:44.54787	2013-07-26 22:15:44.54787
+791	2	237	2013-07-26 22:15:45.16527	2013-07-26 22:15:45.16527
+792	2	238	2013-07-26 22:15:45.695477	2013-07-26 22:15:45.695477
+793	14	238	2013-07-26 22:15:45.69823	2013-07-26 22:15:45.69823
+794	6	239	2013-07-26 22:15:47.036004	2013-07-26 22:15:47.036004
+795	7	239	2013-07-26 22:15:47.03878	2013-07-26 22:15:47.03878
+796	12	239	2013-07-26 22:15:47.041679	2013-07-26 22:15:47.041679
+797	11	240	2013-07-26 22:15:47.788631	2013-07-26 22:15:47.788631
+798	2	240	2013-07-26 22:15:47.791688	2013-07-26 22:15:47.791688
+799	12	240	2013-07-26 22:15:47.794848	2013-07-26 22:15:47.794848
+800	17	240	2013-07-26 22:15:47.798078	2013-07-26 22:15:47.798078
+801	14	240	2013-07-26 22:15:47.800883	2013-07-26 22:15:47.800883
+802	6	241	2013-07-26 22:15:48.605873	2013-07-26 22:15:48.605873
+803	5	241	2013-07-26 22:15:48.609805	2013-07-26 22:15:48.609805
+804	8	241	2013-07-26 22:15:48.613006	2013-07-26 22:15:48.613006
+805	6	242	2013-07-26 22:15:49.275183	2013-07-26 22:15:49.275183
+806	10	242	2013-07-26 22:15:49.278725	2013-07-26 22:15:49.278725
+807	5	242	2013-07-26 22:15:49.281756	2013-07-26 22:15:49.281756
+808	8	242	2013-07-26 22:15:49.284514	2013-07-26 22:15:49.284514
+809	5	243	2013-07-26 22:15:49.890305	2013-07-26 22:15:49.890305
+810	2	243	2013-07-26 22:15:49.893214	2013-07-26 22:15:49.893214
+811	11	243	2013-07-26 22:15:49.896345	2013-07-26 22:15:49.896345
+812	3	243	2013-07-26 22:15:49.899158	2013-07-26 22:15:49.899158
+813	14	243	2013-07-26 22:15:49.901826	2013-07-26 22:15:49.901826
+814	12	243	2013-07-26 22:15:49.904502	2013-07-26 22:15:49.904502
+815	6	244	2013-07-26 22:15:50.609848	2013-07-26 22:15:50.609848
+816	2	244	2013-07-26 22:15:50.613019	2013-07-26 22:15:50.613019
+817	20	244	2013-07-26 22:15:50.61597	2013-07-26 22:15:50.61597
+818	8	245	2013-07-26 22:15:51.238352	2013-07-26 22:15:51.238352
+819	2	245	2013-07-26 22:15:51.241048	2013-07-26 22:15:51.241048
+820	3	245	2013-07-26 22:15:51.244124	2013-07-26 22:15:51.244124
+821	17	245	2013-07-26 22:15:51.247532	2013-07-26 22:15:51.247532
+822	14	245	2013-07-26 22:15:51.250501	2013-07-26 22:15:51.250501
+823	7	245	2013-07-26 22:15:51.253185	2013-07-26 22:15:51.253185
+824	6	246	2013-07-26 22:15:52.024304	2013-07-26 22:15:52.024304
+825	7	246	2013-07-26 22:15:52.027121	2013-07-26 22:15:52.027121
+826	14	246	2013-07-26 22:15:52.030047	2013-07-26 22:15:52.030047
+827	6	247	2013-07-26 22:15:53.823235	2013-07-26 22:15:53.823235
+828	5	247	2013-07-26 22:15:53.825995	2013-07-26 22:15:53.825995
+829	8	247	2013-07-26 22:15:53.828834	2013-07-26 22:15:53.828834
+830	2	248	2013-07-26 22:15:54.452761	2013-07-26 22:15:54.452761
+831	3	248	2013-07-26 22:15:54.455507	2013-07-26 22:15:54.455507
+832	18	248	2013-07-26 22:15:54.458208	2013-07-26 22:15:54.458208
+833	5	249	2013-07-26 22:15:55.068096	2013-07-26 22:15:55.068096
+834	2	249	2013-07-26 22:15:55.070999	2013-07-26 22:15:55.070999
+835	4	249	2013-07-26 22:15:55.07391	2013-07-26 22:15:55.07391
+836	17	249	2013-07-26 22:15:55.076778	2013-07-26 22:15:55.076778
+837	14	249	2013-07-26 22:15:55.07992	2013-07-26 22:15:55.07992
+838	2	250	2013-07-26 22:15:55.757387	2013-07-26 22:15:55.757387
+839	3	250	2013-07-26 22:15:55.761334	2013-07-26 22:15:55.761334
+840	11	251	2013-07-26 22:15:56.377955	2013-07-26 22:15:56.377955
+841	5	251	2013-07-26 22:15:56.381203	2013-07-26 22:15:56.381203
+842	2	252	2013-07-26 22:15:57.184356	2013-07-26 22:15:57.184356
+843	6	252	2013-07-26 22:15:57.187289	2013-07-26 22:15:57.187289
+844	7	252	2013-07-26 22:15:57.190321	2013-07-26 22:15:57.190321
+845	8	252	2013-07-26 22:15:57.193147	2013-07-26 22:15:57.193147
+846	2	253	2013-07-26 22:15:57.714152	2013-07-26 22:15:57.714152
+847	3	253	2013-07-26 22:15:57.717226	2013-07-26 22:15:57.717226
+848	2	254	2013-07-26 22:15:58.237704	2013-07-26 22:15:58.237704
+849	3	254	2013-07-26 22:15:58.240371	2013-07-26 22:15:58.240371
+850	4	254	2013-07-26 22:15:58.243048	2013-07-26 22:15:58.243048
+851	11	255	2013-07-26 22:15:58.879886	2013-07-26 22:15:58.879886
+852	6	255	2013-07-26 22:15:58.883265	2013-07-26 22:15:58.883265
+853	7	255	2013-07-26 22:15:58.886343	2013-07-26 22:15:58.886343
+854	8	255	2013-07-26 22:15:58.889277	2013-07-26 22:15:58.889277
+855	6	256	2013-07-26 22:16:00.642456	2013-07-26 22:16:00.642456
+856	8	256	2013-07-26 22:16:00.645179	2013-07-26 22:16:00.645179
+857	4	256	2013-07-26 22:16:00.648488	2013-07-26 22:16:00.648488
+858	5	257	2013-07-26 22:16:01.162526	2013-07-26 22:16:01.162526
+859	2	257	2013-07-26 22:16:01.165479	2013-07-26 22:16:01.165479
+860	2	258	2013-07-26 22:16:01.72152	2013-07-26 22:16:01.72152
+861	18	258	2013-07-26 22:16:01.724429	2013-07-26 22:16:01.724429
+862	2	259	2013-07-26 22:16:02.358089	2013-07-26 22:16:02.358089
+863	7	259	2013-07-26 22:16:02.365019	2013-07-26 22:16:02.365019
+864	3	259	2013-07-26 22:16:02.368554	2013-07-26 22:16:02.368554
+865	6	260	2013-07-26 22:16:04.105813	2013-07-26 22:16:04.105813
+866	7	260	2013-07-26 22:16:04.145971	2013-07-26 22:16:04.145971
+867	8	260	2013-07-26 22:16:04.14982	2013-07-26 22:16:04.14982
+868	14	260	2013-07-26 22:16:04.153023	2013-07-26 22:16:04.153023
+869	8	261	2013-07-26 22:16:04.812825	2013-07-26 22:16:04.812825
+870	2	261	2013-07-26 22:16:04.816378	2013-07-26 22:16:04.816378
+871	17	261	2013-07-26 22:16:04.819524	2013-07-26 22:16:04.819524
+872	21	261	2013-07-26 22:16:04.822514	2013-07-26 22:16:04.822514
+873	7	261	2013-07-26 22:16:04.825275	2013-07-26 22:16:04.825275
+874	5	262	2013-07-26 22:16:05.34297	2013-07-26 22:16:05.34297
+875	14	262	2013-07-26 22:16:05.345929	2013-07-26 22:16:05.345929
+876	2	263	2013-07-26 22:16:05.965461	2013-07-26 22:16:05.965461
+877	17	263	2013-07-26 22:16:05.96849	2013-07-26 22:16:05.96849
+878	7	263	2013-07-26 22:16:05.971187	2013-07-26 22:16:05.971187
+879	6	264	2013-07-26 22:16:08.14128	2013-07-26 22:16:08.14128
+880	26	264	2013-07-26 22:16:08.146123	2013-07-26 22:16:08.146123
+881	16	264	2013-07-26 22:16:08.149151	2013-07-26 22:16:08.149151
+882	7	264	2013-07-26 22:16:08.152369	2013-07-26 22:16:08.152369
+883	6	265	2013-07-26 22:16:08.77332	2013-07-26 22:16:08.77332
+884	8	265	2013-07-26 22:16:08.776997	2013-07-26 22:16:08.776997
+885	2	265	2013-07-26 22:16:08.780279	2013-07-26 22:16:08.780279
+886	3	265	2013-07-26 22:16:08.783672	2013-07-26 22:16:08.783672
+887	7	265	2013-07-26 22:16:08.787923	2013-07-26 22:16:08.787923
+888	10	267	2013-07-26 22:16:10.044391	2013-07-26 22:16:10.044391
+889	16	267	2013-07-26 22:16:10.047281	2013-07-26 22:16:10.047281
+890	6	267	2013-07-26 22:16:10.050221	2013-07-26 22:16:10.050221
+891	12	267	2013-07-26 22:16:10.053448	2013-07-26 22:16:10.053448
+892	10	268	2013-07-26 22:16:10.825404	2013-07-26 22:16:10.825404
+893	6	268	2013-07-26 22:16:10.828222	2013-07-26 22:16:10.828222
+894	12	268	2013-07-26 22:16:10.83098	2013-07-26 22:16:10.83098
+895	10	269	2013-07-26 22:16:11.607984	2013-07-26 22:16:11.607984
+896	16	269	2013-07-26 22:16:11.610939	2013-07-26 22:16:11.610939
+897	6	269	2013-07-26 22:16:11.613705	2013-07-26 22:16:11.613705
+898	7	269	2013-07-26 22:16:11.616449	2013-07-26 22:16:11.616449
+899	12	269	2013-07-26 22:16:11.619469	2013-07-26 22:16:11.619469
+900	6	270	2013-07-26 22:16:12.228992	2013-07-26 22:16:12.228992
+901	10	270	2013-07-26 22:16:12.231885	2013-07-26 22:16:12.231885
+902	5	270	2013-07-26 22:16:12.234884	2013-07-26 22:16:12.234884
+903	13	270	2013-07-26 22:16:12.237925	2013-07-26 22:16:12.237925
+904	2	271	2013-07-26 22:16:12.76119	2013-07-26 22:16:12.76119
+905	5	271	2013-07-26 22:16:12.763972	2013-07-26 22:16:12.763972
+906	15	271	2013-07-26 22:16:12.766939	2013-07-26 22:16:12.766939
+907	14	271	2013-07-26 22:16:12.770412	2013-07-26 22:16:12.770412
+908	2	272	2013-07-26 22:16:13.432861	2013-07-26 22:16:13.432861
+909	4	272	2013-07-26 22:16:13.436204	2013-07-26 22:16:13.436204
+910	14	272	2013-07-26 22:16:13.43904	2013-07-26 22:16:13.43904
+911	6	273	2013-07-26 22:16:14.233721	2013-07-26 22:16:14.233721
+912	3	273	2013-07-26 22:16:14.272961	2013-07-26 22:16:14.272961
+913	20	273	2013-07-26 22:16:14.276279	2013-07-26 22:16:14.276279
+914	6	274	2013-07-26 22:16:14.898753	2013-07-26 22:16:14.898753
+915	20	274	2013-07-26 22:16:14.901979	2013-07-26 22:16:14.901979
+916	2	275	2013-07-26 22:16:15.444638	2013-07-26 22:16:15.444638
+917	3	275	2013-07-26 22:16:15.447299	2013-07-26 22:16:15.447299
+918	5	276	2013-07-26 22:16:16.056643	2013-07-26 22:16:16.056643
+919	2	276	2013-07-26 22:16:16.05941	2013-07-26 22:16:16.05941
+920	3	276	2013-07-26 22:16:16.062119	2013-07-26 22:16:16.062119
+921	5	277	2013-07-26 22:16:16.713814	2013-07-26 22:16:16.713814
+922	2	277	2013-07-26 22:16:16.716583	2013-07-26 22:16:16.716583
+923	4	277	2013-07-26 22:16:16.719795	2013-07-26 22:16:16.719795
+924	10	278	2013-07-26 22:16:17.356384	2013-07-26 22:16:17.356384
+925	5	278	2013-07-26 22:16:17.359154	2013-07-26 22:16:17.359154
+926	2	278	2013-07-26 22:16:17.361952	2013-07-26 22:16:17.361952
+927	3	279	2013-07-26 22:16:18.048992	2013-07-26 22:16:18.048992
+928	17	279	2013-07-26 22:16:18.052119	2013-07-26 22:16:18.052119
+929	7	279	2013-07-26 22:16:18.055646	2013-07-26 22:16:18.055646
+930	5	280	2013-07-26 22:16:19.05199	2013-07-26 22:16:19.05199
+931	2	280	2013-07-26 22:16:19.05575	2013-07-26 22:16:19.05575
+932	3	280	2013-07-26 22:16:19.05939	2013-07-26 22:16:19.05939
+933	2	281	2013-07-26 22:16:19.682702	2013-07-26 22:16:19.682702
+934	5	281	2013-07-26 22:16:19.686605	2013-07-26 22:16:19.686605
+935	14	281	2013-07-26 22:16:19.689923	2013-07-26 22:16:19.689923
+936	6	282	2013-07-26 22:16:20.21449	2013-07-26 22:16:20.21449
+937	5	282	2013-07-26 22:16:20.217271	2013-07-26 22:16:20.217271
+938	2	283	2013-07-26 22:16:21.325672	2013-07-26 22:16:21.325672
+939	17	283	2013-07-26 22:16:21.328628	2013-07-26 22:16:21.328628
+940	7	283	2013-07-26 22:16:21.33178	2013-07-26 22:16:21.33178
+941	6	284	2013-07-26 22:16:22.175335	2013-07-26 22:16:22.175335
+942	2	284	2013-07-26 22:16:22.178199	2013-07-26 22:16:22.178199
+943	3	284	2013-07-26 22:16:22.181021	2013-07-26 22:16:22.181021
+944	4	284	2013-07-26 22:16:22.183826	2013-07-26 22:16:22.183826
+945	9	285	2013-07-26 22:16:22.702222	2013-07-26 22:16:22.702222
+946	2	285	2013-07-26 22:16:22.705101	2013-07-26 22:16:22.705101
+947	16	286	2013-07-26 22:16:23.578745	2013-07-26 22:16:23.578745
+948	6	286	2013-07-26 22:16:23.582626	2013-07-26 22:16:23.582626
+949	7	286	2013-07-26 22:16:23.586184	2013-07-26 22:16:23.586184
+950	12	286	2013-07-26 22:16:23.590065	2013-07-26 22:16:23.590065
+951	5	287	2013-07-26 22:16:24.172119	2013-07-26 22:16:24.172119
+952	5	288	2013-07-26 22:16:24.87762	2013-07-26 22:16:24.87762
+953	2	289	2013-07-26 22:16:25.446312	2013-07-26 22:16:25.446312
+954	2	290	2013-07-26 22:16:31.820899	2013-07-26 22:16:31.820899
+955	3	290	2013-07-26 22:16:31.824819	2013-07-26 22:16:31.824819
+956	14	290	2013-07-26 22:16:31.82768	2013-07-26 22:16:31.82768
+957	11	291	2013-07-26 22:16:32.779286	2013-07-26 22:16:32.779286
+958	6	291	2013-07-26 22:16:32.782602	2013-07-26 22:16:32.782602
+959	7	291	2013-07-26 22:16:32.786313	2013-07-26 22:16:32.786313
+960	8	291	2013-07-26 22:16:32.790149	2013-07-26 22:16:32.790149
+961	12	291	2013-07-26 22:16:32.793781	2013-07-26 22:16:32.793781
+962	16	292	2013-07-26 22:16:39.471116	2013-07-26 22:16:39.471116
+963	5	293	2013-07-26 22:16:40.115359	2013-07-26 22:16:40.115359
+964	2	293	2013-07-26 22:16:40.118219	2013-07-26 22:16:40.118219
+965	2	294	2013-07-26 22:16:40.880319	2013-07-26 22:16:40.880319
+966	6	294	2013-07-26 22:16:40.883123	2013-07-26 22:16:40.883123
+967	5	294	2013-07-26 22:16:40.88583	2013-07-26 22:16:40.88583
+968	7	294	2013-07-26 22:16:40.888536	2013-07-26 22:16:40.888536
+969	8	294	2013-07-26 22:16:40.891182	2013-07-26 22:16:40.891182
+970	2	295	2013-07-26 22:16:41.515284	2013-07-26 22:16:41.515284
+971	8	296	2013-07-26 22:16:42.260322	2013-07-26 22:16:42.260322
+972	2	296	2013-07-26 22:16:42.263377	2013-07-26 22:16:42.263377
+973	17	296	2013-07-26 22:16:42.266137	2013-07-26 22:16:42.266137
+974	14	296	2013-07-26 22:16:42.268857	2013-07-26 22:16:42.268857
+975	21	296	2013-07-26 22:16:42.271768	2013-07-26 22:16:42.271768
+976	7	296	2013-07-26 22:16:42.2745	2013-07-26 22:16:42.2745
+977	2	297	2013-07-26 22:16:43.267634	2013-07-26 22:16:43.267634
+978	4	297	2013-07-26 22:16:43.270618	2013-07-26 22:16:43.270618
+979	6	298	2013-07-26 22:16:45.989648	2013-07-26 22:16:45.989648
+980	2	298	2013-07-26 22:16:45.992462	2013-07-26 22:16:45.992462
+981	18	298	2013-07-26 22:16:45.995532	2013-07-26 22:16:45.995532
+982	19	298	2013-07-26 22:16:45.998528	2013-07-26 22:16:45.998528
+983	6	299	2013-07-26 22:16:46.703631	2013-07-26 22:16:46.703631
+984	8	299	2013-07-26 22:16:46.706527	2013-07-26 22:16:46.706527
+985	2	299	2013-07-26 22:16:46.709208	2013-07-26 22:16:46.709208
+986	7	299	2013-07-26 22:16:46.712339	2013-07-26 22:16:46.712339
+987	17	299	2013-07-26 22:16:46.715199	2013-07-26 22:16:46.715199
+988	2	300	2013-07-26 22:16:47.385116	2013-07-26 22:16:47.385116
+989	8	300	2013-07-26 22:16:47.388011	2013-07-26 22:16:47.388011
+990	2	301	2013-07-26 22:16:48.279285	2013-07-26 22:16:48.279285
+991	3	301	2013-07-26 22:16:48.282152	2013-07-26 22:16:48.282152
+992	4	301	2013-07-26 22:16:48.285617	2013-07-26 22:16:48.285617
+993	7	301	2013-07-26 22:16:48.28837	2013-07-26 22:16:48.28837
+994	6	302	2013-07-26 22:16:49.035748	2013-07-26 22:16:49.035748
+995	20	302	2013-07-26 22:16:49.038585	2013-07-26 22:16:49.038585
+996	3	302	2013-07-26 22:16:49.041323	2013-07-26 22:16:49.041323
+997	5	303	2013-07-26 22:16:49.671467	2013-07-26 22:16:49.671467
+998	2	303	2013-07-26 22:16:49.674183	2013-07-26 22:16:49.674183
+999	3	303	2013-07-26 22:16:49.676883	2013-07-26 22:16:49.676883
+1000	14	303	2013-07-26 22:16:49.679886	2013-07-26 22:16:49.679886
+1001	6	304	2013-07-26 22:16:50.421531	2013-07-26 22:16:50.421531
+1002	8	304	2013-07-26 22:16:50.42433	2013-07-26 22:16:50.42433
+1003	7	304	2013-07-26 22:16:50.427062	2013-07-26 22:16:50.427062
+1004	16	305	2013-07-26 22:16:51.698054	2013-07-26 22:16:51.698054
+1005	6	305	2013-07-26 22:16:51.701169	2013-07-26 22:16:51.701169
+1006	7	305	2013-07-26 22:16:51.704238	2013-07-26 22:16:51.704238
+1007	12	305	2013-07-26 22:16:51.707269	2013-07-26 22:16:51.707269
+1008	5	306	2013-07-26 22:16:52.787234	2013-07-26 22:16:52.787234
+1009	2	306	2013-07-26 22:16:52.790757	2013-07-26 22:16:52.790757
+1010	5	307	2013-07-26 22:16:53.323096	2013-07-26 22:16:53.323096
+1011	14	307	2013-07-26 22:16:53.32585	2013-07-26 22:16:53.32585
+1012	2	308	2013-07-26 22:16:54.054411	2013-07-26 22:16:54.054411
+1013	2	309	2013-07-26 22:16:55.210305	2013-07-26 22:16:55.210305
+1014	6	309	2013-07-26 22:16:55.213309	2013-07-26 22:16:55.213309
+1015	5	309	2013-07-26 22:16:55.216319	2013-07-26 22:16:55.216319
+1016	7	309	2013-07-26 22:16:55.219216	2013-07-26 22:16:55.219216
+1017	8	309	2013-07-26 22:16:55.222239	2013-07-26 22:16:55.222239
+1018	14	309	2013-07-26 22:16:55.225058	2013-07-26 22:16:55.225058
+1019	5	310	2013-07-26 22:16:55.854908	2013-07-26 22:16:55.854908
+1020	2	310	2013-07-26 22:16:55.85833	2013-07-26 22:16:55.85833
+1021	14	310	2013-07-26 22:16:55.861789	2013-07-26 22:16:55.861789
+1022	7	311	2013-07-26 22:16:56.636749	2013-07-26 22:16:56.636749
+1023	8	311	2013-07-26 22:16:56.639807	2013-07-26 22:16:56.639807
+1024	17	311	2013-07-26 22:16:56.642801	2013-07-26 22:16:56.642801
+1025	14	311	2013-07-26 22:16:56.645759	2013-07-26 22:16:56.645759
+1026	5	312	2013-07-26 22:16:57.270801	2013-07-26 22:16:57.270801
+1027	2	312	2013-07-26 22:16:57.273583	2013-07-26 22:16:57.273583
+1028	2	313	2013-07-26 22:16:57.912954	2013-07-26 22:16:57.912954
+1029	4	313	2013-07-26 22:16:57.91602	2013-07-26 22:16:57.91602
+1030	2	314	2013-07-26 22:16:58.528993	2013-07-26 22:16:58.528993
+1031	3	314	2013-07-26 22:16:58.532317	2013-07-26 22:16:58.532317
+1032	2	315	2013-07-26 22:16:59.147738	2013-07-26 22:16:59.147738
+1033	3	315	2013-07-26 22:16:59.150872	2013-07-26 22:16:59.150872
+1034	2	316	2013-07-26 22:17:00.005949	2013-07-26 22:17:00.005949
+1035	7	316	2013-07-26 22:17:00.008754	2013-07-26 22:17:00.008754
+1036	11	317	2013-07-26 22:17:00.772413	2013-07-26 22:17:00.772413
+1037	1	317	2013-07-26 22:17:00.775342	2013-07-26 22:17:00.775342
+1038	12	317	2013-07-26 22:17:00.778098	2013-07-26 22:17:00.778098
+1039	13	317	2013-07-26 22:17:00.781013	2013-07-26 22:17:00.781013
+1040	2	318	2013-07-26 22:17:01.408727	2013-07-26 22:17:01.408727
+1041	3	318	2013-07-26 22:17:01.411701	2013-07-26 22:17:01.411701
+1042	14	318	2013-07-26 22:17:01.414643	2013-07-26 22:17:01.414643
+1043	2	319	2013-07-26 22:17:02.229799	2013-07-26 22:17:02.229799
+1044	10	320	2013-07-26 22:17:03.030589	2013-07-26 22:17:03.030589
+1045	11	320	2013-07-26 22:17:03.033812	2013-07-26 22:17:03.033812
+1046	12	320	2013-07-26 22:17:03.036962	2013-07-26 22:17:03.036962
+1047	13	320	2013-07-26 22:17:03.04005	2013-07-26 22:17:03.04005
+1048	11	321	2013-07-26 22:17:04.874512	2013-07-26 22:17:04.874512
+1049	6	321	2013-07-26 22:17:04.877456	2013-07-26 22:17:04.877456
+1050	8	321	2013-07-26 22:17:04.88013	2013-07-26 22:17:04.88013
+1051	12	321	2013-07-26 22:17:04.883303	2013-07-26 22:17:04.883303
+1052	11	322	2013-07-26 22:17:05.684027	2013-07-26 22:17:05.684027
+1053	6	322	2013-07-26 22:17:05.687012	2013-07-26 22:17:05.687012
+1054	7	322	2013-07-26 22:17:05.689685	2013-07-26 22:17:05.689685
+1055	8	322	2013-07-26 22:17:05.692385	2013-07-26 22:17:05.692385
+1056	12	322	2013-07-26 22:17:05.695089	2013-07-26 22:17:05.695089
+1057	5	323	2013-07-26 22:17:08.175431	2013-07-26 22:17:08.175431
+1058	2	323	2013-07-26 22:17:08.1783	2013-07-26 22:17:08.1783
+1059	10	324	2013-07-26 22:17:09.366016	2013-07-26 22:17:09.366016
+1060	5	324	2013-07-26 22:17:09.369505	2013-07-26 22:17:09.369505
+1061	2	324	2013-07-26 22:17:09.372487	2013-07-26 22:17:09.372487
+1062	11	325	2013-07-26 22:17:10.583538	2013-07-26 22:17:10.583538
+1063	2	325	2013-07-26 22:17:10.586826	2013-07-26 22:17:10.586826
+1064	3	325	2013-07-26 22:17:10.589774	2013-07-26 22:17:10.589774
+1065	2	326	2013-07-26 22:17:11.730438	2013-07-26 22:17:11.730438
+1066	18	326	2013-07-26 22:17:11.733363	2013-07-26 22:17:11.733363
+1067	19	326	2013-07-26 22:17:11.73657	2013-07-26 22:17:11.73657
+1068	3	326	2013-07-26 22:17:11.7396	2013-07-26 22:17:11.7396
+1069	2	327	2013-07-26 22:17:12.494507	2013-07-26 22:17:12.494507
+1070	18	327	2013-07-26 22:17:12.497553	2013-07-26 22:17:12.497553
+1071	10	328	2013-07-26 22:17:13.210467	2013-07-26 22:17:13.210467
+1072	1	328	2013-07-26 22:17:13.213533	2013-07-26 22:17:13.213533
+1073	5	328	2013-07-26 22:17:13.216133	2013-07-26 22:17:13.216133
+1074	13	328	2013-07-26 22:17:13.219332	2013-07-26 22:17:13.219332
+1075	8	329	2013-07-26 22:17:13.962696	2013-07-26 22:17:13.962696
+1076	2	329	2013-07-26 22:17:13.96575	2013-07-26 22:17:13.96575
+1077	27	329	2013-07-26 22:17:13.970978	2013-07-26 22:17:13.970978
+1078	17	329	2013-07-26 22:17:13.973937	2013-07-26 22:17:13.973937
+1079	14	329	2013-07-26 22:17:13.976723	2013-07-26 22:17:13.976723
+1080	7	329	2013-07-26 22:17:13.979439	2013-07-26 22:17:13.979439
+1081	5	330	2013-07-26 22:17:14.645992	2013-07-26 22:17:14.645992
+1082	3	330	2013-07-26 22:17:14.648988	2013-07-26 22:17:14.648988
+1083	2	331	2013-07-26 22:17:15.246916	2013-07-26 22:17:15.246916
+1084	14	331	2013-07-26 22:17:15.250468	2013-07-26 22:17:15.250468
+1085	3	331	2013-07-26 22:17:15.253593	2013-07-26 22:17:15.253593
+1086	10	332	2013-07-26 22:17:16.260644	2013-07-26 22:17:16.260644
+1087	6	332	2013-07-26 22:17:16.263454	2013-07-26 22:17:16.263454
+1088	20	332	2013-07-26 22:17:16.266208	2013-07-26 22:17:16.266208
+1089	3	332	2013-07-26 22:17:16.269222	2013-07-26 22:17:16.269222
+1090	5	333	2013-07-26 22:17:18.253233	2013-07-26 22:17:18.253233
+1091	13	333	2013-07-26 22:17:18.256155	2013-07-26 22:17:18.256155
+1092	2	334	2013-07-26 22:17:18.992872	2013-07-26 22:17:18.992872
+1093	16	334	2013-07-26 22:17:18.995706	2013-07-26 22:17:18.995706
+1094	12	334	2013-07-26 22:17:18.998427	2013-07-26 22:17:18.998427
+1095	7	334	2013-07-26 22:17:19.001258	2013-07-26 22:17:19.001258
+1096	11	335	2013-07-26 22:17:20.36906	2013-07-26 22:17:20.36906
+1097	5	335	2013-07-26 22:17:20.372122	2013-07-26 22:17:20.372122
+1098	12	335	2013-07-26 22:17:20.374905	2013-07-26 22:17:20.374905
+1099	15	335	2013-07-26 22:17:20.377527	2013-07-26 22:17:20.377527
+1100	13	335	2013-07-26 22:17:20.380372	2013-07-26 22:17:20.380372
+1101	2	336	2013-07-26 22:17:21.448756	2013-07-26 22:17:21.448756
+1102	7	336	2013-07-26 22:17:21.451524	2013-07-26 22:17:21.451524
+1103	6	337	2013-07-26 22:17:22.152284	2013-07-26 22:17:22.152284
+1104	26	337	2013-07-26 22:17:22.155422	2013-07-26 22:17:22.155422
+1105	12	337	2013-07-26 22:17:22.158168	2013-07-26 22:17:22.158168
+1106	7	337	2013-07-26 22:17:22.160903	2013-07-26 22:17:22.160903
+1107	2	338	2013-07-26 22:17:23.21602	2013-07-26 22:17:23.21602
+1108	7	338	2013-07-26 22:17:23.21897	2013-07-26 22:17:23.21897
+1109	8	338	2013-07-26 22:17:23.222152	2013-07-26 22:17:23.222152
+1110	3	338	2013-07-26 22:17:23.225419	2013-07-26 22:17:23.225419
+1111	16	339	2013-07-26 22:17:24.646368	2013-07-26 22:17:24.646368
+1112	7	339	2013-07-26 22:17:24.65004	2013-07-26 22:17:24.65004
+1113	12	339	2013-07-26 22:17:24.653533	2013-07-26 22:17:24.653533
+1114	17	339	2013-07-26 22:17:24.65733	2013-07-26 22:17:24.65733
+1115	2	340	2013-07-26 22:17:25.719194	2013-07-26 22:17:25.719194
+1116	16	340	2013-07-26 22:17:25.722507	2013-07-26 22:17:25.722507
+1117	12	340	2013-07-26 22:17:25.725245	2013-07-26 22:17:25.725245
+1118	7	340	2013-07-26 22:17:25.728003	2013-07-26 22:17:25.728003
+1119	5	341	2013-07-26 22:17:26.374594	2013-07-26 22:17:26.374594
+1120	2	341	2013-07-26 22:17:26.377614	2013-07-26 22:17:26.377614
+1121	3	341	2013-07-26 22:17:26.380404	2013-07-26 22:17:26.380404
+1122	6	342	2013-07-26 22:17:27.08116	2013-07-26 22:17:27.08116
+1123	12	342	2013-07-26 22:17:27.084079	2013-07-26 22:17:27.084079
+1124	7	342	2013-07-26 22:17:27.086943	2013-07-26 22:17:27.086943
+1125	16	342	2013-07-26 22:17:27.090001	2013-07-26 22:17:27.090001
+1126	5	343	2013-07-26 22:17:27.632519	2013-07-26 22:17:27.632519
+1127	2	343	2013-07-26 22:17:27.635365	2013-07-26 22:17:27.635365
+1128	4	343	2013-07-26 22:17:27.638045	2013-07-26 22:17:27.638045
+1129	14	343	2013-07-26 22:17:27.681325	2013-07-26 22:17:27.681325
+1130	5	344	2013-07-26 22:17:28.208971	2013-07-26 22:17:28.208971
+1131	2	344	2013-07-26 22:17:28.211782	2013-07-26 22:17:28.211782
+1132	2	345	2013-07-26 22:17:29.858894	2013-07-26 22:17:29.858894
+1133	6	345	2013-07-26 22:17:29.86181	2013-07-26 22:17:29.86181
+1134	7	345	2013-07-26 22:17:29.86456	2013-07-26 22:17:29.86456
+1135	14	345	2013-07-26 22:17:29.867798	2013-07-26 22:17:29.867798
+1136	3	345	2013-07-26 22:17:29.872997	2013-07-26 22:17:29.872997
+1137	2	346	2013-07-26 22:17:31.029963	2013-07-26 22:17:31.029963
+1138	3	346	2013-07-26 22:17:31.032688	2013-07-26 22:17:31.032688
+1139	2	347	2013-07-26 22:17:34.136614	2013-07-26 22:17:34.136614
+1140	14	347	2013-07-26 22:17:34.140207	2013-07-26 22:17:34.140207
+1141	3	347	2013-07-26 22:17:34.143778	2013-07-26 22:17:34.143778
+1142	2	348	2013-07-26 22:17:35.462353	2013-07-26 22:17:35.462353
+1143	5	348	2013-07-26 22:17:35.4653	2013-07-26 22:17:35.4653
+1144	2	349	2013-07-26 22:17:36.227482	2013-07-26 22:17:36.227482
+1145	14	349	2013-07-26 22:17:36.230622	2013-07-26 22:17:36.230622
+1146	2	350	2013-07-26 22:17:36.936848	2013-07-26 22:17:36.936848
+1147	8	350	2013-07-26 22:17:36.940019	2013-07-26 22:17:36.940019
+1148	14	350	2013-07-26 22:17:36.94328	2013-07-26 22:17:36.94328
+1149	2	351	2013-07-26 22:17:38.352086	2013-07-26 22:17:38.352086
+1150	5	351	2013-07-26 22:17:38.355627	2013-07-26 22:17:38.355627
+1151	13	351	2013-07-26 22:17:38.359622	2013-07-26 22:17:38.359622
+1152	3	351	2013-07-26 22:17:38.363529	2013-07-26 22:17:38.363529
+1153	5	352	2013-07-26 22:17:39.938672	2013-07-26 22:17:39.938672
+1154	2	352	2013-07-26 22:17:39.941353	2013-07-26 22:17:39.941353
+1155	3	352	2013-07-26 22:17:39.944506	2013-07-26 22:17:39.944506
+1156	14	352	2013-07-26 22:17:39.947412	2013-07-26 22:17:39.947412
+1157	2	353	2013-07-26 22:17:40.580652	2013-07-26 22:17:40.580652
+1158	5	353	2013-07-26 22:17:40.583497	2013-07-26 22:17:40.583497
+1159	14	353	2013-07-26 22:17:40.586449	2013-07-26 22:17:40.586449
+1160	3	353	2013-07-26 22:17:40.589835	2013-07-26 22:17:40.589835
+1161	2	354	2013-07-26 22:17:41.338065	2013-07-26 22:17:41.338065
+1162	14	354	2013-07-26 22:17:41.341275	2013-07-26 22:17:41.341275
+1163	3	354	2013-07-26 22:17:41.344977	2013-07-26 22:17:41.344977
+1164	5	355	2013-07-26 22:17:42.266688	2013-07-26 22:17:42.266688
+1165	3	355	2013-07-26 22:17:42.269562	2013-07-26 22:17:42.269562
+1166	8	356	2013-07-26 22:17:43.425361	2013-07-26 22:17:43.425361
+1167	2	356	2013-07-26 22:17:43.428723	2013-07-26 22:17:43.428723
+1168	2	357	2013-07-26 22:17:45.218724	2013-07-26 22:17:45.218724
+1169	5	357	2013-07-26 22:17:45.221676	2013-07-26 22:17:45.221676
+1170	3	357	2013-07-26 22:17:45.225767	2013-07-26 22:17:45.225767
+1171	15	357	2013-07-26 22:17:45.229437	2013-07-26 22:17:45.229437
+1172	2	358	2013-07-26 22:17:46.132162	2013-07-26 22:17:46.132162
+1173	3	358	2013-07-26 22:17:46.135059	2013-07-26 22:17:46.135059
+1174	14	358	2013-07-26 22:17:46.137899	2013-07-26 22:17:46.137899
+1175	8	359	2013-07-26 22:17:47.029895	2013-07-26 22:17:47.029895
+1176	2	359	2013-07-26 22:17:47.032669	2013-07-26 22:17:47.032669
+1177	17	359	2013-07-26 22:17:47.035502	2013-07-26 22:17:47.035502
+1178	14	359	2013-07-26 22:17:47.038329	2013-07-26 22:17:47.038329
+1179	7	359	2013-07-26 22:17:47.041258	2013-07-26 22:17:47.041258
+1180	8	360	2013-07-26 22:17:48.013046	2013-07-26 22:17:48.013046
+1181	2	360	2013-07-26 22:17:48.01621	2013-07-26 22:17:48.01621
+1182	3	360	2013-07-26 22:17:48.019299	2013-07-26 22:17:48.019299
+1183	16	360	2013-07-26 22:17:48.022186	2013-07-26 22:17:48.022186
+1184	7	360	2013-07-26 22:17:48.025083	2013-07-26 22:17:48.025083
+1185	2	361	2013-07-26 22:17:49.036125	2013-07-26 22:17:49.036125
+1186	14	361	2013-07-26 22:17:49.038883	2013-07-26 22:17:49.038883
+1187	5	362	2013-07-26 22:17:49.655912	2013-07-26 22:17:49.655912
+1188	2	362	2013-07-26 22:17:49.658575	2013-07-26 22:17:49.658575
+1189	4	362	2013-07-26 22:17:49.661378	2013-07-26 22:17:49.661378
+1190	8	363	2013-07-26 22:17:50.410793	2013-07-26 22:17:50.410793
+1191	2	363	2013-07-26 22:17:50.414165	2013-07-26 22:17:50.414165
+1192	4	363	2013-07-26 22:17:50.417169	2013-07-26 22:17:50.417169
+1193	7	363	2013-07-26 22:17:50.41983	2013-07-26 22:17:50.41983
+1194	2	364	2013-07-26 22:17:51.370829	2013-07-26 22:17:51.370829
+1195	2	365	2013-07-26 22:17:52.584349	2013-07-26 22:17:52.584349
+1196	12	365	2013-07-26 22:17:52.587566	2013-07-26 22:17:52.587566
+1197	7	365	2013-07-26 22:17:52.59054	2013-07-26 22:17:52.59054
+1198	6	366	2013-07-26 22:17:54.186631	2013-07-26 22:17:54.186631
+1199	10	366	2013-07-26 22:17:54.225016	2013-07-26 22:17:54.225016
+1200	8	366	2013-07-26 22:17:54.230045	2013-07-26 22:17:54.230045
+1201	2	366	2013-07-26 22:17:54.233169	2013-07-26 22:17:54.233169
+1202	24	366	2013-07-26 22:17:54.236076	2013-07-26 22:17:54.236076
+1203	8	367	2013-07-26 22:17:54.851062	2013-07-26 22:17:54.851062
+1204	2	367	2013-07-26 22:17:54.853918	2013-07-26 22:17:54.853918
+1205	6	368	2013-07-26 22:17:56.508687	2013-07-26 22:17:56.508687
+1206	10	368	2013-07-26 22:17:56.511736	2013-07-26 22:17:56.511736
+1207	8	368	2013-07-26 22:17:56.515231	2013-07-26 22:17:56.515231
+1208	7	368	2013-07-26 22:17:56.518205	2013-07-26 22:17:56.518205
+1209	5	369	2013-07-26 22:17:57.2651	2013-07-26 22:17:57.2651
+1210	2	369	2013-07-26 22:17:57.268251	2013-07-26 22:17:57.268251
+1211	3	369	2013-07-26 22:17:57.271289	2013-07-26 22:17:57.271289
+1212	4	369	2013-07-26 22:17:57.27447	2013-07-26 22:17:57.27447
+1213	14	369	2013-07-26 22:17:57.277371	2013-07-26 22:17:57.277371
+1214	2	370	2013-07-26 22:17:58.321517	2013-07-26 22:17:58.321517
+1215	3	370	2013-07-26 22:17:58.324486	2013-07-26 22:17:58.324486
+1216	10	371	2013-07-26 22:17:59.458547	2013-07-26 22:17:59.458547
+1217	6	371	2013-07-26 22:17:59.4613	2013-07-26 22:17:59.4613
+1218	7	371	2013-07-26 22:17:59.464157	2013-07-26 22:17:59.464157
+1219	8	371	2013-07-26 22:17:59.467443	2013-07-26 22:17:59.467443
+1220	5	372	2013-07-26 22:18:00.667201	2013-07-26 22:18:00.667201
+1221	8	372	2013-07-26 22:18:00.670221	2013-07-26 22:18:00.670221
+1222	2	372	2013-07-26 22:18:00.673019	2013-07-26 22:18:00.673019
+1223	24	372	2013-07-26 22:18:00.675732	2013-07-26 22:18:00.675732
+1224	14	372	2013-07-26 22:18:00.678403	2013-07-26 22:18:00.678403
+1225	7	372	2013-07-26 22:18:00.681323	2013-07-26 22:18:00.681323
+1226	6	373	2013-07-26 22:18:04.318586	2013-07-26 22:18:04.318586
+1227	10	373	2013-07-26 22:18:04.323783	2013-07-26 22:18:04.323783
+1228	2	373	2013-07-26 22:18:04.32814	2013-07-26 22:18:04.32814
+1229	18	373	2013-07-26 22:18:04.332254	2013-07-26 22:18:04.332254
+1230	14	373	2013-07-26 22:18:04.33625	2013-07-26 22:18:04.33625
+1231	2	374	2013-07-26 22:18:05.663992	2013-07-26 22:18:05.663992
+1232	4	374	2013-07-26 22:18:05.667589	2013-07-26 22:18:05.667589
+1233	14	374	2013-07-26 22:18:05.670713	2013-07-26 22:18:05.670713
+1234	11	375	2013-07-26 22:18:06.395683	2013-07-26 22:18:06.395683
+1235	2	375	2013-07-26 22:18:06.39853	2013-07-26 22:18:06.39853
+1236	12	375	2013-07-26 22:18:06.403075	2013-07-26 22:18:06.403075
+1237	3	375	2013-07-26 22:18:06.407637	2013-07-26 22:18:06.407637
+1238	2	376	2013-07-26 22:18:07.134215	2013-07-26 22:18:07.134215
+1239	11	377	2013-07-26 22:18:07.919534	2013-07-26 22:18:07.919534
+1240	2	377	2013-07-26 22:18:07.923064	2013-07-26 22:18:07.923064
+1241	5	377	2013-07-26 22:18:07.92643	2013-07-26 22:18:07.92643
+1242	12	377	2013-07-26 22:18:07.929413	2013-07-26 22:18:07.929413
+1243	6	378	2013-07-26 22:18:08.847538	2013-07-26 22:18:08.847538
+1244	10	378	2013-07-26 22:18:08.850609	2013-07-26 22:18:08.850609
+1245	8	378	2013-07-26 22:18:08.853928	2013-07-26 22:18:08.853928
+1246	17	378	2013-07-26 22:18:08.857299	2013-07-26 22:18:08.857299
+1247	10	379	2013-07-26 22:18:09.820217	2013-07-26 22:18:09.820217
+1248	6	379	2013-07-26 22:18:09.823338	2013-07-26 22:18:09.823338
+1249	7	379	2013-07-26 22:18:09.826087	2013-07-26 22:18:09.826087
+1250	8	379	2013-07-26 22:18:09.828965	2013-07-26 22:18:09.828965
+1251	17	379	2013-07-26 22:18:09.831678	2013-07-26 22:18:09.831678
+1252	5	380	2013-07-26 22:18:11.188633	2013-07-26 22:18:11.188633
+1253	11	381	2013-07-26 22:18:12.039284	2013-07-26 22:18:12.039284
+1254	2	381	2013-07-26 22:18:12.042111	2013-07-26 22:18:12.042111
+1255	12	381	2013-07-26 22:18:12.04486	2013-07-26 22:18:12.04486
+1256	2	382	2013-07-26 22:18:13.123485	2013-07-26 22:18:13.123485
+1257	5	382	2013-07-26 22:18:13.126447	2013-07-26 22:18:13.126447
+1258	15	382	2013-07-26 22:18:13.129489	2013-07-26 22:18:13.129489
+1259	3	382	2013-07-26 22:18:13.132387	2013-07-26 22:18:13.132387
+1260	6	383	2013-07-26 22:18:14.012341	2013-07-26 22:18:14.012341
+1261	8	383	2013-07-26 22:18:14.01536	2013-07-26 22:18:14.01536
+1262	4	383	2013-07-26 22:18:14.01836	2013-07-26 22:18:14.01836
+1263	17	383	2013-07-26 22:18:14.021566	2013-07-26 22:18:14.021566
+1264	7	383	2013-07-26 22:18:14.024578	2013-07-26 22:18:14.024578
+1265	9	384	2013-07-26 22:18:14.580526	2013-07-26 22:18:14.580526
+1266	2	385	2013-07-26 22:18:15.221136	2013-07-26 22:18:15.221136
+1267	18	385	2013-07-26 22:18:15.224653	2013-07-26 22:18:15.224653
+1268	21	385	2013-07-26 22:18:15.227592	2013-07-26 22:18:15.227592
+1269	7	385	2013-07-26 22:18:15.230468	2013-07-26 22:18:15.230468
+1270	6	386	2013-07-26 22:18:15.934124	2013-07-26 22:18:15.934124
+1271	10	386	2013-07-26 22:18:15.937331	2013-07-26 22:18:15.937331
+1272	26	386	2013-07-26 22:18:15.940199	2013-07-26 22:18:15.940199
+1273	7	386	2013-07-26 22:18:15.943162	2013-07-26 22:18:15.943162
+1274	8	387	2013-07-26 22:18:16.624463	2013-07-26 22:18:16.624463
+1275	2	387	2013-07-26 22:18:16.627211	2013-07-26 22:18:16.627211
+1276	8	388	2013-07-26 22:18:17.271205	2013-07-26 22:18:17.271205
+1277	2	388	2013-07-26 22:18:17.273989	2013-07-26 22:18:17.273989
+1278	8	389	2013-07-26 22:18:18.111235	2013-07-26 22:18:18.111235
+1279	2	389	2013-07-26 22:18:18.114043	2013-07-26 22:18:18.114043
+1280	17	389	2013-07-26 22:18:18.116896	2013-07-26 22:18:18.116896
+1281	21	389	2013-07-26 22:18:18.120485	2013-07-26 22:18:18.120485
+1282	7	389	2013-07-26 22:18:18.123924	2013-07-26 22:18:18.123924
+1283	6	390	2013-07-26 22:18:18.678694	2013-07-26 22:18:18.678694
+1284	8	390	2013-07-26 22:18:18.681624	2013-07-26 22:18:18.681624
+1285	2	390	2013-07-26 22:18:18.684454	2013-07-26 22:18:18.684454
+1286	4	390	2013-07-26 22:18:18.687803	2013-07-26 22:18:18.687803
+1287	7	390	2013-07-26 22:18:18.69096	2013-07-26 22:18:18.69096
+1288	5	391	2013-07-26 22:18:19.569879	2013-07-26 22:18:19.569879
+1289	3	391	2013-07-26 22:18:19.572782	2013-07-26 22:18:19.572782
+1290	28	391	2013-07-26 22:18:19.577288	2013-07-26 22:18:19.577288
+1291	14	391	2013-07-26 22:18:19.580293	2013-07-26 22:18:19.580293
+1292	5	392	2013-07-26 22:18:20.364557	2013-07-26 22:18:20.364557
+1293	2	392	2013-07-26 22:18:20.367413	2013-07-26 22:18:20.367413
+1294	3	392	2013-07-26 22:18:20.370408	2013-07-26 22:18:20.370408
+1295	14	392	2013-07-26 22:18:20.373522	2013-07-26 22:18:20.373522
+1296	2	393	2013-07-26 22:18:21.476017	2013-07-26 22:18:21.476017
+1297	2	394	2013-07-26 22:18:22.010776	2013-07-26 22:18:22.010776
+1298	2	395	2013-07-26 22:18:22.834616	2013-07-26 22:18:22.834616
+1299	5	395	2013-07-26 22:18:22.838562	2013-07-26 22:18:22.838562
+1300	7	395	2013-07-26 22:18:22.841702	2013-07-26 22:18:22.841702
+1301	12	395	2013-07-26 22:18:22.844945	2013-07-26 22:18:22.844945
+1302	17	395	2013-07-26 22:18:22.847933	2013-07-26 22:18:22.847933
+1303	14	395	2013-07-26 22:18:22.850812	2013-07-26 22:18:22.850812
+1304	3	395	2013-07-26 22:18:22.853911	2013-07-26 22:18:22.853911
+1305	2	396	2013-07-26 22:18:23.411364	2013-07-26 22:18:23.411364
+1306	14	396	2013-07-26 22:18:23.414223	2013-07-26 22:18:23.414223
+1307	3	396	2013-07-26 22:18:23.41707	2013-07-26 22:18:23.41707
+1308	8	397	2013-07-26 22:18:27.702709	2013-07-26 22:18:27.702709
+1309	2	397	2013-07-26 22:18:27.706832	2013-07-26 22:18:27.706832
+1310	17	397	2013-07-26 22:18:27.710142	2013-07-26 22:18:27.710142
+1311	7	397	2013-07-26 22:18:27.713105	2013-07-26 22:18:27.713105
+1312	5	398	2013-07-26 22:18:28.508853	2013-07-26 22:18:28.508853
+1313	2	398	2013-07-26 22:18:28.511625	2013-07-26 22:18:28.511625
+1314	2	399	2013-07-26 22:18:29.065965	2013-07-26 22:18:29.065965
+1315	3	399	2013-07-26 22:18:29.068902	2013-07-26 22:18:29.068902
+1316	16	399	2013-07-26 22:18:29.071833	2013-07-26 22:18:29.071833
+1317	2	400	2013-07-26 22:18:29.762709	2013-07-26 22:18:29.762709
+1318	6	400	2013-07-26 22:18:29.765563	2013-07-26 22:18:29.765563
+1319	8	400	2013-07-26 22:18:29.768451	2013-07-26 22:18:29.768451
+1320	10	401	2013-07-26 22:18:30.702855	2013-07-26 22:18:30.702855
+1321	6	401	2013-07-26 22:18:30.705723	2013-07-26 22:18:30.705723
+1322	5	401	2013-07-26 22:18:30.708857	2013-07-26 22:18:30.708857
+1323	15	401	2013-07-26 22:18:30.712115	2013-07-26 22:18:30.712115
+1324	10	402	2013-07-26 22:18:31.555852	2013-07-26 22:18:31.555852
+1325	11	402	2013-07-26 22:18:31.560574	2013-07-26 22:18:31.560574
+1326	2	402	2013-07-26 22:18:31.564631	2013-07-26 22:18:31.564631
+1327	6	402	2013-07-26 22:18:31.56835	2013-07-26 22:18:31.56835
+1328	5	402	2013-07-26 22:18:31.571598	2013-07-26 22:18:31.571598
+1329	12	402	2013-07-26 22:18:31.575035	2013-07-26 22:18:31.575035
+1330	14	402	2013-07-26 22:18:31.579178	2013-07-26 22:18:31.579178
+1331	2	403	2013-07-26 22:18:32.205338	2013-07-26 22:18:32.205338
+1332	3	403	2013-07-26 22:18:32.208872	2013-07-26 22:18:32.208872
+1333	4	403	2013-07-26 22:18:32.212561	2013-07-26 22:18:32.212561
+1334	10	404	2013-07-26 22:18:37.272824	2013-07-26 22:18:37.272824
+1335	1	404	2013-07-26 22:18:37.276186	2013-07-26 22:18:37.276186
+1336	5	404	2013-07-26 22:18:37.279211	2013-07-26 22:18:37.279211
+1337	13	404	2013-07-26 22:18:37.281968	2013-07-26 22:18:37.281968
+1338	3	404	2013-07-26 22:18:37.284688	2013-07-26 22:18:37.284688
+1339	2	405	2013-07-26 22:18:38.266083	2013-07-26 22:18:38.266083
+1340	6	405	2013-07-26 22:18:38.268823	2013-07-26 22:18:38.268823
+1341	7	405	2013-07-26 22:18:38.271502	2013-07-26 22:18:38.271502
+1342	12	405	2013-07-26 22:18:38.274133	2013-07-26 22:18:38.274133
+1343	2	406	2013-07-26 22:18:38.87909	2013-07-26 22:18:38.87909
+1344	15	406	2013-07-26 22:18:38.88184	2013-07-26 22:18:38.88184
+1345	14	406	2013-07-26 22:18:38.884574	2013-07-26 22:18:38.884574
+1346	9	407	2013-07-26 22:18:39.462051	2013-07-26 22:18:39.462051
+1347	5	408	2013-07-26 22:18:39.99715	2013-07-26 22:18:39.99715
+1348	2	408	2013-07-26 22:18:40.000171	2013-07-26 22:18:40.000171
+1349	2	410	2013-07-26 22:18:41.682004	2013-07-26 22:18:41.682004
+1350	16	410	2013-07-26 22:18:41.686158	2013-07-26 22:18:41.686158
+1351	7	410	2013-07-26 22:18:41.689996	2013-07-26 22:18:41.689996
+1352	6	411	2013-07-26 22:18:42.214386	2013-07-26 22:18:42.214386
+1353	5	411	2013-07-26 22:18:42.217818	2013-07-26 22:18:42.217818
+1354	8	412	2013-07-26 22:18:42.739161	2013-07-26 22:18:42.739161
+1355	2	412	2013-07-26 22:18:42.742598	2013-07-26 22:18:42.742598
+1356	14	412	2013-07-26 22:18:42.746215	2013-07-26 22:18:42.746215
+1357	2	413	2013-07-26 22:18:43.349142	2013-07-26 22:18:43.349142
+1358	3	413	2013-07-26 22:18:43.352478	2013-07-26 22:18:43.352478
+1359	14	413	2013-07-26 22:18:43.356099	2013-07-26 22:18:43.356099
+1360	2	414	2013-07-26 22:18:44.055628	2013-07-26 22:18:44.055628
+1361	3	414	2013-07-26 22:18:44.058433	2013-07-26 22:18:44.058433
+1362	7	414	2013-07-26 22:18:44.062938	2013-07-26 22:18:44.062938
+1363	5	415	2013-07-26 22:18:44.915523	2013-07-26 22:18:44.915523
+1364	14	415	2013-07-26 22:18:44.918867	2013-07-26 22:18:44.918867
+1365	2	416	2013-07-26 22:18:46.008718	2013-07-26 22:18:46.008718
+1366	4	416	2013-07-26 22:18:46.011848	2013-07-26 22:18:46.011848
+1367	14	417	2013-07-26 22:18:46.605234	2013-07-26 22:18:46.605234
+1368	2	417	2013-07-26 22:18:46.608004	2013-07-26 22:18:46.608004
+1369	20	417	2013-07-26 22:18:46.61069	2013-07-26 22:18:46.61069
+1370	8	418	2013-07-26 22:18:47.335559	2013-07-26 22:18:47.335559
+1371	2	418	2013-07-26 22:18:47.338582	2013-07-26 22:18:47.338582
+1372	3	418	2013-07-26 22:18:47.341393	2013-07-26 22:18:47.341393
+1373	17	418	2013-07-26 22:18:47.344107	2013-07-26 22:18:47.344107
+1374	2	419	2013-07-26 22:18:47.876818	2013-07-26 22:18:47.876818
+1375	18	419	2013-07-26 22:18:47.87989	2013-07-26 22:18:47.87989
+1376	4	419	2013-07-26 22:18:47.883361	2013-07-26 22:18:47.883361
+1377	2	420	2013-07-26 22:18:49.002293	2013-07-26 22:18:49.002293
+1378	6	420	2013-07-26 22:18:49.005321	2013-07-26 22:18:49.005321
+1379	7	420	2013-07-26 22:18:49.008331	2013-07-26 22:18:49.008331
+1380	6	421	2013-07-26 22:18:49.715747	2013-07-26 22:18:49.715747
+1381	10	421	2013-07-26 22:18:49.719253	2013-07-26 22:18:49.719253
+1382	26	421	2013-07-26 22:18:49.722395	2013-07-26 22:18:49.722395
+1383	2	422	2013-07-26 22:18:51.025632	2013-07-26 22:18:51.025632
+1384	5	422	2013-07-26 22:18:51.029628	2013-07-26 22:18:51.029628
+1385	14	422	2013-07-26 22:18:51.033809	2013-07-26 22:18:51.033809
+1386	3	422	2013-07-26 22:18:51.037447	2013-07-26 22:18:51.037447
+1387	2	423	2013-07-26 22:18:51.650745	2013-07-26 22:18:51.650745
+1388	8	423	2013-07-26 22:18:51.653604	2013-07-26 22:18:51.653604
+1389	3	423	2013-07-26 22:18:51.656332	2013-07-26 22:18:51.656332
+1390	2	424	2013-07-26 22:18:52.263828	2013-07-26 22:18:52.263828
+1391	18	424	2013-07-26 22:18:52.267105	2013-07-26 22:18:52.267105
+1392	14	424	2013-07-26 22:18:52.270672	2013-07-26 22:18:52.270672
+1393	3	424	2013-07-26 22:18:52.27415	2013-07-26 22:18:52.27415
+1394	7	425	2013-07-26 22:18:52.797043	2013-07-26 22:18:52.797043
+1395	10	426	2013-07-26 22:18:53.997456	2013-07-26 22:18:53.997456
+1396	11	426	2013-07-26 22:18:54.00059	2013-07-26 22:18:54.00059
+1397	6	426	2013-07-26 22:18:54.00329	2013-07-26 22:18:54.00329
+1398	12	426	2013-07-26 22:18:54.006299	2013-07-26 22:18:54.006299
+1399	6	427	2013-07-26 22:18:54.766523	2013-07-26 22:18:54.766523
+1400	10	427	2013-07-26 22:18:54.770097	2013-07-26 22:18:54.770097
+1401	2	427	2013-07-26 22:18:54.773118	2013-07-26 22:18:54.773118
+1402	12	427	2013-07-26 22:18:54.776505	2013-07-26 22:18:54.776505
+1403	11	427	2013-07-26 22:18:54.779908	2013-07-26 22:18:54.779908
+1404	8	427	2013-07-26 22:18:54.783097	2013-07-26 22:18:54.783097
+1405	11	428	2013-07-26 22:18:55.538496	2013-07-26 22:18:55.538496
+1406	2	428	2013-07-26 22:18:55.541957	2013-07-26 22:18:55.541957
+1407	6	428	2013-07-26 22:18:55.545587	2013-07-26 22:18:55.545587
+1408	7	428	2013-07-26 22:18:55.549682	2013-07-26 22:18:55.549682
+1409	12	428	2013-07-26 22:18:55.554419	2013-07-26 22:18:55.554419
+1410	8	429	2013-07-26 22:18:56.138606	2013-07-26 22:18:56.138606
+1411	2	429	2013-07-26 22:18:56.141509	2013-07-26 22:18:56.141509
+1412	7	429	2013-07-26 22:18:56.144219	2013-07-26 22:18:56.144219
+1413	11	430	2013-07-26 22:18:56.88974	2013-07-26 22:18:56.88974
+1414	2	430	2013-07-26 22:18:56.892458	2013-07-26 22:18:56.892458
+1415	6	430	2013-07-26 22:18:56.895121	2013-07-26 22:18:56.895121
+1416	7	430	2013-07-26 22:18:56.89794	2013-07-26 22:18:56.89794
+1417	17	430	2013-07-26 22:18:56.901335	2013-07-26 22:18:56.901335
+1418	6	431	2013-07-26 22:18:57.62671	2013-07-26 22:18:57.62671
+1419	7	431	2013-07-26 22:18:57.63064	2013-07-26 22:18:57.63064
+1420	10	432	2013-07-26 22:18:58.485233	2013-07-26 22:18:58.485233
+1421	6	432	2013-07-26 22:18:58.488322	2013-07-26 22:18:58.488322
+1422	7	432	2013-07-26 22:18:58.491211	2013-07-26 22:18:58.491211
+1423	12	432	2013-07-26 22:18:58.493909	2013-07-26 22:18:58.493909
+1424	10	433	2013-07-26 22:18:59.325012	2013-07-26 22:18:59.325012
+1425	11	433	2013-07-26 22:18:59.328486	2013-07-26 22:18:59.328486
+1426	16	433	2013-07-26 22:18:59.333051	2013-07-26 22:18:59.333051
+1427	6	433	2013-07-26 22:18:59.337319	2013-07-26 22:18:59.337319
+1428	7	433	2013-07-26 22:18:59.341217	2013-07-26 22:18:59.341217
+1429	16	434	2013-07-26 22:19:00.075928	2013-07-26 22:19:00.075928
+1430	17	434	2013-07-26 22:19:00.078783	2013-07-26 22:19:00.078783
+1431	21	434	2013-07-26 22:19:00.081517	2013-07-26 22:19:00.081517
+1432	7	434	2013-07-26 22:19:00.084634	2013-07-26 22:19:00.084634
+1433	21	435	2013-07-26 22:19:01.405867	2013-07-26 22:19:01.405867
+1434	7	435	2013-07-26 22:19:01.408986	2013-07-26 22:19:01.408986
+1435	2	436	2013-07-26 22:19:02.144014	2013-07-26 22:19:02.144014
+1436	18	436	2013-07-26 22:19:02.146875	2013-07-26 22:19:02.146875
+1437	26	436	2013-07-26 22:19:02.149766	2013-07-26 22:19:02.149766
+1438	2	437	2013-07-26 22:19:03.246014	2013-07-26 22:19:03.246014
+1439	2	438	2013-07-26 22:19:03.98489	2013-07-26 22:19:03.98489
+1440	16	438	2013-07-26 22:19:03.987742	2013-07-26 22:19:03.987742
+1441	21	438	2013-07-26 22:19:03.990589	2013-07-26 22:19:03.990589
+1442	7	438	2013-07-26 22:19:03.993415	2013-07-26 22:19:03.993415
+1443	2	439	2013-07-26 22:19:04.60627	2013-07-26 22:19:04.60627
+1444	16	439	2013-07-26 22:19:04.609302	2013-07-26 22:19:04.609302
+1445	7	439	2013-07-26 22:19:04.612856	2013-07-26 22:19:04.612856
+1446	14	439	2013-07-26 22:19:04.616344	2013-07-26 22:19:04.616344
+1447	3	439	2013-07-26 22:19:04.619494	2013-07-26 22:19:04.619494
+1448	8	440	2013-07-26 22:19:05.36123	2013-07-26 22:19:05.36123
+1449	2	440	2013-07-26 22:19:05.364037	2013-07-26 22:19:05.364037
+1450	3	440	2013-07-26 22:19:05.367124	2013-07-26 22:19:05.367124
+1451	17	440	2013-07-26 22:19:05.370423	2013-07-26 22:19:05.370423
+1452	21	440	2013-07-26 22:19:05.373364	2013-07-26 22:19:05.373364
+1453	7	440	2013-07-26 22:19:05.376783	2013-07-26 22:19:05.376783
+1454	10	441	2013-07-26 22:19:06.127889	2013-07-26 22:19:06.127889
+1455	8	441	2013-07-26 22:19:06.130674	2013-07-26 22:19:06.130674
+1456	2	441	2013-07-26 22:19:06.133602	2013-07-26 22:19:06.133602
+1457	17	441	2013-07-26 22:19:06.136914	2013-07-26 22:19:06.136914
+1458	21	441	2013-07-26 22:19:06.139977	2013-07-26 22:19:06.139977
+1459	7	441	2013-07-26 22:19:06.143374	2013-07-26 22:19:06.143374
+1460	2	442	2013-07-26 22:19:06.76455	2013-07-26 22:19:06.76455
+1461	3	442	2013-07-26 22:19:06.767748	2013-07-26 22:19:06.767748
+1462	7	442	2013-07-26 22:19:06.770937	2013-07-26 22:19:06.770937
+1463	6	443	2013-07-26 22:19:07.428859	2013-07-26 22:19:07.428859
+1464	2	443	2013-07-26 22:19:07.432681	2013-07-26 22:19:07.432681
+1465	20	443	2013-07-26 22:19:07.436275	2013-07-26 22:19:07.436275
+1466	11	444	2013-07-26 22:19:08.108891	2013-07-26 22:19:08.108891
+1467	2	444	2013-07-26 22:19:08.111689	2013-07-26 22:19:08.111689
+1468	5	444	2013-07-26 22:19:08.114441	2013-07-26 22:19:08.114441
+1469	7	444	2013-07-26 22:19:08.117594	2013-07-26 22:19:08.117594
+1470	12	444	2013-07-26 22:19:08.120656	2013-07-26 22:19:08.120656
+1471	3	444	2013-07-26 22:19:08.123444	2013-07-26 22:19:08.123444
+1472	16	445	2013-07-26 22:19:08.992728	2013-07-26 22:19:08.992728
+1473	7	445	2013-07-26 22:19:08.995574	2013-07-26 22:19:08.995574
+1474	6	446	2013-07-26 22:19:09.78797	2013-07-26 22:19:09.78797
+1475	16	446	2013-07-26 22:19:09.792201	2013-07-26 22:19:09.792201
+1476	21	446	2013-07-26 22:19:09.796758	2013-07-26 22:19:09.796758
+1477	7	446	2013-07-26 22:19:09.800395	2013-07-26 22:19:09.800395
+1478	10	447	2013-07-26 22:19:10.411973	2013-07-26 22:19:10.411973
+1479	16	447	2013-07-26 22:19:10.414817	2013-07-26 22:19:10.414817
+1480	6	447	2013-07-26 22:19:10.417811	2013-07-26 22:19:10.417811
+1481	7	447	2013-07-26 22:19:10.421092	2013-07-26 22:19:10.421092
+1482	6	448	2013-07-26 22:19:11.158855	2013-07-26 22:19:11.158855
+1483	10	448	2013-07-26 22:19:11.161779	2013-07-26 22:19:11.161779
+1484	2	448	2013-07-26 22:19:11.164606	2013-07-26 22:19:11.164606
+1485	20	448	2013-07-26 22:19:11.167603	2013-07-26 22:19:11.167603
+1486	2	449	2013-07-26 22:19:11.855824	2013-07-26 22:19:11.855824
+1487	6	449	2013-07-26 22:19:11.859221	2013-07-26 22:19:11.859221
+1488	7	449	2013-07-26 22:19:11.86226	2013-07-26 22:19:11.86226
+1489	3	449	2013-07-26 22:19:11.86497	2013-07-26 22:19:11.86497
+1490	5	450	2013-07-26 22:19:12.59069	2013-07-26 22:19:12.59069
+1491	3	450	2013-07-26 22:19:12.594667	2013-07-26 22:19:12.594667
+1492	6	451	2013-07-26 22:19:13.541597	2013-07-26 22:19:13.541597
+1493	10	451	2013-07-26 22:19:13.544516	2013-07-26 22:19:13.544516
+1494	8	451	2013-07-26 22:19:13.547223	2013-07-26 22:19:13.547223
+1495	7	451	2013-07-26 22:19:13.550608	2013-07-26 22:19:13.550608
+1496	11	452	2013-07-26 22:19:14.978407	2013-07-26 22:19:14.978407
+1497	1	452	2013-07-26 22:19:14.981751	2013-07-26 22:19:14.981751
+1498	12	452	2013-07-26 22:19:14.985619	2013-07-26 22:19:14.985619
+1499	13	452	2013-07-26 22:19:14.989418	2013-07-26 22:19:14.989418
+1500	5	453	2013-07-26 22:19:15.654363	2013-07-26 22:19:15.654363
+1501	2	453	2013-07-26 22:19:15.657245	2013-07-26 22:19:15.657245
+1502	10	454	2013-07-26 22:19:16.841878	2013-07-26 22:19:16.841878
+1503	11	454	2013-07-26 22:19:16.845299	2013-07-26 22:19:16.845299
+1504	2	454	2013-07-26 22:19:16.849769	2013-07-26 22:19:16.849769
+1505	12	454	2013-07-26 22:19:16.853262	2013-07-26 22:19:16.853262
+1506	10	455	2013-07-26 22:19:17.620567	2013-07-26 22:19:17.620567
+1507	16	455	2013-07-26 22:19:17.623859	2013-07-26 22:19:17.623859
+1508	7	455	2013-07-26 22:19:17.626732	2013-07-26 22:19:17.626732
+1509	2	456	2013-07-26 22:19:19.361968	2013-07-26 22:19:19.361968
+1510	17	457	2013-07-26 22:19:20.295691	2013-07-26 22:19:20.295691
+1511	7	457	2013-07-26 22:19:20.298496	2013-07-26 22:19:20.298496
+1512	8	458	2013-07-26 22:19:21.076	2013-07-26 22:19:21.076
+1513	2	458	2013-07-26 22:19:21.078719	2013-07-26 22:19:21.078719
+1514	17	458	2013-07-26 22:19:21.08143	2013-07-26 22:19:21.08143
+1515	21	458	2013-07-26 22:19:21.084273	2013-07-26 22:19:21.084273
+1516	7	458	2013-07-26 22:19:21.087078	2013-07-26 22:19:21.087078
+1517	2	459	2013-07-26 22:19:22.124243	2013-07-26 22:19:22.124243
+1518	12	459	2013-07-26 22:19:22.127103	2013-07-26 22:19:22.127103
+1519	3	459	2013-07-26 22:19:22.129902	2013-07-26 22:19:22.129902
+1520	10	459	2013-07-26 22:19:22.132798	2013-07-26 22:19:22.132798
+1521	17	459	2013-07-26 22:19:22.135691	2013-07-26 22:19:22.135691
+1522	5	460	2013-07-26 22:19:23.022357	2013-07-26 22:19:23.022357
+1523	2	460	2013-07-26 22:19:23.025623	2013-07-26 22:19:23.025623
+1524	14	460	2013-07-26 22:19:23.02869	2013-07-26 22:19:23.02869
+1525	8	461	2013-07-26 22:19:23.71458	2013-07-26 22:19:23.71458
+1526	2	461	2013-07-26 22:19:23.717412	2013-07-26 22:19:23.717412
+1527	17	461	2013-07-26 22:19:23.720384	2013-07-26 22:19:23.720384
+1528	2	462	2013-07-26 22:19:24.390158	2013-07-26 22:19:24.390158
+1529	24	462	2013-07-26 22:19:24.393052	2013-07-26 22:19:24.393052
+1530	6	463	2013-07-26 22:19:25.159375	2013-07-26 22:19:25.159375
+1531	26	463	2013-07-26 22:19:25.162185	2013-07-26 22:19:25.162185
+1532	2	463	2013-07-26 22:19:25.164863	2013-07-26 22:19:25.164863
+1533	14	463	2013-07-26 22:19:25.167557	2013-07-26 22:19:25.167557
+1534	2	464	2013-07-26 22:19:26.292148	2013-07-26 22:19:26.292148
+1535	6	464	2013-07-26 22:19:26.295036	2013-07-26 22:19:26.295036
+1536	8	464	2013-07-26 22:19:26.297997	2013-07-26 22:19:26.297997
+1537	3	464	2013-07-26 22:19:26.300696	2013-07-26 22:19:26.300696
+1538	2	465	2013-07-26 22:19:27.012967	2013-07-26 22:19:27.012967
+1539	14	465	2013-07-26 22:19:27.015887	2013-07-26 22:19:27.015887
+1540	27	465	2013-07-26 22:19:27.018907	2013-07-26 22:19:27.018907
+1541	2	466	2013-07-26 22:19:27.889202	2013-07-26 22:19:27.889202
+1542	18	466	2013-07-26 22:19:27.892184	2013-07-26 22:19:27.892184
+1543	19	466	2013-07-26 22:19:27.895116	2013-07-26 22:19:27.895116
+1544	3	466	2013-07-26 22:19:27.897864	2013-07-26 22:19:27.897864
+1545	2	467	2013-07-26 22:19:28.638753	2013-07-26 22:19:28.638753
+1546	13	467	2013-07-26 22:19:28.641967	2013-07-26 22:19:28.641967
+1547	12	467	2013-07-26 22:19:28.645044	2013-07-26 22:19:28.645044
+1548	6	468	2013-07-26 22:19:29.880748	2013-07-26 22:19:29.880748
+1549	10	468	2013-07-26 22:19:29.884616	2013-07-26 22:19:29.884616
+1550	12	468	2013-07-26 22:19:29.890543	2013-07-26 22:19:29.890543
+1551	10	469	2013-07-26 22:19:30.836134	2013-07-26 22:19:30.836134
+1552	6	469	2013-07-26 22:19:30.840339	2013-07-26 22:19:30.840339
+1553	7	469	2013-07-26 22:19:30.844768	2013-07-26 22:19:30.844768
+1554	12	469	2013-07-26 22:19:30.848945	2013-07-26 22:19:30.848945
+1555	10	470	2013-07-26 22:19:31.760891	2013-07-26 22:19:31.760891
+1556	6	470	2013-07-26 22:19:31.763736	2013-07-26 22:19:31.763736
+1557	7	470	2013-07-26 22:19:31.766444	2013-07-26 22:19:31.766444
+1558	12	470	2013-07-26 22:19:31.769178	2013-07-26 22:19:31.769178
+1559	10	471	2013-07-26 22:19:32.543737	2013-07-26 22:19:32.543737
+1560	6	471	2013-07-26 22:19:32.546751	2013-07-26 22:19:32.546751
+1561	7	471	2013-07-26 22:19:32.549453	2013-07-26 22:19:32.549453
+1562	12	471	2013-07-26 22:19:32.552974	2013-07-26 22:19:32.552974
+1563	2	472	2013-07-26 22:19:33.222288	2013-07-26 22:19:33.222288
+1564	14	472	2013-07-26 22:19:33.225301	2013-07-26 22:19:33.225301
+1565	6	473	2013-07-26 22:19:34.272917	2013-07-26 22:19:34.272917
+1566	10	473	2013-07-26 22:19:34.276327	2013-07-26 22:19:34.276327
+1567	5	473	2013-07-26 22:19:34.280152	2013-07-26 22:19:34.280152
+1568	12	473	2013-07-26 22:19:34.283084	2013-07-26 22:19:34.283084
+1569	6	474	2013-07-26 22:19:35.108201	2013-07-26 22:19:35.108201
+1570	10	474	2013-07-26 22:19:35.111613	2013-07-26 22:19:35.111613
+1571	5	474	2013-07-26 22:19:35.11452	2013-07-26 22:19:35.11452
+1572	12	474	2013-07-26 22:19:35.117255	2013-07-26 22:19:35.117255
+1573	16	475	2013-07-26 22:19:35.831352	2013-07-26 22:19:35.831352
+1574	2	476	2013-07-26 22:19:37.463922	2013-07-26 22:19:37.463922
+1575	6	476	2013-07-26 22:19:37.466754	2013-07-26 22:19:37.466754
+1576	18	476	2013-07-26 22:19:37.469547	2013-07-26 22:19:37.469547
+1577	7	476	2013-07-26 22:19:37.472622	2013-07-26 22:19:37.472622
+1578	2	477	2013-07-26 22:19:38.265785	2013-07-26 22:19:38.265785
+1579	3	477	2013-07-26 22:19:38.268727	2013-07-26 22:19:38.268727
+1580	18	477	2013-07-26 22:19:38.271526	2013-07-26 22:19:38.271526
+1581	2	478	2013-07-26 22:19:38.897348	2013-07-26 22:19:38.897348
+1582	3	478	2013-07-26 22:19:38.900281	2013-07-26 22:19:38.900281
+1583	18	479	2013-07-26 22:19:39.59156	2013-07-26 22:19:39.59156
+1584	2	479	2013-07-26 22:19:39.594588	2013-07-26 22:19:39.594588
+1585	2	480	2013-07-26 22:19:40.470793	2013-07-26 22:19:40.470793
+1586	6	480	2013-07-26 22:19:40.473627	2013-07-26 22:19:40.473627
+1587	10	480	2013-07-26 22:19:40.476649	2013-07-26 22:19:40.476649
+1588	7	481	2013-07-26 22:19:41.142763	2013-07-26 22:19:41.142763
+1589	8	481	2013-07-26 22:19:41.146072	2013-07-26 22:19:41.146072
+1590	17	481	2013-07-26 22:19:41.14892	2013-07-26 22:19:41.14892
+1591	14	481	2013-07-26 22:19:41.152419	2013-07-26 22:19:41.152419
+1592	2	482	2013-07-26 22:19:41.698006	2013-07-26 22:19:41.698006
+1593	18	482	2013-07-26 22:19:41.701208	2013-07-26 22:19:41.701208
+1594	2	483	2013-07-26 22:19:42.36294	2013-07-26 22:19:42.36294
+1595	7	483	2013-07-26 22:19:42.365951	2013-07-26 22:19:42.365951
+1596	15	483	2013-07-26 22:19:42.368988	2013-07-26 22:19:42.368988
+1597	14	483	2013-07-26 22:19:42.37202	2013-07-26 22:19:42.37202
+1598	11	484	2013-07-26 22:19:43.508482	2013-07-26 22:19:43.508482
+1599	6	484	2013-07-26 22:19:43.511937	2013-07-26 22:19:43.511937
+1600	5	484	2013-07-26 22:19:43.51476	2013-07-26 22:19:43.51476
+1601	12	484	2013-07-26 22:19:43.51758	2013-07-26 22:19:43.51758
+1602	13	484	2013-07-26 22:19:43.520332	2013-07-26 22:19:43.520332
+1603	2	485	2013-07-26 22:19:44.307564	2013-07-26 22:19:44.307564
+1604	5	485	2013-07-26 22:19:44.310378	2013-07-26 22:19:44.310378
+1605	15	485	2013-07-26 22:19:44.313979	2013-07-26 22:19:44.313979
+1606	14	485	2013-07-26 22:19:44.317212	2013-07-26 22:19:44.317212
+1607	13	485	2013-07-26 22:19:44.320143	2013-07-26 22:19:44.320143
+1608	16	486	2013-07-26 22:19:45.138055	2013-07-26 22:19:45.138055
+1609	17	486	2013-07-26 22:19:45.14101	2013-07-26 22:19:45.14101
+1610	7	486	2013-07-26 22:19:45.14376	2013-07-26 22:19:45.14376
+1611	5	487	2013-07-26 22:19:45.900833	2013-07-26 22:19:45.900833
+1612	8	487	2013-07-26 22:19:45.903781	2013-07-26 22:19:45.903781
+1613	3	487	2013-07-26 22:19:45.906641	2013-07-26 22:19:45.906641
+1614	6	488	2013-07-26 22:19:46.60524	2013-07-26 22:19:46.60524
+1615	10	488	2013-07-26 22:19:46.608985	2013-07-26 22:19:46.608985
+1616	8	488	2013-07-26 22:19:46.612735	2013-07-26 22:19:46.612735
+1617	2	488	2013-07-26 22:19:46.616743	2013-07-26 22:19:46.616743
+1618	4	488	2013-07-26 22:19:46.621396	2013-07-26 22:19:46.621396
+1619	2	489	2013-07-26 22:19:47.273429	2013-07-26 22:19:47.273429
+1620	3	489	2013-07-26 22:19:47.276413	2013-07-26 22:19:47.276413
+1621	18	489	2013-07-26 22:19:47.279539	2013-07-26 22:19:47.279539
+1622	2	490	2013-07-26 22:19:48.81531	2013-07-26 22:19:48.81531
+1623	5	490	2013-07-26 22:19:48.818375	2013-07-26 22:19:48.818375
+1624	3	490	2013-07-26 22:19:48.821142	2013-07-26 22:19:48.821142
+1625	2	491	2013-07-26 22:19:49.526552	2013-07-26 22:19:49.526552
+1626	11	491	2013-07-26 22:19:49.529519	2013-07-26 22:19:49.529519
+1627	16	491	2013-07-26 22:19:49.532551	2013-07-26 22:19:49.532551
+1628	8	492	2013-07-26 22:19:50.345887	2013-07-26 22:19:50.345887
+1629	17	492	2013-07-26 22:19:50.349068	2013-07-26 22:19:50.349068
+1630	7	492	2013-07-26 22:19:50.351975	2013-07-26 22:19:50.351975
+1631	10	493	2013-07-26 22:19:51.248672	2013-07-26 22:19:51.248672
+1632	13	493	2013-07-26 22:19:51.252166	2013-07-26 22:19:51.252166
+1633	11	493	2013-07-26 22:19:51.256452	2013-07-26 22:19:51.256452
+1634	12	493	2013-07-26 22:19:51.261122	2013-07-26 22:19:51.261122
+1635	23	493	2013-07-26 22:19:51.266817	2013-07-26 22:19:51.266817
+1636	15	493	2013-07-26 22:19:51.270553	2013-07-26 22:19:51.270553
+1637	2	494	2013-07-26 22:19:52.560506	2013-07-26 22:19:52.560506
+1638	16	494	2013-07-26 22:19:52.563615	2013-07-26 22:19:52.563615
+1639	8	494	2013-07-26 22:19:52.566693	2013-07-26 22:19:52.566693
+1640	14	494	2013-07-26 22:19:52.569518	2013-07-26 22:19:52.569518
+1641	2	495	2013-07-26 22:19:54.085195	2013-07-26 22:19:54.085195
+1642	18	495	2013-07-26 22:19:54.087993	2013-07-26 22:19:54.087993
+1643	14	495	2013-07-26 22:19:54.090819	2013-07-26 22:19:54.090819
+1644	19	495	2013-07-26 22:19:54.093651	2013-07-26 22:19:54.093651
+1645	2	496	2013-07-26 22:19:55.053692	2013-07-26 22:19:55.053692
+1646	18	496	2013-07-26 22:19:55.057483	2013-07-26 22:19:55.057483
+1647	7	496	2013-07-26 22:19:55.061551	2013-07-26 22:19:55.061551
+1648	5	497	2013-07-26 22:19:55.850465	2013-07-26 22:19:55.850465
+1649	14	497	2013-07-26 22:19:55.853692	2013-07-26 22:19:55.853692
+1650	3	497	2013-07-26 22:19:55.856638	2013-07-26 22:19:55.856638
+1651	16	498	2013-07-26 22:19:56.595983	2013-07-26 22:19:56.595983
+1652	17	498	2013-07-26 22:19:56.599102	2013-07-26 22:19:56.599102
+1653	7	498	2013-07-26 22:19:56.602066	2013-07-26 22:19:56.602066
+1654	2	499	2013-07-26 22:19:57.261442	2013-07-26 22:19:57.261442
+1655	7	499	2013-07-26 22:19:57.264209	2013-07-26 22:19:57.264209
+1656	12	499	2013-07-26 22:19:57.267357	2013-07-26 22:19:57.267357
+1657	17	499	2013-07-26 22:19:57.270391	2013-07-26 22:19:57.270391
+1658	5	500	2013-07-26 22:19:57.992921	2013-07-26 22:19:57.992921
+1659	2	500	2013-07-26 22:19:57.995718	2013-07-26 22:19:57.995718
+1660	3	500	2013-07-26 22:19:57.998822	2013-07-26 22:19:57.998822
+1661	2	501	2013-07-26 22:19:58.851304	2013-07-26 22:19:58.851304
+1662	7	501	2013-07-26 22:19:58.85489	2013-07-26 22:19:58.85489
+1663	17	501	2013-07-26 22:19:58.858863	2013-07-26 22:19:58.858863
+1664	14	501	2013-07-26 22:19:58.862076	2013-07-26 22:19:58.862076
+1665	5	502	2013-07-26 22:19:59.651305	2013-07-26 22:19:59.651305
+1666	14	502	2013-07-26 22:19:59.654286	2013-07-26 22:19:59.654286
+1667	2	502	2013-07-26 22:19:59.657011	2013-07-26 22:19:59.657011
+1668	2	503	2013-07-26 22:20:00.654461	2013-07-26 22:20:00.654461
+1669	5	503	2013-07-26 22:20:00.657355	2013-07-26 22:20:00.657355
+1670	8	503	2013-07-26 22:20:00.660077	2013-07-26 22:20:00.660077
+1671	2	504	2013-07-26 22:20:01.544729	2013-07-26 22:20:01.544729
+1672	6	505	2013-07-26 22:20:02.262583	2013-07-26 22:20:02.262583
+1673	10	505	2013-07-26 22:20:02.265513	2013-07-26 22:20:02.265513
+1674	5	505	2013-07-26 22:20:02.268407	2013-07-26 22:20:02.268407
+1675	2	505	2013-07-26 22:20:02.271236	2013-07-26 22:20:02.271236
+1676	20	505	2013-07-26 22:20:02.274086	2013-07-26 22:20:02.274086
+1677	2	506	2013-07-26 22:20:03.193613	2013-07-26 22:20:03.193613
+1678	3	506	2013-07-26 22:20:03.196375	2013-07-26 22:20:03.196375
+1679	18	506	2013-07-26 22:20:03.199159	2013-07-26 22:20:03.199159
+1680	2	507	2013-07-26 22:20:04.115256	2013-07-26 22:20:04.115256
+1681	16	507	2013-07-26 22:20:04.11854	2013-07-26 22:20:04.11854
+1682	12	507	2013-07-26 22:20:04.121612	2013-07-26 22:20:04.121612
+1683	10	508	2013-07-26 22:20:05.829941	2013-07-26 22:20:05.829941
+1684	6	508	2013-07-26 22:20:05.832738	2013-07-26 22:20:05.832738
+1685	7	508	2013-07-26 22:20:05.835781	2013-07-26 22:20:05.835781
+1686	3	508	2013-07-26 22:20:05.838947	2013-07-26 22:20:05.838947
+1687	1	509	2013-07-26 22:20:06.595901	2013-07-26 22:20:06.595901
+1688	11	509	2013-07-26 22:20:06.598711	2013-07-26 22:20:06.598711
+1689	6	509	2013-07-26 22:20:06.60193	2013-07-26 22:20:06.60193
+1690	12	509	2013-07-26 22:20:06.604822	2013-07-26 22:20:06.604822
+1691	2	510	2013-07-26 22:20:07.763079	2013-07-26 22:20:07.763079
+1692	11	510	2013-07-26 22:20:07.76617	2013-07-26 22:20:07.76617
+1693	3	510	2013-07-26 22:20:07.769393	2013-07-26 22:20:07.769393
+1694	14	510	2013-07-26 22:20:07.772138	2013-07-26 22:20:07.772138
+1695	12	510	2013-07-26 22:20:07.775175	2013-07-26 22:20:07.775175
+1696	2	511	2013-07-26 22:20:08.636187	2013-07-26 22:20:08.636187
+1697	3	511	2013-07-26 22:20:08.639199	2013-07-26 22:20:08.639199
+1698	4	511	2013-07-26 22:20:08.642095	2013-07-26 22:20:08.642095
+1699	14	511	2013-07-26 22:20:08.644941	2013-07-26 22:20:08.644941
+1700	8	512	2013-07-26 22:20:09.356258	2013-07-26 22:20:09.356258
+1701	2	512	2013-07-26 22:20:09.359074	2013-07-26 22:20:09.359074
+1702	5	513	2013-07-26 22:20:09.975473	2013-07-26 22:20:09.975473
+1703	2	513	2013-07-26 22:20:09.978262	2013-07-26 22:20:09.978262
+1704	18	513	2013-07-26 22:20:09.980967	2013-07-26 22:20:09.980967
+1705	10	514	2013-07-26 22:20:10.833701	2013-07-26 22:20:10.833701
+1706	2	514	2013-07-26 22:20:10.837249	2013-07-26 22:20:10.837249
+1707	6	514	2013-07-26 22:20:10.841013	2013-07-26 22:20:10.841013
+1708	18	514	2013-07-26 22:20:10.844547	2013-07-26 22:20:10.844547
+1709	9	514	2013-07-26 22:20:10.848032	2013-07-26 22:20:10.848032
+1710	11	515	2013-07-26 22:20:11.451887	2013-07-26 22:20:11.451887
+1711	16	515	2013-07-26 22:20:11.455448	2013-07-26 22:20:11.455448
+1712	8	516	2013-07-26 22:20:12.335323	2013-07-26 22:20:12.335323
+1713	2	516	2013-07-26 22:20:12.338378	2013-07-26 22:20:12.338378
+1714	14	516	2013-07-26 22:20:12.341282	2013-07-26 22:20:12.341282
+1715	2	517	2013-07-26 22:20:13.039197	2013-07-26 22:20:13.039197
+1716	4	517	2013-07-26 22:20:13.080055	2013-07-26 22:20:13.080055
+1717	17	517	2013-07-26 22:20:13.083163	2013-07-26 22:20:13.083163
+1718	14	517	2013-07-26 22:20:13.086286	2013-07-26 22:20:13.086286
+1719	6	518	2013-07-26 22:20:14.771317	2013-07-26 22:20:14.771317
+1720	7	518	2013-07-26 22:20:14.774359	2013-07-26 22:20:14.774359
+1721	3	518	2013-07-26 22:20:14.777045	2013-07-26 22:20:14.777045
+1722	10	519	2013-07-26 22:20:15.883336	2013-07-26 22:20:15.883336
+1723	6	519	2013-07-26 22:20:15.887364	2013-07-26 22:20:15.887364
+1724	7	519	2013-07-26 22:20:15.890898	2013-07-26 22:20:15.890898
+1725	3	519	2013-07-26 22:20:15.893755	2013-07-26 22:20:15.893755
+1726	2	520	2013-07-26 22:20:16.62128	2013-07-26 22:20:16.62128
+1727	3	520	2013-07-26 22:20:16.624502	2013-07-26 22:20:16.624502
+1728	18	520	2013-07-26 22:20:16.627298	2013-07-26 22:20:16.627298
+1729	4	520	2013-07-26 22:20:16.629996	2013-07-26 22:20:16.629996
+1730	19	520	2013-07-26 22:20:16.6327	2013-07-26 22:20:16.6327
+1731	10	521	2013-07-26 22:20:17.618305	2013-07-26 22:20:17.618305
+1732	6	521	2013-07-26 22:20:17.622063	2013-07-26 22:20:17.622063
+1733	7	521	2013-07-26 22:20:17.625195	2013-07-26 22:20:17.625195
+1734	3	521	2013-07-26 22:20:17.627977	2013-07-26 22:20:17.627977
+1735	2	522	2013-07-26 22:20:18.857021	2013-07-26 22:20:18.857021
+1736	16	523	2013-07-26 22:20:21.288023	2013-07-26 22:20:21.288023
+1737	7	523	2013-07-26 22:20:21.291297	2013-07-26 22:20:21.291297
+1738	6	524	2013-07-26 22:20:21.953156	2013-07-26 22:20:21.953156
+1739	10	524	2013-07-26 22:20:21.956675	2013-07-26 22:20:21.956675
+1740	26	524	2013-07-26 22:20:21.959866	2013-07-26 22:20:21.959866
+1741	2	524	2013-07-26 22:20:21.962688	2013-07-26 22:20:21.962688
+1742	10	525	2013-07-26 22:20:22.668319	2013-07-26 22:20:22.668319
+1743	2	525	2013-07-26 22:20:22.671057	2013-07-26 22:20:22.671057
+1744	6	525	2013-07-26 22:20:22.674125	2013-07-26 22:20:22.674125
+1745	18	525	2013-07-26 22:20:22.676894	2013-07-26 22:20:22.676894
+1746	2	526	2013-07-26 22:20:23.298179	2013-07-26 22:20:23.298179
+1747	3	526	2013-07-26 22:20:23.33966	2013-07-26 22:20:23.33966
+1748	24	526	2013-07-26 22:20:23.343323	2013-07-26 22:20:23.343323
+1749	6	527	2013-07-26 22:20:24.340158	2013-07-26 22:20:24.340158
+1750	7	527	2013-07-26 22:20:24.343185	2013-07-26 22:20:24.343185
+1751	3	527	2013-07-26 22:20:24.345904	2013-07-26 22:20:24.345904
+1752	10	528	2013-07-26 22:20:25.347341	2013-07-26 22:20:25.347341
+1753	6	528	2013-07-26 22:20:25.350325	2013-07-26 22:20:25.350325
+1754	7	528	2013-07-26 22:20:25.353045	2013-07-26 22:20:25.353045
+1755	3	528	2013-07-26 22:20:25.355626	2013-07-26 22:20:25.355626
+1756	9	529	2013-07-26 22:20:26.106543	2013-07-26 22:20:26.106543
+1757	2	530	2013-07-26 22:20:26.873507	2013-07-26 22:20:26.873507
+1758	3	530	2013-07-26 22:20:26.876582	2013-07-26 22:20:26.876582
+1759	7	530	2013-07-26 22:20:26.879302	2013-07-26 22:20:26.879302
+1760	10	531	2013-07-26 22:20:28.008291	2013-07-26 22:20:28.008291
+1761	11	531	2013-07-26 22:20:28.011287	2013-07-26 22:20:28.011287
+1762	12	531	2013-07-26 22:20:28.014242	2013-07-26 22:20:28.014242
+1763	13	531	2013-07-26 22:20:28.017041	2013-07-26 22:20:28.017041
+1764	10	532	2013-07-26 22:20:29.054556	2013-07-26 22:20:29.054556
+1765	11	532	2013-07-26 22:20:29.058033	2013-07-26 22:20:29.058033
+1766	12	532	2013-07-26 22:20:29.06135	2013-07-26 22:20:29.06135
+1767	13	532	2013-07-26 22:20:29.064199	2013-07-26 22:20:29.064199
+1768	10	533	2013-07-26 22:20:30.100438	2013-07-26 22:20:30.100438
+1769	11	533	2013-07-26 22:20:30.103862	2013-07-26 22:20:30.103862
+1770	12	533	2013-07-26 22:20:30.120042	2013-07-26 22:20:30.120042
+1771	13	533	2013-07-26 22:20:30.137327	2013-07-26 22:20:30.137327
+1772	10	534	2013-07-26 22:20:31.137798	2013-07-26 22:20:31.137798
+1773	11	534	2013-07-26 22:20:31.140783	2013-07-26 22:20:31.140783
+1774	12	534	2013-07-26 22:20:31.144118	2013-07-26 22:20:31.144118
+1775	13	534	2013-07-26 22:20:31.146897	2013-07-26 22:20:31.146897
+1776	10	535	2013-07-26 22:20:32.200062	2013-07-26 22:20:32.200062
+1777	11	535	2013-07-26 22:20:32.202931	2013-07-26 22:20:32.202931
+1778	12	535	2013-07-26 22:20:32.205743	2013-07-26 22:20:32.205743
+1779	13	535	2013-07-26 22:20:32.208634	2013-07-26 22:20:32.208634
+1780	2	536	2013-07-26 22:20:33.022344	2013-07-26 22:20:33.022344
+1781	6	536	2013-07-26 22:20:33.025514	2013-07-26 22:20:33.025514
+1782	18	536	2013-07-26 22:20:33.028843	2013-07-26 22:20:33.028843
+1783	14	536	2013-07-26 22:20:33.031894	2013-07-26 22:20:33.031894
+1784	19	536	2013-07-26 22:20:33.034886	2013-07-26 22:20:33.034886
+1785	9	537	2013-07-26 22:20:33.977319	2013-07-26 22:20:33.977319
+1786	2	538	2013-07-26 22:20:34.594802	2013-07-26 22:20:34.594802
+1787	17	538	2013-07-26 22:20:34.597836	2013-07-26 22:20:34.597836
+1788	7	538	2013-07-26 22:20:34.60078	2013-07-26 22:20:34.60078
+1789	27	538	2013-07-26 22:20:34.603611	2013-07-26 22:20:34.603611
+1790	16	539	2013-07-26 22:20:35.683986	2013-07-26 22:20:35.683986
+1791	6	539	2013-07-26 22:20:35.686979	2013-07-26 22:20:35.686979
+1792	7	539	2013-07-26 22:20:35.689918	2013-07-26 22:20:35.689918
+1793	12	539	2013-07-26 22:20:35.693203	2013-07-26 22:20:35.693203
+1794	6	540	2013-07-26 22:20:36.818198	2013-07-26 22:20:36.818198
+1795	7	540	2013-07-26 22:20:36.820969	2013-07-26 22:20:36.820969
+1796	8	540	2013-07-26 22:20:36.8238	2013-07-26 22:20:36.8238
+1797	10	541	2013-07-26 22:20:37.836512	2013-07-26 22:20:37.836512
+1798	6	541	2013-07-26 22:20:37.839391	2013-07-26 22:20:37.839391
+1799	7	541	2013-07-26 22:20:37.842166	2013-07-26 22:20:37.842166
+1800	12	541	2013-07-26 22:20:37.845312	2013-07-26 22:20:37.845312
+1801	3	541	2013-07-26 22:20:37.848362	2013-07-26 22:20:37.848362
+1802	10	542	2013-07-26 22:20:38.883883	2013-07-26 22:20:38.883883
+1803	6	542	2013-07-26 22:20:38.886779	2013-07-26 22:20:38.886779
+1804	5	542	2013-07-26 22:20:38.889867	2013-07-26 22:20:38.889867
+1805	7	542	2013-07-26 22:20:38.893134	2013-07-26 22:20:38.893134
+1806	3	542	2013-07-26 22:20:38.896574	2013-07-26 22:20:38.896574
+1807	9	543	2013-07-26 22:20:40.950227	2013-07-26 22:20:40.950227
+1808	2	544	2013-07-26 22:20:41.596831	2013-07-26 22:20:41.596831
+1809	12	544	2013-07-26 22:20:41.599936	2013-07-26 22:20:41.599936
+1810	17	544	2013-07-26 22:20:41.602797	2013-07-26 22:20:41.602797
+1811	8	545	2013-07-26 22:20:42.673228	2013-07-26 22:20:42.673228
+1812	2	545	2013-07-26 22:20:42.676877	2013-07-26 22:20:42.676877
+1813	2	546	2013-07-26 22:20:43.759942	2013-07-26 22:20:43.759942
+1814	14	546	2013-07-26 22:20:43.763359	2013-07-26 22:20:43.763359
+1815	2	547	2013-07-26 22:20:44.589385	2013-07-26 22:20:44.589385
+1816	8	548	2013-07-26 22:20:45.49033	2013-07-26 22:20:45.49033
+1817	2	548	2013-07-26 22:20:45.493424	2013-07-26 22:20:45.493424
+1818	3	548	2013-07-26 22:20:45.496476	2013-07-26 22:20:45.496476
+1819	4	548	2013-07-26 22:20:45.499408	2013-07-26 22:20:45.499408
+1820	10	549	2013-07-26 22:20:46.510096	2013-07-26 22:20:46.510096
+1821	6	549	2013-07-26 22:20:46.513665	2013-07-26 22:20:46.513665
+1822	7	549	2013-07-26 22:20:46.516785	2013-07-26 22:20:46.516785
+1823	3	549	2013-07-26 22:20:46.519451	2013-07-26 22:20:46.519451
+1824	5	550	2013-07-26 22:20:47.326227	2013-07-26 22:20:47.326227
+1825	4	550	2013-07-26 22:20:47.329442	2013-07-26 22:20:47.329442
+1826	5	551	2013-07-26 22:20:48.065396	2013-07-26 22:20:48.065396
+1827	14	551	2013-07-26 22:20:48.068498	2013-07-26 22:20:48.068498
+1828	2	552	2013-07-26 22:20:49.10898	2013-07-26 22:20:49.10898
+1829	16	552	2013-07-26 22:20:49.112477	2013-07-26 22:20:49.112477
+1830	7	552	2013-07-26 22:20:49.11558	2013-07-26 22:20:49.11558
+1831	5	553	2013-07-26 22:20:49.724242	2013-07-26 22:20:49.724242
+1832	2	553	2013-07-26 22:20:49.727019	2013-07-26 22:20:49.727019
+1833	4	553	2013-07-26 22:20:49.729913	2013-07-26 22:20:49.729913
+1834	5	554	2013-07-26 22:20:50.930332	2013-07-26 22:20:50.930332
+1835	2	554	2013-07-26 22:20:50.974767	2013-07-26 22:20:50.974767
+1836	4	554	2013-07-26 22:20:50.977743	2013-07-26 22:20:50.977743
+1837	14	554	2013-07-26 22:20:50.980466	2013-07-26 22:20:50.980466
+1838	2	555	2013-07-26 22:20:51.746572	2013-07-26 22:20:51.746572
+1839	9	555	2013-07-26 22:20:51.750103	2013-07-26 22:20:51.750103
+1840	3	555	2013-07-26 22:20:51.753077	2013-07-26 22:20:51.753077
+1841	6	556	2013-07-26 22:20:52.786716	2013-07-26 22:20:52.786716
+1842	10	556	2013-07-26 22:20:52.789569	2013-07-26 22:20:52.789569
+1843	3	556	2013-07-26 22:20:52.792949	2013-07-26 22:20:52.792949
+1844	7	556	2013-07-26 22:20:52.796201	2013-07-26 22:20:52.796201
+1845	10	557	2013-07-26 22:20:54.016558	2013-07-26 22:20:54.016558
+1846	6	557	2013-07-26 22:20:54.019746	2013-07-26 22:20:54.019746
+1847	7	557	2013-07-26 22:20:54.022638	2013-07-26 22:20:54.022638
+1848	3	557	2013-07-26 22:20:54.025359	2013-07-26 22:20:54.025359
+1849	10	558	2013-07-26 22:20:55.929138	2013-07-26 22:20:55.929138
+1850	6	558	2013-07-26 22:20:55.934639	2013-07-26 22:20:55.934639
+1851	7	558	2013-07-26 22:20:55.938965	2013-07-26 22:20:55.938965
+1852	3	558	2013-07-26 22:20:55.942849	2013-07-26 22:20:55.942849
+1853	5	559	2013-07-26 22:20:56.478607	2013-07-26 22:20:56.478607
+1854	2	559	2013-07-26 22:20:56.481387	2013-07-26 22:20:56.481387
+1855	2	560	2013-07-26 22:20:57.325868	2013-07-26 22:20:57.325868
+1856	5	561	2013-07-26 22:20:57.951552	2013-07-26 22:20:57.951552
+1857	2	561	2013-07-26 22:20:57.954349	2013-07-26 22:20:57.954349
+1858	14	561	2013-07-26 22:20:57.957441	2013-07-26 22:20:57.957441
+1859	5	562	2013-07-26 22:20:58.599503	2013-07-26 22:20:58.599503
+1860	9	562	2013-07-26 22:20:58.602647	2013-07-26 22:20:58.602647
+1861	3	562	2013-07-26 22:20:58.605358	2013-07-26 22:20:58.605358
+1862	15	562	2013-07-26 22:20:58.608236	2013-07-26 22:20:58.608236
+1863	5	563	2013-07-26 22:20:59.263275	2013-07-26 22:20:59.263275
+1864	2	563	2013-07-26 22:20:59.266408	2013-07-26 22:20:59.266408
+1865	2	564	2013-07-26 22:20:59.835117	2013-07-26 22:20:59.835117
+1866	3	564	2013-07-26 22:20:59.837943	2013-07-26 22:20:59.837943
+1867	10	565	2013-07-26 22:21:00.848343	2013-07-26 22:21:00.848343
+1868	6	565	2013-07-26 22:21:00.852196	2013-07-26 22:21:00.852196
+1869	7	565	2013-07-26 22:21:00.855966	2013-07-26 22:21:00.855966
+1870	3	565	2013-07-26 22:21:00.860321	2013-07-26 22:21:00.860321
+1871	6	566	2013-07-26 22:21:02.517158	2013-07-26 22:21:02.517158
+1872	10	566	2013-07-26 22:21:02.520328	2013-07-26 22:21:02.520328
+1873	3	566	2013-07-26 22:21:02.523333	2013-07-26 22:21:02.523333
+1874	7	566	2013-07-26 22:21:02.526213	2013-07-26 22:21:02.526213
+1875	10	567	2013-07-26 22:21:03.350398	2013-07-26 22:21:03.350398
+1876	6	567	2013-07-26 22:21:03.353754	2013-07-26 22:21:03.353754
+1877	7	567	2013-07-26 22:21:03.357493	2013-07-26 22:21:03.357493
+1878	3	567	2013-07-26 22:21:03.360878	2013-07-26 22:21:03.360878
+1879	10	568	2013-07-26 22:21:04.23548	2013-07-26 22:21:04.23548
+1880	6	568	2013-07-26 22:21:04.238501	2013-07-26 22:21:04.238501
+1881	7	568	2013-07-26 22:21:04.241289	2013-07-26 22:21:04.241289
+1882	3	568	2013-07-26 22:21:04.243979	2013-07-26 22:21:04.243979
+1883	2	569	2013-07-26 22:21:04.863762	2013-07-26 22:21:04.863762
+1884	13	569	2013-07-26 22:21:04.867816	2013-07-26 22:21:04.867816
+1885	5	570	2013-07-26 22:21:05.472411	2013-07-26 22:21:05.472411
+1886	2	570	2013-07-26 22:21:05.47581	2013-07-26 22:21:05.47581
+1887	3	570	2013-07-26 22:21:05.478964	2013-07-26 22:21:05.478964
+1888	14	570	2013-07-26 22:21:05.481714	2013-07-26 22:21:05.481714
+1889	2	571	2013-07-26 22:21:06.08844	2013-07-26 22:21:06.08844
+1890	14	571	2013-07-26 22:21:06.091213	2013-07-26 22:21:06.091213
+1891	3	571	2013-07-26 22:21:06.094025	2013-07-26 22:21:06.094025
+1892	10	572	2013-07-26 22:21:07.077065	2013-07-26 22:21:07.077065
+1893	6	572	2013-07-26 22:21:07.079987	2013-07-26 22:21:07.079987
+1894	7	572	2013-07-26 22:21:07.083066	2013-07-26 22:21:07.083066
+1895	3	572	2013-07-26 22:21:07.086248	2013-07-26 22:21:07.086248
+1896	2	573	2013-07-26 22:21:22.065163	2013-07-26 22:21:22.065163
+1897	5	573	2013-07-26 22:21:22.068157	2013-07-26 22:21:22.068157
+1898	14	573	2013-07-26 22:21:22.070896	2013-07-26 22:21:22.070896
+1899	3	573	2013-07-26 22:21:22.07435	2013-07-26 22:21:22.07435
+1900	5	574	2013-07-26 22:21:22.59754	2013-07-26 22:21:22.59754
+1901	24	574	2013-07-26 22:21:22.600491	2013-07-26 22:21:22.600491
+1902	6	575	2013-07-26 22:21:23.336604	2013-07-26 22:21:23.336604
+1903	14	575	2013-07-26 22:21:23.339528	2013-07-26 22:21:23.339528
+1904	19	575	2013-07-26 22:21:23.34258	2013-07-26 22:21:23.34258
+1905	2	576	2013-07-26 22:21:23.995877	2013-07-26 22:21:23.995877
+1906	21	576	2013-07-26 22:21:23.999428	2013-07-26 22:21:23.999428
+1907	7	576	2013-07-26 22:21:24.002446	2013-07-26 22:21:24.002446
+1908	17	576	2013-07-26 22:21:24.005129	2013-07-26 22:21:24.005129
+1909	2	577	2013-07-26 22:21:24.621323	2013-07-26 22:21:24.621323
+1910	3	577	2013-07-26 22:21:24.662971	2013-07-26 22:21:24.662971
+1911	18	577	2013-07-26 22:21:24.665971	2013-07-26 22:21:24.665971
+1912	16	578	2013-07-26 22:21:25.618428	2013-07-26 22:21:25.618428
+1913	5	578	2013-07-26 22:21:25.621327	2013-07-26 22:21:25.621327
+1914	3	578	2013-07-26 22:21:25.624737	2013-07-26 22:21:25.624737
+1915	2	579	2013-07-26 22:21:27.259358	2013-07-26 22:21:27.259358
+1916	7	579	2013-07-26 22:21:27.262638	2013-07-26 22:21:27.262638
+1917	8	579	2013-07-26 22:21:27.265545	2013-07-26 22:21:27.265545
+1918	17	579	2013-07-26 22:21:27.268333	2013-07-26 22:21:27.268333
+1919	3	579	2013-07-26 22:21:27.271234	2013-07-26 22:21:27.271234
+1920	5	579	2013-07-26 22:21:27.274255	2013-07-26 22:21:27.274255
+1921	2	580	2013-07-26 22:21:27.907406	2013-07-26 22:21:27.907406
+1922	7	580	2013-07-26 22:21:27.910857	2013-07-26 22:21:27.910857
+1923	8	580	2013-07-26 22:21:27.914062	2013-07-26 22:21:27.914062
+1924	17	580	2013-07-26 22:21:27.918497	2013-07-26 22:21:27.918497
+1925	3	580	2013-07-26 22:21:27.922636	2013-07-26 22:21:27.922636
+1926	5	580	2013-07-26 22:21:27.926838	2013-07-26 22:21:27.926838
+1927	6	581	2013-07-26 22:21:28.809231	2013-07-26 22:21:28.809231
+1928	12	581	2013-07-26 22:21:28.812053	2013-07-26 22:21:28.812053
+1929	7	581	2013-07-26 22:21:28.814976	2013-07-26 22:21:28.814976
+1930	2	582	2013-07-26 22:21:29.340258	2013-07-26 22:21:29.340258
+1931	4	582	2013-07-26 22:21:29.343418	2013-07-26 22:21:29.343418
+1932	6	583	2013-07-26 22:21:30.063483	2013-07-26 22:21:30.063483
+1933	8	583	2013-07-26 22:21:30.066674	2013-07-26 22:21:30.066674
+1934	12	583	2013-07-26 22:21:30.069705	2013-07-26 22:21:30.069705
+1935	7	583	2013-07-26 22:21:30.07269	2013-07-26 22:21:30.07269
+1936	16	584	2013-07-26 22:21:30.883998	2013-07-26 22:21:30.883998
+1937	6	584	2013-07-26 22:21:30.887373	2013-07-26 22:21:30.887373
+1938	7	584	2013-07-26 22:21:30.890295	2013-07-26 22:21:30.890295
+1939	8	584	2013-07-26 22:21:30.893733	2013-07-26 22:21:30.893733
+1940	11	585	2013-07-26 22:21:31.64218	2013-07-26 22:21:31.64218
+1941	1	585	2013-07-26 22:21:31.645302	2013-07-26 22:21:31.645302
+1942	12	585	2013-07-26 22:21:31.648216	2013-07-26 22:21:31.648216
+1943	15	585	2013-07-26 22:21:31.650815	2013-07-26 22:21:31.650815
+1944	13	585	2013-07-26 22:21:31.653634	2013-07-26 22:21:31.653634
+1945	2	586	2013-07-26 22:21:32.206227	2013-07-26 22:21:32.206227
+1946	7	586	2013-07-26 22:21:32.209397	2013-07-26 22:21:32.209397
+1947	8	586	2013-07-26 22:21:32.212437	2013-07-26 22:21:32.212437
+1948	17	586	2013-07-26 22:21:32.215239	2013-07-26 22:21:32.215239
+1949	3	586	2013-07-26 22:21:32.217992	2013-07-26 22:21:32.217992
+1950	5	586	2013-07-26 22:21:32.220813	2013-07-26 22:21:32.220813
+1951	2	587	2013-07-26 22:21:32.740924	2013-07-26 22:21:32.740924
+1952	7	587	2013-07-26 22:21:32.744006	2013-07-26 22:21:32.744006
+1953	8	587	2013-07-26 22:21:32.747063	2013-07-26 22:21:32.747063
+1954	17	587	2013-07-26 22:21:32.749876	2013-07-26 22:21:32.749876
+1955	3	587	2013-07-26 22:21:32.752567	2013-07-26 22:21:32.752567
+1956	5	587	2013-07-26 22:21:32.755355	2013-07-26 22:21:32.755355
+1957	5	588	2013-07-26 22:21:33.383235	2013-07-26 22:21:33.383235
+1958	15	588	2013-07-26 22:21:33.386171	2013-07-26 22:21:33.386171
+1959	14	588	2013-07-26 22:21:33.388988	2013-07-26 22:21:33.388988
+1960	5	589	2013-07-26 22:21:34.036641	2013-07-26 22:21:34.036641
+1961	5	590	2013-07-26 22:21:34.632574	2013-07-26 22:21:34.632574
+1962	10	591	2013-07-26 22:21:35.340429	2013-07-26 22:21:35.340429
+1963	6	591	2013-07-26 22:21:35.343495	2013-07-26 22:21:35.343495
+1964	5	591	2013-07-26 22:21:35.346524	2013-07-26 22:21:35.346524
+1965	3	591	2013-07-26 22:21:35.349431	2013-07-26 22:21:35.349431
+1966	16	592	2013-07-26 22:21:36.0032	2013-07-26 22:21:36.0032
+1967	5	592	2013-07-26 22:21:36.006116	2013-07-26 22:21:36.006116
+1968	3	592	2013-07-26 22:21:36.009225	2013-07-26 22:21:36.009225
+1969	16	593	2013-07-26 22:21:36.782893	2013-07-26 22:21:36.782893
+1970	5	593	2013-07-26 22:21:36.785816	2013-07-26 22:21:36.785816
+1971	16	594	2013-07-26 22:21:37.489486	2013-07-26 22:21:37.489486
+1972	5	594	2013-07-26 22:21:37.492284	2013-07-26 22:21:37.492284
+1973	10	595	2013-07-26 22:21:38.257303	2013-07-26 22:21:38.257303
+1974	11	595	2013-07-26 22:21:38.260182	2013-07-26 22:21:38.260182
+1975	16	595	2013-07-26 22:21:38.263249	2013-07-26 22:21:38.263249
+1976	6	595	2013-07-26 22:21:38.266152	2013-07-26 22:21:38.266152
+1977	5	595	2013-07-26 22:21:38.268912	2013-07-26 22:21:38.268912
+1978	12	595	2013-07-26 22:21:38.27197	2013-07-26 22:21:38.27197
+1979	10	596	2013-07-26 22:21:39.116961	2013-07-26 22:21:39.116961
+1980	11	596	2013-07-26 22:21:39.119873	2013-07-26 22:21:39.119873
+1981	6	596	2013-07-26 22:21:39.123078	2013-07-26 22:21:39.123078
+1982	12	596	2013-07-26 22:21:39.125898	2013-07-26 22:21:39.125898
+1983	13	596	2013-07-26 22:21:39.129303	2013-07-26 22:21:39.129303
+1984	6	597	2013-07-26 22:21:39.781833	2013-07-26 22:21:39.781833
+1985	10	597	2013-07-26 22:21:39.784598	2013-07-26 22:21:39.784598
+1986	8	597	2013-07-26 22:21:39.787302	2013-07-26 22:21:39.787302
+1987	2	597	2013-07-26 22:21:39.789998	2013-07-26 22:21:39.789998
+1988	16	597	2013-07-26 22:21:39.792689	2013-07-26 22:21:39.792689
+1989	17	597	2013-07-26 22:21:39.795909	2013-07-26 22:21:39.795909
+1990	7	597	2013-07-26 22:21:39.799115	2013-07-26 22:21:39.799115
+1991	2	598	2013-07-26 22:21:40.65222	2013-07-26 22:21:40.65222
+1992	6	598	2013-07-26 22:21:40.654942	2013-07-26 22:21:40.654942
+1993	8	598	2013-07-26 22:21:40.657606	2013-07-26 22:21:40.657606
+1994	2	599	2013-07-26 22:21:41.947419	2013-07-26 22:21:41.947419
+1995	14	599	2013-07-26 22:21:41.950412	2013-07-26 22:21:41.950412
+1996	5	600	2013-07-26 22:21:42.681457	2013-07-26 22:21:42.681457
+1997	13	600	2013-07-26 22:21:42.684331	2013-07-26 22:21:42.684331
+1998	28	600	2013-07-26 22:21:42.687647	2013-07-26 22:21:42.687647
+1999	5	601	2013-07-26 22:21:43.409682	2013-07-26 22:21:43.409682
+2000	13	601	2013-07-26 22:21:43.412764	2013-07-26 22:21:43.412764
+2001	28	601	2013-07-26 22:21:43.415748	2013-07-26 22:21:43.415748
+2002	5	602	2013-07-26 22:21:44.086556	2013-07-26 22:21:44.086556
+2003	2	602	2013-07-26 22:21:44.090025	2013-07-26 22:21:44.090025
+2004	4	602	2013-07-26 22:21:44.092871	2013-07-26 22:21:44.092871
+2005	2	603	2013-07-26 22:21:45.862557	2013-07-26 22:21:45.862557
+2006	5	603	2013-07-26 22:21:45.866278	2013-07-26 22:21:45.866278
+2007	14	603	2013-07-26 22:21:45.869589	2013-07-26 22:21:45.869589
+2008	3	603	2013-07-26 22:21:45.872574	2013-07-26 22:21:45.872574
+2009	2	604	2013-07-26 22:21:46.483144	2013-07-26 22:21:46.483144
+2010	3	604	2013-07-26 22:21:46.486084	2013-07-26 22:21:46.486084
+2011	18	604	2013-07-26 22:21:46.488997	2013-07-26 22:21:46.488997
+2012	4	604	2013-07-26 22:21:46.491708	2013-07-26 22:21:46.491708
+2013	19	604	2013-07-26 22:21:46.494391	2013-07-26 22:21:46.494391
+2014	5	605	2013-07-26 22:21:47.048868	2013-07-26 22:21:47.048868
+2015	3	605	2013-07-26 22:21:47.051753	2013-07-26 22:21:47.051753
+2016	11	606	2013-07-26 22:21:47.66301	2013-07-26 22:21:47.66301
+2017	2	606	2013-07-26 22:21:47.666172	2013-07-26 22:21:47.666172
+2018	16	606	2013-07-26 22:21:47.669197	2013-07-26 22:21:47.669197
+2019	3	606	2013-07-26 22:21:47.671892	2013-07-26 22:21:47.671892
+2020	2	607	2013-07-26 22:21:48.272982	2013-07-26 22:21:48.272982
+2021	3	607	2013-07-26 22:21:48.275834	2013-07-26 22:21:48.275834
+2022	18	607	2013-07-26 22:21:48.278649	2013-07-26 22:21:48.278649
+2023	2	608	2013-07-26 22:21:48.851345	2013-07-26 22:21:48.851345
+2024	7	609	2013-07-26 22:21:49.542336	2013-07-26 22:21:49.542336
+2025	12	609	2013-07-26 22:21:49.54501	2013-07-26 22:21:49.54501
+2026	17	609	2013-07-26 22:21:49.547939	2013-07-26 22:21:49.547939
+2027	14	609	2013-07-26 22:21:49.551114	2013-07-26 22:21:49.551114
+2028	2	610	2013-07-26 22:21:50.206743	2013-07-26 22:21:50.206743
+2029	3	610	2013-07-26 22:21:50.209439	2013-07-26 22:21:50.209439
+2030	18	610	2013-07-26 22:21:50.212243	2013-07-26 22:21:50.212243
+2031	2	611	2013-07-26 22:21:50.77891	2013-07-26 22:21:50.77891
+2032	3	611	2013-07-26 22:21:50.782261	2013-07-26 22:21:50.782261
+2033	2	612	2013-07-26 22:21:51.394181	2013-07-26 22:21:51.394181
+2034	5	613	2013-07-26 22:21:52.173233	2013-07-26 22:21:52.173233
+2035	2	613	2013-07-26 22:21:52.176169	2013-07-26 22:21:52.176169
+2036	15	613	2013-07-26 22:21:52.178938	2013-07-26 22:21:52.178938
+2037	6	614	2013-07-26 22:21:53.041266	2013-07-26 22:21:53.041266
+2038	5	614	2013-07-26 22:21:53.044287	2013-07-26 22:21:53.044287
+2039	2	614	2013-07-26 22:21:53.047815	2013-07-26 22:21:53.047815
+2040	7	614	2013-07-26 22:21:53.050812	2013-07-26 22:21:53.050812
+2041	5	615	2013-07-26 22:21:53.670857	2013-07-26 22:21:53.670857
+2042	2	615	2013-07-26 22:21:53.673809	2013-07-26 22:21:53.673809
+2043	13	615	2013-07-26 22:21:53.676485	2013-07-26 22:21:53.676485
+2044	5	616	2013-07-26 22:21:54.289431	2013-07-26 22:21:54.289431
+2045	2	616	2013-07-26 22:21:54.292405	2013-07-26 22:21:54.292405
+2046	3	616	2013-07-26 22:21:54.295096	2013-07-26 22:21:54.295096
+2047	19	616	2013-07-26 22:21:54.297698	2013-07-26 22:21:54.297698
+2048	16	617	2013-07-26 22:21:54.962355	2013-07-26 22:21:54.962355
+2049	21	617	2013-07-26 22:21:54.965984	2013-07-26 22:21:54.965984
+2050	2	617	2013-07-26 22:21:54.969243	2013-07-26 22:21:54.969243
+2051	2	618	2013-07-26 22:21:55.589278	2013-07-26 22:21:55.589278
+2052	16	618	2013-07-26 22:21:55.592038	2013-07-26 22:21:55.592038
+2053	6	618	2013-07-26 22:21:55.594837	2013-07-26 22:21:55.594837
+2054	7	618	2013-07-26 22:21:55.597733	2013-07-26 22:21:55.597733
+2055	2	619	2013-07-26 22:21:56.427415	2013-07-26 22:21:56.427415
+2056	19	619	2013-07-26 22:21:56.430138	2013-07-26 22:21:56.430138
+2057	6	619	2013-07-26 22:21:56.433251	2013-07-26 22:21:56.433251
+2058	8	620	2013-07-26 22:21:57.374971	2013-07-26 22:21:57.374971
+2059	2	620	2013-07-26 22:21:57.378136	2013-07-26 22:21:57.378136
+2060	4	620	2013-07-26 22:21:57.381107	2013-07-26 22:21:57.381107
+2061	17	620	2013-07-26 22:21:57.384336	2013-07-26 22:21:57.384336
+2062	21	620	2013-07-26 22:21:57.387291	2013-07-26 22:21:57.387291
+2063	7	620	2013-07-26 22:21:57.390294	2013-07-26 22:21:57.390294
+2064	16	621	2013-07-26 22:21:58.916798	2013-07-26 22:21:58.916798
+2065	7	621	2013-07-26 22:21:58.92006	2013-07-26 22:21:58.92006
+2066	3	621	2013-07-26 22:21:58.922795	2013-07-26 22:21:58.922795
+2067	11	622	2013-07-26 22:21:59.751415	2013-07-26 22:21:59.751415
+2068	2	622	2013-07-26 22:21:59.754493	2013-07-26 22:21:59.754493
+2069	7	622	2013-07-26 22:21:59.757476	2013-07-26 22:21:59.757476
+2070	12	622	2013-07-26 22:21:59.760235	2013-07-26 22:21:59.760235
+2071	14	622	2013-07-26 22:21:59.763101	2013-07-26 22:21:59.763101
+2072	2	623	2013-07-26 22:22:00.534536	2013-07-26 22:22:00.534536
+2073	14	623	2013-07-26 22:22:00.538196	2013-07-26 22:22:00.538196
+2074	7	623	2013-07-26 22:22:00.541129	2013-07-26 22:22:00.541129
+2075	2	624	2013-07-26 22:22:01.640665	2013-07-26 22:22:01.640665
+2076	3	624	2013-07-26 22:22:01.643653	2013-07-26 22:22:01.643653
+2077	2	625	2013-07-26 22:22:02.807333	2013-07-26 22:22:02.807333
+2078	2	626	2013-07-26 22:22:03.743337	2013-07-26 22:22:03.743337
+2079	8	627	2013-07-26 22:22:04.772398	2013-07-26 22:22:04.772398
+2080	2	627	2013-07-26 22:22:04.775267	2013-07-26 22:22:04.775267
+2081	5	628	2013-07-26 22:22:05.641072	2013-07-26 22:22:05.641072
+2082	2	628	2013-07-26 22:22:05.643963	2013-07-26 22:22:05.643963
+2083	2	629	2013-07-26 22:22:06.740092	2013-07-26 22:22:06.740092
+2084	14	629	2013-07-26 22:22:06.743049	2013-07-26 22:22:06.743049
+2085	5	630	2013-07-26 22:22:08.709347	2013-07-26 22:22:08.709347
+2086	2	630	2013-07-26 22:22:08.712222	2013-07-26 22:22:08.712222
+2087	14	630	2013-07-26 22:22:08.7149	2013-07-26 22:22:08.7149
+2088	2	631	2013-07-26 22:22:09.50835	2013-07-26 22:22:09.50835
+2089	16	631	2013-07-26 22:22:09.511397	2013-07-26 22:22:09.511397
+2090	7	631	2013-07-26 22:22:09.514278	2013-07-26 22:22:09.514278
+2091	2	632	2013-07-26 22:22:10.14412	2013-07-26 22:22:10.14412
+2092	16	632	2013-07-26 22:22:10.146912	2013-07-26 22:22:10.146912
+2093	7	632	2013-07-26 22:22:10.149818	2013-07-26 22:22:10.149818
+2094	8	633	2013-07-26 22:22:11.146621	2013-07-26 22:22:11.146621
+2095	17	633	2013-07-26 22:22:11.149571	2013-07-26 22:22:11.149571
+2096	7	633	2013-07-26 22:22:11.152458	2013-07-26 22:22:11.152458
+2097	1	634	2013-07-26 22:22:12.075015	2013-07-26 22:22:12.075015
+2098	13	634	2013-07-26 22:22:12.077752	2013-07-26 22:22:12.077752
+2099	10	634	2013-07-26 22:22:12.080615	2013-07-26 22:22:12.080615
+2100	5	634	2013-07-26 22:22:12.083589	2013-07-26 22:22:12.083589
+2101	10	635	2013-07-26 22:22:12.926789	2013-07-26 22:22:12.926789
+2102	11	635	2013-07-26 22:22:12.92964	2013-07-26 22:22:12.92964
+2103	1	635	2013-07-26 22:22:12.932383	2013-07-26 22:22:12.932383
+2104	5	635	2013-07-26 22:22:12.935103	2013-07-26 22:22:12.935103
+2105	12	635	2013-07-26 22:22:12.938443	2013-07-26 22:22:12.938443
+2106	13	635	2013-07-26 22:22:12.941589	2013-07-26 22:22:12.941589
+2107	10	636	2013-07-26 22:22:13.850801	2013-07-26 22:22:13.850801
+2108	11	636	2013-07-26 22:22:13.854057	2013-07-26 22:22:13.854057
+2109	1	636	2013-07-26 22:22:13.857265	2013-07-26 22:22:13.857265
+2110	5	636	2013-07-26 22:22:13.860235	2013-07-26 22:22:13.860235
+2111	12	636	2013-07-26 22:22:13.862959	2013-07-26 22:22:13.862959
+2112	13	636	2013-07-26 22:22:13.865682	2013-07-26 22:22:13.865682
+2113	12	637	2013-07-26 22:22:14.721167	2013-07-26 22:22:14.721167
+2114	2	637	2013-07-26 22:22:14.724321	2013-07-26 22:22:14.724321
+2115	10	637	2013-07-26 22:22:14.727287	2013-07-26 22:22:14.727287
+2116	10	638	2013-07-26 22:22:15.552279	2013-07-26 22:22:15.552279
+2117	1	638	2013-07-26 22:22:15.555484	2013-07-26 22:22:15.555484
+2118	15	638	2013-07-26 22:22:15.55908	2013-07-26 22:22:15.55908
+2119	13	638	2013-07-26 22:22:15.56266	2013-07-26 22:22:15.56266
+2120	5	639	2013-07-26 22:22:16.495121	2013-07-26 22:22:16.495121
+2121	14	639	2013-07-26 22:22:16.49859	2013-07-26 22:22:16.49859
+2122	5	640	2013-07-26 22:22:17.433754	2013-07-26 22:22:17.433754
+2123	2	640	2013-07-26 22:22:17.436571	2013-07-26 22:22:17.436571
+2124	16	640	2013-07-26 22:22:17.439631	2013-07-26 22:22:17.439631
+2125	7	640	2013-07-26 22:22:17.443204	2013-07-26 22:22:17.443204
+2126	1	641	2013-07-26 22:22:18.344424	2013-07-26 22:22:18.344424
+2127	2	641	2013-07-26 22:22:18.347475	2013-07-26 22:22:18.347475
+2128	5	642	2013-07-26 22:22:19.151583	2013-07-26 22:22:19.151583
+2129	8	642	2013-07-26 22:22:19.154382	2013-07-26 22:22:19.154382
+2130	10	643	2013-07-26 22:22:19.969224	2013-07-26 22:22:19.969224
+2131	6	643	2013-07-26 22:22:19.972231	2013-07-26 22:22:19.972231
+2132	5	643	2013-07-26 22:22:19.975442	2013-07-26 22:22:19.975442
+2133	12	643	2013-07-26 22:22:19.97866	2013-07-26 22:22:19.97866
+2134	5	644	2013-07-26 22:22:20.892609	2013-07-26 22:22:20.892609
+2135	8	644	2013-07-26 22:22:20.896514	2013-07-26 22:22:20.896514
+2136	12	644	2013-07-26 22:22:20.900749	2013-07-26 22:22:20.900749
+2137	8	645	2013-07-26 22:22:21.608232	2013-07-26 22:22:21.608232
+2138	2	645	2013-07-26 22:22:21.611357	2013-07-26 22:22:21.611357
+2139	2	646	2013-07-26 22:22:22.367326	2013-07-26 22:22:22.367326
+2140	7	646	2013-07-26 22:22:22.370125	2013-07-26 22:22:22.370125
+2141	2	647	2013-07-26 22:22:22.997707	2013-07-26 22:22:22.997707
+2142	18	647	2013-07-26 22:22:23.000483	2013-07-26 22:22:23.000483
+2143	17	647	2013-07-26 22:22:23.003172	2013-07-26 22:22:23.003172
+2144	2	648	2013-07-26 22:22:23.756779	2013-07-26 22:22:23.756779
+2145	1	649	2013-07-26 22:22:24.398164	2013-07-26 22:22:24.398164
+2146	12	649	2013-07-26 22:22:24.400881	2013-07-26 22:22:24.400881
+2147	7	649	2013-07-26 22:22:24.403647	2013-07-26 22:22:24.403647
+2148	2	650	2013-07-26 22:22:25.146525	2013-07-26 22:22:25.146525
+2149	15	650	2013-07-26 22:22:25.149334	2013-07-26 22:22:25.149334
+2150	14	650	2013-07-26 22:22:25.152048	2013-07-26 22:22:25.152048
+2151	5	651	2013-07-26 22:22:27.528406	2013-07-26 22:22:27.528406
+2152	2	651	2013-07-26 22:22:27.531156	2013-07-26 22:22:27.531156
+2153	14	651	2013-07-26 22:22:27.534083	2013-07-26 22:22:27.534083
+2154	6	652	2013-07-26 22:22:28.290504	2013-07-26 22:22:28.290504
+2155	2	652	2013-07-26 22:22:28.293643	2013-07-26 22:22:28.293643
+2156	3	652	2013-07-26 22:22:28.296682	2013-07-26 22:22:28.296682
+2157	18	652	2013-07-26 22:22:28.299469	2013-07-26 22:22:28.299469
+2158	19	652	2013-07-26 22:22:28.302714	2013-07-26 22:22:28.302714
+2159	2	653	2013-07-26 22:22:29.698411	2013-07-26 22:22:29.698411
+2160	16	653	2013-07-26 22:22:29.701972	2013-07-26 22:22:29.701972
+2161	7	653	2013-07-26 22:22:29.705549	2013-07-26 22:22:29.705549
+2162	3	653	2013-07-26 22:22:29.708938	2013-07-26 22:22:29.708938
+2163	2	654	2013-07-26 22:22:30.413258	2013-07-26 22:22:30.413258
+2164	12	654	2013-07-26 22:22:30.416148	2013-07-26 22:22:30.416148
+2165	7	654	2013-07-26 22:22:30.420023	2013-07-26 22:22:30.420023
+2166	2	655	2013-07-26 22:22:31.346842	2013-07-26 22:22:31.346842
+2167	7	655	2013-07-26 22:22:31.34964	2013-07-26 22:22:31.34964
+2168	8	655	2013-07-26 22:22:31.35248	2013-07-26 22:22:31.35248
+2169	17	655	2013-07-26 22:22:31.355373	2013-07-26 22:22:31.355373
+2170	12	656	2013-07-26 22:22:32.135664	2013-07-26 22:22:32.135664
+2171	12	657	2013-07-26 22:22:32.661325	2013-07-26 22:22:32.661325
+2172	2	658	2013-07-26 22:22:33.372144	2013-07-26 22:22:33.372144
+2173	6	658	2013-07-26 22:22:33.374941	2013-07-26 22:22:33.374941
+2174	7	658	2013-07-26 22:22:33.378167	2013-07-26 22:22:33.378167
+2175	8	658	2013-07-26 22:22:33.381216	2013-07-26 22:22:33.381216
+2176	3	658	2013-07-26 22:22:33.384636	2013-07-26 22:22:33.384636
+2177	2	659	2013-07-26 22:22:34.369562	2013-07-26 22:22:34.369562
+2178	3	659	2013-07-26 22:22:34.372675	2013-07-26 22:22:34.372675
+2179	11	660	2013-07-26 22:22:35.069809	2013-07-26 22:22:35.069809
+2180	6	660	2013-07-26 22:22:35.072812	2013-07-26 22:22:35.072812
+2181	7	660	2013-07-26 22:22:35.075707	2013-07-26 22:22:35.075707
+2182	12	660	2013-07-26 22:22:35.078828	2013-07-26 22:22:35.078828
+2183	12	661	2013-07-26 22:22:36.039012	2013-07-26 22:22:36.039012
+2184	2	662	2013-07-26 22:22:36.558895	2013-07-26 22:22:36.558895
+2185	3	662	2013-07-26 22:22:36.562018	2013-07-26 22:22:36.562018
+2186	4	662	2013-07-26 22:22:36.565214	2013-07-26 22:22:36.565214
+2187	14	662	2013-07-26 22:22:36.568348	2013-07-26 22:22:36.568348
+2188	16	663	2013-07-26 22:22:37.638931	2013-07-26 22:22:37.638931
+2189	7	663	2013-07-26 22:22:37.641863	2013-07-26 22:22:37.641863
+2190	12	663	2013-07-26 22:22:37.645044	2013-07-26 22:22:37.645044
+2191	17	663	2013-07-26 22:22:37.648182	2013-07-26 22:22:37.648182
+2192	5	664	2013-07-26 22:22:38.4057	2013-07-26 22:22:38.4057
+2193	2	664	2013-07-26 22:22:38.408706	2013-07-26 22:22:38.408706
+2194	6	665	2013-07-26 22:22:40.075067	2013-07-26 22:22:40.075067
+2195	17	665	2013-07-26 22:22:40.078108	2013-07-26 22:22:40.078108
+2196	24	665	2013-07-26 22:22:40.081577	2013-07-26 22:22:40.081577
+2197	7	665	2013-07-26 22:22:40.085095	2013-07-26 22:22:40.085095
+2198	12	666	2013-07-26 22:22:41.203314	2013-07-26 22:22:41.203314
+2199	2	666	2013-07-26 22:22:41.206264	2013-07-26 22:22:41.206264
+2200	2	667	2013-07-26 22:22:41.994604	2013-07-26 22:22:41.994604
+2201	6	667	2013-07-26 22:22:41.997707	2013-07-26 22:22:41.997707
+2202	7	667	2013-07-26 22:22:42.000658	2013-07-26 22:22:42.000658
+2203	12	667	2013-07-26 22:22:42.003434	2013-07-26 22:22:42.003434
+2204	2	668	2013-07-26 22:22:42.981183	2013-07-26 22:22:42.981183
+2205	16	668	2013-07-26 22:22:42.98452	2013-07-26 22:22:42.98452
+2206	7	668	2013-07-26 22:22:42.988171	2013-07-26 22:22:42.988171
+2207	2	669	2013-07-26 22:22:43.672124	2013-07-26 22:22:43.672124
+2208	3	669	2013-07-26 22:22:43.675324	2013-07-26 22:22:43.675324
+2209	14	669	2013-07-26 22:22:43.678387	2013-07-26 22:22:43.678387
+2210	11	670	2013-07-26 22:22:44.297385	2013-07-26 22:22:44.297385
+2211	2	670	2013-07-26 22:22:44.300302	2013-07-26 22:22:44.300302
+2212	12	670	2013-07-26 22:22:44.303182	2013-07-26 22:22:44.303182
+2213	14	670	2013-07-26 22:22:44.306275	2013-07-26 22:22:44.306275
+2214	3	670	2013-07-26 22:22:44.309664	2013-07-26 22:22:44.309664
+2215	8	671	2013-07-26 22:22:45.262685	2013-07-26 22:22:45.262685
+2216	2	671	2013-07-26 22:22:45.266071	2013-07-26 22:22:45.266071
+2217	17	671	2013-07-26 22:22:45.269187	2013-07-26 22:22:45.269187
+2218	21	671	2013-07-26 22:22:45.272326	2013-07-26 22:22:45.272326
+2219	7	671	2013-07-26 22:22:45.275743	2013-07-26 22:22:45.275743
+2220	27	671	2013-07-26 22:22:45.27928	2013-07-26 22:22:45.27928
+2221	17	672	2013-07-26 22:22:46.090344	2013-07-26 22:22:46.090344
+2222	12	672	2013-07-26 22:22:46.093196	2013-07-26 22:22:46.093196
+2223	7	672	2013-07-26 22:22:46.095877	2013-07-26 22:22:46.095877
+2224	10	673	2013-07-26 22:22:46.794392	2013-07-26 22:22:46.794392
+2225	11	673	2013-07-26 22:22:46.798095	2013-07-26 22:22:46.798095
+2226	2	673	2013-07-26 22:22:46.801147	2013-07-26 22:22:46.801147
+2227	6	673	2013-07-26 22:22:46.80399	2013-07-26 22:22:46.80399
+2228	12	673	2013-07-26 22:22:46.806697	2013-07-26 22:22:46.806697
+2229	13	673	2013-07-26 22:22:46.809689	2013-07-26 22:22:46.809689
+2230	10	674	2013-07-26 22:22:47.996812	2013-07-26 22:22:47.996812
+2231	11	674	2013-07-26 22:22:48.000097	2013-07-26 22:22:48.000097
+2232	6	674	2013-07-26 22:22:48.003353	2013-07-26 22:22:48.003353
+2233	12	674	2013-07-26 22:22:48.006565	2013-07-26 22:22:48.006565
+2234	6	675	2013-07-26 22:22:49.211552	2013-07-26 22:22:49.211552
+2235	10	675	2013-07-26 22:22:49.214781	2013-07-26 22:22:49.214781
+2236	11	675	2013-07-26 22:22:49.218201	2013-07-26 22:22:49.218201
+2237	3	675	2013-07-26 22:22:49.221232	2013-07-26 22:22:49.221232
+2238	12	675	2013-07-26 22:22:49.224662	2013-07-26 22:22:49.224662
+2239	5	676	2013-07-26 22:22:50.038317	2013-07-26 22:22:50.038317
+2240	2	676	2013-07-26 22:22:50.041255	2013-07-26 22:22:50.041255
+2241	13	676	2013-07-26 22:22:50.044807	2013-07-26 22:22:50.044807
+2242	28	676	2013-07-26 22:22:50.048754	2013-07-26 22:22:50.048754
+2243	2	677	2013-07-26 22:22:50.67131	2013-07-26 22:22:50.67131
+2244	3	677	2013-07-26 22:22:50.674254	2013-07-26 22:22:50.674254
+2245	14	677	2013-07-26 22:22:50.677411	2013-07-26 22:22:50.677411
+2246	8	678	2013-07-26 22:22:51.575822	2013-07-26 22:22:51.575822
+2247	2	679	2013-07-26 22:22:52.338517	2013-07-26 22:22:52.338517
+2248	18	679	2013-07-26 22:22:52.341329	2013-07-26 22:22:52.341329
+2249	7	679	2013-07-26 22:22:52.344068	2013-07-26 22:22:52.344068
+2250	11	680	2013-07-26 22:22:53.044273	2013-07-26 22:22:53.044273
+2251	6	680	2013-07-26 22:22:53.047987	2013-07-26 22:22:53.047987
+2252	5	680	2013-07-26 22:22:53.051441	2013-07-26 22:22:53.051441
+2253	8	680	2013-07-26 22:22:53.054686	2013-07-26 22:22:53.054686
+2254	12	680	2013-07-26 22:22:53.057932	2013-07-26 22:22:53.057932
+2255	6	681	2013-07-26 22:22:53.944783	2013-07-26 22:22:53.944783
+2256	18	681	2013-07-26 22:22:53.947522	2013-07-26 22:22:53.947522
+2257	19	681	2013-07-26 22:22:53.950633	2013-07-26 22:22:53.950633
+2258	11	682	2013-07-26 22:22:54.796645	2013-07-26 22:22:54.796645
+2259	1	682	2013-07-26 22:22:54.800811	2013-07-26 22:22:54.800811
+2260	6	682	2013-07-26 22:22:54.805533	2013-07-26 22:22:54.805533
+2261	5	682	2013-07-26 22:22:54.808934	2013-07-26 22:22:54.808934
+2262	8	682	2013-07-26 22:22:54.812712	2013-07-26 22:22:54.812712
+2263	13	682	2013-07-26 22:22:54.816633	2013-07-26 22:22:54.816633
+2264	2	683	2013-07-26 22:22:55.85763	2013-07-26 22:22:55.85763
+2265	18	683	2013-07-26 22:22:55.860577	2013-07-26 22:22:55.860577
+2266	19	683	2013-07-26 22:22:55.863321	2013-07-26 22:22:55.863321
+2267	5	684	2013-07-26 22:22:56.485754	2013-07-26 22:22:56.485754
+2268	2	684	2013-07-26 22:22:56.488797	2013-07-26 22:22:56.488797
+2269	14	684	2013-07-26 22:22:56.491783	2013-07-26 22:22:56.491783
+2270	2	685	2013-07-26 22:22:57.111412	2013-07-26 22:22:57.111412
+2271	18	685	2013-07-26 22:22:57.11417	2013-07-26 22:22:57.11417
+2272	14	685	2013-07-26 22:22:57.117475	2013-07-26 22:22:57.117475
+2273	6	686	2013-07-26 22:22:57.904136	2013-07-26 22:22:57.904136
+2274	7	686	2013-07-26 22:22:57.907199	2013-07-26 22:22:57.907199
+2275	12	686	2013-07-26 22:22:57.910114	2013-07-26 22:22:57.910114
+2276	6	687	2013-07-26 22:22:59.648131	2013-07-26 22:22:59.648131
+2277	10	687	2013-07-26 22:22:59.651714	2013-07-26 22:22:59.651714
+2278	12	687	2013-07-26 22:22:59.654788	2013-07-26 22:22:59.654788
+2279	7	687	2013-07-26 22:22:59.657912	2013-07-26 22:22:59.657912
+2280	10	688	2013-07-26 22:23:00.885202	2013-07-26 22:23:00.885202
+2281	11	688	2013-07-26 22:23:00.888712	2013-07-26 22:23:00.888712
+2282	1	688	2013-07-26 22:23:00.892425	2013-07-26 22:23:00.892425
+2283	5	688	2013-07-26 22:23:00.897159	2013-07-26 22:23:00.897159
+2284	12	688	2013-07-26 22:23:00.901782	2013-07-26 22:23:00.901782
+2285	13	688	2013-07-26 22:23:00.905682	2013-07-26 22:23:00.905682
+2286	10	689	2013-07-26 22:23:02.249154	2013-07-26 22:23:02.249154
+2287	11	689	2013-07-26 22:23:02.25249	2013-07-26 22:23:02.25249
+2288	1	689	2013-07-26 22:23:02.255816	2013-07-26 22:23:02.255816
+2289	5	689	2013-07-26 22:23:02.258882	2013-07-26 22:23:02.258882
+2290	12	689	2013-07-26 22:23:02.261894	2013-07-26 22:23:02.261894
+2291	13	689	2013-07-26 22:23:02.264936	2013-07-26 22:23:02.264936
+2292	5	690	2013-07-26 22:23:02.938863	2013-07-26 22:23:02.938863
+2293	2	690	2013-07-26 22:23:02.941751	2013-07-26 22:23:02.941751
+2294	13	690	2013-07-26 22:23:02.94509	2013-07-26 22:23:02.94509
+2295	22	690	2013-07-26 22:23:02.9486	2013-07-26 22:23:02.9486
+2296	6	691	2013-07-26 22:23:03.663046	2013-07-26 22:23:03.663046
+2297	10	691	2013-07-26 22:23:03.665975	2013-07-26 22:23:03.665975
+2298	2	691	2013-07-26 22:23:03.669317	2013-07-26 22:23:03.669317
+2299	12	691	2013-07-26 22:23:03.672609	2013-07-26 22:23:03.672609
+2300	7	691	2013-07-26 22:23:03.676026	2013-07-26 22:23:03.676026
+2301	2	692	2013-07-26 22:23:04.350614	2013-07-26 22:23:04.350614
+2302	3	692	2013-07-26 22:23:04.353931	2013-07-26 22:23:04.353931
+2303	13	692	2013-07-26 22:23:04.356823	2013-07-26 22:23:04.356823
+2304	14	693	2013-07-26 22:23:04.968332	2013-07-26 22:23:04.968332
+2305	7	693	2013-07-26 22:23:04.971278	2013-07-26 22:23:04.971278
+2306	8	694	2013-07-26 22:23:05.92343	2013-07-26 22:23:05.92343
+2307	2	694	2013-07-26 22:23:05.926344	2013-07-26 22:23:05.926344
+2308	3	694	2013-07-26 22:23:05.929781	2013-07-26 22:23:05.929781
+2309	12	695	2013-07-26 22:23:06.648252	2013-07-26 22:23:06.648252
+2310	6	695	2013-07-26 22:23:06.651241	2013-07-26 22:23:06.651241
+2311	10	695	2013-07-26 22:23:06.654389	2013-07-26 22:23:06.654389
+2312	2	696	2013-07-26 22:23:07.188054	2013-07-26 22:23:07.188054
+2313	3	696	2013-07-26 22:23:07.191222	2013-07-26 22:23:07.191222
+2314	14	696	2013-07-26 22:23:07.194161	2013-07-26 22:23:07.194161
+2315	12	697	2013-07-26 22:23:08.055639	2013-07-26 22:23:08.055639
+2316	5	698	2013-07-26 22:23:08.758715	2013-07-26 22:23:08.758715
+2317	15	698	2013-07-26 22:23:08.761562	2013-07-26 22:23:08.761562
+2318	14	698	2013-07-26 22:23:08.764522	2013-07-26 22:23:08.764522
+2319	2	699	2013-07-26 22:23:09.86434	2013-07-26 22:23:09.86434
+2320	2	700	2013-07-26 22:23:10.478229	2013-07-26 22:23:10.478229
+2321	18	700	2013-07-26 22:23:10.481099	2013-07-26 22:23:10.481099
+2322	3	700	2013-07-26 22:23:10.483794	2013-07-26 22:23:10.483794
+2323	10	701	2013-07-26 22:23:11.236188	2013-07-26 22:23:11.236188
+2324	2	701	2013-07-26 22:23:11.239064	2013-07-26 22:23:11.239064
+2325	7	701	2013-07-26 22:23:11.241838	2013-07-26 22:23:11.241838
+2326	6	702	2013-07-26 22:23:11.905265	2013-07-26 22:23:11.905265
+2327	10	702	2013-07-26 22:23:11.908311	2013-07-26 22:23:11.908311
+2328	11	702	2013-07-26 22:23:11.911009	2013-07-26 22:23:11.911009
+2329	12	702	2013-07-26 22:23:11.913716	2013-07-26 22:23:11.913716
+2330	6	703	2013-07-26 22:23:12.842012	2013-07-26 22:23:12.842012
+2331	10	703	2013-07-26 22:23:12.844915	2013-07-26 22:23:12.844915
+2332	8	703	2013-07-26 22:23:12.847773	2013-07-26 22:23:12.847773
+2333	2	703	2013-07-26 22:23:12.850516	2013-07-26 22:23:12.850516
+2334	7	703	2013-07-26 22:23:12.853433	2013-07-26 22:23:12.853433
+2335	5	704	2013-07-26 22:23:13.720415	2013-07-26 22:23:13.720415
+2336	10	705	2013-07-26 22:23:14.441087	2013-07-26 22:23:14.441087
+2337	11	705	2013-07-26 22:23:14.444136	2013-07-26 22:23:14.444136
+2338	5	705	2013-07-26 22:23:14.446909	2013-07-26 22:23:14.446909
+2339	12	705	2013-07-26 22:23:14.449629	2013-07-26 22:23:14.449629
+2340	13	705	2013-07-26 22:23:14.452265	2013-07-26 22:23:14.452265
+2341	2	706	2013-07-26 22:23:15.531485	2013-07-26 22:23:15.531485
+2342	5	706	2013-07-26 22:23:15.53448	2013-07-26 22:23:15.53448
+2343	3	706	2013-07-26 22:23:15.53747	2013-07-26 22:23:15.53747
+2344	14	706	2013-07-26 22:23:15.540954	2013-07-26 22:23:15.540954
+2345	2	707	2013-07-26 22:23:16.249132	2013-07-26 22:23:16.249132
+2346	10	708	2013-07-26 22:23:17.026192	2013-07-26 22:23:17.026192
+2347	5	709	2013-07-26 22:23:18.261705	2013-07-26 22:23:18.261705
+2348	2	709	2013-07-26 22:23:18.264737	2013-07-26 22:23:18.264737
+2349	4	709	2013-07-26 22:23:18.268215	2013-07-26 22:23:18.268215
+2350	2	710	2013-07-26 22:23:19.283119	2013-07-26 22:23:19.283119
+2351	7	710	2013-07-26 22:23:19.285903	2013-07-26 22:23:19.285903
+2352	14	710	2013-07-26 22:23:19.288999	2013-07-26 22:23:19.288999
+2353	2	711	2013-07-26 22:23:19.99028	2013-07-26 22:23:19.99028
+2354	2	712	2013-07-26 22:23:20.95976	2013-07-26 22:23:20.95976
+2355	2	713	2013-07-26 22:23:21.63529	2013-07-26 22:23:21.63529
+2356	18	713	2013-07-26 22:23:21.638069	2013-07-26 22:23:21.638069
+2357	14	713	2013-07-26 22:23:21.641002	2013-07-26 22:23:21.641002
+2358	5	714	2013-07-26 22:23:22.260045	2013-07-26 22:23:22.260045
+2359	13	714	2013-07-26 22:23:22.26284	2013-07-26 22:23:22.26284
+2360	5	715	2013-07-26 22:23:22.942415	2013-07-26 22:23:22.942415
+2361	13	715	2013-07-26 22:23:22.945178	2013-07-26 22:23:22.945178
+2362	2	716	2013-07-26 22:23:23.478872	2013-07-26 22:23:23.478872
+2363	2	717	2013-07-26 22:23:24.550979	2013-07-26 22:23:24.550979
+2364	17	717	2013-07-26 22:23:24.553715	2013-07-26 22:23:24.553715
+2365	7	717	2013-07-26 22:23:24.556539	2013-07-26 22:23:24.556539
+2366	5	718	2013-07-26 22:23:25.616727	2013-07-26 22:23:25.616727
+2367	2	718	2013-07-26 22:23:25.619677	2013-07-26 22:23:25.619677
+2368	3	718	2013-07-26 22:23:25.622862	2013-07-26 22:23:25.622862
+2369	12	718	2013-07-26 22:23:25.626671	2013-07-26 22:23:25.626671
+2370	9	719	2013-07-26 22:23:26.15943	2013-07-26 22:23:26.15943
+2371	2	719	2013-07-26 22:23:26.162655	2013-07-26 22:23:26.162655
+2372	9	720	2013-07-26 22:23:27.014085	2013-07-26 22:23:27.014085
+2373	2	720	2013-07-26 22:23:27.017025	2013-07-26 22:23:27.017025
+2374	2	721	2013-07-26 22:23:27.992977	2013-07-26 22:23:27.992977
+2375	3	721	2013-07-26 22:23:27.996202	2013-07-26 22:23:27.996202
+2376	18	721	2013-07-26 22:23:27.999098	2013-07-26 22:23:27.999098
+2377	4	721	2013-07-26 22:23:28.001831	2013-07-26 22:23:28.001831
+2378	2	722	2013-07-26 22:23:28.526922	2013-07-26 22:23:28.526922
+2379	3	722	2013-07-26 22:23:28.530198	2013-07-26 22:23:28.530198
+2380	4	722	2013-07-26 22:23:28.533081	2013-07-26 22:23:28.533081
+2381	2	723	2013-07-26 22:23:29.343443	2013-07-26 22:23:29.343443
+2382	2	724	2013-07-26 22:23:30.385885	2013-07-26 22:23:30.385885
+2383	2	725	2013-07-26 22:23:31.149352	2013-07-26 22:23:31.149352
+2384	14	725	2013-07-26 22:23:31.153288	2013-07-26 22:23:31.153288
+2385	5	726	2013-07-26 22:23:31.891875	2013-07-26 22:23:31.891875
+2386	14	726	2013-07-26 22:23:31.895436	2013-07-26 22:23:31.895436
+2387	5	727	2013-07-26 22:23:32.515139	2013-07-26 22:23:32.515139
+2388	2	727	2013-07-26 22:23:32.518101	2013-07-26 22:23:32.518101
+2389	14	727	2013-07-26 22:23:32.520959	2013-07-26 22:23:32.520959
+2390	11	728	2013-07-26 22:23:33.190241	2013-07-26 22:23:33.190241
+2391	12	728	2013-07-26 22:23:33.193131	2013-07-26 22:23:33.193131
+2392	3	728	2013-07-26 22:23:33.196403	2013-07-26 22:23:33.196403
+2393	2	729	2013-07-26 22:23:33.98727	2013-07-26 22:23:33.98727
+2394	8	729	2013-07-26 22:23:33.990048	2013-07-26 22:23:33.990048
+2395	2	730	2013-07-26 22:23:35.438994	2013-07-26 22:23:35.438994
+2396	7	730	2013-07-26 22:23:35.441767	2013-07-26 22:23:35.441767
+2397	14	730	2013-07-26 22:23:35.444946	2013-07-26 22:23:35.444946
+2398	3	730	2013-07-26 22:23:35.448064	2013-07-26 22:23:35.448064
+2399	5	731	2013-07-26 22:23:36.237495	2013-07-26 22:23:36.237495
+2400	2	731	2013-07-26 22:23:36.240236	2013-07-26 22:23:36.240236
+2401	23	731	2013-07-26 22:23:36.244092	2013-07-26 22:23:36.244092
+2402	2	732	2013-07-26 22:23:37.0193	2013-07-26 22:23:37.0193
+2403	14	732	2013-07-26 22:23:37.022401	2013-07-26 22:23:37.022401
+2404	3	732	2013-07-26 22:23:37.025785	2013-07-26 22:23:37.025785
+2405	19	732	2013-07-26 22:23:37.029498	2013-07-26 22:23:37.029498
+2406	5	733	2013-07-26 22:23:37.599076	2013-07-26 22:23:37.599076
+2407	5	734	2013-07-26 22:23:38.263726	2013-07-26 22:23:38.263726
+2408	15	734	2013-07-26 22:23:38.266659	2013-07-26 22:23:38.266659
+2409	14	734	2013-07-26 22:23:38.269344	2013-07-26 22:23:38.269344
+2410	28	734	2013-07-26 22:23:38.272067	2013-07-26 22:23:38.272067
+2411	8	735	2013-07-26 22:23:39.042308	2013-07-26 22:23:39.042308
+2412	2	735	2013-07-26 22:23:39.045256	2013-07-26 22:23:39.045256
+2413	17	735	2013-07-26 22:23:39.048272	2013-07-26 22:23:39.048272
+2414	21	735	2013-07-26 22:23:39.051222	2013-07-26 22:23:39.051222
+2415	7	735	2013-07-26 22:23:39.053997	2013-07-26 22:23:39.053997
+2416	27	735	2013-07-26 22:23:39.056732	2013-07-26 22:23:39.056732
+2417	5	736	2013-07-26 22:23:39.582225	2013-07-26 22:23:39.582225
+2418	6	737	2013-07-26 22:23:40.568842	2013-07-26 22:23:40.568842
+2419	8	737	2013-07-26 22:23:40.571776	2013-07-26 22:23:40.571776
+2420	7	737	2013-07-26 22:23:40.57451	2013-07-26 22:23:40.57451
+2421	2	738	2013-07-26 22:23:41.204695	2013-07-26 22:23:41.204695
+2422	5	738	2013-07-26 22:23:41.207488	2013-07-26 22:23:41.207488
+2423	8	738	2013-07-26 22:23:41.210193	2013-07-26 22:23:41.210193
+2424	14	738	2013-07-26 22:23:41.213249	2013-07-26 22:23:41.213249
+2425	5	739	2013-07-26 22:23:41.972475	2013-07-26 22:23:41.972475
+2426	6	740	2013-07-26 22:23:44.253861	2013-07-26 22:23:44.253861
+2427	8	740	2013-07-26 22:23:44.25665	2013-07-26 22:23:44.25665
+2428	2	740	2013-07-26 22:23:44.259394	2013-07-26 22:23:44.259394
+2429	7	740	2013-07-26 22:23:44.262248	2013-07-26 22:23:44.262248
+2430	2	741	2013-07-26 22:23:45.044979	2013-07-26 22:23:45.044979
+2431	3	741	2013-07-26 22:23:45.048172	2013-07-26 22:23:45.048172
+2432	23	741	2013-07-26 22:23:45.051501	2013-07-26 22:23:45.051501
+2433	5	742	2013-07-26 22:23:45.666931	2013-07-26 22:23:45.666931
+2434	14	742	2013-07-26 22:23:45.669937	2013-07-26 22:23:45.669937
+2435	11	743	2013-07-26 22:23:46.626451	2013-07-26 22:23:46.626451
+2436	1	743	2013-07-26 22:23:46.630783	2013-07-26 22:23:46.630783
+2437	16	743	2013-07-26 22:23:46.63485	2013-07-26 22:23:46.63485
+2438	5	743	2013-07-26 22:23:46.640272	2013-07-26 22:23:46.640272
+2439	7	743	2013-07-26 22:23:46.644053	2013-07-26 22:23:46.644053
+2440	12	743	2013-07-26 22:23:46.647922	2013-07-26 22:23:46.647922
+2441	3	743	2013-07-26 22:23:46.650998	2013-07-26 22:23:46.650998
+2442	1	744	2013-07-26 22:23:47.378715	2013-07-26 22:23:47.378715
+2443	13	744	2013-07-26 22:23:47.381833	2013-07-26 22:23:47.381833
+2444	2	745	2013-07-26 22:23:48.169387	2013-07-26 22:23:48.169387
+2445	14	745	2013-07-26 22:23:48.172239	2013-07-26 22:23:48.172239
+2446	22	745	2013-07-26 22:23:48.174975	2013-07-26 22:23:48.174975
+2447	6	746	2013-07-26 22:23:49.265849	2013-07-26 22:23:49.265849
+2448	2	746	2013-07-26 22:23:49.269012	2013-07-26 22:23:49.269012
+2449	11	746	2013-07-26 22:23:49.271763	2013-07-26 22:23:49.271763
+2450	4	746	2013-07-26 22:23:49.274681	2013-07-26 22:23:49.274681
+2451	20	746	2013-07-26 22:23:49.277481	2013-07-26 22:23:49.277481
+2452	16	747	2013-07-26 22:23:50.040682	2013-07-26 22:23:50.040682
+2453	12	747	2013-07-26 22:23:50.043612	2013-07-26 22:23:50.043612
+2454	16	748	2013-07-26 22:23:50.819573	2013-07-26 22:23:50.819573
+2455	6	748	2013-07-26 22:23:50.822414	2013-07-26 22:23:50.822414
+2456	12	748	2013-07-26 22:23:50.825341	2013-07-26 22:23:50.825341
+2457	5	749	2013-07-26 22:23:51.460623	2013-07-26 22:23:51.460623
+2458	8	749	2013-07-26 22:23:51.463561	2013-07-26 22:23:51.463561
+2459	2	749	2013-07-26 22:23:51.46683	2013-07-26 22:23:51.46683
+2460	4	749	2013-07-26 22:23:51.470499	2013-07-26 22:23:51.470499
+2461	12	750	2013-07-26 22:23:52.316673	2013-07-26 22:23:52.316673
+2462	5	750	2013-07-26 22:23:52.319573	2013-07-26 22:23:52.319573
+2463	10	750	2013-07-26 22:23:52.322411	2013-07-26 22:23:52.322411
+2464	11	751	2013-07-26 22:23:53.053942	2013-07-26 22:23:53.053942
+2465	16	751	2013-07-26 22:23:53.056761	2013-07-26 22:23:53.056761
+2466	5	751	2013-07-26 22:23:53.060342	2013-07-26 22:23:53.060342
+2467	5	752	2013-07-26 22:23:53.829059	2013-07-26 22:23:53.829059
+2468	16	752	2013-07-26 22:23:53.8319	2013-07-26 22:23:53.8319
+2469	11	752	2013-07-26 22:23:53.83504	2013-07-26 22:23:53.83504
+2470	12	752	2013-07-26 22:23:53.838041	2013-07-26 22:23:53.838041
+2471	7	752	2013-07-26 22:23:53.840936	2013-07-26 22:23:53.840936
+2472	6	753	2013-07-26 22:23:54.660822	2013-07-26 22:23:54.660822
+2473	10	753	2013-07-26 22:23:54.663616	2013-07-26 22:23:54.663616
+2474	12	753	2013-07-26 22:23:54.666532	2013-07-26 22:23:54.666532
+2475	2	754	2013-07-26 22:23:55.411366	2013-07-26 22:23:55.411366
+2476	2	755	2013-07-26 22:23:56.489847	2013-07-26 22:23:56.489847
+2477	7	755	2013-07-26 22:23:56.492577	2013-07-26 22:23:56.492577
+2478	14	755	2013-07-26 22:23:56.495441	2013-07-26 22:23:56.495441
+2479	3	755	2013-07-26 22:23:56.498405	2013-07-26 22:23:56.498405
+2480	2	756	2013-07-26 22:23:57.033029	2013-07-26 22:23:57.033029
+2481	5	757	2013-07-26 22:23:57.89405	2013-07-26 22:23:57.89405
+2482	23	757	2013-07-26 22:23:57.896801	2013-07-26 22:23:57.896801
+2483	2	758	2013-07-26 22:23:58.85235	2013-07-26 22:23:58.85235
+2484	6	758	2013-07-26 22:23:58.855355	2013-07-26 22:23:58.855355
+2485	8	758	2013-07-26 22:23:58.858713	2013-07-26 22:23:58.858713
+2486	3	758	2013-07-26 22:23:58.862993	2013-07-26 22:23:58.862993
+2487	2	759	2013-07-26 22:23:59.706002	2013-07-26 22:23:59.706002
+2488	5	759	2013-07-26 22:23:59.708859	2013-07-26 22:23:59.708859
+2489	19	759	2013-07-26 22:23:59.711588	2013-07-26 22:23:59.711588
+2490	3	759	2013-07-26 22:23:59.714624	2013-07-26 22:23:59.714624
+2491	5	760	2013-07-26 22:24:00.832603	2013-07-26 22:24:00.832603
+2492	8	760	2013-07-26 22:24:00.835769	2013-07-26 22:24:00.835769
+2493	13	760	2013-07-26 22:24:00.838637	2013-07-26 22:24:00.838637
+2494	3	760	2013-07-26 22:24:00.841351	2013-07-26 22:24:00.841351
+2495	6	761	2013-07-26 22:24:02.884409	2013-07-26 22:24:02.884409
+2496	20	761	2013-07-26 22:24:02.88747	2013-07-26 22:24:02.88747
+2497	3	761	2013-07-26 22:24:02.890617	2013-07-26 22:24:02.890617
+2498	2	762	2013-07-26 22:24:03.738784	2013-07-26 22:24:03.738784
+2499	15	762	2013-07-26 22:24:03.741912	2013-07-26 22:24:03.741912
+2500	6	763	2013-07-26 22:24:04.548102	2013-07-26 22:24:04.548102
+2501	5	763	2013-07-26 22:24:04.550958	2013-07-26 22:24:04.550958
+2502	7	763	2013-07-26 22:24:04.553937	2013-07-26 22:24:04.553937
+2503	8	763	2013-07-26 22:24:04.556669	2013-07-26 22:24:04.556669
+2504	17	763	2013-07-26 22:24:04.559508	2013-07-26 22:24:04.559508
+2505	3	763	2013-07-26 22:24:04.562257	2013-07-26 22:24:04.562257
+2506	10	764	2013-07-26 22:24:05.497229	2013-07-26 22:24:05.497229
+2507	6	764	2013-07-26 22:24:05.500061	2013-07-26 22:24:05.500061
+2508	5	764	2013-07-26 22:24:05.503024	2013-07-26 22:24:05.503024
+2509	7	764	2013-07-26 22:24:05.50639	2013-07-26 22:24:05.50639
+2510	8	764	2013-07-26 22:24:05.50932	2013-07-26 22:24:05.50932
+2511	6	765	2013-07-26 22:24:06.296389	2013-07-26 22:24:06.296389
+2512	10	765	2013-07-26 22:24:06.302427	2013-07-26 22:24:06.302427
+2513	5	765	2013-07-26 22:24:06.306753	2013-07-26 22:24:06.306753
+2514	8	765	2013-07-26 22:24:06.309872	2013-07-26 22:24:06.309872
+2515	7	765	2013-07-26 22:24:06.312687	2013-07-26 22:24:06.312687
+2516	10	766	2013-07-26 22:24:07.102088	2013-07-26 22:24:07.102088
+2517	6	766	2013-07-26 22:24:07.10534	2013-07-26 22:24:07.10534
+2518	5	766	2013-07-26 22:24:07.108307	2013-07-26 22:24:07.108307
+2519	7	766	2013-07-26 22:24:07.111196	2013-07-26 22:24:07.111196
+2520	8	766	2013-07-26 22:24:07.114075	2013-07-26 22:24:07.114075
+2521	6	767	2013-07-26 22:24:07.940483	2013-07-26 22:24:07.940483
+2522	10	767	2013-07-26 22:24:07.943449	2013-07-26 22:24:07.943449
+2523	5	767	2013-07-26 22:24:07.946121	2013-07-26 22:24:07.946121
+2524	8	767	2013-07-26 22:24:07.948786	2013-07-26 22:24:07.948786
+2525	2	767	2013-07-26 22:24:07.951436	2013-07-26 22:24:07.951436
+2526	7	767	2013-07-26 22:24:07.954394	2013-07-26 22:24:07.954394
+2527	2	768	2013-07-26 22:24:09.256809	2013-07-26 22:24:09.256809
+2528	10	769	2013-07-26 22:24:10.018407	2013-07-26 22:24:10.018407
+2529	2	769	2013-07-26 22:24:10.022295	2013-07-26 22:24:10.022295
+2530	6	769	2013-07-26 22:24:10.025479	2013-07-26 22:24:10.025479
+2531	18	769	2013-07-26 22:24:10.028371	2013-07-26 22:24:10.028371
+2532	3	769	2013-07-26 22:24:10.031325	2013-07-26 22:24:10.031325
+2533	16	770	2013-07-26 22:24:10.794388	2013-07-26 22:24:10.794388
+2534	7	770	2013-07-26 22:24:10.798184	2013-07-26 22:24:10.798184
+2535	6	771	2013-07-26 22:24:11.584544	2013-07-26 22:24:11.584544
+2536	8	771	2013-07-26 22:24:11.587589	2013-07-26 22:24:11.587589
+2537	2	771	2013-07-26 22:24:11.590818	2013-07-26 22:24:11.590818
+2538	7	771	2013-07-26 22:24:11.593574	2013-07-26 22:24:11.593574
+2539	10	772	2013-07-26 22:24:12.3483	2013-07-26 22:24:12.3483
+2540	1	772	2013-07-26 22:24:12.351103	2013-07-26 22:24:12.351103
+2541	13	772	2013-07-26 22:24:12.353793	2013-07-26 22:24:12.353793
+2542	6	773	2013-07-26 22:24:13.020679	2013-07-26 22:24:13.020679
+2543	5	773	2013-07-26 22:24:13.023809	2013-07-26 22:24:13.023809
+2544	7	773	2013-07-26 22:24:13.026714	2013-07-26 22:24:13.026714
+2545	10	774	2013-07-26 22:24:14.232795	2013-07-26 22:24:14.232795
+2546	1	774	2013-07-26 22:24:14.235831	2013-07-26 22:24:14.235831
+2547	5	774	2013-07-26 22:24:14.239575	2013-07-26 22:24:14.239575
+2548	13	774	2013-07-26 22:24:14.243042	2013-07-26 22:24:14.243042
+2549	10	775	2013-07-26 22:24:14.96484	2013-07-26 22:24:14.96484
+2550	6	775	2013-07-26 22:24:14.96764	2013-07-26 22:24:14.96764
+2551	7	775	2013-07-26 22:24:14.970474	2013-07-26 22:24:14.970474
+2552	10	776	2013-07-26 22:24:15.714539	2013-07-26 22:24:15.714539
+2553	6	776	2013-07-26 22:24:15.717302	2013-07-26 22:24:15.717302
+2554	7	776	2013-07-26 22:24:15.72006	2013-07-26 22:24:15.72006
+2555	10	777	2013-07-26 22:24:16.575983	2013-07-26 22:24:16.575983
+2556	6	777	2013-07-26 22:24:16.579174	2013-07-26 22:24:16.579174
+2557	7	777	2013-07-26 22:24:16.582228	2013-07-26 22:24:16.582228
+2558	5	778	2013-07-26 22:24:17.198011	2013-07-26 22:24:17.198011
+2559	12	778	2013-07-26 22:24:17.2008	2013-07-26 22:24:17.2008
+2560	10	779	2013-07-26 22:24:19.298762	2013-07-26 22:24:19.298762
+2561	2	779	2013-07-26 22:24:19.301636	2013-07-26 22:24:19.301636
+2562	6	779	2013-07-26 22:24:19.304434	2013-07-26 22:24:19.304434
+2563	5	779	2013-07-26 22:24:19.307965	2013-07-26 22:24:19.307965
+2564	14	779	2013-07-26 22:24:19.310876	2013-07-26 22:24:19.310876
+2565	19	779	2013-07-26 22:24:19.313629	2013-07-26 22:24:19.313629
+2566	5	780	2013-07-26 22:24:19.971105	2013-07-26 22:24:19.971105
+2567	2	780	2013-07-26 22:24:19.974465	2013-07-26 22:24:19.974465
+2568	13	780	2013-07-26 22:24:19.977728	2013-07-26 22:24:19.977728
+2569	8	781	2013-07-26 22:24:20.597564	2013-07-26 22:24:20.597564
+2570	2	781	2013-07-26 22:24:20.600307	2013-07-26 22:24:20.600307
+2571	27	781	2013-07-26 22:24:20.602965	2013-07-26 22:24:20.602965
+2572	7	781	2013-07-26 22:24:20.605657	2013-07-26 22:24:20.605657
+2573	2	782	2013-07-26 22:24:21.564722	2013-07-26 22:24:21.564722
+2574	16	782	2013-07-26 22:24:21.567485	2013-07-26 22:24:21.567485
+2575	23	782	2013-07-26 22:24:21.571061	2013-07-26 22:24:21.571061
+2576	2	783	2013-07-26 22:24:22.44963	2013-07-26 22:24:22.44963
+2577	6	784	2013-07-26 22:24:23.166174	2013-07-26 22:24:23.166174
+2578	10	784	2013-07-26 22:24:23.16919	2013-07-26 22:24:23.16919
+2579	20	784	2013-07-26 22:24:23.171867	2013-07-26 22:24:23.171867
+2580	6	785	2013-07-26 22:24:23.937247	2013-07-26 22:24:23.937247
+2581	2	785	2013-07-26 22:24:23.940983	2013-07-26 22:24:23.940983
+2582	18	785	2013-07-26 22:24:23.944205	2013-07-26 22:24:23.944205
+2583	8	786	2013-07-26 22:24:24.627332	2013-07-26 22:24:24.627332
+2584	2	786	2013-07-26 22:24:24.630274	2013-07-26 22:24:24.630274
+2585	7	786	2013-07-26 22:24:24.633141	2013-07-26 22:24:24.633141
+2586	19	787	2013-07-26 22:24:28.605137	2013-07-26 22:24:28.605137
+2587	2	787	2013-07-26 22:24:28.608082	2013-07-26 22:24:28.608082
+2588	2	788	2013-07-26 22:24:29.496967	2013-07-26 22:24:29.496967
+2589	27	788	2013-07-26 22:24:29.499925	2013-07-26 22:24:29.499925
+2590	10	789	2013-07-26 22:24:30.033763	2013-07-26 22:24:30.033763
+2591	2	789	2013-07-26 22:24:30.037214	2013-07-26 22:24:30.037214
+2592	14	789	2013-07-26 22:24:30.04076	2013-07-26 22:24:30.04076
+2593	10	790	2013-07-26 22:24:30.751581	2013-07-26 22:24:30.751581
+2594	2	790	2013-07-26 22:24:30.754417	2013-07-26 22:24:30.754417
+2595	6	790	2013-07-26 22:24:30.757139	2013-07-26 22:24:30.757139
+2596	2	791	2013-07-26 22:24:31.454857	2013-07-26 22:24:31.454857
+2597	7	791	2013-07-26 22:24:31.457636	2013-07-26 22:24:31.457636
+2598	3	791	2013-07-26 22:24:31.460339	2013-07-26 22:24:31.460339
+2599	8	791	2013-07-26 22:24:31.463295	2013-07-26 22:24:31.463295
+2600	17	791	2013-07-26 22:24:31.466056	2013-07-26 22:24:31.466056
+2601	6	792	2013-07-26 22:24:32.263112	2013-07-26 22:24:32.263112
+2602	2	792	2013-07-26 22:24:32.265826	2013-07-26 22:24:32.265826
+2603	20	792	2013-07-26 22:24:32.26853	2013-07-26 22:24:32.26853
+2604	5	793	2013-07-26 22:24:32.894646	2013-07-26 22:24:32.894646
+2605	14	793	2013-07-26 22:24:32.897931	2013-07-26 22:24:32.897931
+2606	2	794	2013-07-26 22:24:33.605322	2013-07-26 22:24:33.605322
+2607	7	794	2013-07-26 22:24:33.608622	2013-07-26 22:24:33.608622
+2608	10	795	2013-07-26 22:24:34.249071	2013-07-26 22:24:34.249071
+2609	2	795	2013-07-26 22:24:34.251862	2013-07-26 22:24:34.251862
+2610	6	795	2013-07-26 22:24:34.254855	2013-07-26 22:24:34.254855
+2611	3	795	2013-07-26 22:24:34.258273	2013-07-26 22:24:34.258273
+2612	6	796	2013-07-26 22:24:35.464178	2013-07-26 22:24:35.464178
+2613	8	796	2013-07-26 22:24:35.466959	2013-07-26 22:24:35.466959
+2614	7	796	2013-07-26 22:24:35.469637	2013-07-26 22:24:35.469637
+2615	11	797	2013-07-26 22:24:36.390453	2013-07-26 22:24:36.390453
+2616	16	797	2013-07-26 22:24:36.394166	2013-07-26 22:24:36.394166
+2617	4	797	2013-07-26 22:24:36.397309	2013-07-26 22:24:36.397309
+2618	5	798	2013-07-26 22:24:37.206994	2013-07-26 22:24:37.206994
+2619	2	798	2013-07-26 22:24:37.210889	2013-07-26 22:24:37.210889
+2620	18	798	2013-07-26 22:24:37.214631	2013-07-26 22:24:37.214631
+2621	5	799	2013-07-26 22:24:38.409026	2013-07-26 22:24:38.409026
+2622	2	799	2013-07-26 22:24:38.411706	2013-07-26 22:24:38.411706
+2623	6	800	2013-07-26 22:24:39.432826	2013-07-26 22:24:39.432826
+2624	2	800	2013-07-26 22:24:39.435658	2013-07-26 22:24:39.435658
+2625	21	800	2013-07-26 22:24:39.438438	2013-07-26 22:24:39.438438
+2626	7	800	2013-07-26 22:24:39.441172	2013-07-26 22:24:39.441172
+2627	2	801	2013-07-26 22:24:40.321745	2013-07-26 22:24:40.321745
+2628	2	802	2013-07-26 22:24:40.967719	2013-07-26 22:24:40.967719
+2629	22	802	2013-07-26 22:24:40.97064	2013-07-26 22:24:40.97064
+2630	2	803	2013-07-26 22:24:41.647051	2013-07-26 22:24:41.647051
+2631	3	803	2013-07-26 22:24:41.650554	2013-07-26 22:24:41.650554
+2632	12	803	2013-07-26 22:24:41.653587	2013-07-26 22:24:41.653587
+2633	11	804	2013-07-26 22:24:42.656328	2013-07-26 22:24:42.656328
+2634	2	804	2013-07-26 22:24:42.660234	2013-07-26 22:24:42.660234
+2635	5	804	2013-07-26 22:24:42.664715	2013-07-26 22:24:42.664715
+2636	12	804	2013-07-26 22:24:42.667811	2013-07-26 22:24:42.667811
+2637	17	804	2013-07-26 22:24:42.670738	2013-07-26 22:24:42.670738
+2638	3	805	2013-07-26 22:24:43.232673	2013-07-26 22:24:43.232673
+2639	7	805	2013-07-26 22:24:43.23611	2013-07-26 22:24:43.23611
+2640	2	806	2013-07-26 22:24:43.914615	2013-07-26 22:24:43.914615
+2641	7	806	2013-07-26 22:24:43.91782	2013-07-26 22:24:43.91782
+2642	2	807	2013-07-26 22:24:44.613681	2013-07-26 22:24:44.613681
+2643	6	807	2013-07-26 22:24:44.617212	2013-07-26 22:24:44.617212
+2644	20	807	2013-07-26 22:24:44.620137	2013-07-26 22:24:44.620137
+2645	2	808	2013-07-26 22:24:45.3351	2013-07-26 22:24:45.3351
+2646	27	808	2013-07-26 22:24:45.338052	2013-07-26 22:24:45.338052
+2647	17	808	2013-07-26 22:24:45.341614	2013-07-26 22:24:45.341614
+2648	7	808	2013-07-26 22:24:45.345268	2013-07-26 22:24:45.345268
+\.
+
+
+--
+-- Name: genres_movies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: apprentice
+--
+
+SELECT pg_catalog.setval('genres_movies_id_seq', 2648, true);
+
+
+--
+-- Data for Name: movies; Type: TABLE DATA; Schema: public; Owner: apprentice
+--
+
+COPY movies (id, title, rt_id, tmdb_id, imdb_ref, tmdb_rating, release_date, critic_consensus, rt_score, poster_url, trailer_url, mpaa_rating, run_time, budget, created_at, updated_at) FROM stdin;
+1	Ariel	\N	2	tt0094675	0	1988-10-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8ld3BEg8gnynRsfj2AzbLocD8NR.jpg	http://www.apple.com/trailers		69	0	2013-07-26 22:12:09.232726	2013-07-26 22:12:09.232726
+2	Shadows in Paradise	\N	3	tt0092149	8	1990-08-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lfaiYUVL7vPE57xgTscJN3kN5P1.jpg	http://www.apple.com/trailers		76	0	2013-07-26 22:12:09.979858	2013-07-26 22:12:09.979858
+3	Four Rooms	\N	5	tt0113101	7	1995-12-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zbwxBgGO9wtauX8dDfG16ZYZdn.jpg	http://www.youtube.com/watch?v=Rieq_TR7cV0	R	98	4000000	2013-07-26 22:12:11.175655	2013-07-26 22:12:11.175655
+4	Judgment Night	\N	6	tt0107286	6	1993-10-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ml71KFhos8gaFIoRMXGoQ6SEn8M.jpg	http://www.youtube.com/watch?v=vm9qSB0RRCI	R	110	0	2013-07-26 22:12:11.743808	2013-07-26 22:12:11.743808
+5	Life in Loops (A Megacities RMX)	\N	8	tt0825671	4	2006-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8YyIjOAxwzD3fZMdmJrfiApod4l.jpg	http://www.youtube.com/watch?v=id826_ILHdE		80	42000	2013-07-26 22:12:12.870142	2013-07-26 22:12:12.870142
+6	Star Wars: Episode IV - A New Hope	\N	11	tt0076759	7	1977-05-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tvSlBzAdRE29bZe5yYWrJ2ds137.jpg	http://www.youtube.com/watch?v=EyeKC8ufgZY	PG	121	11000000	2013-07-26 22:12:14.971478	2013-07-26 22:12:14.971478
+7	Finding Nemo	\N	12	tt0266543	7	2003-05-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rfqXCblXP9iRZHFwMOgTo19Bztq.jpg	http://www.youtube.com/watch?v=SPHfeNgogVs	G	100	94000000	2013-07-26 22:12:15.865162	2013-07-26 22:12:15.865162
+8	Forrest Gump	\N	13	tt0109830	7	1994-06-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/iZvCkb34CAmV9BETIrHY4yiS115.jpg	http://www.youtube.com/watch?v=8dcYw4OwCA0	PG-13	142	55000000	2013-07-26 22:12:16.650368	2013-07-26 22:12:16.650368
+9	American Beauty	\N	14	tt0169547	7	1999-09-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3UBQGKS8c1dxRnDiu5kUK6ej3pP.jpg	http://www.youtube.com/watch?v=3ycmmJ6rxA8	R	122	15000000	2013-07-26 22:12:17.524792	2013-07-26 22:12:17.524792
+10	Citizen Kane	\N	15	tt0033467	7	1941-05-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8PdrM7atLnjVAyH3j7AbucfmKhD.jpg	http://www.youtube.com/watch?v=UPHEoJ9Ew9M	PG	119	839727	2013-07-26 22:12:18.30292	2013-07-26 22:12:18.30292
+11	Dancer in the Dark	\N	16	tt0168629	7	2000-09-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dbSXueAo31UnHuEwKtjZ4oviTLu.jpg	http://www.youtube.com/watch?v=53vr9EiOH7g	R	140	0	2013-07-26 22:12:18.959851	2013-07-26 22:12:18.959851
+12	The Dark	\N	17	tt0411267	6	2005-10-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/spMYhC9Fom3QHiirsaf8nRS6Edd.jpg	http://www.youtube.com/watch?v=IdCLtwSSIh0		87	0	2013-07-26 22:12:19.528442	2013-07-26 22:12:19.528442
+13	The Fifth Element	\N	18	tt0119116	7	1997-05-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bJrOVcThVU2ArKCh2lHu7rcY60E.jpg	http://www.youtube.com/watch?v=VkX7dHjL-aY	PG-13	126	90000000	2013-07-26 22:12:20.355115	2013-07-26 22:12:20.355115
+14	Metropolis	\N	19	tt0017136	7	1927-03-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4SkUOyamL6I3Xw3TUVBvhpPqFOi.jpg	http://www.youtube.com/watch?v=7j8Ba9rWhUg	NR	114	92620000	2013-07-26 22:12:21.103291	2013-07-26 22:12:21.103291
+15	My Life Without Me	\N	20	tt0314412	8	2003-09-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vVj92VBFUBzjqzLvBiPVVlJDp78.jpg	http://www.youtube.com/watch?v=mPcbm-5MAPA	R	106	0	2013-07-26 22:12:21.753041	2013-07-26 22:12:21.753041
+16	The Endless Summer	\N	21	tt0060371	9	1966-06-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6OH862nH4XkzaB23MukLYftyn4d.jpg	http://www.youtube.com/watch?v=yZsuQXKkPdw	PG	95	0	2013-07-26 22:12:22.306343	2013-07-26 22:12:22.306343
+17	Pirates of the Caribbean: The Curse of the Black Pearl	\N	22	tt0325980	7	2003-07-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tkt9xR1kNX5R9rCebASKck44si2.jpg	http://www.youtube.com/watch?v=ZFCno8e-KuI	PG-13	143	140000000	2013-07-26 22:12:23.17403	2013-07-26 22:12:23.17403
+18	Kill Bill: Vol. 1	\N	24	tt0266697	6	2003-10-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/y2K3ywCntbRjZU6xN5xTc3ee9D6.jpg	http://www.youtube.com/watch?v=aT8QZtj1n28	R	111	55000000	2013-07-26 22:12:24.428632	2013-07-26 22:12:24.428632
+19	Jarhead	\N	25	tt0418763	6	2005-11-04	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kmbyO0XUHRHcMyxVSZAWDdrpxIu.jpg	http://www.youtube.com/watch?v=qvxWLrl_aQQ	R	125	72000000	2013-07-26 22:12:25.760928	2013-07-26 22:12:25.760928
+20	Walk on Water	\N	26	tt0352994	8	2004-02-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2lMVKr9EtBuNvp0nCEFt207bykA.jpg	http://www.youtube.com/watch?v=_ftZhiogzTY		103	1400000	2013-07-26 22:12:26.32684	2013-07-26 22:12:26.32684
+21	9 Songs	\N	27	tt0411705	6	2004-09-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uoM5UNeYbjv0oqQnqsSfZKEGf3i.jpg	http://www.youtube.com/watch?v=KPEml385J4w	NR	71	1000000	2013-07-26 22:12:27.030631	2013-07-26 22:12:27.030631
+22	Apocalypse Now	\N	28	tt0078788	7	1979-08-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/l8dn7rKbjP36PtHsViHGpzf5ey7.jpg	http://www.youtube.com/watch?v=Tt0xxAMTp8M	R	153	31500000	2013-07-26 22:12:27.653638	2013-07-26 22:12:27.653638
+23	Unforgiven	\N	33	tt0105695	7	1992-08-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9oPodyvCWyPMZJDjg29tBfFRwtG.jpg	http://www.youtube.com/watch?v=XDAXGILEdro	R	131	0	2013-07-26 22:12:30.693482	2013-07-26 22:12:30.693482
+24	The Simpsons Movie	\N	35	tt0462538	6	2007-07-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xUJmQfAAERB6VJRNx3TCHtr7N9s.jpg	http://www.youtube.com/watch?v=PulHR2LfPVk	PG-13	87	75000000	2013-07-26 22:12:31.956642	2013-07-26 22:12:31.956642
+25	Eternal Sunshine of the Spotless Mind	\N	38	tt0338013	7	2004-03-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uBfQ7IGpi0jXSP3GPCzp9Pzm10v.jpg	http://www.youtube.com/watch?v=lnSgSe2GzDc	R	108	20000000	2013-07-26 22:12:33.665087	2013-07-26 22:12:33.665087
+26	Amores Perros	\N	55	tt0245712	8	2000-03-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8gEXmIzw1tDnBfOaCFPimkNIkmm.jpg	http://www.youtube.com/watch?v=XToRtfQbeHg	R	154	2000000	2013-07-26 22:12:42.571736	2013-07-26 22:12:42.571736
+27	Pirates of the Caribbean: Dead Man's Chest	\N	58	tt0383574	6	2006-07-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/qCoHWE8tipW1fWW4dBUXZ9Nikw.jpg	http://www.youtube.com/watch?v=wXCs8qDWEMk	PG-13	151	200000000	2013-07-26 22:12:44.512185	2013-07-26 22:12:44.512185
+28	A History of Violence	\N	59	tt0399146	6	2005-09-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mz1qCHXxTUJm2AqOdW3IIpwYdo3.jpg	http://www.youtube.com/watch?v=dp2CxCsK8nM	R	96	32000000	2013-07-26 22:12:45.146498	2013-07-26 22:12:45.146498
+29	2001: A Space Odyssey	\N	62	tt0062622	7	1968-04-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dofAGi4y9dxzU5HNP41BZO0v4dP.jpg	http://www.youtube.com/watch?v=E8TABIFAN4o	G	141	10500000	2013-07-26 22:12:47.115656	2013-07-26 22:12:47.115656
+30	Twelve Monkeys	\N	63	tt0114746	7	1995-12-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6Sj9wDu3YugthXsU0Vry5XFAZGg.jpg	http://www.youtube.com/watch?v=l0gEkxzOHho	R	129	29500000	2013-07-26 22:12:48.479244	2013-07-26 22:12:48.479244
+31	Talk to Her	\N	64	tt0287467	8	2002-03-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gejtyJ1agjuuHWMcflmM2C3PUOp.jpg	http://www.youtube.com/watch?v=7fl8tyEIXXI	R	112	0	2013-07-26 22:12:49.197952	2013-07-26 22:12:49.197952
+32	8 Mile	\N	65	tt0298203	6	2002-11-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dXzTrKwpbLpCqn8O70FUUhNbYQT.jpg	http://www.youtube.com/watch?v=idBm6OKzkAE	R	110	41000000	2013-07-26 22:12:49.956515	2013-07-26 22:12:49.956515
+33	Absolute Power	\N	66	tt0118548	6	1997-02-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oJQdp09Oc51DkArsMDvgDLdWiDu.jpg	http://www.youtube.com/watch?v=l2Q7eIl6Ruk	R	121	50000000	2013-07-26 22:12:50.575931	2013-07-26 22:12:50.575931
+34	Paradise Now	\N	67	tt0445620	9	2005-02-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jENSKdZVnvBfoI25TbgSg13tYAR.jpg	http://www.apple.com/trailers	PG-13	90	0	2013-07-26 22:12:51.196876	2013-07-26 22:12:51.196876
+35	Brazil	\N	68	tt0088846	7	1985-12-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fbaxxLP6PztGwLrHO0lBDquof0d.jpg	http://www.youtube.com/watch?v=4Wh2b1eZFUM	R	132	15000000	2013-07-26 22:12:52.391037	2013-07-26 22:12:52.391037
+36	Walk the Line	\N	69	tt0358273	7	2005-11-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lmvHZBKSuked280R9GET3KNwouE.jpg	http://www.youtube.com/watch?v=rIfdWoHqeXE	PG-13	136	28000000	2013-07-26 22:12:53.151518	2013-07-26 22:12:53.151518
+37	Million Dollar Baby	\N	70	tt0405159	7	2004-12-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/h4VZKi2Jt4VoBYJmtC4c3bO8KqM.jpg	http://www.apple.com/trailers	PG-13	132	30000000	2013-07-26 22:12:53.878787	2013-07-26 22:12:53.878787
+38	Billy Elliot	\N	71	tt0249462	7	2000-10-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1KpdJnXPJJhdurxCQtkJ5Hf5C69.jpg	http://www.youtube.com/watch?v=jhyktCYtc1g	PG-13	110	5000000	2013-07-26 22:12:54.534332	2013-07-26 22:12:54.534332
+39	American History X	\N	73	tt0120586	7	1998-10-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fXepRAYOx1qC3wju7XdDGx60775.jpg	http://www.youtube.com/watch?v=UV0VEstvjMM	R	119	10000000	2013-07-26 22:12:55.930963	2013-07-26 22:12:55.930963
+40	War of the Worlds	\N	74	tt0407304	5	2005-06-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bWKSVhlSjZT6OMaRYBiBUjzhD11.jpg	http://www.youtube.com/watch?v=hrCnXLlhuls&hd=1	PG-13	116	132000000	2013-07-26 22:12:56.783278	2013-07-26 22:12:56.783278
+41	Mars Attacks!	\N	75	tt0116996	5	1996-12-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cvDOS1ih0PDLCpG5bPmS3f7k8zp.jpg	http://www.youtube.com/watch?v=oC5O9NFWZCs	PG-13	106	70000000	2013-07-26 22:12:57.51264	2013-07-26 22:12:57.51264
+42	Before Sunrise	\N	76	tt0112471	8	1995-01-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4sDmI88gUAInHitaTkGej90Q3Z7.jpg	http://www.youtube.com/watch?v=5SbjL172kew	R	105	2500000	2013-07-26 22:12:58.178639	2013-07-26 22:12:58.178639
+43	Memento	\N	77	tt0209144	7	2000-09-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uXxbTcMwIiflFzzs32FFg3Vfbt.jpg	http://www.youtube.com/watch?v=Rq9eM4ZXRgs	R	113	9000000	2013-07-26 22:12:58.889877	2013-07-26 22:12:58.889877
+44	Blade Runner	\N	78	tt0083658	7	1982-06-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/p64TtbZGCElxQHpAMWmDHkWJlH2.jpg	http://www.youtube.com/watch?v=xP4WvJaMfj8	R	117	28000000	2013-07-26 22:13:00.021665	2013-07-26 22:13:00.021665
+45	Hero	\N	79	tt0299977	6	2002-12-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/25mPUxUgI7ohcKcoiyQ5lNGqmFJ.jpg	http://www.youtube.com/watch?v=1p2p8OAdxro	PG-13	99	30000000	2013-07-26 22:13:00.820494	2013-07-26 22:13:00.820494
+46	Before Sunset	\N	80	tt0381681	7	2004-02-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cIj6yWJKUjdCCO7vuZQKl0NqCQe.jpg	http://www.youtube.com/watch?v=XvFosXeqmDg	R	77	2700000	2013-07-26 22:13:01.466953	2013-07-26 22:13:01.466953
+47	Nausicaä of the Valley of the Wind	\N	81	tt0087544	7	1984-03-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/y2rl0OkMfZHpBaQYPfSJmLMOxwp.jpg	http://www.youtube.com/watch?v=fP6DnVzmaAE	\N	95	1000000	2013-07-26 22:13:02.354353	2013-07-26 22:13:02.354353
+48	Miami Vice	\N	82	tt0430357	5	2006-07-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/eATYiJLMkFgvirdZg4JGf6pkDki.jpg	http://www.youtube.com/watch?v=E4RChn-_wko	R	134	135000000	2013-07-26 22:13:03.089601	2013-07-26 22:13:03.089601
+49	Open Water	\N	83	tt0374102	4	2003-10-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5XirvjFzd6z6AbSKKjbzqOVfHcD.jpg	http://www.youtube.com/watch?v=L6KnKoVnoMw	R	79	130000	2013-07-26 22:13:03.905588	2013-07-26 22:13:03.905588
+50	Raiders of the Lost Ark	\N	85	tt0082971	7	1981-06-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tjGpsV0vKKHECtdsQoVwIXsDj3.jpg	http://www.youtube.com/watch?v=oZhzkPOhtPI	PG	115	20000000	2013-07-26 22:13:05.810666	2013-07-26 22:13:05.810666
+51	The Elementary Particles	\N	86	tt0430051	7	2006-02-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6IgQZl06sNRSBZE1Te74ENb6mhx.jpg	http://www.apple.com/trailers		105	6000000	2013-07-26 22:13:06.996551	2013-07-26 22:13:06.996551
+52	Indiana Jones and the Temple of Doom	\N	87	tt0087469	6	1984-05-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/c8wjjTnqxnG835iSEeWUJJifSVp.jpg	http://www.youtube.com/watch?v=98Nkqlp_hrg	PG	118	28000000	2013-07-26 22:13:08.107729	2013-07-26 22:13:08.107729
+53	Dirty Dancing	\N	88	tt0092890	6	1987-08-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6spJh3MSQg64Nh5CQbmUBAOLrkY.jpg	http://www.youtube.com/watch?v=QIyhfZw_WYI	PG-13	100	6000000	2013-07-26 22:13:09.039668	2013-07-26 22:13:09.039668
+54	Indiana Jones and the Last Crusade	\N	89	tt0097576	7	1989-05-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1xlQmxqKbkCb2THC9rwgr75p25B.jpg	http://www.youtube.com/watch?v=cgFLTGUYe8s	PG-13	127	48000000	2013-07-26 22:13:09.97603	2013-07-26 22:13:09.97603
+55	Beverly Hills Cop	\N	90	tt0086960	6	1984-11-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2TuHyfMvzRTGBMxGphynmAw6mg4.jpg	http://www.youtube.com/watch?v=O6hv8y6LVIU	R	105	15000000	2013-07-26 22:13:10.79632	2013-07-26 22:13:10.79632
+56	Megacities	\N	92	tt0169024	0	1998-08-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/yN80Se4PXSLf2xpJPue0D2vhxBr.jpg	http://www.apple.com/trailers		94	0	2013-07-26 22:13:12.010063	2013-07-26 22:13:12.010063
+57	Anatomy of a Murder	\N	93	tt0052561	8	1959-07-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3cWYePc9K4d2bR5aQNMGm77mG7s.jpg	http://www.youtube.com/watch?v=fMCt7fyjqO0		160	0	2013-07-26 22:13:13.228089	2013-07-26 22:13:13.228089
+58	Armageddon	\N	95	tt0120591	6	1998-06-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/coINnuCzcw5FMHBty8hcudMOBnO.jpg	http://www.youtube.com/watch?v=iq6q2BrTino	PG-13	151	140000000	2013-07-26 22:13:14.617612	2013-07-26 22:13:14.617612
+59	Beverly Hills Cop II	\N	96	tt0092644	6	1987-05-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2y1z1baxKT0coTTRlnkI6McnR9f.jpg	http://www.youtube.com/watch?v=ivAiTCgbHoQ	R	100	20000000	2013-07-26 22:13:15.382145	2013-07-26 22:13:15.382145
+60	TRON	\N	97	tt0084827	6	1982-07-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cTF8lpXvAwT1SLH9kVFZZl0AO0D.jpg	http://www.youtube.com/watch?v=Smmu4WG4iVI	PG	96	17000000	2013-07-26 22:13:16.272849	2013-07-26 22:13:16.272849
+61	Gladiator	\N	98	tt0172495	7	2000-05-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6WBIzCgmDCYrqh64yDREGeDk9d3.jpg	http://www.youtube.com/watch?v=ol67qo3WhJk	R	155	103000000	2013-07-26 22:13:17.291512	2013-07-26 22:13:17.291512
+62	All About My Mother	\N	99	tt0185125	7	1999-11-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/p6ay2XkXvIWjrNN3aWymCZiNzkM.jpg	http://www.youtube.com/watch?v=6SFkzU3n4TI		101	0	2013-07-26 22:13:18.064164	2013-07-26 22:13:18.064164
+63	Lock, Stock and Two Smoking Barrels	\N	100	tt0120735	7	1998-03-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/qV7QaSf7f7yC2lc985zfyOJIAIN.jpg	http://www.youtube.com/watch?v=h6hZkvrFIj0	R	105	1350000	2013-07-26 22:13:18.945222	2013-07-26 22:13:18.945222
+64	Leon: The Professional	\N	101	tt0110413	7	1994-11-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uzKHnyOAPfHsoqN8BFKgIVtdBzF.jpg	http://www.youtube.com/watch?v=DcsirofJrlM	R	110	16000000	2013-07-26 22:13:19.990986	2013-07-26 22:13:19.990986
+65	Open Hearts	\N	102	tt0315543	0	2003-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uOhPh5QxXx3TLtcH4G3YBzmx58t.jpg	http://www.apple.com/trailers		113	0	2013-07-26 22:13:20.934078	2013-07-26 22:13:20.934078
+66	Taxi Driver	\N	103	tt0075314	7	1976-02-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/94GCaf7SzNWdQLhZ63AaGjNXcK3.jpg	http://www.youtube.com/watch?v=cujiHDeqnHY	R	113	1300000	2013-07-26 22:13:21.822277	2013-07-26 22:13:21.822277
+67	Run Lola Run	\N	104	tt0130827	7	1999-06-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1HADanXIwrnxFQuzAZe4WdbTMjx.jpg	http://www.youtube.com/watch?v=1o3rZYZRv74	R	81	1530000	2013-07-26 22:13:22.640431	2013-07-26 22:13:22.640431
+68	Back to the Future	\N	105	tt0088763	7	1985-07-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/pTpxQB1N0waaSc3OSn0e9oc8kx9.jpg	http://www.youtube.com/watch?v=7i89wUv25QU	PG	116	19000000	2013-07-26 22:13:23.640877	2013-07-26 22:13:23.640877
+69	Predator	\N	106	tt0093773	6	1987-06-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gUpto7r2XwoM5eW7MUvd8hl1etB.jpg	http://www.youtube.com/watch?v=0WEHHIzIFes	R	107	18000000	2013-07-26 22:13:24.620275	2013-07-26 22:13:24.620275
+70	Snatch.	\N	107	tt0208092	7	2000-12-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/on9JlbGEccLsYkjeEph2Whm1DIp.jpg	http://www.youtube.com/watch?v=4mZtnOtXK5E	R	103	10000000	2013-07-26 22:13:26.228246	2013-07-26 22:13:26.228246
+71	Three Colors: Blue	\N	108	tt0108394	7	1993-01-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/90uZfEzhGMJ9YM0KlpJ6JDpzOTj.jpg	http://www.youtube.com/watch?v=9wjcbC-xn9g	R	98	0	2013-07-26 22:13:26.967225	2013-07-26 22:13:26.967225
+72	Three Colors: White	\N	109	tt0111507	8	1994-01-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dDbycKbFUgVc3JhdJ9Zit9r5mEJ.jpg	http://www.youtube.com/watch?v=xECEAPfdqic	R	91	0	2013-07-26 22:13:27.724814	2013-07-26 22:13:27.724814
+73	Three Colors: Red	\N	110	tt0111495	9	1994-05-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hY39e7Svr1rDxNwjQkUZSL83NZz.jpg	http://www.youtube.com/watch?v=ZXNjdrYzxys	R	99	0	2013-07-26 22:13:28.51547	2013-07-26 22:13:28.51547
+74	Scarface	\N	111	tt0086250	7	1983-12-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zr2p353wrd6j3wjLgDT4TcaestB.jpg	http://www.youtube.com/watch?v=vREl66xmXsE	R	170	25000000	2013-07-26 22:13:29.407877	2013-07-26 22:13:29.407877
+75	Italian for Beginners	\N	112	tt0243862	10	2000-12-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ilmNPqVlqmWvtEA7PhUi8yz7uiV.jpg	http://www.apple.com/trailers	\N	112	0	2013-07-26 22:13:29.999612	2013-07-26 22:13:29.999612
+76	Spring, Summer, Fall, Winter... and Spring	\N	113	tt0374546	8	2003-09-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1BQ7armxSGFQT6huPZ1mZGMubL8.jpg	http://www.youtube.com/watch?v=jdRkhD_hmo0	\N	103	0	2013-07-26 22:13:30.627494	2013-07-26 22:13:30.627494
+77	Pretty Woman	\N	114	tt0100405	6	1990-03-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4ufvm0uwtvilabyUP5Zo6QeraB2.jpg	http://www.youtube.com/watch?v=Wzii8IuL8lk	R	119	14000000	2013-07-26 22:13:31.399773	2013-07-26 22:13:31.399773
+78	The Big Lebowski	\N	115	tt0118715	7	1998-03-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/aHaVjVoXeNanfwUwQ92SG7tosFM.jpg	http://www.youtube.com/watch?v=cd-go0oBF4Y	R	117	15000000	2013-07-26 22:13:32.350037	2013-07-26 22:13:32.350037
+79	Match Point	\N	116	tt0416320	7	2005-11-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cUaA5DFV8mg50O8bU9XlGe4N1i0.jpg	http://www.youtube.com/watch?v=8fLgkyR4nZg	R	124	15000000	2013-07-26 22:13:33.244792	2013-07-26 22:13:33.244792
+80	The Untouchables	\N	117	tt0094226	7	1987-06-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/nv7FOs90Y3Cq5tBhEITEV8Zebyw.jpg	http://www.youtube.com/watch?v=i0KTI7_PCfI	R	119	25000000	2013-07-26 22:13:34.040291	2013-07-26 22:13:34.040291
+81	Charlie and the Chocolate Factory	\N	118	tt0367594	5	2005-07-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fdXNl6bSEn3H4ulfrA07v4nSNmt.jpg	http://www.youtube.com/watch?v=FZkIlAEbHi4	PG	115	150000000	2013-07-26 22:13:34.756353	2013-07-26 22:13:34.756353
+82	The Lord of the Rings: The Fellowship of the Ring	\N	120	tt0120737	7	2001-12-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9HG6pINW1KoFTAKY3LdybkoOKAm.jpg	http://www.youtube.com/watch?v=GgF5QTsonn8	PG-13	178	93000000	2013-07-26 22:13:36.414667	2013-07-26 22:13:36.414667
+83	The Lord of the Rings: The Two Towers	\N	121	tt0167261	7	2002-12-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9mBjBuUmBBgnGjV1JZ2uCIYbaph.jpg	http://www.youtube.com/watch?v=yBNSOdEjtZs	PG-13	179	79000000	2013-07-26 22:13:38.236661	2013-07-26 22:13:38.236661
+84	The Lord of the Rings: The Return of the King	\N	122	tt0167260	7	2003-12-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/j6NCjU6Zh7SkfIeN5zDaoTmBn4m.jpg	http://www.youtube.com/watch?v=eeG-S4Xj3PE	PG-13	201	94000000	2013-07-26 22:13:39.237958	2013-07-26 22:13:39.237958
+85	The Lord of the Rings	\N	123	tt0077869	5	1978-11-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1l3WpoF7TX9pOprX4XepCXjQXUV.jpg	http://www.youtube.com/watch?v=6WcJbPlAknw	PG	132	8000000	2013-07-26 22:13:39.909666	2013-07-26 22:13:39.909666
+86	No End	\N	124	tt0086961	0	1985-06-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bHF39JWwYXlxzTXqkVXsiMjZpeb.jpg	http://www.apple.com/trailers		109	0	2013-07-26 22:13:40.73866	2013-07-26 22:13:40.73866
+87	Short Working Day	\N	126	tt0082631	0	1981-08-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2SzD3cpPQyayMJxgynHjA7cLh6b.jpg	http://www.apple.com/trailers		73	0	2013-07-26 22:13:42.075755	2013-07-26 22:13:42.075755
+88	Blind Chance	\N	127	tt0084549	9	1981-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jwogMQTLkiMNyPCf1pbWbKxo7fg.jpg	http://www.apple.com/trailers	\N	114	0	2013-07-26 22:13:42.956025	2013-07-26 22:13:42.956025
+89	Princess Mononoke	\N	128	tt0119698	7	1999-09-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gzlJkVfWV5VEG5xK25cvFGJgkDz.jpg	http://www.youtube.com/watch?v=TJpZytmTb2M	PG-13	134	26500000	2013-07-26 22:13:43.670254	2013-07-26 22:13:43.670254
+90	Spirited Away	\N	129	tt0245429	7	2001-09-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ydIpyTzCc5iYAqjlbcCmgSckebE.jpg	http://www.youtube.com/watch?v=_jGXcSBcvQQ	PG	125	15000000	2013-07-26 22:13:44.566548	2013-07-26 22:13:44.566548
+91	The Rolling Stones: Gimme Shelter	\N	132	tt0065780	7	1970-12-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/nW3StqEveehhMToDYCaeXAXPpPx.jpg	http://www.youtube.com/watch?v=nPNeh4d9guk		91	0	2013-07-26 22:13:46.769375	2013-07-26 22:13:46.769375
+92	Primary	\N	133	tt0054205	0	1960-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2DusXjVP1jqBoegG9leHFGklp4f.jpg	http://www.apple.com/trailers		60	0	2013-07-26 22:13:47.463138	2013-07-26 22:13:47.463138
+93	O Brother, Where Art Thou?	\N	134	tt0190590	7	2000-12-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vWGpHTmkZdKJJWpZ0ngPVHsq68l.jpg	http://www.youtube.com/watch?v=I1C2gCXo4Gs	PG-13	106	26000000	2013-07-26 22:13:48.433829	2013-07-26 22:13:48.433829
+94	Don't Look Back	\N	135	tt0061589	9	1967-05-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xf3RgJeCrEVINV6LdTtdqMeE00n.jpg	http://www.youtube.com/watch?v=VY4HtQ-XJQE		96	0	2013-07-26 22:13:49.272734	2013-07-26 22:13:49.272734
+95	Freaks	\N	136	tt0022913	8	1932-02-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vyZ6dXVYkD3cj8oCD8upHi7ldMh.jpg	http://www.youtube.com/watch?v=vJVXTKkjsxA	NR	64	0	2013-07-26 22:13:49.932725	2013-07-26 22:13:49.932725
+96	Groundhog Day	\N	137	tt0107048	7	1993-02-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vXjVd0Vu0MXRZnga7wEnHIIhO5B.jpg	http://www.youtube.com/watch?v=tSVeDx9fk60	PG	101	14600000	2013-07-26 22:13:50.927712	2013-07-26 22:13:50.927712
+97	Dracula	\N	138	tt0021814	7	1931-02-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gS9Q2hmiIIWB7rW5HOSpHkGbQi7.jpg	http://www.youtube.com/watch?v=K_Q77WDwdEE	PG	72	355000	2013-07-26 22:13:51.929382	2013-07-26 22:13:51.929382
+98	Mifune's Last Song	\N	139	tt0164756	0	1999-05-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/o8LzDhNQZqDewrm4Ky53zRFf7fb.jpg	http://www.apple.com/trailers		98	0	2013-07-26 22:13:52.831539	2013-07-26 22:13:52.831539
+99	Bad Education	\N	140	tt0275491	8	2004-05-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2wPhxmIveLgp8ClczFSHQhupF29.jpg	http://www.youtube.com/watch?v=2sS8tJhmjQs	NC-17	106	5000000	2013-07-26 22:13:54.031941	2013-07-26 22:13:54.031941
+100	Donnie Darko	\N	141	tt0246578	7	2001-10-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dGcIsUfeatHYqgp9gX6KOcYT427.jpg	http://www.youtube.com/watch?v=vijy4Oiawa8	R	113	4500000	2013-07-26 22:13:54.962749	2013-07-26 22:13:54.962749
+101	Brokeback Mountain	\N	142	tt0388795	6	2005-09-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hmBG09xDFK1n1czJ74BvfnSlxDI.jpg	http://www.youtube.com/watch?v=U5D1iU5KnqQ	R	134	14000000	2013-07-26 22:13:55.71126	2013-07-26 22:13:55.71126
+102	All Quiet on the Western Front	\N	143	tt0020629	7	1930-04-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/sDu5fHsfPafkHImwSEGoKjhwFCO.jpg	http://www.youtube.com/watch?v=aiObc2XmVqw	NR	133	1250000	2013-07-26 22:13:56.456221	2013-07-26 22:13:56.456221
+103	Wings of Desire	\N	144	tt0093191	7	1987-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ceok7ihMKUAbBEorAbFX4wrdQiu.jpg	http://www.youtube.com/watch?v=18gU7pY0P-Q	PG-13	128	2500000	2013-07-26 22:13:57.24989	2013-07-26 22:13:57.24989
+104	Breaking The Waves	\N	145	tt0115751	9	1996-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2SAODnTzdTRUvDunSJCPAckvun6.jpg	http://www.apple.com/trailers	R	159	0	2013-07-26 22:13:57.810013	2013-07-26 22:13:57.810013
+105	Crouching Tiger, Hidden Dragon	\N	146	tt0190332	6	2000-10-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2D7kikHUHbecJGoRAspBYiqoxd6.jpg	http://www.youtube.com/watch?v=svKLqq445bQ	PG-13	120	15000000	2013-07-26 22:13:58.597235	2013-07-26 22:13:58.597235
+106	The 400 Blows	\N	147	tt0053198	8	1959-05-04	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vkS1tqTb0PICUSzTKueqS6ZPXWG.jpg	http://www.youtube.com/watch?v=SYCD1IBzzC0	NR	99	70	2013-07-26 22:13:59.648516	2013-07-26 22:13:59.648516
+107	The Secret Life of Words	\N	148	tt0430576	10	2005-12-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/de2RXPRH0dIUxakKtw2zXv94iXt.jpg	http://www.youtube.com/watch?v=iPAFnmmJf_Y		112	5000000	2013-07-26 22:14:00.182467	2013-07-26 22:14:00.182467
+108	Akira	\N	149	tt0094625	7	1988-10-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8Pt7hlu7fkc5IIR0VZ2kNGY8sT4.jpg	http://www.youtube.com/watch?v=utHYI4w9fpY	R	124	10000000	2013-07-26 22:14:00.920591	2013-07-26 22:14:00.920591
+109	48 Hrs.	\N	150	tt0083511	6	1982-12-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rq8NvwC5tC2E8SNU1CF8iJJErNQ.jpg	http://www.youtube.com/watch?v=24XiqMIC6q8	R	96	1000000	2013-07-26 22:14:01.735499	2013-07-26 22:14:01.735499
+110	Star Trek: The Motion Picture	\N	152	tt0079945	6	1979-12-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dlQxDFDj6crYfDWRuoK7bq6Q2bF.jpg	http://www.youtube.com/watch?v=dwivz3gECus	PG	132	35000000	2013-07-26 22:14:03.390536	2013-07-26 22:14:03.390536
+111	Lost in Translation	\N	153	tt0335266	7	2003-09-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5T8VvuFTdaawKLJk34i69Utaw7o.jpg	http://www.youtube.com/watch?v=g_maEh38ZTw	R	102	4000000	2013-07-26 22:14:04.096047	2013-07-26 22:14:04.096047
+112	Star Trek II: The Wrath of Khan	\N	154	tt0084726	7	1982-06-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7VKpj4Xl3hTzgAS3xpVuOyqNnSv.jpg	http://www.youtube.com/watch?v=vOIYaRb6XpQ	PG	113	12000000	2013-07-26 22:14:04.81338	2013-07-26 22:14:04.81338
+113	The Dark Knight	\N	155	tt0468569	7	2008-07-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1hRoyzDtpgMU7Dz4JF22RANzQO7.jpg	http://www.youtube.com/watch?v=GVx5K8WfFJY	PG-13	152	185000000	2013-07-26 22:14:05.909267	2013-07-26 22:14:05.909267
+114	Wilbur Wants To Kill Himself	\N	156	tt0329767	9	2003-08-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/R6f5uS11p5L9wc3QEzkxcZul6E.jpg	http://www.apple.com/trailers		111	0	2013-07-26 22:14:06.51259	2013-07-26 22:14:06.51259
+115	Star Trek III: The Search for Spock	\N	157	tt0088170	6	1984-05-31	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5dgjGPY2NLMbtw8T2tFAuk8dJ8N.jpg	http://www.youtube.com/watch?v=LdC_OqSfhxg	PG	105	18000000	2013-07-26 22:14:07.287299	2013-07-26 22:14:07.287299
+116	Knockin' On Heaven's Door	\N	158	tt0119472	8	1997-02-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/aWdexo6kV6eID4XFfg8M7yLSqPe.jpg	http://www.youtube.com/watch?v=hTuU2LWdQlU	\N	87	0	2013-07-26 22:14:07.942816	2013-07-26 22:14:07.942816
+117	Maybe... Maybe Not	\N	159	tt0109255	0	1994-10-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fPpMa0dZtWEzCE4DqYavN7I6zX1.jpg	http://www.youtube.com/watch?v=Pi_z6YOeWcA	\N	90	0	2013-07-26 22:14:09.135212	2013-07-26 22:14:09.135212
+118	Ocean's Eleven	\N	161	tt0240772	6	2001-12-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/o0h76DVXvk5OKjmNez5YY0GODC2.jpg	http://www.youtube.com/watch?v=ImMGNQ2OEjo	PG-13	116	85000000	2013-07-26 22:14:10.515651	2013-07-26 22:14:10.515651
+119	Edward Scissorhands	\N	162	tt0099487	6	1990-12-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/aK5Giop6mfyXhv3sFGgMZwVZqdh.jpg	http://www.youtube.com/watch?v=XDU8K114aYw	PG-13	105	20000000	2013-07-26 22:14:11.219803	2013-07-26 22:14:11.219803
+120	Ocean's Twelve	\N	163	tt0349903	6	2004-12-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4irBEiDC7SpYBuw5z1c7oLfF0EI.jpg	http://www.youtube.com/watch?v=Y17X5BSrCx4	PG-13	125	110000000	2013-07-26 22:14:12.049961	2013-07-26 22:14:12.049961
+121	Breakfast at Tiffany's	\N	164	tt0054698	7	1961-10-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dHVP4Puf2jMfe0gzRLndEUxl4bL.jpg	http://www.youtube.com/watch?v=urQVzgEO_w8	PG	110	2500000	2013-07-26 22:14:12.900963	2013-07-26 22:14:12.900963
+122	Back to the Future Part II	\N	165	tt0096874	7	1989-11-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/k5dzvCQkXU2CAhLtlj9BHE7xmyK.jpg	http://www.youtube.com/watch?v=0oCi436G8Xk	PG	108	40000000	2013-07-26 22:14:13.817946	2013-07-26 22:14:13.817946
+123	La Boum	\N	166	tt0082100	8	1980-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/d5YVPZWWCuXamM2aPl1qI5M3MY2.jpg	http://www.youtube.com/watch?v=gKCCz59QtVE		110	0	2013-07-26 22:14:14.458834	2013-07-26 22:14:14.458834
+124	K-PAX	\N	167	tt0272152	6	2001-10-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/imyvshhGJm6G0zNmNZKTq6DA2VM.jpg	http://www.youtube.com/watch?v=YV5s07zI-Bg	PG-13	120	0	2013-07-26 22:14:15.132676	2013-07-26 22:14:15.132676
+125	Star Trek IV: The Voyage Home	\N	168	tt0092007	7	1986-11-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/62nATuMKuaLhd5VHKumHOrJnCZa.jpg	http://www.youtube.com/watch?v=ZAYCDsS3UjE	PG	119	24000000	2013-07-26 22:14:15.836529	2013-07-26 22:14:15.836529
+126	Predator 2	\N	169	tt0100403	6	1990-11-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/a2Z0Ef0zvgxKIqPOXZUKC8uwhXw.jpg	http://www.youtube.com/watch?v=Vhqt1ynaoq0	R	108	35000000	2013-07-26 22:14:16.605353	2013-07-26 22:14:16.605353
+127	28 Days Later...	\N	170	tt0289043	6	2003-06-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/sd5B6W6RtsDoHdzhz8oDkNuhhU4.jpg	http://www.youtube.com/watch?v=eunaclr-WgU	R	113	5000000	2013-07-26 22:14:17.568858	2013-07-26 22:14:17.568858
+128	La Boum 2	\N	171	tt0083686	8	1982-12-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vrT1PYPdXoUzpBsudAm4jZ4OVg7.jpg	http://www.youtube.com/watch?v=NYKky5tN6N4	\N	109	0	2013-07-26 22:14:18.19689	2013-07-26 22:14:18.19689
+129	Star Trek V: The Final Frontier	\N	172	tt0098382	5	1989-06-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/pV68KIKhlMneCnnopBzDTYgqonC.jpg	http://www.youtube.com/watch?v=yEAvkUMHra8	PG	107	30000000	2013-07-26 22:14:18.925872	2013-07-26 22:14:18.925872
+130	20,000 Leagues Under the Sea	\N	173	tt0046672	7	1954-12-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5qXFqwyfUH8GVd4UmFafv6hb810.jpg	http://www.youtube.com/watch?v=Xhyuey4xU3Q	G	127	5000000	2013-07-26 22:14:19.587588	2013-07-26 22:14:19.587588
+131	Star Trek VI: The Undiscovered Country	\N	174	tt0102975	7	1991-12-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5PvIZAOFDe63M1oByFEFDoQobkc.jpg	http://www.youtube.com/watch?v=7G5q9-8thDA	PG	113	27000000	2013-07-26 22:14:20.228285	2013-07-26 22:14:20.228285
+132	The Big Blue	\N	175	tt0095250	7	1988-05-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vg2f2DFZOXhXg8VPtrQyX8sYbP6.jpg	http://www.youtube.com/watch?v=82onGmBx9ZM	PG-13	168	0	2013-07-26 22:14:20.94603	2013-07-26 22:14:20.94603
+133	Saw	\N	176	tt0387564	6	2004-01-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dHYvIgsax8ZFgkz1OslE4V6Pnf5.jpg	http://www.youtube.com/watch?v=b1lgXhFbXy4	R	103	1200000	2013-07-26 22:14:21.667203	2013-07-26 22:14:21.667203
+134	The Fisher King	\N	177	tt0101889	7	1991-09-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/Ab2shh1iOmq1fUC1PwDPkVBPwVj.jpg	http://www.youtube.com/watch?v=NHaZuRo3DZ4	R	137	24000000	2013-07-26 22:14:22.360775	2013-07-26 22:14:22.360775
+135	Blown Away	\N	178	tt0109303	5	1994-07-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/sPzpDLkXaTffqpb2DIRSG0voyhS.jpg	http://www.youtube.com/watch?v=INERGITKOcE	R	121	0	2013-07-26 22:14:22.890815	2013-07-26 22:14:22.890815
+136	The Interpreter	\N	179	tt0373926	6	2005-03-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/iUukZYj7iwg3fAS69FjZzUxtCl8.jpg	http://www.youtube.com/watch?v=a7O8mPlNlRY	PG-13	128	80000000	2013-07-26 22:14:24.081554	2013-07-26 22:14:24.081554
+137	Minority Report	\N	180	tt0181689	6	2002-06-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/h3lpltSn7Rj1eYTPQO1lYGdw4Bz.jpg	http://www.youtube.com/watch?v=QH-6UImAP7c	PG-13	145	102000000	2013-07-26 22:14:24.867	2013-07-26 22:14:24.867
+138	The Good German	\N	182	tt0452624	5	2006-12-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bveWV2pw7lXzGw5UlHyk5rB9K4Y.jpg	http://www.youtube.com/watch?v=0O6YPAv1Hx8	R	105	0	2013-07-26 22:14:25.878197	2013-07-26 22:14:25.878197
+139	The Wizard	\N	183	tt0098663	7	1989-12-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1mjZTSIucAexxopVkkHMx5MHxXb.jpg	http://www.youtube.com/watch?v=uEbqd2QMkuw	PG	100	0	2013-07-26 22:14:26.434325	2013-07-26 22:14:26.434325
+140	Jackie Brown	\N	184	tt0119396	7	1997-12-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4XVPYOdMAizdNMSwS0SK3fPJcvR.jpg	http://www.youtube.com/watch?v=G7HkBDNZV7s	R	154	12000000	2013-07-26 22:14:27.188348	2013-07-26 22:14:27.188348
+141	A Clockwork Orange	\N	185	tt0066921	7	1971-12-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2Jr2ZW0BCIvsiAXOtrypdqGpkxb.jpg	http://www.youtube.com/watch?v=gmm5jeeH8mY	R	136	2200000	2013-07-26 22:14:28.201335	2013-07-26 22:14:28.201335
+142	Lucky Number Slevin	\N	186	tt0425210	6	2006-04-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/eX4LGB0y2eA1jacILYr8xUSbWVf.jpg	http://www.youtube.com/watch?v=hSW_xo9bKdQ	R	110	0	2013-07-26 22:14:28.939798	2013-07-26 22:14:28.939798
+143	Sin City	\N	187	tt0401792	6	2005-03-31	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/eCJkepVJslq1nEtqURLaC1zLPAL.jpg	http://www.youtube.com/watch?v=XMg1AmOi2Vw	R	124	40000000	2013-07-26 22:14:29.780844	2013-07-26 22:14:29.780844
+144	Das Dorf der Freundschaft	\N	190	\N	0	2001-08-25	\N	\N	http://all3dmod.com/wp-content/uploads/2013/05/Cucumber-3D-Model.jpg	http://www.apple.com/trailers		52	0	2013-07-26 22:14:31.388384	2013-07-26 22:14:31.388384
+145	The State I Am In	\N	191	tt0248103	0	2000-09-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1U1upXbK61taHHllJspYpzYMpC.jpg	http://www.apple.com/trailers		106	0	2013-07-26 22:14:31.914964	2013-07-26 22:14:31.914964
+146	The Name of the Rose	\N	192	tt0091605	7	1986-09-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cefFAVmWAgk6n03vJ8imjQc1GUB.jpg	http://www.youtube.com/watch?v=CsjKsl1bY0Y	R	130	20000000	2013-07-26 22:14:32.682183	2013-07-26 22:14:32.682183
+147	Star Trek: Generations	\N	193	tt0111280	7	1994-11-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/etlbUkjycWJpNEyfrqNz8JQDXM9.jpg	http://www.youtube.com/watch?v=mfBbpyiK7ds	PG	118	38000000	2013-07-26 22:14:33.451402	2013-07-26 22:14:33.451402
+148	Amélie	\N	194	tt0211915	7	2001-11-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2AbFdmpvi6Z8AGrBY79JmnSGSOy.jpg	http://www.youtube.com/watch?v=HEFrLnS5sQY	R	122	11400000	2013-07-26 22:14:34.241984	2013-07-26 22:14:34.241984
+149	Trouble in Paradise	\N	195	tt0023622	8	1932-10-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/p1marrvAFXRZrwQgU6NeSzUFoTO.jpg	http://www.youtube.com/watch?v=tmukqyKwnPU		83	0	2013-07-26 22:14:34.773129	2013-07-26 22:14:34.773129
+150	Back to the Future Part III	\N	196	tt0099088	6	1990-05-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6DmgPTZYaug7QNDjOhUDWyjOQDl.jpg	http://www.youtube.com/watch?v=BBKMvGhvH9U	PG	118	40000000	2013-07-26 22:14:35.607417	2013-07-26 22:14:35.607417
+151	Braveheart	\N	197	tt0112573	7	1995-05-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2qAgGeYdLjelOEqjW9FYvPHpplC.jpg	http://www.youtube.com/watch?v=1cnoM8EiGGU	R	177	72000000	2013-07-26 22:14:36.414191	2013-07-26 22:14:36.414191
+152	To Be or Not To Be	\N	198	tt0035446	8	1942-03-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/muZ27fJFOIKB7Sj3QVd3EiDSGWt.jpg	http://www.youtube.com/watch?v=zaC2bWF60A8		99	0	2013-07-26 22:14:36.972909	2013-07-26 22:14:36.972909
+153	Star Trek: First Contact	\N	199	tt0117731	7	1996-11-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4fe4UjU1aqavYmX9kkfvrn3aupP.jpg	http://www.youtube.com/watch?v=wxyZQR2d6yw	PG-13	111	46000000	2013-07-26 22:14:37.704616	2013-07-26 22:14:37.704616
+154	Star Trek: Insurrection	\N	200	tt0120844	6	1998-12-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rwM4O7GBaVm125SLAiYNFRnLoLs.jpg	http://www.youtube.com/watch?v=rg43U_kySLo	PG	103	70000000	2013-07-26 22:14:38.403488	2013-07-26 22:14:38.403488
+155	Star Trek: Nemesis	\N	201	tt0253754	6	2002-12-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/n4TpLWPi062AofIq4kwmaPNBSvA.jpg	http://www.youtube.com/watch?v=hjBZXX9ME3k	PG-13	117	60000000	2013-07-26 22:14:39.113136	2013-07-26 22:14:39.113136
+156	Mean Streets	\N	203	tt0070379	6	1973-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dWhMjcksTIxnyYBVFCG5Ua5t4QH.jpg	http://www.youtube.com/watch?v=rCwjzn0CncA	R	110	500000	2013-07-26 22:14:40.199047	2013-07-26 22:14:40.199047
+157	The Wages of Fear	\N	204	tt0046268	9	1955-02-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ksWSG3FhwXyiVi8Ydk3NCXQgbYa.jpg	http://www.youtube.com/watch?v=KWY77rqoBoI	PG-13	131	0	2013-07-26 22:14:40.835697	2013-07-26 22:14:40.835697
+158	Hotel Rwanda	\N	205	tt0395169	6	2004-12-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ux6TRpqIOv6h8VJAiDVQBy2LBBH.jpg	http://www.youtube.com/watch?v=j2vMvyQeb1U	PG-13	121	17500000	2013-07-26 22:14:41.471021	2013-07-26 22:14:41.471021
+159	Paradise Found	\N	206	tt0287624	0	2003-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/yyEpqB4yfqHkWerCbeD9UD6ZqRc.jpg	http://www.apple.com/trailers		89	0	2013-07-26 22:14:43.103456	2013-07-26 22:14:43.103456
+160	Dead Poets Society	\N	207	tt0097165	7	1989-06-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3Ri2GReavqSHqWemlP6HYn8i2P9.jpg	http://www.youtube.com/watch?v=wrBk780aOis	PG	128	0	2013-07-26 22:14:43.762137	2013-07-26 22:14:43.762137
+161	Berlin is in Germany	\N	211	tt0276820	0	2001-11-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4n8wwJ5ta3FWou0HGwwAKv577RN.jpg	http://www.youtube.com/watch?v=iNgtmGG5FYQ		90	0	2013-07-26 22:14:46.894446	2013-07-26 22:14:46.894446
+162	Arsenic and Old Lace	\N	212	tt0036613	8	1944-09-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jfNhx7ATKNvblvbb7wsfm4YpPaR.jpg	http://www.youtube.com/watch?v=K-StHgk-QIw		118	1120175	2013-07-26 22:14:47.51809	2013-07-26 22:14:47.51809
+163	North by Northwest	\N	213	tt0053125	7	1959-07-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rEHP8ylmL3pcsDUEA6Z5qhajYui.jpg	http://www.youtube.com/watch?v=9NPI9QeeDDc	NR	136	4000000	2013-07-26 22:14:48.309061	2013-07-26 22:14:48.309061
+164	Saw III	\N	214	tt0489270	5	2006-10-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/anWZLD1GS4oumMkf20o2xIMnvlp.jpg	http://www.youtube.com/watch?v=CqAbPfraJ_g	R	108	10000000	2013-07-26 22:14:48.968941	2013-07-26 22:14:48.968941
+165	Saw II	\N	215	tt0432348	6	2005-10-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vC7ggR8njwtQOZRmrSvMtHqy9hx.jpg	http://www.youtube.com/watch?v=E7NYdW23NGM	R	93	4000000	2013-07-26 22:14:49.68225	2013-07-26 22:14:49.68225
+166	Ali: Fear Eats the Soul	\N	216	tt0071141	8	1974-03-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/w7QSyXa4dBatCU4MtElEovE6lqG.jpg	http://www.youtube.com/watch?v=7zx23kZOoh0		93	130000	2013-07-26 22:14:50.287108	2013-07-26 22:14:50.287108
+167	Indiana Jones and the Kingdom of the Crystal Skull	\N	217	tt0367882	5	2008-05-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zeaUw2DwrS40wGB3oIZQjsCEbAF.jpg	http://www.youtube.com/watch?v=gQT5k8qsI34	PG-13	122	185000000	2013-07-26 22:14:51.710393	2013-07-26 22:14:51.710393
+168	The Terminator	\N	218	tt0088247	6	1984-10-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/q8ffBuxQlYOHrvPniLgCbmKK4Lv.jpg	http://www.youtube.com/watch?v=c4Jo8QoOTQ4	R	108	6400000	2013-07-26 22:14:52.429958	2013-07-26 22:14:52.429958
+169	Volver	\N	219	tt0441909	7	2006-11-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3FCPHBd0F5Hva2SaUZMVj7Qj8XZ.jpg	http://www.youtube.com/watch?v=ABSvppyQGdE	R	121	12899867	2013-07-26 22:14:53.046781	2013-07-26 22:14:53.046781
+170	East of Eden	\N	220	tt0048028	7	1955-03-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/z88iozVyx0O5tnjUla9Wv0TZXdv.jpg	http://www.youtube.com/watch?v=tdMjKq8xk-E	PG	115	0	2013-07-26 22:14:53.832238	2013-07-26 22:14:53.832238
+171	Rebel Without a Cause	\N	221	tt0048545	8	1955-10-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5OQhe6cDzrhgrZIy4LPlJSIdASE.jpg	http://www.youtube.com/watch?v=cAlzg0S51GY	PG-13	111	1500000	2013-07-26 22:14:54.479639	2013-07-26 22:14:54.479639
+172	Berlin: Symphony of a Great City	\N	222	tt0017668	0	1927-09-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bnBkf38MmbqdX6BlACEinE9h9hj.jpg	http://www.apple.com/trailers		69	0	2013-07-26 22:14:55.024305	2013-07-26 22:14:55.024305
+173	Rebecca	\N	223	tt0032976	7	1940-04-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/qPf38CaH8HwsX4fYm29zVMQE0JZ.jpg	http://www.youtube.com/watch?v=PwneccC52fY		130	1288000	2013-07-26 22:14:55.85853	2013-07-26 22:14:55.85853
+174	Man of Marble	\N	224	tt0075902	9	1977-02-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rqksE3bd3Eq8NuEsjSK3tOUIQB2.jpg	http://www.apple.com/trailers		165	0	2013-07-26 22:14:56.446153	2013-07-26 22:14:56.446153
+175	Man of Iron	\N	225	tt0082222	9	1981-07-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gmMcimLedQNLQNbSlLsONXZI1Ct.jpg	http://www.apple.com/trailers		147	0	2013-07-26 22:14:56.988946	2013-07-26 22:14:56.988946
+176	Boys Don't Cry	\N	226	tt0171804	7	1999-09-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3qHZtLvPDgdSBxyrIXgYgbiib63.jpg	http://www.youtube.com/watch?v=qjqUMzWCXbo	R	118	2000000	2013-07-26 22:14:57.713261	2013-07-26 22:14:57.713261
+177	The Outsiders	\N	227	tt0086066	5	1983-03-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kReMnf8HOVxtbrWj2SA7zs4icEf.jpg	http://www.youtube.com/watch?v=8tgJqnVMAtc	PG	91	10000000	2013-07-26 22:14:58.366095	2013-07-26 22:14:58.366095
+178	The Blue Angel	\N	228	tt0020697	7	1930-04-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jxaLNN78qMgfpsBsfFuouOabp35.jpg	http://www.youtube.com/watch?v=MjOxOAsnZbI		108	0	2013-07-26 22:14:58.997582	2013-07-26 22:14:58.997582
+179	The Bride of Frankenstein	\N	229	tt0026138	7	1935-04-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/a0fOHhABxfvAuR4PTAzqKW5xQ4d.jpg	http://www.youtube.com/watch?v=wEfq02YxN-E	NR	75	393750	2013-07-26 22:14:59.670751	2013-07-26 22:14:59.670751
+180	Syriana	\N	231	tt0365737	6	2005-11-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ArLpoafsdFhs5USOn2AUsEIImxI.jpg	http://www.youtube.com/watch?v=bTa2PTcycyI	R	128	50000000	2013-07-26 22:15:00.908643	2013-07-26 22:15:00.908643
+181	Rumble Fish	\N	232	tt0086216	6	1983-10-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rvOjmPaDQV6Sibl2XbJ6qy0gTY4.jpg	http://www.youtube.com/watch?v=7voEoWRKbAE	R	94	10000000	2013-07-26 22:15:01.530604	2013-07-26 22:15:01.530604
+182	The Wanderers	\N	233	tt0080117	8	1979-07-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/v1gYbFyFamkyFvniAtF8wCoivL8.jpg	http://www.youtube.com/watch?v=srNASd2G7fo		117	0	2013-07-26 22:15:02.078619	2013-07-26 22:15:02.078619
+183	The Cabinet of Dr. Caligari	\N	234	tt0010323	8	1921-03-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/e1II5Dr4KcSQFJ8t0nprYDo4fya.jpg	http://www.youtube.com/watch?v=Y9TQkh6F4ZU	NR	71	18	2013-07-26 22:15:02.611261	2013-07-26 22:15:02.611261
+184	Stand by Me	\N	235	tt0092005	7	1986-08-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/98qQLkTKEdWo3UVBzzeaetwNeQD.jpg	http://www.youtube.com/watch?v=FUVnfaA-kpI	R	89	8000000	2013-07-26 22:15:03.375171	2013-07-26 22:15:03.375171
+185	Muriel's Wedding	\N	236	tt0110598	7	1994-03-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7DnygDAxJKn8WkI1a5pDFkxHGYp.jpg	http://www.youtube.com/watch?v=PmAoAUd1-CU	R	106	3000000	2013-07-26 22:15:03.974954	2013-07-26 22:15:03.974954
+186	Young Adam	\N	237	tt0289635	0	2003-09-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5byPdVuifADeq189IyHZ0X46JeJ.jpg	http://www.apple.com/trailers	R	93	6400000	2013-07-26 22:15:04.585929	2013-07-26 22:15:04.585929
+187	The Godfather	\N	238	tt0068646	8	1972-03-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/d4KNaTrltq6bpkFS01pYtyXa09m.jpg	http://www.youtube.com/watch?v=sY1S34973zA	R	175	6000000	2013-07-26 22:15:05.423552	2013-07-26 22:15:05.423552
+188	Some Like It Hot	\N	239	tt0053291	8	1959-03-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tc3cfesJvr6WGxsjOQJIIAaaRoD.jpg	http://www.youtube.com/watch?v=rI_lUHOCcbc	NR	122	3500000	2013-07-26 22:15:06.168363	2013-07-26 22:15:06.168363
+189	The Godfather: Part II	\N	240	tt0071562	7	1974-12-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tHbMIIF51rguMNSastqoQwR0sBs.jpg	http://www.youtube.com/watch?v=9wVWM9bagkk	R	200	13000000	2013-07-26 22:15:06.902394	2013-07-26 22:15:06.902394
+190	Natural Born Killers	\N	241	tt0110632	6	1994-08-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/w5sruoTQ87PFAGRJQyyaCOM1C4A.jpg	http://www.youtube.com/watch?v=YTCL0I2nK4A	R	119	34000000	2013-07-26 22:15:07.714437	2013-07-26 22:15:07.714437
+191	The Godfather: Part III	\N	242	tt0099674	6	1990-12-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uzaP0L7BEprcJHCuwbaHiYT0UYX.jpg	http://www.youtube.com/watch?v=MkbFkZIeOdI	R	162	54000000	2013-07-26 22:15:08.596354	2013-07-26 22:15:08.596354
+192	High Fidelity	\N	243	tt0146882	6	2000-03-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tCcvHw69EKZIvg861iLQ5ImjkCF.jpg	http://www.youtube.com/watch?v=q8DIm_47xPU	R	113	30000000	2013-07-26 22:15:09.257454	2013-07-26 22:15:09.257454
+193	King Kong	\N	244	tt0024216	7	1933-03-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vXInYahVp31uL8wZORckaoHq565.jpg	http://www.youtube.com/watch?v=3cXCwrzODKo	NR	100	670000	2013-07-26 22:15:09.965321	2013-07-26 22:15:09.965321
+194	About a Boy	\N	245	tt0276751	6	2002-05-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4ts3SBMGu0wFmHgddtaxCa5EhO8.jpg	http://www.youtube.com/watch?v=ie5m7NuWgXM	PG-13	101	27000000	2013-07-26 22:15:10.70676	2013-07-26 22:15:10.70676
+195	Zatoichi: The Blind Swordsman	\N	246	tt0363226	7	2003-09-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xNFaRG30R3IiVFMgX8X8kAFGxCP.jpg	http://www.youtube.com/watch?v=gV2bZSnhHmQ	R	111	0	2013-07-26 22:15:11.394918	2013-07-26 22:15:11.394918
+196	The Killing	\N	247	tt0049406	8	1956-05-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rG55iJvrmXkG3qPdFhfqLNwUEaU.jpg	http://www.youtube.com/watch?v=FiDUFG56wT4	NR	85	320000	2013-07-26 22:15:12.277799	2013-07-26 22:15:12.277799
+197	Pocketful of Miracles	\N	248	tt0055312	9	1961-12-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/p7G9l4RbjMX6JKkVxnB3Phzd4L3.jpg	http://www.youtube.com/watch?v=O7JxYXmpspA		136	2900000	2013-07-26 22:15:12.882973	2013-07-26 22:15:12.882973
+198	The War of the Roses	\N	249	tt0098621	7	1989-12-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ivb14VnvYHHHttqy3eya4qPFsWl.jpg	http://www.apple.com/trailers	R	116	0	2013-07-26 22:15:13.564338	2013-07-26 22:15:13.564338
+199	In China They Eat Dogs	\N	250	tt0180748	8	1999-09-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tGLQsZuT3pJkp8hrkmF0Ws2XGGN.jpg	http://www.apple.com/trailers		91	0	2013-07-26 22:15:14.177698	2013-07-26 22:15:14.177698
+200	Ghost	\N	251	tt0099653	6	1990-07-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rtxy3cplRFPUvruZajpcoxOQ7bi.jpg	http://www.youtube.com/watch?v=KZkbSUSdqX4	PG-13	127	22000000	2013-07-26 22:15:14.80291	2013-07-26 22:15:14.80291
+201	Willy Wonka & the Chocolate Factory	\N	252	tt0067992	7	1971-06-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/b94qXd1FcIwgzv0NYMUe2bjrzJR.jpg	http://www.youtube.com/watch?v=GNarV_3P4oM	G	100	2900000	2013-07-26 22:15:15.47455	2013-07-26 22:15:15.47455
+202	Live and Let Die	\N	253	tt0070328	6	1973-07-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xuuoqXxhUDS1o417edMilIvGa88.jpg	http://www.youtube.com/watch?v=xRgICh0dK9I	PG	121	7000000	2013-07-26 22:15:16.349135	2013-07-26 22:15:16.349135
+203	King Kong	\N	254	tt0360717	6	2005-12-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mcf9YOsc0uyIFx9qvZUn8t6Cap8.jpg	http://www.youtube.com/watch?v=AYaTCPbYGdk	PG-13	187	207000000	2013-07-26 22:15:17.109643	2013-07-26 22:15:17.109643
+204	Stolen Kisses	\N	255	tt0062695	6	1968-08-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/aIZNjLOxsw3RMOWvEA6QP7V6nG1.jpg	http://www.youtube.com/watch?v=nB3UyhrfyDU	R	96	0	2013-07-26 22:15:17.644722	2013-07-26 22:15:17.644722
+205	Oliver Twist	\N	257	tt0380599	6	2005-09-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/wSdDLujf84XtpbLgNWhJVQImd4a.jpg	http://www.youtube.com/watch?v=2765	PG-13	130	50000000	2013-07-26 22:15:18.925108	2013-07-26 22:15:18.925108
+206	Bed and Board	\N	258	tt0065651	5	1970-09-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ggdPaKTXaaYIqYi2lb87kZTLWGk.jpg	http://www.youtube.com/watch?v=h8MDEMfhi3E		100	0	2013-07-26 22:15:19.441803	2013-07-26 22:15:19.441803
+207	Love on the Run	\N	259	tt0078771	0	1980-01-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7CZUX5ICWnBvEEHV3xvUDoV9Zj0.jpg	http://www.youtube.com/watch?v=-PNKgCsQsUc		89	0	2013-07-26 22:15:19.967624	2013-07-26 22:15:19.967624
+208	The 39 Steps	\N	260	tt0026029	7	1935-08-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lZfwpOg7ZeoKoQKKjvLpJMEMGE5.jpg	http://www.youtube.com/watch?v=hUIL0Z1c9bc	NR	87	0	2013-07-26 22:15:20.730198	2013-07-26 22:15:20.730198
+209	Cat on a Hot Tin Roof	\N	261	tt0051459	8	1958-09-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/sYn1CgYBDmz4xKVaapFFnRd7jD8.jpg	http://www.youtube.com/watch?v=i4b80YF9KYw		108	3000000	2013-07-26 22:15:21.459031	2013-07-26 22:15:21.459031
+210	The King of Comedy	\N	262	tt0085794	7	1983-02-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uMOkEhe5HHZFsiLsXWACW8lX0Sf.jpg	http://www.youtube.com/watch?v=0wVhCCo02P4		109	20000000	2013-07-26 22:15:22.113105	2013-07-26 22:15:22.113105
+211	Lili Marleen	\N	265	tt0082661	4	1981-01-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vdQEyJGeYmTwlAtjAhChw8eiVZq.jpg	http://www.apple.com/trailers		120	0	2013-07-26 22:15:23.932461	2013-07-26 22:15:23.932461
+212	Contempt	\N	266	tt0057345	8	1963-10-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/j7APUdv4T273AMo2g1YLTt2BevI.jpg	http://www.youtube.com/watch?v=Contempt	NR	103	900000	2013-07-26 22:15:24.600115	2013-07-26 22:15:24.600115
+213	Live Flesh	\N	267	tt0118819	9	1997-10-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gM9WqnXIsxRSeINrnbSPP66Pjfv.jpg	http://www.youtube.com/watch?v=f7h3jP8DpB8	R	103	0	2013-07-26 22:15:25.231714	2013-07-26 22:15:25.231714
+214	Batman	\N	268	tt0096895	6	1989-06-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/u782c0lom0YlLwSWX0X2o72OJDT.jpg	http://www.youtube.com/watch?v=cPLUeA4vwik	PG-13	126	35000000	2013-07-26 22:15:26.036207	2013-07-26 22:15:26.036207
+215	Breathless	\N	269	tt0053472	8	1960-03-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jc5NpD5JhmW57Id5m3bAbn94diZ.jpg	http://www.youtube.com/watch?v=w2hDR_e1o1M	\N	90	0	2013-07-26 22:15:26.6861	2013-07-26 22:15:26.6861
+216	Wir sagen Du! Schatz.	\N	270	tt0997275	7	2007-11-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9HpZNAs23BHJ37KFy2V65SgWVbh.jpg	http://www.youtube.com/watch?v=426		98	350000	2013-07-26 22:15:27.526103	2013-07-26 22:15:27.526103
+217	Ronja Robbersdaughter	\N	271	tt0088015	7	1984-12-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8z8HHpbcN3aK9QpIJ1PjE9sS2BS.jpg	http://www.apple.com/trailers		126	0	2013-07-26 22:15:28.14727	2013-07-26 22:15:28.14727
+218	Batman Begins	\N	272	tt0372784	7	2005-06-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bDpi3sixe9YwWB5KTPwmjhqZQGk.jpg	http://www.youtube.com/watch?v=lu2ecPMX0kI	PG-13	140	150000000	2013-07-26 22:15:29.013588	2013-07-26 22:15:29.013588
+219	The White Sound	\N	273	tt0276617	5	2002-01-31	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/323uTu3dZ8gqZPg8EDq1BtZqZgK.jpg	http://www.apple.com/trailers		107	250000	2013-07-26 22:15:29.772414	2013-07-26 22:15:29.772414
+220	The Silence of the Lambs	\N	274	tt0102926	7	1991-02-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xDRBmwNpZzhhxZCMr81LbJqBKAa.jpg	http://www.youtube.com/watch?v=lQKs169Sl0I	R	118	19000000	2013-07-26 22:15:31.086997	2013-07-26 22:15:31.086997
+221	Fargo	\N	275	tt0116282	7	1996-04-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/aZeX4XNSqa08TdMHRB1gDLO6GOi.jpg	http://www.youtube.com/watch?v=h2tY82z3xXU	R	98	7000000	2013-07-26 22:15:31.888755	2013-07-26 22:15:31.888755
+222	The Edukators	\N	276	tt0408777	8	2004-11-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/r0mJOWL4jVkTXcvfVvYj7JhEDMV.jpg	http://www.youtube.com/watch?v=UyT8bEa4XYA		127	0	2013-07-26 22:15:32.561383	2013-07-26 22:15:32.561383
+223	Underworld	\N	277	tt0320691	6	2003-09-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rdkxl5iXdpVU188cL1LLG3sy6z4.jpg	http://www.youtube.com/watch?v=mn4O3iQ8B_s	R	121	22000000	2013-07-26 22:15:33.29067	2013-07-26 22:15:33.29067
+224	The Shawshank Redemption	\N	278	tt0111161	8	1994-09-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9O7gLzmreU0nGkIB6K3BsJbzvNv.jpg	http://www.youtube.com/watch?v=WawU4ouldxU	R	142	25000000	2013-07-26 22:15:34.149109	2013-07-26 22:15:34.149109
+225	Amadeus	\N	279	tt0086879	7	1984-11-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fQcB79ofG3kNtwDmJ140le7dYjK.jpg	http://www.youtube.com/watch?v=yIzhAKtEzY0	PG	160	18000000	2013-07-26 22:15:34.881525	2013-07-26 22:15:34.881525
+226	Terminator 2: Judgment Day	\N	280	tt0103064	7	1991-07-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2y4dmgWYRMYXdD1UyJVcn2HSd1D.jpg	http://www.youtube.com/watch?v=eajuMYNYtuY	R	137	100000000	2013-07-26 22:15:35.756353	2013-07-26 22:15:35.756353
+227	Strange Days	\N	281	tt0114558	6	1995-01-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rXvy5hG9OeVmgnv9w4IhQxhqEKD.jpg	http://www.youtube.com/watch?v=5yaXPx6xWEQ	R	145	42000000	2013-07-26 22:15:36.379937	2013-07-26 22:15:36.379937
+228	The Apartment	\N	284	tt0053604	8	1960-06-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8nrQKQjD6z0SJouKHQapXzmjFc6.jpg	http://www.youtube.com/watch?v=B4OXm9-E8OQ	PG	125	3000000	2013-07-26 22:15:38.116505	2013-07-26 22:15:38.116505
+229	Pirates of the Caribbean: At World's End	\N	285	tt0449088	6	2007-05-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jWxHVpomgHY5M70PRbExDG3XQkL.jpg	http://www.youtube.com/watch?v=8iHrEOiuoyw	PG-13	169	300000000	2013-07-26 22:15:38.875413	2013-07-26 22:15:38.875413
+230	Germany: A Summer's Fairytale	\N	286	tt0853060	9	2006-10-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ppxHXiZLOuYLWnmMdO5Vsqq3Q1B.jpg	http://www.apple.com/trailers		107	0	2013-07-26 22:15:39.69419	2013-07-26 22:15:39.69419
+231	Bull Durham	\N	287	tt0094812	7	1988-06-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cuC2sH3E3Z6doSebVqqYG7Mmkgw.jpg	http://www.youtube.com/watch?v=q2_4LKWV3Nk	R	108	7000000	2013-07-26 22:15:40.370583	2013-07-26 22:15:40.370583
+232	High Noon	\N	288	tt0044706	7	1952-07-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/40vQ42AOZrBo1yIkfpiE4uUWA2D.jpg	http://www.youtube.com/watch?v=g9CR_tib0CA	NR	85	750000	2013-07-26 22:15:41.939899	2013-07-26 22:15:41.939899
+233	Casablanca	\N	289	tt0034583	7	1942-11-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/sm1QVZu5RKe1vXVHZooo4SZyHMx.jpg	http://www.youtube.com/watch?v=4rguz_XRi8E	PG	102	950000	2013-07-26 22:15:42.70348	2013-07-26 22:15:42.70348
+234	Barton Fink	\N	290	tt0101410	7	1991-08-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/o2RgfASHQboXvL8eP1vi5TOwMAz.jpg	http://www.youtube.com/watch?v=WK0WjWlVO9w	R	116	9000000	2013-07-26 22:15:43.41992	2013-07-26 22:15:43.41992
+235	Riding Giants	\N	291	tt0389326	4	2004-07-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/wjCemDaa3wl1loSMtiWWRURGYc8.jpg	http://www.apple.com/trailers		105	2600000	2013-07-26 22:15:43.998732	2013-07-26 22:15:43.998732
+236	Dave Chappelle's Block Party	\N	292	tt0425598	8	2006-03-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hemHNgWePU3sYwI9LD7INOJWWBQ.jpg	http://www.youtube.com/watch?v=w7DA-xtN6nU		100	3000000	2013-07-26 22:15:44.517252	2013-07-26 22:15:44.517252
+237	A River Runs Through It	\N	293	tt0105265	6	1992-09-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xX4H1hZG9IgSRkC0LANbPQ0StJi.jpg	http://www.youtube.com/watch?v=5Z7yeXtBQMU	PG	123	0	2013-07-26 22:15:45.139881	2013-07-26 22:15:45.139881
+238	Desert Hearts	\N	294	tt0089015	0	1985-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3FBDO4Gxd7oejPjl0YLvVpCtImL.jpg	http://www.youtube.com/watch?v=Dn0vORrRIyI		96	350000	2013-07-26 22:15:45.671144	2013-07-26 22:15:45.671144
+239	Terminator 3: Rise of the Machines	\N	296	tt0181852	5	2003-06-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/odSgVmzucWv2f0e3GIwIr7HPb69.jpg	http://www.youtube.com/watch?v=AZdB0V1Z-Og	R	109	200000000	2013-07-26 22:15:47.011119	2013-07-26 22:15:47.011119
+240	Meet Joe Black	\N	297	tt0119643	7	1998-11-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/nlxPnkZY3vY1iehJriKMQcT6eua.jpg	http://www.youtube.com/watch?v=YifJ85wTwkU	PG-13	178	90000000	2013-07-26 22:15:47.754218	2013-07-26 22:15:47.754218
+241	Ocean's Thirteen	\N	298	tt0496806	6	2007-06-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/k7jNRNN9UuUc2VQg21YXYn3JGVY.jpg	http://www.youtube.com/watch?v=YsqZosCj-qw	PG-13	122	85000000	2013-07-26 22:15:48.583503	2013-07-26 22:15:48.583503
+242	Ocean's Eleven	\N	299	tt0054135	7	1960-08-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lSPXGEp4EpFOPIUg9FKIKF72m50.jpg	http://www.youtube.com/watch?v=D-ApgblbT0A	NR	127	0	2013-07-26 22:15:49.251475	2013-07-26 22:15:49.251475
+243	The Science of Sleep	\N	300	tt0354899	8	2006-09-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8juTRqn5o43mnlVacp1IzZSd11N.jpg	http://www.youtube.com/watch?v=BgSanCkr9Rw	R	105	6000000	2013-07-26 22:15:49.868768	2013-07-26 22:15:49.868768
+244	Rio Bravo	\N	301	tt0053221	7	1959-03-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kURalDCOBAaVdLDBIax0Fok5BMh.jpg	http://www.youtube.com/watch?v=RlAF1DPLIAI	NR	141	0	2013-07-26 22:15:50.58419	2013-07-26 22:15:50.58419
+245	Swimming Pool	\N	302	tt0324133	7	2003-06-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jD4yvzgnTspIp6smtHh7w98v8BX.jpg	http://www.youtube.com/watch?v=NlQiybP-2I8	R	102	0	2013-07-26 22:15:51.210035	2013-07-26 22:15:51.210035
+246	Notorious	\N	303	tt0038787	8	1946-08-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7ll5OJRWDamfVLPnXKKhHWWoHz0.jpg	http://www.youtube.com/watch?v=2G8HY1UDe7Q	NR	102	2000000	2013-07-26 22:15:52.005465	2013-07-26 22:15:52.005465
+247	Beverly Hills Cop III	\N	306	tt0109254	6	1994-05-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dvcpitnbEb78noCOVuVfTZMmw1e.jpg	http://www.youtube.com/watch?v=kUjD5uKWxcg	R	104	50000000	2013-07-26 22:15:53.800392	2013-07-26 22:15:53.800392
+248	Rome, Open City	\N	307	tt0038890	8	1946-02-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lEwVWheFOKIKeHDzwzAZmhXkwD8.jpg	http://www.youtube.com/watch?v=OeBleS8PzlE		100	0	2013-07-26 22:15:54.425199	2013-07-26 22:15:54.425199
+249	Broken Flowers	\N	308	tt0412019	6	2005-08-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/pvtdRUpJE6YjIi8BLEZ7jhEdeN1.jpg	http://www.youtube.com/watch?v=GHmFlLwTNLk	R	105	10000000	2013-07-26 22:15:55.044355	2013-07-26 22:15:55.044355
+250	The Celebration	\N	309	tt0154420	8	1998-05-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vEMbYjs7XF9ctmEP6ab3iczTBRk.jpg	http://www.youtube.com/watch?v=vKe_AxTFGXc	R	105	1300000	2013-07-26 22:15:55.730337	2013-07-26 22:15:55.730337
+251	Bruce Almighty	\N	310	tt0315327	6	2003-05-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lgYKHifMMLT8OxYObMKa8b4STsr.jpg	http://www.youtube.com/watch?v=prf4jt68SYY	PG-13	101	80000000	2013-07-26 22:15:56.353065	2013-07-26 22:15:56.353065
+252	Once Upon a Time in America	\N	311	tt0087843	7	1984-02-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fqP3Q7DWMFqW7mh11hWXbNwN9rz.jpg	http://www.youtube.com/watch?v=mzhX2PD6Srw	R	229	30000000	2013-07-26 22:15:57.159602	2013-07-26 22:15:57.159602
+253	Beyond Silence	\N	312	tt0116692	0	1996-12-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/j66APGNni1h0zxW9CmPlTbgIwWB.jpg	http://www.apple.com/trailers		109	0	2013-07-26 22:15:57.68733	2013-07-26 22:15:57.68733
+254	Snow Cake	\N	313	tt0448124	9	2006-02-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rj6JLVrf6tMBQMuP2KQ2UfwVfjM.jpg	http://www.youtube.com/watch?v=gvOryJTjAKM		112	0	2013-07-26 22:15:58.216079	2013-07-26 22:15:58.216079
+255	Catwoman	\N	314	tt0327554	5	2004-07-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hwzX0BhlQJDLTUKSQ7G7WOxLIwU.jpg	http://www.youtube.com/watch?v=ePgLOVNMSTo	PG-13	104	100000000	2013-07-26 22:15:58.854907	2013-07-26 22:15:58.854907
+256	Faster Pussycat! Kill! Kill!	\N	315	tt0059170	6	1965-08-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9n1LSLPbPkiOaHzNEn0oUDZ6wd9.jpg	http://www.youtube.com/watch?v=Nwe3Ikngwyk		83	45000	2013-07-26 22:16:00.593064	2013-07-26 22:16:00.593064
+257	Grill Point	\N	316	tt0304126	0	2002-10-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lmEVpT6sqx5QKrdF206K3CTsEqx.jpg	http://www.apple.com/trailers		111	600000	2013-07-26 22:16:01.136183	2013-07-26 22:16:01.136183
+258	Esma’s Secret	\N	317	tt0464029	0	2006-02-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hwCA69IOLhT74RrERPWElQx5ZYQ.jpg	http://www.apple.com/trailers		90	0	2013-07-26 22:16:01.658154	2013-07-26 22:16:01.658154
+259	The Million Dollar Hotel	\N	318	tt0120753	5	2001-02-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4wxOzpCjXY2RQgS3YoHuvKdItTF.jpg	http://www.youtube.com/watch?v=aGK1NvBR_vQ	R	122	8000000	2013-07-26 22:16:02.333289	2013-07-26 22:16:02.333289
+260	True Romance	\N	319	tt0108399	6	1993-09-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xBO8R3CZfrJ9rrwrZoJ68PgJyAR.jpg	http://www.youtube.com/watch?v=GV1M6qf0Fts	R	120	12500000	2013-07-26 22:16:04.083765	2013-07-26 22:16:04.083765
+261	Insomnia	\N	320	tt0278504	6	2002-05-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zb0D3vfjcPFvuyHp1mFPOIcYJWH.jpg	http://www.youtube.com/watch?v=IbeKqA36j6A	R	118	46000000	2013-07-26 22:16:04.794015	2013-07-26 22:16:04.794015
+262	Mambo Italiano	\N	321	tt0330602	6	2003-06-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/szNHpPmrQkynnpZJtFjkemfEjDk.jpg	http://www.youtube.com/watch?v=Fw8s2TGeJSY	R	92	4361898	2013-07-26 22:16:05.319184	2013-07-26 22:16:05.319184
+263	Mystic River	\N	322	tt0327056	6	2003-10-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/qeHasONCKH5sR9HcTWquXI5ZN5y.jpg	http://www.youtube.com/watch?v=nmiA24jwlbM	R	138	30000000	2013-07-26 22:16:05.945839	2013-07-26 22:16:05.945839
+264	Snakes on a Plane	\N	326	tt0417148	4	2006-08-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zl581R4GWqaoppEQ6CTweM8zwPT.jpg	http://www.youtube.com/watch?v=mgIz_t7rKPg	R	105	0	2013-07-26 22:16:08.115044	2013-07-26 22:16:08.115044
+265	Brother	\N	327	tt0222851	7	2000-10-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dffp8n5DrvcgKxCV2lIxnllA9Uw.jpg	http://www.youtube.com/watch?v=pa7JMGWOnp8		114	12000000	2013-07-26 22:16:08.747094	2013-07-26 22:16:08.747094
+266	Jurassic Park Collection	\N	328	\N	0	1970-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/aQR4VLVxfrTZedr5fml385PFRzI.jpg	http://www.apple.com/trailers		349	229000000	2013-07-26 22:16:09.281692	2013-07-26 22:16:09.281692
+267	Jurassic Park	\N	329	tt0107290	7	1993-06-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jdS21ipvYzLHqeVuLZrMxSUZsZ9.jpg	http://www.youtube.com/watch?v=QWBKEmWWL38	PG-13	127	63000000	2013-07-26 22:16:10.019772	2013-07-26 22:16:10.019772
+268	The Lost World: Jurassic Park	\N	330	tt0119567	6	1997-05-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kA3BedJjcIwUx1oPi2oco3IPXNo.jpg	http://www.youtube.com/watch?v=CIkOdrJGNy0	PG-13	129	73000000	2013-07-26 22:16:10.803682	2013-07-26 22:16:10.803682
+269	Jurassic Park III	\N	331	tt0163025	5	2001-07-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2Cntu42uyBVJsadHnIUfGlxJaYL.jpg	http://www.youtube.com/watch?v=eFe0tEB7Svg	PG-13	92	93000000	2013-07-26 22:16:11.584246	2013-07-26 22:16:11.584246
+270	Inspector Gadget	\N	332	tt0141369	5	1999-07-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bHhcoZdKZn14iXzmLob0P8Ab2x9.jpg	http://www.youtube.com/watch?v=M5IWHxiwYMg	PG	78	75000000	2013-07-26 22:16:12.200664	2013-07-26 22:16:12.200664
+271	Bollywood/Hollywood	\N	333	tt0303785	10	2002-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/n8J2PfCcgErDWSMhjdmJBBmQIDY.jpg	http://www.youtube.com/watch?v=js3N8e8InnY		101	0	2013-07-26 22:16:12.733299	2013-07-26 22:16:12.733299
+272	Magnolia	\N	334	tt0175880	7	1999-12-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gHGwiXFEJ5222UiHgtm6VGCJoQI.jpg	http://www.youtube.com/watch?v=-7NtH0F6Rek	R	188	37000000	2013-07-26 22:16:13.410949	2013-07-26 22:16:13.410949
+273	Once Upon a Time in the West	\N	335	tt0064116	8	1969-05-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/l0CONnvPF183oja3fri6KGJOYAo.jpg	http://www.youtube.com/watch?v=n7TmU3EK5jg	PG-13	175	5000000	2013-07-26 22:16:14.211713	2013-07-26 22:16:14.211713
+274	Duck, You Sucker	\N	336	tt0067140	8	1972-06-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/563TvkCAfJTK1vhIziZSQX67UZF.jpg	http://www.youtube.com/watch?v=N91fqyAzULQ		121	0	2013-07-26 22:16:14.872876	2013-07-26 22:16:14.872876
+275	Monsieur Ibrahim	\N	337	tt0329388	0	2003-12-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dS14phdtxIeW1J3Uebq8B02OYqN.jpg	http://www.youtube.com/watch?v=83ycIA5PjYA		94	0	2013-07-26 22:16:15.417832	2013-07-26 22:16:15.417832
+276	Goodbye Lenin!	\N	338	tt0301357	7	2003-02-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bkiK9X3oTBQKJyXYXynbD1ptTdQ.jpg	http://www.youtube.com/watch?v=mIjSaHUKD5I		121	4800000	2013-07-26 22:16:16.032166	2013-07-26 22:16:16.032166
+277	Night on Earth	\N	339	tt0102536	8	1991-12-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8kQUEUWgN9znzULrck3e41dBzSy.jpg	http://www.youtube.com/watch?v=XkKBbibm1FM		129	0	2013-07-26 22:16:16.693034	2013-07-26 22:16:16.693034
+278	Everything is Illuminated	\N	340	tt0404030	8	2005-09-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/e3Vwklyo2T8W2OhUxi96kdSot4n.jpg	http://www.youtube.com/watch?v=tSUOYY4oukc	PG-13	106	7000000	2013-07-26 22:16:17.331069	2013-07-26 22:16:17.331069
+279	A Crime	\N	341	tt0489010	0	2006-10-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bxwcjWWmPtU3E3JFmdiDlS12BLM.jpg	http://www.apple.com/trailers		100	0	2013-07-26 22:16:18.024529	2013-07-26 22:16:18.024529
+280	Summer Storm	\N	342	tt0420206	8	2004-09-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fwPXioaVoFMWl7k5KcsiA7KCDIn.jpg	http://www.youtube.com/watch?v=1UBbbGCR1Dk	R	98	2700000	2013-07-26 22:16:19.021522	2013-07-26 22:16:19.021522
+281	Harold and Maude	\N	343	tt0067185	6	1971-12-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dyAgy7r7h4cAGx8y76HrH8Z9uoB.jpg	http://www.youtube.com/watch?v=u-cOukYeGVM	PG	91	1200000	2013-07-26 22:16:19.655467	2013-07-26 22:16:19.655467
+282	Bang Boom Bang	\N	344	tt0135790	8	1999-08-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/iZfGuCkQHvE8IHnDhMtzmXjNKER.jpg	http://www.youtube.com/watch?v=5BZS2JaNO18	\N	110	0	2013-07-26 22:16:20.188008	2013-07-26 22:16:20.188008
+283	Eyes Wide Shut	\N	345	tt0120663	6	1999-07-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1rre3m7WsI2QavNZD4aUa8LzzcK.jpg	http://www.youtube.com/watch?v=VXEziyz9duA	R	159	65000000	2013-07-26 22:16:21.305287	2013-07-26 22:16:21.305287
+284	Seven Samurai	\N	346	tt0047478	7	1956-11-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5hqbJSmtAimbaP3XcYshCixuUtk.jpg	http://www.youtube.com/watch?v=zNqQXC8Tv8U	NR	207	500000	2013-07-26 22:16:22.121358	2013-07-26 22:16:22.121358
+285	People on Sunday	\N	347	tt0020163	0	1930-02-04	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mo5oxz0kC3O9pAJIPfbxpcNHY73.jpg	http://www.youtube.com/watch?v=z2O5QiCTreA		74	0	2013-07-26 22:16:22.664109	2013-07-26 22:16:22.664109
+286	Alien	\N	348	tt0078748	7	1979-05-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uU9R1byS3USozpzWJ5oz7YAkXyk.jpg	http://www.youtube.com/watch?v=097uj1HjkbM	R	117	11000000	2013-07-26 22:16:23.559196	2013-07-26 22:16:23.559196
+287	Cockles and Muscles	\N	349	tt0428430	0	2005-03-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5tJxyS4bKYXKb2p5krn0o2cy7jE.jpg	http://www.apple.com/trailers		93	0	2013-07-26 22:16:24.084451	2013-07-26 22:16:24.084451
+288	The Devil Wears Prada	\N	350	tt0458352	6	2006-06-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8unCRm0LeiO0fM6skWAZy3ZfXR1.jpg	http://www.youtube.com/watch?v=LG0xYJJbko8	PG-13	109	35000000	2013-07-26 22:16:24.852239	2013-07-26 22:16:24.852239
+289	Longing	\N	351	tt0416213	0	2006-08-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/A9bkDs8e6c2sQdnHYJL4EU1VWyS.jpg	http://www.apple.com/trailers		88	1000000	2013-07-26 22:16:25.41822	2013-07-26 22:16:25.41822
+290	Head-On	\N	363	tt0347048	9	2004-10-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6bZyGoZ5s6bb6ecvtrJCGaifDpf.jpg	http://www.apple.com/trailers	R	121	0	2013-07-26 22:16:31.793789	2013-07-26 22:16:31.793789
+291	Batman Returns	\N	364	tt0103776	6	1992-06-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oqN5Obonal3rCNGB1ppLb5seXBd.jpg	http://www.youtube.com/watch?v=YlTfanv7vE0	PG-13	126	80000000	2013-07-26 22:16:32.760486	2013-07-26 22:16:32.760486
+292	A Nightmare On Elm Street	\N	377	tt0087800	7	1984-11-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/e5noyrGLlS1RStsaSp1kr2L6Edv.jpg	http://www.youtube.com/watch?v=Adgp0v_mfTk	R	91	1800000	2013-07-26 22:16:39.446141	2013-07-26 22:16:39.446141
+293	Raising Arizona	\N	378	tt0093822	7	1987-03-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jsBg2bhvbSncyezo9sMntMzBuy6.jpg	http://www.youtube.com/watch?v=2AIfVoGUs6c	PG-13	94	6000000	2013-07-26 22:16:40.088082	2013-07-26 22:16:40.088082
+294	Miller's Crossing	\N	379	tt0100150	8	1990-09-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dZ5aFtregjJrhE4beHB74crrVhX.jpg	http://www.youtube.com/watch?v=hkJIcFMN_pc	R	115	14000000	2013-07-26 22:16:40.857002	2013-07-26 22:16:40.857002
+295	Rain Man	\N	380	tt0095953	6	1988-12-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mTCpNdDTMGEyrkETRkVqRVkHpx1.jpg	http://www.youtube.com/watch?v=6-ce6TBkzek	R	133	25000000	2013-07-26 22:16:41.489576	2013-07-26 22:16:41.489576
+296	To Catch a Thief	\N	381	tt0048728	7	1955-08-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6eGKFVofjug75j1skYfTGIFsFCW.jpg	http://www.youtube.com/watch?v=Xhm8bgcgh6o	NR	106	2500000	2013-07-26 22:16:42.241483	2013-07-26 22:16:42.241483
+297	Mala Noche	\N	383	tt0089537	0	1985-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gNHky0DBMEAbfq5gDCVMqngqBe9.jpg	http://www.youtube.com/watch?v=jjzmk4kPkqo		78	22500	2013-07-26 22:16:43.240221	2013-07-26 22:16:43.240221
+298	The Boat	\N	387	tt0082096	7	1982-02-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kI1rptTkqDWj6SBRsYwguBvPViT.jpg	http://www.youtube.com/watch?v=nIR_AxOqfSo	R	149	14000000	2013-07-26 22:16:45.962082	2013-07-26 22:16:45.962082
+299	Inside Man	\N	388	tt0454848	7	2006-03-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1zSApUzgFEhieAGjnReNhJM9z4B.jpg	http://www.youtube.com/watch?v=1j3K7t_IONc	R	129	45000000	2013-07-26 22:16:46.682895	2013-07-26 22:16:46.682895
+300	12 Angry Men	\N	389	tt0050083	8	1957-03-31	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mswBMPecmV7NpKTbMCpYuGzFqfh.jpg	http://www.youtube.com/watch?v=OvebOqneLIU	NR	96	340000	2013-07-26 22:16:47.359577	2013-07-26 22:16:47.359577
+301	Lisbon Story	\N	390	tt0110361	0	1994-12-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6A7YRdzcrQSVD15f8IHqH0iXJNk.jpg	http://www.apple.com/trailers		100	0	2013-07-26 22:16:48.254787	2013-07-26 22:16:48.254787
+302	A Fistful of Dollars	\N	391	tt0058461	7	1967-01-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fFilyOUZjQ5nBhVGbKB8R99QiXX.jpg	http://www.youtube.com/watch?v=h4DJonFjBYg	R	99	200000	2013-07-26 22:16:49.014113	2013-07-26 22:16:49.014113
+303	Chocolat	\N	392	tt0241303	6	2000-12-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/qVKYduwLJ5HjbeVVYqYPSAhWQqh.jpg	http://www.youtube.com/watch?v=Az6q4ThqnrA	PG-13	121	25000000	2013-07-26 22:16:49.650596	2013-07-26 22:16:49.650596
+304	Kill Bill: Vol. 2	\N	393	tt0378194	7	2004-04-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/e3oIW24WltVXxAGnfL18iiCDiQQ.jpg	http://www.youtube.com/watch?v=kGqshQWT8vA	R	136	30000000	2013-07-26 22:16:50.40247	2013-07-26 22:16:50.40247
+305	AVP: Alien vs. Predator	\N	395	tt0370263	5	2004-08-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zDkq4lFZMAHC8XwNACNosAsS0kh.jpg	http://www.youtube.com/watch?v=K6expQ7eZ8M	PG-13	101	70000000	2013-07-26 22:16:51.670953	2013-07-26 22:16:51.670953
+306	Who's Afraid of Virginia Woolf?	\N	396	tt0061184	7	1966-06-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3oQ5qSPTQGPFj3XzDgGfEVxy800.jpg	http://www.youtube.com/watch?v=hZEKQnMCze8	NR	131	7500000	2013-07-26 22:16:52.761515	2013-07-26 22:16:52.761515
+307	French Kiss	\N	397	tt0113117	5	1995-05-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bZqvonwVru1XtnniQZgZRa3Znyk.jpg	http://www.youtube.com/watch?v=TF9xsk3tmoA	PG-13	111	0	2013-07-26 22:16:53.295886	2013-07-26 22:16:53.295886
+308	Capote	\N	398	tt0379725	7	2005-09-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bf3nxeLglBvXH5jAnMLmhc56muB.jpg	http://www.youtube.com/watch?v=Q4BvvJ69pIQ	R	114	7000000	2013-07-26 22:16:54.030306	2013-07-26 22:16:54.030306
+309	Things to Do in Denver When You're Dead	\N	400	tt0114660	5	1995-12-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3Q3h5TWlyVInl8MA0bzG5cU40or.jpg	http://www.youtube.com/watch?v=i1o_PO3ridY	R	115	8000000	2013-07-26 22:16:55.188294	2013-07-26 22:16:55.188294
+310	Garden State	\N	401	tt0333766	6	2004-01-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fRJgmjesUkJUW00A5m45RXEMFwb.jpg	http://www.apple.com/trailers	R	102	2500000	2013-07-26 22:16:55.831376	2013-07-26 22:16:55.831376
+311	Basic Instinct	\N	402	tt0103772	6	1992-03-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vGBtnm9clhAjLp3D3dky7zFTQBA.jpg	http://www.youtube.com/watch?v=EZc7uAUa38Q	R	127	49000000	2013-07-26 22:16:56.603061	2013-07-26 22:16:56.603061
+312	Driving Miss Daisy	\N	403	tt0097239	6	1989-12-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/iMN2pXVh0ra5fIX3jsVDRGK9FZw.jpg	http://www.youtube.com/watch?v=BR0oZ2pnhyg	PG	99	7500000	2013-07-26 22:16:57.244914	2013-07-26 22:16:57.244914
+313	The Straight Story	\N	404	tt0166896	7	1999-10-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xR4LWXJa32fmPDoDBCOK1OwmBvt.jpg	http://www.youtube.com/watch?v=1yUwF3vskF8	G	112	10000000	2013-07-26 22:16:57.886436	2013-07-26 22:16:57.886436
+314	La Strada	\N	405	tt0047528	6	1954-07-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vzmeO7ltp03ph80eVhEFbqRbS6g.jpg	http://www.youtube.com/watch?v=tD2X29Y3Kl4		104	0	2013-07-26 22:16:58.504193	2013-07-26 22:16:58.504193
+315	La Haine	\N	406	tt0113247	8	1995-09-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rDiRcuXo6ONjWDGqzdJ1RSFTOuM.jpg	http://www.youtube.com/watch?v=M2Wl4li8TFo		98	3000000	2013-07-26 22:16:59.121416	2013-07-26 22:16:59.121416
+316	Short Sharp Shock	\N	407	tt0162426	0	2000-09-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/onVAfvszXtUtMM68BtWGAiKZtBa.jpg	http://www.youtube.com/watch?v=e2zAkjqj9is		93	500000	2013-07-26 22:16:59.97984	2013-07-26 22:16:59.97984
+317	Snow White and the Seven Dwarfs	\N	408	tt0029583	6	1937-12-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vB1p70FfFMxNB0X6hub662kHj71.jpg	http://www.youtube.com/watch?v=VGwnWb2gsv8	G	83	1488000	2013-07-26 22:17:00.717106	2013-07-26 22:17:00.717106
+318	The English Patient	\N	409	tt0116209	7	1996-11-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/niqc0v3Lclh99Mmmxm49qZTIo2e.jpg	http://www.youtube.com/watch?v=2UgA0btYkG4	R	162	27000000	2013-07-26 22:17:01.385805	2013-07-26 22:17:01.385805
+319	Summer in Berlin	\N	410	tt0477877	0	2005-10-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hJR2yhAMywVwguGr9JJqZDNGMgH.jpg	http://www.youtube.com/watch?v=QWBup_wvyuk		105	0	2013-07-26 22:17:02.183253	2013-07-26 22:17:02.183253
+320	The Chronicles of Narnia: The Lion, the Witch and the Wardrobe	\N	411	tt0363771	6	2005-12-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tFOQ4q6JnHcdw58ThL4SzFv37NT.jpg	http://www.youtube.com/watch?v=ruGHxmjQ180	PG	143	180000000	2013-07-26 22:17:02.974169	2013-07-26 22:17:02.974169
+321	Batman Forever	\N	414	tt0112462	5	1995-06-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hnuIc1ZC1jxSNoefaN8Bp6ixgBJ.jpg	http://www.youtube.com/watch?v=b_KllgySsPo	PG-13	121	120000000	2013-07-26 22:17:04.806038	2013-07-26 22:17:04.806038
+322	Batman & Robin	\N	415	tt0118688	4	1997-06-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/Aq6infMlOUH5peq3Llf4yGy7ait.jpg	http://www.youtube.com/watch?v=ORAGHEV890Y	PG-13	125	125000000	2013-07-26 22:17:05.644303	2013-07-26 22:17:05.644303
+323	About the Looking for and the Finding of Love	\N	419	tt0383041	9	2005-01-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9X5ZdXN3allytoJBSiJSJPHQ6uz.jpg	http://www.apple.com/trailers		105	0	2013-07-26 22:17:08.12462	2013-07-26 22:17:08.12462
+324	The Life Aquatic With Steve Zissou	\N	421	tt0362270	7	2004-12-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kKwNRePEqTfC6DnNlJzz1yX44iR.jpg	http://www.youtube.com/watch?v=aZVxCNwBqXI	R	119	50000000	2013-07-26 22:17:09.344478	2013-07-26 22:17:09.344478
+325	8½	\N	422	tt0056801	8	1963-06-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/h45vEmRVjj0f2gIob8HsPoD9MSI.jpg	http://www.youtube.com/watch?v=OtDQOF_pU8A	NR	138	0	2013-07-26 22:17:10.507922	2013-07-26 22:17:10.507922
+326	The Pianist	\N	423	tt0253474	7	2002-12-04	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hfMeo073RxKKjZZV4gSGema1yog.jpg	http://www.youtube.com/watch?v=CIRLLPa-j9o	R	150	35000000	2013-07-26 22:17:11.683424	2013-07-26 22:17:11.683424
+327	Schindler's List	\N	424	tt0108052	7	1993-11-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tvOvW7Qjj63zbQW5TZ8CjPThAUd.jpg	http://www.youtube.com/watch?v=dwfIf1WMhgc	R	195	22000000	2013-07-26 22:17:12.476128	2013-07-26 22:17:12.476128
+328	Ice Age	\N	425	tt0268380	6	2002-03-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7vYhg6vQnLlNC2zMUUO8CZG3rd8.jpg	http://www.youtube.com/watch?v=CZShn0PZiYU	PG	81	60000000	2013-07-26 22:17:13.179017	2013-07-26 22:17:13.179017
+329	Vertigo	\N	426	tt0052357	7	1958-05-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rQQFsOeXSdTpplWtqoNXMWNG4k9.jpg	http://www.youtube.com/watch?v=ozzd6eizZOs	PG	128	2479000	2013-07-26 22:17:13.941511	2013-07-26 22:17:13.941511
+330	Mon Oncle	\N	427	tt0050706	8	1958-05-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3m8f8p3NXNPJeASQoituEBCzSSt.jpg	http://www.youtube.com/watch?v=vqVpQ6S0BDA		110	0	2013-07-26 22:17:14.597145	2013-07-26 22:17:14.597145
+331	Summer '04	\N	428	tt0806679	0	2006-10-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/j8Lr0QbUw2v9reJlmXliOaa7v6e.jpg	http://www.apple.com/trailers		97	0	2013-07-26 22:17:15.19057	2013-07-26 22:17:15.19057
+332	The Good, the Bad and the Ugly	\N	429	tt0060196	8	1967-12-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/wfPHdfofBD5PN96dV96a51B3Ja2.jpg	http://www.youtube.com/watch?v=OLNktcDs05Y	R	161	1	2013-07-26 22:17:16.209633	2013-07-26 22:17:16.209633
+333	One, Two, Three	\N	430	tt0055256	8	1961-12-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/i7N8XITHhv1LgwSS9mB4MX0D9c5.jpg	http://www.youtube.com/watch?v=26_xhQBU3gA		115	3000000	2013-07-26 22:17:18.230582	2013-07-26 22:17:18.230582
+334	Cube	\N	431	tt0123755	6	1998-09-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/iPKLfCvLZalnFMnz5KcJIwfpW4.jpg	http://www.youtube.com/watch?v=HYoTGYT0-I4	R	90	250000	2013-07-26 22:17:18.941133	2013-07-26 22:17:18.941133
+335	Mary Poppins	\N	433	tt0058331	7	1964-08-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/A8LtO46RpTpn6K54SugowckB7Uw.jpg	http://www.youtube.com/watch?v=fuWf9fP-A-U	G	139	6000000	2013-07-26 22:17:20.294475	2013-07-26 22:17:20.294475
+336	Knallhart	\N	434	tt0475317	0	2006-03-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/24GUshsd6GtcSY4Jo0Nh4ilkaXV.jpg	http://www.apple.com/trailers		99	0	2013-07-26 22:17:21.408687	2013-07-26 22:17:21.408687
+337	The Day After Tomorrow	\N	435	tt0319262	5	2004-05-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/pRmpaFjtegy8PnUvSBDyT9dm7c.jpg	http://www.youtube.com/watch?v=Ze8Gshk53Y8	PG-13	124	125000000	2013-07-26 22:17:22.130577	2013-07-26 22:17:22.130577
+338	Maria Full of Grace	\N	436	tt0390221	6	2004-01-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jzbkt5B8fzxZ1JOydDJCKMy4ZeB.jpg	http://www.youtube.com/watch?v=Y3aW_FjX9o0	R	101	0	2013-07-26 22:17:23.191096	2013-07-26 22:17:23.191096
+339	Cube 2: Hypercube	\N	437	tt0285492	5	2002-04-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ufRTDn0isu8oWP0SQEGRUGYjBng.jpg	http://www.youtube.com/watch?v=JSFP2a7g7Js	R	95	0	2013-07-26 22:17:24.576163	2013-07-26 22:17:24.576163
+340	Cube Zero	\N	438	tt0377713	5	2004-10-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vTqgWli7UsgVkqRcITk2PwZAha6.jpg	http://www.youtube.com/watch?v=zSfAlYyMeik	R	97	825000	2013-07-26 22:17:25.691961	2013-07-26 22:17:25.691961
+341	La Dolce Vita	\N	439	tt0053779	8	1961-04-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/j3DELa1h679p9UtepYOZMckQPH8.jpg	http://www.youtube.com/watch?v=PHL2jTCjQLY		174	0	2013-07-26 22:17:26.354309	2013-07-26 22:17:26.354309
+342	Aliens vs Predator: Requiem	\N	440	tt0758730	5	2007-12-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xR4Mslyum7bjzAF1rlUX2HrlwhZ.jpg	http://www.youtube.com/watch?v=YrTXTb03Ixc&hd=1	R	94	40000000	2013-07-26 22:17:27.052275	2013-07-26 22:17:27.052275
+343	Human Nature	\N	441	tt0219822	5	2001-05-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/wjCDcc01azkaCqR6M37lQ5ICvr0.jpg	http://www.youtube.com/watch?v=wGPO15FSepQ	R	96	6000000	2013-07-26 22:17:27.614167	2013-07-26 22:17:27.614167
+344	Populärmusik från Vittula	\N	442	tt0314524	0	2006-01-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/a4TdTX2VpuLdGBI8JJQ9oRhJohR.jpg	http://www.apple.com/trailers		100	2224000	2013-07-26 22:17:28.181065	2013-07-26 22:17:28.181065
+345	Caché	\N	445	tt0387898	6	2005-12-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/pmmYDvN0Lvh3XiIWphy0IlcyTCI.jpg	http://www.youtube.com/watch?v=lS4VVUYsK44	R	117	0	2013-07-26 22:17:29.832765	2013-07-26 22:17:29.832765
+346	Distant Lights	\N	446	tt0351238	0	2003-02-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mdJIXvjg756xJh2byjBAskPAy40.jpg	http://www.apple.com/trailers		105	0	2013-07-26 22:17:31.005585	2013-07-26 22:17:31.005585
+347	Leaving Las Vegas	\N	451	tt0113627	6	1995-10-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/aPD0aD4yVoiwrZjVCpUBdGa1C0j.jpg	http://www.youtube.com/watch?v=UMlYWZgCIgo	R	112	4000000	2013-07-26 22:17:34.106102	2013-07-26 22:17:34.106102
+348	The Idiots	\N	452	tt0154421	8	1998-04-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dyPdo7lQlODTDdoETlx4MJ1X5zL.jpg	http://www.youtube.com/watch?v=tGAa8WF0vxo		117	0	2013-07-26 22:17:35.438364	2013-07-26 22:17:35.438364
+349	A Beautiful Mind	\N	453	tt0268978	6	2001-12-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4SFqHDZ1NvWdysucWbgnYlobdxC.jpg	http://www.youtube.com/watch?v=Q3G9lnyXJGU	PG-13	135	60000000	2013-07-26 22:17:36.204502	2013-07-26 22:17:36.204502
+350	Romeo + Juliet	\N	454	tt0117509	6	1996-10-31	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/sJy8UQ8lJKQiGrzui7QlELZyKQz.jpg	http://www.youtube.com/watch?v=fpP6osQNMh0	PG-13	120	14500000	2013-07-26 22:17:36.915529	2013-07-26 22:17:36.915529
+351	Bend It Like Beckham	\N	455	tt0286499	5	2002-04-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fd97fN1UM6imFPPs3jm3BySo4N4.jpg	http://www.youtube.com/watch?v=XsmbObwStSQ	PG-13	112	5000000	2013-07-26 22:17:38.315207	2013-07-26 22:17:38.315207
+352	Sissi	\N	457	tt0048624	5	1955-12-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xw4umPHYMMxNmwxCOZ27JQtcl7P.jpg	http://www.youtube.com/watch?v=KdjQUNFsr4U		102	0	2013-07-26 22:17:39.913936	2013-07-26 22:17:39.913936
+353	Sissi: The Young Empress	\N	458	tt0049762	5	1956-12-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1U7fRdEZBRdye0C0BgWOjNHGG9k.jpg	http://www.youtube.com/watch?v=C1zCWRjXN0w	\N	107	0	2013-07-26 22:17:40.537507	2013-07-26 22:17:40.537507
+354	Sissi: The Fateful Years of an Empress	\N	459	tt0050974	9	1957-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fMjl8ZMR95S41UMN18ChFi21Kth.jpg	http://www.apple.com/trailers		109	0	2013-07-26 22:17:41.266357	2013-07-26 22:17:41.266357
+355	Go for Zucker	\N	460	tt0416331	0	2005-01-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9FYVALSrn9dviM5UOLk0VgQLnhM.jpg	http://www.youtube.com/watch?v=9hZ8a4McwQY	\N	136	0	2013-07-26 22:17:42.234924	2013-07-26 22:17:42.234924
+356	Erin Brockovich	\N	462	tt0195685	6	2000-03-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/maOTC9Mmt22aFOyzBoMPfRyNaEg.jpg	http://www.youtube.com/watch?v=keZXGaDvK2s	R	131	51000000	2013-07-26 22:17:43.400765	2013-07-26 22:17:43.400765
+357	As It Is in Heaven	\N	464	tt0382330	7	2004-08-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oDIoGdRpEE1Dn595MoBDyuK0D1k.jpg	http://www.youtube.com/watch?v=yGjoFBLri68		132	0	2013-07-26 22:17:45.194574	2013-07-26 22:17:45.194574
+358	Junior Size 36	\N	465	tt0094596	5	1988-03-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4y0qQwGIyRqACkNauUbKgi08uUv.jpg	http://www.apple.com/trailers		88	0	2013-07-26 22:17:46.106264	2013-07-26 22:17:46.106264
+359	Klute	\N	466	tt0067309	7	1971-06-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6xBxZS8kLLWv9QJGmy7eKi5Y5ud.jpg	http://www.youtube.com/watch?v=V1av5O1_lts	R	114	8000000	2013-07-26 22:17:47.004311	2013-07-26 22:17:47.004311
+360	The Hole	\N	467	tt0242527	6	2001-06-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xX00zQi6BSbJb1eoc905eoz8Mde.jpg	http://www.youtube.com/watch?v=KL3bpbnR6T0	R	102	0	2013-07-26 22:17:47.99037	2013-07-26 22:17:47.99037
+361	My Own Private Idaho	\N	468	tt0102494	7	1991-10-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uMoRVBAEg191wm7gFv2QPKYAQhZ.jpg	http://www.apple.com/trailers	R	104	2500000	2013-07-26 22:17:49.014668	2013-07-26 22:17:49.014668
+362	Stranger Than Paradise	\N	469	tt0088184	7	1984-09-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/iEIXqQBmVqkZT2Xpvk5luQSvsTS.jpg	http://www.youtube.com/watch?v=MwefGellnhk		89	0	2013-07-26 22:17:49.632582	2013-07-26 22:17:49.632582
+363	21 Grams	\N	470	tt0315733	6	2003-11-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/Aps7GzrYiJZKHNT524Rsg4jaXej.jpg	http://www.youtube.com/watch?v=67w5bt9eMtM	R	124	20000000	2013-07-26 22:17:50.335653	2013-07-26 22:17:50.335653
+364	Bandyta	\N	471	tt0129774	0	1997-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mVswgQTdLupeA91Oopc14GddJ44.jpg	http://www.apple.com/trailers		102	0	2013-07-26 22:17:51.315903	2013-07-26 22:17:51.315903
+365	Pi	\N	473	tt0138704	7	1998-07-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/d4pDorUHjIVFiVGiJar6sF2r8TQ.jpg	http://www.youtube.com/watch?v=jo18VIoR2xU	R	84	60000	2013-07-26 22:17:52.559142	2013-07-26 22:17:52.559142
+366	Bonnie and Clyde	\N	475	tt0061418	8	1967-08-04	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3epkWS0qN3yaWYcodJkxipEdAww.jpg	http://www.youtube.com/watch?v=YNrSGutBOlE	R	111	2500000	2013-07-26 22:17:54.133569	2013-07-26 22:17:54.133569
+367	Drugstore Cowboy	\N	476	tt0097240	7	1989-10-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xrJKYzYwrCiTEa5X2Qo4CoEoCnZ.jpg	http://www.youtube.com/watch?v=5_Rs8c08hM8	R	100	2500000	2013-07-26 22:17:54.829995	2013-07-26 22:17:54.829995
+368	Shaft	\N	479	tt0162650	4	2000-06-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bqlpFp96uWu2VDpsm4MVvLXdumh.jpg	http://www.youtube.com/watch?v=DcLG3AfyVDI	R	99	46000000	2013-07-26 22:17:56.454497	2013-07-26 22:17:56.454497
+369	Monsoon Wedding	\N	480	tt0265343	8	2001-08-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/aRWp1b8IhmAr12dbermVaqoV2bl.jpg	http://www.youtube.com/watch?v=AIY22dv3Xok	R	114	0	2013-07-26 22:17:57.21047	2013-07-26 22:17:57.21047
+370	7 Virgins	\N	481	tt0461894	0	2004-11-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5Urtx931i2bI8DWwW2uv9bScdO3.jpg	http://www.youtube.com/watch?v=t7-Ll62_080&p		86	0	2013-07-26 22:17:58.258673	2013-07-26 22:17:58.258673
+371	Shaft	\N	482	tt0067741	5	1971-07-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/eBETIiBV0o4j4qaLzZjvDgN6UvX.jpg	http://www.youtube.com/watch?v=NiCB2isZcRM	R	100	4000000	2013-07-26 22:17:59.396095	2013-07-26 22:17:59.396095
+372	Wild at Heart	\N	483	tt0100935	6	1990-08-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vj1aG8WHGoewoAXTf0DcYmRkhx3.jpg	http://www.youtube.com/watch?v=QCQwumNQL9E	R	124	9500000	2013-07-26 22:18:00.649802	2013-07-26 22:18:00.649802
+373	The African Queen	\N	488	tt0043265	7	1951-12-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mw1O0JxtDgXt2FHZnUn8w0wrjF1.jpg	http://www.youtube.com/watch?v=GzcRa6n_qoE	G	105	1300000	2013-07-26 22:18:04.279973	2013-07-26 22:18:04.279973
+374	Good Will Hunting	\N	489	tt0119217	7	1997-12-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3yHtbRfp32AouPSwYESoJM3cOeQ.jpg	http://www.youtube.com/watch?v=WDcMUCpppVs	R	126	10000000	2013-07-26 22:18:05.632457	2013-07-26 22:18:05.632457
+375	The Seventh Seal	\N	490	tt0050976	8	1957-02-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/iJXSumDrz64AvmFZaHHNBGDO1ex.jpg	http://www.youtube.com/watch?v=NtkFei4wRjE	NR	97	0	2013-07-26 22:18:06.36564	2013-07-26 22:18:06.36564
+376	Brüder ohne Heimat	\N	491	tt0301343	0	2002-07-04	\N	\N	http://all3dmod.com/wp-content/uploads/2013/05/Cucumber-3D-Model.jpg	http://www.apple.com/trailers		90	0	2013-07-26 22:18:07.072576	2013-07-26 22:18:07.072576
+377	Being John Malkovich	\N	492	tt0120601	6	1999-09-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2VouPGAqf1jEJLd2cZ4tTUXpqJz.jpg	http://www.youtube.com/watch?v=K7ahIGLNNwo	R	112	13000000	2013-07-26 22:18:07.844662	2013-07-26 22:18:07.844662
+378	Shaft's Big Score!	\N	493	tt0069257	5	1972-06-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oMO1J1NgSXgcEADYGONGLF5DbSr.jpg	http://www.youtube.com/watch?v=7mxYSucuLSo		104	1978000	2013-07-26 22:18:08.780487	2013-07-26 22:18:08.780487
+379	Shaft in Africa	\N	494	tt0070679	4	1973-06-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/m4DxEAkFEkqJeSw8QIF0VMsgDYg.jpg	http://www.youtube.com/watch?v=3GnDPnl2H-4		112	2142000	2013-07-26 22:18:09.768233	2013-07-26 22:18:09.768233
+380	Borat: Cultural Learnings of America for Make Benefit Glorious Nation of Kazakhstan	\N	496	tt0443453	6	2006-11-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/czn1hU2hJ9ZnDSMvT9lKo261ABH.jpg	http://www.youtube.com/watch?v=h2JBjEtNSSc	R	82	18000000	2013-07-26 22:18:11.123852	2013-07-26 22:18:11.123852
+381	The Green Mile	\N	497	tt0120689	7	1999-12-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3yJUlOtVa09CYJocwBU8eAryja0.jpg	http://www.youtube.com/watch?v=ctRK-4Vt7dA	R	189	60000000	2013-07-26 22:18:11.965844	2013-07-26 22:18:11.965844
+382	Cléo from 5 to 7	\N	499	tt0055852	0	1962-09-04	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ufUFRuGdGVuBT9Se6FtIsbUoLWB.jpg	http://www.youtube.com/watch?v=sdjskdSjzhw		90	0	2013-07-26 22:18:13.044097	2013-07-26 22:18:13.044097
+383	Reservoir Dogs	\N	500	tt0105236	7	1992-06-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/s6YVEP7vhGRz34kMyZOIs4gKNja.jpg	http://www.youtube.com/watch?v=bRgsz4bSAWo	R	99	1200000	2013-07-26 22:18:13.953554	2013-07-26 22:18:13.953554
+384	Grizzly Man	\N	501	tt0427312	5	2005-08-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rrVhLaYH4UBM80d8drTY9eNmudq.jpg	http://www.youtube.com/watch?v=suxb0X_O4XA	R	103	0	2013-07-26 22:18:14.52441	2013-07-26 22:18:14.52441
+385	Fail-Safe	\N	502	tt0058083	0	1964-10-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4WA72j0etyrXmDmpH8Kk9RVzzka.jpg	http://www.youtube.com/watch?v=oicYUhgff7Q		112	0	2013-07-26 22:18:15.16441	2013-07-26 22:18:15.16441
+386	Poseidon	\N	503	tt0409182	5	2006-05-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kHrdehzlhyyb190D3RvH8mdX1y2.jpg	http://www.youtube.com/watch?v=wXvubYRnVWE	PG-13	99	160000000	2013-07-26 22:18:15.860373	2013-07-26 22:18:15.860373
+387	Monster	\N	504	tt0340855	6	2003-11-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/nBIO1C5Ktf5aHESHSZnIJykfqvO.jpg	http://www.youtube.com/watch?v=vq70brIQP40	R	110	8000000	2013-07-26 22:18:16.541673	2013-07-26 22:18:16.541673
+388	Johnny Handsome	\N	505	tt0097626	8	1989-09-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fJBea43DpS6BhL9ZTBDoTNMiOG6.jpg	http://www.youtube.com/watch?v=QMtHZGn1Ka4	R	94	0	2013-07-26 22:18:17.252248	2013-07-26 22:18:17.252248
+389	Marnie	\N	506	tt0058329	7	1964-07-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/n7YLAtdEgnF2buxgjyBJ2rArc4e.jpg	http://www.youtube.com/watch?v=3hVRKCOmVSc	PG	130	2135161	2013-07-26 22:18:18.087727	2013-07-26 22:18:18.087727
+390	Killing Zoe	\N	507	tt0110265	5	1994-08-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xhGpPx5o4ngIbXKUs8ogn24hrBL.jpg	http://www.youtube.com/watch?v=fqGj6bWX_6o	NC-17	96	1500000	2013-07-26 22:18:18.619722	2013-07-26 22:18:18.619722
+391	Love Actually	\N	508	tt0314331	6	2003-11-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/u31LfJTP8FZGnTE3kEDUATYEX00.jpg	http://www.youtube.com/watch?v=KdzH6a-XEGM	R	135	40000000	2013-07-26 22:18:19.510412	2013-07-26 22:18:19.510412
+392	Notting Hill	\N	509	tt0125439	6	1999-05-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/f1gMw3PVicfdq9thlvUIjJ5UdvS.jpg	http://www.youtube.com/watch?v=PNBXHp2qbRo	PG-13	124	42000000	2013-07-26 22:18:20.294345	2013-07-26 22:18:20.294345
+393	One Flew Over the Cuckoo's Nest	\N	510	tt0073486	7	1975-11-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/srr59GKJdDXPwnWlew9NoYfOvYV.jpg	http://www.youtube.com/watch?v=NN1cCviBXmY	R	133	3000000	2013-07-26 22:18:21.384748	2013-07-26 22:18:21.384748
+394	The Promised Land	\N	511	tt0072446	9	1975-02-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vQLocx1ruaPlv2bbAL21aldnUEc.jpg	http://www.apple.com/trailers		179	0	2013-07-26 22:18:21.980663	2013-07-26 22:18:21.980663
+395	Scoop	\N	512	tt0457513	7	2006-07-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vfGLKunhhLsChJyvzOqUooIJv3Y.jpg	http://www.youtube.com/watch?v=epKoj5BIZV0	PG-13	96	4000000	2013-07-26 22:18:22.779199	2013-07-26 22:18:22.779199
+396	Fire	\N	513	tt0116308	0	1997-08-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7qjto5AAM71C1qUZ4PLgAYg33Cv.jpg	http://www.youtube.com/watch?v=SnshN0wqiCo		108	0	2013-07-26 22:18:23.346711	2013-07-26 22:18:23.346711
+397	Dial M For Murder	\N	521	tt0046912	7	1954-05-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/o9K25H1WZU2BZH0nK6FNXGONSJp.jpg	http://www.youtube.com/watch?v=1qWwFvsBVic	PG	104	1400000	2013-07-26 22:18:27.650594	2013-07-26 22:18:27.650594
+398	Ed Wood	\N	522	tt0109707	7	1994-09-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9PRT6PzVNYxxfgQdEmn7r14nmcO.jpg	http://www.youtube.com/watch?v=CawVaHxWvnA	R	127	18000000	2013-07-26 22:18:28.479094	2013-07-26 22:18:28.479094
+399	Requiem	\N	523	tt0454931	0	2006-10-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/66CcubiGnQe1wePDnHVDBe41Rjq.jpg	http://www.youtube.com/watch?v=30KLEFl2Nvg		92	0	2013-07-26 22:18:29.043686	2013-07-26 22:18:29.043686
+400	Casino	\N	524	tt0112641	7	1995-11-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xo517ibXBDdYQY81j0WIG7BVcWq.jpg	http://www.youtube.com/watch?v=QiZvG_jcX0g	R	178	52000000	2013-07-26 22:18:29.737849	2013-07-26 22:18:29.737849
+401	The Blues Brothers	\N	525	tt0080455	7	1980-06-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/wdcoPIqOHk3dJ1s3fQOGgrMDNYu.jpg	http://www.youtube.com/watch?v=_CYMYYHHe90	R	133	27000000	2013-07-26 22:18:30.679828	2013-07-26 22:18:30.679828
+402	Ladyhawke	\N	526	tt0089457	7	1985-08-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/nMP7Opwtzqnbk0hObWqPEy576ih.jpg	http://www.youtube.com/watch?v=0pvGujT_wTA	PG-13	121	20000000	2013-07-26 22:18:31.48471	2013-07-26 22:18:31.48471
+403	Once Were Warriors	\N	527	tt0110729	8	1995-09-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8QF48QS5lvtrhOclt22RFz3bSQm.jpg	http://www.youtube.com/watch?v=_NV45ZuepZo		99	0	2013-07-26 22:18:32.170497	2013-07-26 22:18:32.170497
+404	Wallace & Gromit: The Curse of the Were-Rabbit	\N	533	tt0312004	6	2005-10-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tLryx0x9TDV5rifA9W8yUvDZFHB.jpg	http://www.youtube.com/watch?v=wrqRv0s5McU	G	85	30000000	2013-07-26 22:18:37.238831	2013-07-26 22:18:37.238831
+405	Terminator Salvation	\N	534	tt0438488	5	2009-05-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oN6Nn4Pn0ePi2YqhfHpA0r8ktg1.jpg	http://www.youtube.com/watch?v=Sv6SM0w0B5A	PG-13	115	200000000	2013-07-26 22:18:38.241924	2013-07-26 22:18:38.241924
+406	Flashdance	\N	535	tt0085549	5	1983-09-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/r41spN6PniXgNA4RAu8WKfip94u.jpg	http://www.youtube.com/watch?v=NV6IbcZVjuk	R	95	0	2013-07-26 22:18:38.85641	2013-07-26 22:18:38.85641
+407	Stuttgart Shanghai	\N	536	tt0958195	0	2007-03-01	\N	\N	http://all3dmod.com/wp-content/uploads/2013/05/Cucumber-3D-Model.jpg	http://www.apple.com/trailers		60	0	2013-07-26 22:18:39.440307	2013-07-26 22:18:39.440307
+408	Not Here To Be Loved	\N	537	tt0436445	0	2005-10-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/czSf8d6QJXUqdj0CVuYJZNPqbfp.jpg	http://www.youtube.com/watch?v=T3IjmIOBIIE	\N	93	0	2013-07-26 22:18:39.966318	2013-07-26 22:18:39.966318
+409	Janine F.	\N	538	tt0485662	0	2004-02-11	\N	\N	http://all3dmod.com/wp-content/uploads/2013/05/Cucumber-3D-Model.jpg	http://www.apple.com/trailers		52	10000	2013-07-26 22:18:40.509645	2013-07-26 22:18:40.509645
+410	Psycho	\N	539	tt0054215	7	1960-06-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tQoM332FREukW3HhNU3MoSJKCtp.jpg	http://www.youtube.com/watch?v=kf8X-MtsufY	R	109	806948	2013-07-26 22:18:41.62072	2013-07-26 22:18:41.62072
+411	D.E.B.S.	\N	540	tt0367631	5	2004-01-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4VXECCSovzeF3TxpPnKs8L193FS.jpg	http://www.youtube.com/watch?v=DI0017J3XEU	PG-13	91	0	2013-07-26 22:18:42.187019	2013-07-26 22:18:42.187019
+412	The Man with the Golden Arm	\N	541	tt0048347	0	1955-12-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dKg04NTBeCSgt9aearF3Jqrf6Fj.jpg	http://www.youtube.com/watch?v=b-GDQuEaqOc		119	0	2013-07-26 22:18:42.714078	2013-07-26 22:18:42.714078
+413	The Crime of Padre Amaro	\N	542	tt0313196	0	2002-10-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5gQ1wlN68yqN1d8wQ8AADzy6a62.jpg	http://www.youtube.com/watch?v=4XSnLQyX5qE		118	1800000	2013-07-26 22:18:43.321468	2013-07-26 22:18:43.321468
+414	Blackmail	\N	543	tt0019702	5	1929-06-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cN5Lfe18ffPmA56KdaJ0c2MDkO0.jpg	http://www.apple.com/trailers		84	0	2013-07-26 22:18:44.031235	2013-07-26 22:18:44.031235
+415	There's Something About Mary	\N	544	tt0129387	6	1998-07-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mbjxlfb7Z9AFq74C79R4ssqrPeF.jpg	http://www.youtube.com/watch?v=eGjXwDYpOLE	R	119	23000000	2013-07-26 22:18:44.851372	2013-07-26 22:18:44.851372
+416	Transamerica	\N	546	tt0407265	6	2005-12-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ysuabIzmCUxD7TqMWdz2c1EzGkG.jpg	http://www.youtube.com/watch?v=PPbGIErXKpE	R	103	1000000	2013-07-26 22:18:45.981103	2013-07-26 22:18:45.981103
+417	The Horse Whisperer	\N	547	tt0119314	6	1998-05-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/A0Dmxhjps1IMKDSr64BwnEU4W6X.jpg	http://www.youtube.com/watch?v=W_1dKoCQlxY		170	60000000	2013-07-26 22:18:46.583562	2013-07-26 22:18:46.583562
+418	Rashomon	\N	548	tt0042876	8	1950-12-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/z9hLdjaqQBADwBj90pULE9zgh3t.jpg	http://www.youtube.com/watch?v=sBn4cvHKPUc	NR	88	0	2013-07-26 22:18:47.31322	2013-07-26 22:18:47.31322
+419	Basquiat	\N	549	tt0115632	6	1996-08-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/48EthEnRNzBRNUzhqYWJ2kUPxwU.jpg	http://www.youtube.com/watch?v=aWE8i4rIFr8		108	2962051	2013-07-26 22:18:47.85528	2013-07-26 22:18:47.85528
+420	Fight Club	\N	550	tt0137523	7	1999-10-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2lECpi35Hnbpa4y46JX0aY3AWTy.jpg	http://www.youtube.com/watch?v=SUXWAEX2jlg	R	139	63000000	2013-07-26 22:18:48.979378	2013-07-26 22:18:48.979378
+421	The Poseidon Adventure	\N	551	tt0069113	7	1972-12-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/pTP4eyX80y4wy4l0iN62YCLqjnD.jpg	http://www.youtube.com/watch?v=dd03qev59Jo	PG	117	5000000	2013-07-26 22:18:49.680676	2013-07-26 22:18:49.680676
+422	Bread and Tulips	\N	552	tt0237539	10	2000-12-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bVsJsE6fSzauhFZDuhNJ9SHs10f.jpg	http://www.apple.com/trailers		114	0	2013-07-26 22:18:50.995182	2013-07-26 22:18:50.995182
+423	Dogville	\N	553	tt0276919	8	2003-05-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ydEUCkbkdCizibt7BQehQ5cGROO.jpg	http://www.youtube.com/watch?v=IzLnpQBzmko	R	178	10000000	2013-07-26 22:18:51.630479	2013-07-26 22:18:51.630479
+424	Kukushka	\N	554	tt0308476	10	2002-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/pUgvMrQqc2xv2O1VZuSENA8tdJ0.jpg	http://www.apple.com/trailers		100	0	2013-07-26 22:18:52.235938	2013-07-26 22:18:52.235938
+425	Absolut	\N	555	tt0442896	0	2005-04-20	\N	\N	http://all3dmod.com/wp-content/uploads/2013/05/Cucumber-3D-Model.jpg	http://www.apple.com/trailers		94	0	2013-07-26 22:18:52.764403	2013-07-26 22:18:52.764403
+426	Spider-Man	\N	557	tt0145487	6	2002-05-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uZLl4hhrAXtydamH6H04pj9SmbM.jpg	http://www.youtube.com/watch?v=0KW8stZ2jSQ	PG-13	121	139000000	2013-07-26 22:18:53.975356	2013-07-26 22:18:53.975356
+427	Spider-Man 2	\N	558	tt0316654	6	2004-06-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/qtBFrsEQ4oXW8sKvRxkKnYuPLg.jpg	http://www.youtube.com/watch?v=enmFqm_N_ZE&hd=1	PG-13	127	200000000	2013-07-26 22:18:54.731892	2013-07-26 22:18:54.731892
+428	Spider-Man 3	\N	559	tt0413300	5	2007-05-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oNBNx675VWeJnbzPvUCsd67xJtQ.jpg	http://www.youtube.com/watch?v=qExWP-kZC5Y	PG-13	139	300000001	2013-07-26 22:18:55.518224	2013-07-26 22:18:55.518224
+429	Secret Beyond the Door	\N	560	tt0040766	0	1948-01-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/aVNZ46aLm5j7GI3d32VAsoKVUKS.jpg	http://www.youtube.com/watch?v=tvJRjPPQhhI		99	0	2013-07-26 22:18:56.049876	2013-07-26 22:18:56.049876
+430	Constantine	\N	561	tt0360486	6	2005-02-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cpiCh5nhCcqUnLmXnxdlC0bGawx.jpg	http://www.youtube.com/watch?v=oU4moy3Wz4c	R	121	100000000	2013-07-26 22:18:56.834157	2013-07-26 22:18:56.834157
+431	Die Hard	\N	562	tt0095016	7	1988-07-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mc7MubOLcIw3MDvnuQFrO9psfCa.jpg	http://www.youtube.com/watch?v=7JrE099n90k	R	131	28000000	2013-07-26 22:18:57.601628	2013-07-26 22:18:57.601628
+432	Starship Troopers	\N	563	tt0120201	6	1997-11-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7Q5HxiAgCbxCImAAlH97MaNUEbj.jpg	http://www.youtube.com/watch?v=Y07I_KER5fE	R	129	105000000	2013-07-26 22:18:58.463969	2013-07-26 22:18:58.463969
+433	The Mummy	\N	564	tt0120616	6	1999-05-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cftmDzVCWKynKMfY9oyFj7igFqJ.jpg	http://www.youtube.com/watch?v=h3ptPtxWJRs	PG-13	124	80000000	2013-07-26 22:18:59.256977	2013-07-26 22:18:59.256977
+434	The Ring	\N	565	tt0298130	6	2002-10-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/qEkiit6fR3MniZTRTaGLwA0O2yr.jpg	http://www.youtube.com/watch?v=cV3YhFDBFZ8	PG-13	115	45000000	2013-07-26 22:19:00.052809	2013-07-26 22:19:00.052809
+435	Rear Window	\N	567	tt0047396	7	1954-08-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6EDhk01fESTcdfRAvIHct4jfWk5.jpg	http://www.youtube.com/watch?v=6kCcZCMYw38	PG	112	1000000	2013-07-26 22:19:01.378109	2013-07-26 22:19:01.378109
+436	Apollo 13	\N	568	tt0112384	6	1995-06-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6JQ9z3V9x4vlU2GSZx2yNO0PvuX.jpg	http://www.youtube.com/watch?v=bWDMyJXbuJE	PG	140	52000000	2013-07-26 22:19:02.119056	2013-07-26 22:19:02.119056
+437	Fat Girl	\N	570	tt0243255	7	2001-11-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/MMXAA0TLXJDTIMqg2OYug57WZA.jpg	http://www.youtube.com/watch?v=Yn-LdwSWsr8		86	0	2013-07-26 22:19:03.221584	2013-07-26 22:19:03.221584
+438	The Birds	\N	571	tt0056869	7	1963-03-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/idm9MYIyZHcjdPsaGfiqE9z2Z99.jpg	http://www.youtube.com/watch?v=lCxR7dlavwg	PG-13	119	2500000	2013-07-26 22:19:03.962798	2013-07-26 22:19:03.962798
+439	Next Door	\N	572	tt0453383	7	2005-03-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/67KrZ02zFzhTobVF7HiCbcxdUoa.jpg	http://www.youtube.com/watch?v=W0k3DuxwKPQ		75	2400000	2013-07-26 22:19:04.578286	2013-07-26 22:19:04.578286
+440	Frenzy	\N	573	tt0068611	7	1972-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/VpapWyOecAgKSukwvMlRwnHUoL.jpg	http://www.youtube.com/watch?v=0gWjZpkkkIs	R	116	0	2013-07-26 22:19:05.338745	2013-07-26 22:19:05.338745
+441	The Man Who Knew Too Much	\N	574	tt0049470	6	1956-06-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zMJptgC7O59moUulf7Yn16IwIOg.jpg	http://www.youtube.com/watch?v=1CoKHtU0mGo	PG	120	1200000	2013-07-26 22:19:06.10623	2013-07-26 22:19:06.10623
+442	The Experiment	\N	575	tt0250258	7	2001-03-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/pTR8WWstkPHjek4AAwEm1bUi1jH.jpg	http://www.youtube.com/watch?v=67llDv40TGg		114	0	2013-07-26 22:19:06.741062	2013-07-26 22:19:06.741062
+443	The Wild Bunch	\N	576	tt0065214	7	1969-07-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5DfzPAdKgEBctOfvy6jTuqiuu8l.jpg	http://www.youtube.com/watch?v=jwE3TfJUB48	R	145	6000000	2013-07-26 22:19:07.382522	2013-07-26 22:19:07.382522
+444	To Die For	\N	577	tt0114681	6	1995-09-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cTA1XDloWDIcrRDDrHPhjIZ4ZH.jpg	http://www.youtube.com/watch?v=Y1uPXA1ceNo	R	106	20000000	2013-07-26 22:19:08.091072	2013-07-26 22:19:08.091072
+445	Jaws	\N	578	tt0073195	7	1975-06-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/l1yltvzILaZcx2jYvc5sEMkM7Eh.jpg	http://www.youtube.com/watch?v=fUIge_Vd81I	PG	124	7000000	2013-07-26 22:19:08.969186	2013-07-26 22:19:08.969186
+446	Jaws 2	\N	579	tt0077766	5	1978-06-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zzGtimy1mUJYDjFjCmn2dpHREGV.jpg	http://www.youtube.com/watch?v=xkiRVhwoqvw	PG	116	20000000	2013-07-26 22:19:09.761828	2013-07-26 22:19:09.761828
+447	Jaws: The Revenge	\N	580	tt0093300	3	1987-07-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ssDizT0itTUaAdHoVrxRElo7Q1A.jpg	http://www.youtube.com/watch?v=WQDXfB1nBnk	PG-13	89	23000000	2013-07-26 22:19:10.38717	2013-07-26 22:19:10.38717
+448	Dances with Wolves	\N	581	tt0099348	6	1990-10-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hpmclspug1I8EwKSWhL7pWWltA.jpg	http://www.youtube.com/watch?v=xZ8hGYxCgMM	PG-13	181	22000000	2013-07-26 22:19:11.132449	2013-07-26 22:19:11.132449
+449	The Lives of Others	\N	582	tt0405094	7	2006-06-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rv01q5wQkXtjBSb497s7CNR9TmD.jpg	http://www.youtube.com/watch?v=FppW5ml4vdw	R	137	2000000	2013-07-26 22:19:11.792111	2013-07-26 22:19:11.792111
+450	Monty Python's Life of Brian	\N	583	tt0079470	7	1979-08-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kWacsiRvV6u0TQdZLf5qO2MEHks.jpg	http://www.youtube.com/watch?v=TKPmGjVFbrY	R	94	4000000	2013-07-26 22:19:12.564074	2013-07-26 22:19:12.564074
+451	2 Fast 2 Furious	\N	584	tt0322259	6	2003-06-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/crYLfYXiUiSa92RQsHW5OK4PdWW.jpg	http://www.youtube.com/watch?v=F_VIM03DXWI	PG-13	107	76000000	2013-07-26 22:19:13.516239	2013-07-26 22:19:13.516239
+452	Monsters, Inc.	\N	585	tt0198781	7	2001-11-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vawVZynP3nxXYdohD6lOXN94b2L.jpg	http://www.youtube.com/watch?v=Ue_SfrHHBAc	G	92	115000000	2013-07-26 22:19:14.944651	2013-07-26 22:19:14.944651
+453	Wag the Dog	\N	586	tt0120885	6	1997-12-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/sTsMrXrTya8KpFm8lgtlQR12X7Z.jpg	http://www.youtube.com/watch?v=CNo0BicRM8k	R	97	15000000	2013-07-26 22:19:15.635942	2013-07-26 22:19:15.635942
+454	Big Fish	\N	587	tt0319061	6	2003-12-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6DRFdlNZpAaEt7eejsbAlJGgaM7.jpg	http://www.youtube.com/watch?v=M3YVTgTl-F0	PG-13	125	70000000	2013-07-26 22:19:16.814286	2013-07-26 22:19:16.814286
+455	Silent Hill	\N	588	tt0384537	6	2006-04-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/q1Y14VSFA4As5pWRFQ51yrqyG4M.jpg	http://www.youtube.com/watch?v=G1ESsZ3mY_E	R	125	50000000	2013-07-26 22:19:17.595369	2013-07-26 22:19:17.595369
+456	The Hours	\N	590	tt0274558	7	2002-12-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vRTqBRCLGiZNITXfdhGZd3tZ7Qh.jpg	http://www.youtube.com/watch?v=yMErdpA804Y	PG-13	114	25000000	2013-07-26 22:19:19.34371	2013-07-26 22:19:19.34371
+457	The Da Vinci Code	\N	591	tt0382625	6	2006-05-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/e5Tlc0mNhb9TvgCZknmnd3XaaKU.jpg	http://www.youtube.com/watch?v=pE7apZzCIAA	PG-13	149	125000000	2013-07-26 22:19:20.278819	2013-07-26 22:19:20.278819
+458	The Conversation	\N	592	tt0071360	7	1974-04-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/un30a9MWgCzMIBpOp3P29W5eHvZ.jpg	http://www.youtube.com/watch?v=LjMlKKwihfs	PG	113	16000000	2013-07-26 22:19:21.055587	2013-07-26 22:19:21.055587
+459	Solaris	\N	593	tt0069293	7	1972-11-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7hiOVJP4osobp9snviGpGGxkCdw.jpg	http://www.youtube.com/watch?v=seCRhjrLNy4		167	0	2013-07-26 22:19:22.099022	2013-07-26 22:19:22.099022
+460	The Terminal	\N	594	tt0362227	6	2004-06-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/67nMA1J2tkhkTCR7sBd0FG5wTfO.jpg	http://www.youtube.com/watch?v=B-suuEQyoVc	PG-13	128	60000000	2013-07-26 22:19:23.003529	2013-07-26 22:19:23.003529
+461	To Kill a Mockingbird	\N	595	tt0056592	7	1962-12-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gQg6sPYfNTUlf8wEtydzWl09RyR.jpg	http://www.youtube.com/watch?v=Mi88P7KfaMA	NR	129	2000000	2013-07-26 22:19:23.686782	2013-07-26 22:19:23.686782
+462	The Grapes of Wrath	\N	596	tt0032551	8	1940-03-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hVdtmfx5HK11TCtZrno08iXZd96.jpg	http://www.youtube.com/watch?v=5ayi81QMuak	G	129	750000	2013-07-26 22:19:24.365318	2013-07-26 22:19:24.365318
+463	Titanic	\N	597	tt0120338	7	1997-11-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/s2Z25JcBWS9tKAysSKuWyon5lwP.jpg	http://www.youtube.com/watch?v=1odYJyKBKLI	PG-13	194	200000000	2013-07-26 22:19:25.139924	2013-07-26 22:19:25.139924
+464	City of God	\N	598	tt0317248	7	2002-08-31	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/sxmY85UrSYN4y8sZSzO9LKpPgSA.jpg	http://www.youtube.com/watch?v=ioUE_5wpg_E	R	130	3300000	2013-07-26 22:19:26.267664	2013-07-26 22:19:26.267664
+465	Sunset Boulevard	\N	599	tt0043014	8	1950-08-04	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/eZMeUOizG2XU4YQmm31Ub6laNhN.jpg	http://www.youtube.com/watch?v=ZUoopROjaE8	NR	110	1752000	2013-07-26 22:19:26.992062	2013-07-26 22:19:26.992062
+466	Full Metal Jacket	\N	600	tt0093058	7	1987-05-31	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bleZBRX8XH6e9PR00aGCvdjvu3Q.jpg	http://www.youtube.com/watch?v=9M3sJOmqxEo	R	116	30000000	2013-07-26 22:19:27.865288	2013-07-26 22:19:27.865288
+467	E.T. the Extra-Terrestrial	\N	601	tt0083866	7	1982-06-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hrO4FIo4zSyYo9uv6AXenOoZIUf.jpg	http://www.youtube.com/watch?v=SJM_ArX1bDA	PG	115	10500000	2013-07-26 22:19:28.617414	2013-07-26 22:19:28.617414
+468	Independence Day	\N	602	tt0116629	6	1996-07-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/qKSerOMikhd1iUfx9rnZIXbhy5z.jpg	http://www.youtube.com/watch?v=nDNDQLP3bPI	PG-13	145	75000000	2013-07-26 22:19:29.852568	2013-07-26 22:19:29.852568
+469	The Matrix	\N	603	tt0133093	7	1999-03-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gynBNzwyaHKtXqlEKKLioNkjKgN.jpg	http://www.youtube.com/watch?v=m8e-FF8MsqU	R	136	63000000	2013-07-26 22:19:30.805171	2013-07-26 22:19:30.805171
+470	The Matrix Reloaded	\N	604	tt0234215	6	2003-05-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ezIurBz2fdUc68d98Fp9dRf5ihv.jpg	http://www.youtube.com/watch?v=zsgrsiZoymA	R	138	150000000	2013-07-26 22:19:31.740174	2013-07-26 22:19:31.740174
+471	The Matrix Revolutions	\N	605	tt0242653	6	2003-10-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/sKogjhfs5q3azmpW7DFKKAeLEG8.jpg	http://www.youtube.com/watch?v=Kw3IQpnVtvo	R	129	150000000	2013-07-26 22:19:32.522142	2013-07-26 22:19:32.522142
+472	Out of Africa	\N	606	tt0089755	7	1985-12-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bLXD2jp0img4RJiczAwnS7m7jF9.jpg	http://www.youtube.com/watch?v=CbVTzvvvtQ8	PG	161	31000000	2013-07-26 22:19:33.203744	2013-07-26 22:19:33.203744
+473	Men in Black	\N	607	tt0119654	6	1997-07-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/f24UVKq3UiQWLqGWdqjwkzgB8j8.jpg	http://www.youtube.com/watch?v=uCJHn-ZFH54	PG-13	98	90000000	2013-07-26 22:19:34.250038	2013-07-26 22:19:34.250038
+474	Men in Black II	\N	608	tt0120912	6	2002-07-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gnUTg5odGkvmKogtrqjcFs89kRa.jpg	http://www.youtube.com/watch?v=p4NJHqoojOU	PG-13	88	140000000	2013-07-26 22:19:35.08956	2013-07-26 22:19:35.08956
+475	Poltergeist	\N	609	tt0084516	6	1982-06-04	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/JVVEiTxErqhfV91XqhlS1izayg.jpg	http://www.youtube.com/watch?v=5ytjaMfoF2M	PG	114	10700000	2013-07-26 22:19:35.804887	2013-07-26 22:19:35.804887
+476	Munich	\N	612	tt0408306	7	2005-12-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3pnsX1egUElYvgmAcCqYvXVOY9O.jpg	http://www.youtube.com/watch?v=yMycnzhdDng	R	164	70000000	2013-07-26 22:19:37.43936	2013-07-26 22:19:37.43936
+477	Downfall	\N	613	tt0363163	7	2004-09-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2QmpblYvUThzBQ4ArdT1Kp43DZi.jpg	http://www.youtube.com/watch?v=uFG9a1NgfZA	R	156	18339750	2013-07-26 22:19:38.245694	2013-07-26 22:19:38.245694
+478	Wild Strawberries	\N	614	tt0050986	9	1957-12-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/g2OF0LCCubvWifrtBHhooaxWFaV.jpg	http://www.youtube.com/watch?v=fs_j7y_QyM8		91	0	2013-07-26 22:19:38.874572	2013-07-26 22:19:38.874572
+479	The Passion of the Christ	\N	615	tt0335345	6	2004-02-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6KyvP5bDmwTYdLLnhEn10NFPDIZ.jpg	http://www.youtube.com/watch?v=Ergf5P9EP6U	R	127	30000000	2013-07-26 22:19:39.567781	2013-07-26 22:19:39.567781
+480	The Last Samurai	\N	616	tt0325710	6	2003-12-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/sLv5pXysIz7QbtKFJy85d5yxv2W.jpg	http://www.youtube.com/watch?v=kJ27kgmhI6Q	R	154	100000000	2013-07-26 22:19:40.445581	2013-07-26 22:19:40.445581
+481	Wild Things	\N	617	tt0120890	6	1998-03-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dI9iYo1cL81yzJkBVyNGipjSvy0.jpg	http://www.youtube.com/watch?v=m9gWo4lLSEU	R	108	20000000	2013-07-26 22:19:41.121818	2013-07-26 22:19:41.121818
+482	The Birth of a Nation	\N	618	tt0004972	6	1915-02-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zYtgDRSOQeZmGbHkXff5CcEg05g.jpg	http://www.youtube.com/watch?v=a9UPOkIpR0A	PG	190	110000	2013-07-26 22:19:41.663159	2013-07-26 22:19:41.663159
+483	The Bodyguard	\N	619	tt0103855	5	1992-11-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cbUiIu4357JQ4FBCtRJovHNv1gi.jpg	http://www.youtube.com/watch?v=hD9VgPGsHL8	R	129	25000000	2013-07-26 22:19:42.338665	2013-07-26 22:19:42.338665
+484	Ghostbusters	\N	620	tt0087332	7	1984-06-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3FS3oBdorgczgfCkFi2u8ZTFfpS.jpg	http://www.youtube.com/watch?v=9u4FHmId-Y0	PG	107	30000000	2013-07-26 22:19:43.488731	2013-07-26 22:19:43.488731
+485	Grease	\N	621	tt0077631	6	1978-07-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/iMHdFTrCYhue74sBnXkdO39AJ3R.jpg	http://www.youtube.com/watch?v=wzWmxjYNfz4	PG	110	6000000	2013-07-26 22:19:44.27906	2013-07-26 22:19:44.27906
+486	The Ninth Gate	\N	622	tt0142688	6	1999-12-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uamhDQBebdW3UQqOaVmma3yW8pm.jpg	http://www.youtube.com/watch?v=V1ueyfoNTdU	R	133	38000000	2013-07-26 22:19:45.116461	2013-07-26 22:19:45.116461
+487	A Fish Called Wanda	\N	623	tt0095159	6	1988-07-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9gZZyQ8XStpUJBFU1ceU4xx1crv.jpg	http://www.apple.com/trailers	R	108	7500000	2013-07-26 22:19:45.877888	2013-07-26 22:19:45.877888
+488	Easy Rider	\N	624	tt0064276	7	1969-07-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/e3jHM20jbKZbXYjRwmfQOJ0VnzP.jpg	http://www.youtube.com/watch?v=GwST6mpT7Ds	R	95	350000	2013-07-26 22:19:46.57641	2013-07-26 22:19:46.57641
+489	The Killing Fields	\N	625	tt0087553	6	1984-11-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/pzSdpgnjJi79UboweTlFDQmRq7M.jpg	http://www.youtube.com/watch?v=2ru0HxV4nWY	R	141	0	2013-07-26 22:19:47.247057	2013-07-26 22:19:47.247057
+490	Trainspotting	\N	627	tt0117951	7	1996-07-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/p1O3eFsdb0GEIYu87xlwV7P4jM1.jpg	http://www.youtube.com/watch?v=R2GKVtWsXKY	R	94	4000000	2013-07-26 22:19:48.754817	2013-07-26 22:19:48.754817
+491	Interview with the Vampire	\N	628	tt0110148	6	1994-11-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hldXwwViSfHJS0kIJr07KBGmHJI.jpg	http://www.youtube.com/watch?v=HBTObecD93s	R	123	0	2013-07-26 22:19:49.50526	2013-07-26 22:19:49.50526
+492	The Usual Suspects	\N	629	tt0114814	7	1995-08-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/h37H6CLXNqjqkvAbwqTlYbxKuMW.jpg	http://www.youtube.com/watch?v=oiXdPolca5w	R	106	6000000	2013-07-26 22:19:50.323867	2013-07-26 22:19:50.323867
+493	The Wizard of Oz	\N	630	tt0032138	7	1939-08-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tKEHoKPZv3af0Pn3poaOLHOJ6NM.jpg	http://www.youtube.com/watch?v=aVG8F9D7suw	G	101	2777000	2013-07-26 22:19:51.176005	2013-07-26 22:19:51.176005
+494	Sunrise: A Song of Two Humans	\N	631	tt0018455	9	1927-09-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/en4lNi1wnUQKvQwegiES9qr6GZw.jpg	http://www.youtube.com/watch?v=HFJtblnLX1s	NR	94	0	2013-07-26 22:19:52.526483	2013-07-26 22:19:52.526483
+495	Stalag 17	\N	632	tt0046359	7	1953-05-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/d8IMElmQlkqTjzC4cl1fQIRkA5D.jpg	http://www.youtube.com/watch?v=PQh3qoGYVTg	Approved	120	1661530	2013-07-26 22:19:54.061946	2013-07-26 22:19:54.061946
+496	Soldier of Orange	\N	633	tt0076734	7	1979-08-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2W4E8c4VYcS0hO38xdO3Nlv3x9i.jpg	http://www.apple.com/trailers	R	149	2300000	2013-07-26 22:19:55.027918	2013-07-26 22:19:55.027918
+497	Bridget Jones's Diary	\N	634	tt0243155	6	2001-03-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ydsXlFK0fmOphAIjqsmf5U6j1LU.jpg	http://www.youtube.com/watch?v=w9rbadSnlVc	R	97	25000000	2013-07-26 22:19:55.824713	2013-07-26 22:19:55.824713
+498	Angel Heart	\N	635	tt0092563	7	1987-03-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zVABs77t8P6flUShTnnTHjeTc3w.jpg	http://www.youtube.com/watch?v=Vp0LXxkx7yA	R	113	17000000	2013-07-26 22:19:56.575622	2013-07-26 22:19:56.575622
+499	THX 1138	\N	636	tt0066434	6	1971-03-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8cie5mojY6MlIrYMs9EtNSyterv.jpg	http://www.youtube.com/watch?v=rO99j_Ty4Hc	R	86	777000	2013-07-26 22:19:57.240025	2013-07-26 22:19:57.240025
+500	Life Is Beautiful	\N	637	tt0118799	7	1998-10-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/f7DImXDebOs148U4uPjI61iDvaK.jpg	http://www.youtube.com/watch?v=64ZoO7oiN0s	PG-13	116	0	2013-07-26 22:19:57.968165	2013-07-26 22:19:57.968165
+501	Lost Highway	\N	638	tt0116922	7	1997-02-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/Src97mE7hPZmlnOdbNWlgHR3nn.jpg	http://www.youtube.com/watch?v=DMWMCbQxEsE	R	134	15000000	2013-07-26 22:19:58.828052	2013-07-26 22:19:58.828052
+502	When Harry Met Sally...	\N	639	tt0098635	6	1989-07-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/u0zjs3lmmNizQf7XE0iTh4IG7gX.jpg	http://www.youtube.com/watch?v=X1Qk0KxthWg	R	96	16000000	2013-07-26 22:19:59.633962	2013-07-26 22:19:59.633962
+503	Catch Me If You Can	\N	640	tt0264464	7	2002-12-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gq68WGfnl7Kv8v29L8PJQRxtheE.jpg	http://www.youtube.com/watch?v=71rDQ7z4eFg	PG-13	141	52000000	2013-07-26 22:20:00.610532	2013-07-26 22:20:00.610532
+504	Requiem for a Dream	\N	641	tt0180093	7	2000-10-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/muym4jTjdLx7E6as09d1wlC3sOB.jpg	http://www.youtube.com/watch?v=lgo3Hb5vWLE	R	102	4500000	2013-07-26 22:20:01.511179	2013-07-26 22:20:01.511179
+505	Butch Cassidy and the Sundance Kid	\N	642	tt0064115	7	1969-09-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kppsWIOt3lRcToYONP6TxEP3lfa.jpg	http://www.youtube.com/watch?v=X41Ylp02NRs	PG	110	6000000	2013-07-26 22:20:02.238823	2013-07-26 22:20:02.238823
+506	Battleship Potemkin	\N	643	tt0015648	8	1925-12-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ina7WScjeoZSQSkA5rwxGAZsbVG.jpg	http://www.youtube.com/watch?v=kS5kzTbNKjs		75	0	2013-07-26 22:20:03.16794	2013-07-26 22:20:03.16794
+507	A.I. Artificial Intelligence	\N	644	tt0212720	6	2001-06-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/seJhtsUcytRuRGa6oUGYhjVYL8g.jpg	http://www.youtube.com/watch?v=3y6MFltJgPQ	PG-13	146	100000000	2013-07-26 22:20:04.091654	2013-07-26 22:20:04.091654
+508	Dr. No	\N	646	tt0055928	6	1963-05-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/eOIqMcJ246cKOg6jJzeZhvKtcbS.jpg	http://www.youtube.com/watch?v=re-v2lDjaCU	PG	110	1100000	2013-07-26 22:20:05.804792	2013-07-26 22:20:05.804792
+509	Final Fantasy VII: Advent Children	\N	647	tt0385700	6	2006-04-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/pOHBhcZMLlVKALG098EOaobdeVX.jpg	http://www.youtube.com/watch?v=cfGJtynFV40	PG-13	101	0	2013-07-26 22:20:06.565643	2013-07-26 22:20:06.565643
+510	Beauty and the Beast	\N	648	tt0038348	8	1947-04-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/qi4V20bYyclriiOXzsfbejypy8u.jpg	http://www.youtube.com/watch?v=2N6Nmf-tVDo	\N	96	0	2013-07-26 22:20:07.73618	2013-07-26 22:20:07.73618
+511	Belle de Jour	\N	649	tt0061395	5	1967-05-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vfJkEcBQqX8LaJIRwkZtX4nzP9n.jpg	http://www.youtube.com/watch?v=FJXLCYZMGQ8	\N	101	0	2013-07-26 22:20:08.613805	2013-07-26 22:20:08.613805
+512	Boyz n the Hood	\N	650	tt0101507	6	1991-07-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/f9mQ6TR8RaeINUaDxujUMZxCPEn.jpg	http://www.youtube.com/watch?v=MVDl7k_xkpo	R	102	6500000	2013-07-26 22:20:09.336419	2013-07-26 22:20:09.336419
+513	MASH	\N	651	tt0066026	7	1970-01-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zhw6iaEAukXeSSoUuc5KmMiSD5S.jpg	http://www.youtube.com/watch?v=lvijJ3RnRc8	PG-13	116	3500000	2013-07-26 22:20:09.951978	2013-07-26 22:20:09.951978
+514	Troy	\N	652	tt0332452	6	2004-05-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/edMlij7nw2NMla32xskDnzMCFBM.jpg	http://www.youtube.com/watch?v=enJYNuWBJ9g	R	163	175000000	2013-07-26 22:20:10.813657	2013-07-26 22:20:10.813657
+515	Nosferatu	\N	653	tt0013442	7	1922-03-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gLdKLFz8Y4SiU1a9DZ4SReQr8yU.jpg	http://www.youtube.com/watch?v=sMl6hUZHBqY	NR	82	0	2013-07-26 22:20:11.426137	2013-07-26 22:20:11.426137
+516	On the Waterfront	\N	654	tt0047296	8	1954-07-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/atND4vQ2bNhEo9AyG98mHw4qxta.jpg	http://www.youtube.com/watch?v=PAUysPs8NjA	NR	108	910000	2013-07-26 22:20:12.316099	2013-07-26 22:20:12.316099
+517	Paris, Texas	\N	655	tt0087884	8	1984-11-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vbtDskCLmlDKtzpqdiJYszBhKY2.jpg	http://www.youtube.com/watch?v=ic_s0DDNoB8	R	147	1746964	2013-07-26 22:20:13.016712	2013-07-26 22:20:13.016712
+518	From Russia With Love	\N	657	tt0057076	7	1964-04-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xLj655bmXKMiFbUCQnKhz8xwezV.jpg	http://www.youtube.com/watch?v=x_USL1yvnaw	PG	115	2500000	2013-07-26 22:20:14.745805	2013-07-26 22:20:14.745805
+519	Goldfinger	\N	658	tt0058150	6	1964-12-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/EEFBopYagwmG0cGWnlnqoRFE97.jpg	http://www.youtube.com/watch?v=94UpZMvUvEk	PG	110	3500000	2013-07-26 22:20:15.803998	2013-07-26 22:20:15.803998
+520	The Tin Drum	\N	659	tt0078875	8	1979-05-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/a8nMoL9LRc90IPZ4E7MmLBYkW8S.jpg	http://www.youtube.com/watch?v=7GaCByiGe-c	R	142	0	2013-07-26 22:20:16.594125	2013-07-26 22:20:16.594125
+521	Thunderball	\N	660	tt0059800	7	1965-12-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8SeeTUCs5ur4EqNg8q7BBlv4d28.jpg	http://www.youtube.com/watch?v=ElyENM6i0xg	PG	130	11000000	2013-07-26 22:20:17.596821	2013-07-26 22:20:17.596821
+522	The Marriage of Maria Braun	\N	661	tt0079095	6	1979-10-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/umHMlDhZoO0lSd6YadufzisxvBw.jpg	http://www.youtube.com/watch?v=cYyx5DwWu0k		116	0	2013-07-26 22:20:18.827948	2013-07-26 22:20:18.827948
+523	Saw IV	\N	663	tt0890870	5	2007-10-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/qJlgwo60JFyakzUBQEpin3iuGWG.jpg	http://www.youtube.com/watch?v=48QUFWQIrHo	R	93	10000000	2013-07-26 22:20:21.267411	2013-07-26 22:20:21.267411
+524	Twister	\N	664	tt0117998	6	1996-05-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tKdDCkmb6obEhWEMLgGUUz5nDNs.jpg	http://www.youtube.com/watch?v=denwZMYjJAw	PG-13	113	92000000	2013-07-26 22:20:21.929199	2013-07-26 22:20:21.929199
+525	Ben-Hur	\N	665	tt0052618	7	1959-11-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cNSBgQgJx2yXxYlIyWFhWz2F377.jpg	http://www.youtube.com/watch?v=edlIdpopk1w	G	212	15000000	2013-07-26 22:20:22.64013	2013-07-26 22:20:22.64013
+526	Central Station	\N	666	tt0140888	9	1998-01-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/x5bWINuTZxSCAYM5AechsLSlI3e.jpg	http://www.apple.com/trailers		113	0	2013-07-26 22:20:23.273618	2013-07-26 22:20:23.273618
+527	You Only Live Twice	\N	667	tt0062512	6	1967-06-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zWVpC5tCDCvPfxFD4zpT316g9FQ.jpg	http://www.youtube.com/watch?v=DxteuPr28Xw	PG	117	9500000	2013-07-26 22:20:24.31561	2013-07-26 22:20:24.31561
+528	On Her Majesty's Secret Service	\N	668	tt0064757	6	1969-12-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3053HninKH9AAffsLukwbchyC2j.jpg	http://www.youtube.com/watch?v=yf_I84W-_cw	PG	142	7000000	2013-07-26 22:20:25.320635	2013-07-26 22:20:25.320635
+529	Nanook of the North	\N	669	tt0013427	4	1922-06-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/aWmdeyP4rvOlQZCdjLCpJfJnHVT.jpg	http://www.apple.com/trailers		79	50000	2013-07-26 22:20:26.062492	2013-07-26 22:20:26.062492
+530	Oldboy	\N	670	tt0364569	7	2005-03-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fct7n9V10E8t8a7wOR90Ccw0i48.jpg	http://www.youtube.com/watch?v=p5L0huBSdIw	R	120	3000000	2013-07-26 22:20:26.830474	2013-07-26 22:20:26.830474
+531	Harry Potter and the Philosopher's Stone	\N	671	tt0241527	6	2001-11-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fVxG2moTyJ8KWWztZrZNAK0ya03.jpg	http://www.youtube.com/watch?v=qPvlb6eXzMA	PG	152	125000000	2013-07-26 22:20:27.984439	2013-07-26 22:20:27.984439
+532	Harry Potter and the Chamber of Secrets	\N	672	tt0295297	6	2002-11-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lryNn7sNkvQIg45KwgeKnMxSSRX.jpg	http://www.youtube.com/watch?v=0sur6pwJ15E	PG	161	100000000	2013-07-26 22:20:29.033127	2013-07-26 22:20:29.033127
+533	Harry Potter and the Prisoner of Azkaban	\N	673	tt0304141	6	2004-06-04	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7VTALkqjG40vby3uVIsp03d7yXy.jpg	http://www.youtube.com/watch?v=p4mpOY0KWsM	PG	141	130000000	2013-07-26 22:20:30.079664	2013-07-26 22:20:30.079664
+534	Harry Potter and the Goblet of Fire	\N	674	tt0330373	6	2005-11-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6sASqcdrEHXxUhA3nFpjrRecPD2.jpg	http://www.youtube.com/watch?v=ylF1Jp4DIYQ	PG-13	157	150000000	2013-07-26 22:20:31.11637	2013-07-26 22:20:31.11637
+535	Harry Potter and the Order of the Phoenix	\N	675	tt0373889	6	2007-07-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lmYmoXVzVrTadfXHZ3v1ySqA1fn.jpg	http://www.youtube.com/watch?v=63KfQ88rtiI	PG-13	138	150000000	2013-07-26 22:20:32.178954	2013-07-26 22:20:32.178954
+536	Pearl Harbor	\N	676	tt0213149	5	2001-05-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lDMbUeNFx1Rpkvl62vzPlGuYOxP.jpg	http://www.youtube.com/watch?v=jdiCxrqdLAg	PG-13	183	140000000	2013-07-26 22:20:32.994525	2013-07-26 22:20:32.994525
+537	Olympia Part One: Festival of the Nations	\N	677	tt0030522	8	1938-04-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mIkjaxm1tCnNrZwe48iYaNeKTgm.jpg	http://www.apple.com/trailers		126	0	2013-07-26 22:20:33.936097	2013-07-26 22:20:33.936097
+538	Out of the Past	\N	678	tt0039689	7	1947-11-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jrZyaSuX4Vak5VVxJcNBq1OvR8a.jpg	http://www.youtube.com/watch?v=b8DCAqMu6oY		97	0	2013-07-26 22:20:34.568715	2013-07-26 22:20:34.568715
+539	Aliens	\N	679	tt0090605	7	1986-07-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4dw4JX6uqGPO5v5bJYusaGNSON2.jpg	http://www.youtube.com/watch?v=LSHAgmGR-Ig	R	137	18500000	2013-07-26 22:20:35.660065	2013-07-26 22:20:35.660065
+540	Pulp Fiction	\N	680	tt0110912	7	1994-10-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dM2w364MScsjFf8pfMbaWUcWrR.jpg	http://www.youtube.com/watch?v=s7EdQ4FqbhY	R	154	8000000	2013-07-26 22:20:36.798079	2013-07-26 22:20:36.798079
+541	Diamonds Are Forever	\N	681	tt0066995	6	1971-12-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/981iPRF4mO2jLZNO2gu0j7pUoFP.jpg	http://www.youtube.com/watch?v=6cHWQoZ_410	PG	120	7200000	2013-07-26 22:20:37.816175	2013-07-26 22:20:37.816175
+542	The Man with the Golden Gun	\N	682	tt0071807	6	1974-12-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1UyeMzFOMzvK828IygdZFsYbAuz.jpg	http://www.youtube.com/watch?v=3mSVvuqwyOA	PG	125	7000000	2013-07-26 22:20:38.857998	2013-07-26 22:20:38.857998
+543	Olympia Part Two: Festival of Beauty	\N	685	tt0030523	8	1938-04-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/o9KT30eM91aW1CdxeqQ76lVCOxK.jpg	http://www.apple.com/trailers		100	0	2013-07-26 22:20:40.909501	2013-07-26 22:20:40.909501
+544	Contact	\N	686	tt0118884	6	1997-07-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/yRF1qpaQPZJjiORDsR7eUHzSHbf.jpg	http://www.youtube.com/watch?v=SRoj3jK37Vc	PG	150	90000000	2013-07-26 22:20:41.573154	2013-07-26 22:20:41.573154
+545	Dead Man Walking	\N	687	tt0112818	6	1995-12-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jAuo0Buh8wSOrAnUoiwrJIuOs0q.jpg	http://www.youtube.com/watch?v=pg-GMqPHIPQ	R	122	11000000	2013-07-26 22:20:42.640726	2013-07-26 22:20:42.640726
+546	The Bridges Of Madison County	\N	688	tt0112579	7	1995-09-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/czRuGEx9Yhnh6nApirTLPToxHNu.jpg	http://www.youtube.com/watch?v=_bXG1KBHqj0	R	135	0	2013-07-26 22:20:43.740456	2013-07-26 22:20:43.740456
+547	The Travelling Players	\N	689	tt0073800	0	1975-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/n5SL8nyNX8s4VpFv01cysMlQyLh.jpg	http://www.apple.com/trailers	\N	223	0	2013-07-26 22:20:44.563321	2013-07-26 22:20:44.563321
+548	Pickpocket	\N	690	tt0053168	5	1959-12-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cKZ0IswIouJf1HtiBMvlFGWfYaX.jpg	http://www.youtube.com/watch?v=EEVdZlZsQq4		75	0	2013-07-26 22:20:45.461566	2013-07-26 22:20:45.461566
+549	The Spy Who Loved Me	\N	691	tt0076752	6	1977-07-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/wCtVIs48jA82f66w2OOq36FmFFY.jpg	http://www.youtube.com/watch?v=kbAGi1g6nag	PG	125	14000000	2013-07-26 22:20:46.486102	2013-07-26 22:20:46.486102
+550	Pink Flamingos	\N	692	tt0069089	8	1972-03-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8fxs1wEV5SiBFmy8HUeP2aAuOem.jpg	http://www.youtube.com/watch?v=EWQSiuGfoVM		93	12000	2013-07-26 22:20:47.29862	2013-07-26 22:20:47.29862
+551	Meet the Fockers	\N	693	tt0290002	6	2004-12-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xHAqB06iL5D6HyOS6QpgyKkRQHD.jpg	http://www.youtube.com/watch?v=48S3ogRGpjM	PG-13	115	80000000	2013-07-26 22:20:48.042104	2013-07-26 22:20:48.042104
+552	The Shining	\N	694	tt0081505	7	1980-05-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5RXSYuAkhqumgV0Xrm7A3Fy4Z8l.jpg	http://www.youtube.com/watch?v=Guf3HqeF3Ck	R	142	19000000	2013-07-26 22:20:49.087749	2013-07-26 22:20:49.087749
+553	Short Cuts	\N	695	tt0108122	6	1993-10-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/x3Reamtu2RXhk46FY5YjzzZu6qc.jpg	http://www.youtube.com/watch?v=sTipAEA2hsM	R	187	0	2013-07-26 22:20:49.7015	2013-07-26 22:20:49.7015
+554	Manhattan	\N	696	tt0079522	7	1979-04-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/naVbyYkdS4g3mbTqfP5zWMkBa0q.jpg	http://www.youtube.com/watch?v=cuU6XU0_Gfs	R	96	0	2013-07-26 22:20:50.909589	2013-07-26 22:20:50.909589
+555	October	\N	697	tt0018217	6	1928-03-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4GMKWVdMTmu3uQBNy23M62auXXq.jpg	http://www.apple.com/trailers		94	0	2013-07-26 22:20:51.715755	2013-07-26 22:20:51.715755
+556	Moonraker	\N	698	tt0079574	5	1979-06-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/t7DrcBlDfhXUlKM7CQjM9Po9P4U.jpg	http://www.youtube.com/watch?v=sFQTHExJz5A	PG	126	34000000	2013-07-26 22:20:52.765129	2013-07-26 22:20:52.765129
+557	For Your Eyes Only	\N	699	tt0082398	6	1981-06-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/abWnjvidM4yZI03N7l2jNuwdhDv.jpg	http://www.youtube.com/watch?v=mnfewT7RQ0s	PG	127	28000000	2013-07-26 22:20:53.991943	2013-07-26 22:20:53.991943
+558	Octopussy	\N	700	tt0086034	6	1983-06-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mFuNzw2t6A2ukM7rK3ahRZn2I89.jpg	http://www.youtube.com/watch?v=58fu9UDFMmE	PG	131	27500000	2013-07-26 22:20:55.877497	2013-07-26 22:20:55.877497
+559	Our Hospitality	\N	701	tt0014341	8	1923-11-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/f8oCjun5Zzn5sOfyezQCh0UFoPg.jpg	http://www.youtube.com/watch?v=zDI9zOhRy3o		73	0	2013-07-26 22:20:56.439887	2013-07-26 22:20:56.439887
+560	A Streetcar Named Desire	\N	702	tt0044081	6	1951-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7E1AICi44KCWNs0Y9A4KCJFVpe2.jpg	http://www.youtube.com/watch?v=bmQcX8hE33w	PG	125	1800000	2013-07-26 22:20:57.300592	2013-07-26 22:20:57.300592
+561	Annie Hall	\N	703	tt0075686	7	1977-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bK9bLXwxWuXX5mbq75PZqjvAtfG.jpg	http://www.youtube.com/watch?v=M85gaKOtKVo	PG	93	4000000	2013-07-26 22:20:57.932312	2013-07-26 22:20:57.932312
+562	A Hard Day's Night	\N	704	tt0058182	7	1964-08-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cq14i2Q2PiSBTZClAwpiXFydszp.jpg	http://www.youtube.com/watch?v=q0eJEX5c1sM	G	91	500000	2013-07-26 22:20:58.575211	2013-07-26 22:20:58.575211
+563	All About Eve	\N	705	tt0042192	6	1950-10-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2z2J3mxpGcispYfFjg1conBlrGI.jpg	http://www.youtube.com/watch?v=skZDG3Ffw8A	PG	138	1400000	2013-07-26 22:20:59.241458	2013-07-26 22:20:59.241458
+564	Effi Briest	\N	706	tt0071458	9	1974-06-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uoXBI3B41lPidGKIALDLyfNzUUv.jpg	http://www.apple.com/trailers		141	0	2013-07-26 22:20:59.810254	2013-07-26 22:20:59.810254
+565	A View to a Kill	\N	707	tt0090264	6	1985-05-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/o8E86sXJOqAVmoxnNRoeZVCr0aa.jpg	http://www.youtube.com/watch?v=CMm9rZPIS5s	PG	131	30000000	2013-07-26 22:21:00.828976	2013-07-26 22:21:00.828976
+566	The Living Daylights	\N	708	tt0093428	6	1987-06-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cBk0TKOc64iR5TDi1k5bWAZwbhz.jpg	http://www.youtube.com/watch?v=u3QtS3tL2Qw	PG	130	40000000	2013-07-26 22:21:02.464054	2013-07-26 22:21:02.464054
+567	Licence to Kill	\N	709	tt0097742	5	1989-07-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4lpfRGW7dCqlco2n6wqptyFAz4V.jpg	http://www.youtube.com/watch?v=_tdjaCfirUc	PG-13	133	32000000	2013-07-26 22:21:03.319103	2013-07-26 22:21:03.319103
+568	GoldenEye	\N	710	tt0113189	6	1995-11-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/50fxZ2GdbSZt6HsyVVl6bSmoUkg.jpg	http://www.youtube.com/watch?v=C4hbwwq5wlQ	PG-13	130	60000000	2013-07-26 22:21:04.209507	2013-07-26 22:21:04.209507
+569	Finding Forrester	\N	711	tt0181536	6	2000-12-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/YRM8RyfG33ZI7zaGxBYroTsMcv.jpg	http://www.youtube.com/watch?v=ziT9MlQjDjM	PG-13	136	0	2013-07-26 22:21:04.840935	2013-07-26 22:21:04.840935
+570	Four Weddings and a Funeral	\N	712	tt0109831	6	1994-03-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/md9kMKnLG8LG4pMDM98gy5x4K5L.jpg	http://www.youtube.com/watch?v=ALRW0GR3DSg	R	117	6000000	2013-07-26 22:21:05.440933	2013-07-26 22:21:05.440933
+571	The Piano	\N	713	tt0107822	6	1993-11-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5WxnGUZLleNyWFGaXvP6NFglpmV.jpg	http://www.youtube.com/watch?v=MLpzo_nwZpE	R	121	7000000	2013-07-26 22:21:06.066368	2013-07-26 22:21:06.066368
+572	Tomorrow Never Dies	\N	714	tt0120347	5	1997-12-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jcFFwrF9e7XPeQK5Hmcuf5NAHOA.jpg	http://www.youtube.com/watch?v=gYtz5sw98Bc	PG-13	119	110000000	2013-07-26 22:21:07.054901	2013-07-26 22:21:07.054901
+573	Together	\N	742	tt0203166	6	2000-08-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/g0pp3XyUvGbx63dNBz92oxo8jej.jpg	http://www.apple.com/trailers	\N	106	0	2013-07-26 22:21:22.037671	2013-07-26 22:21:22.037671
+574	Train Birds	\N	743	tt0129659	0	1998-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/whKyUqCfO0R3MvP0RSWSBzJYJ5H.jpg	http://www.apple.com/trailers		87	0	2013-07-26 22:21:22.572654	2013-07-26 22:21:22.572654
+575	Top Gun	\N	744	tt0092099	6	1986-05-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9miZUkG0TLfrDJt68JvXttxLu9S.jpg	http://www.youtube.com/watch?v=iCrUqt9Uf3E	PG	110	15000000	2013-07-26 22:21:23.317294	2013-07-26 22:21:23.317294
+576	The Sixth Sense	\N	745	tt0167404	7	1999-08-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/wW1y9pvMejWjdfz0mpbB3Ag3SJf.jpg	http://www.youtube.com/watch?v=VG9AGf66tXM	PG-13	107	55000000	2013-07-26 22:21:23.975336	2013-07-26 22:21:23.975336
+577	The Last Emperor	\N	746	tt0093389	7	1987-10-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/KTirnfG6FZLKWbm8Am3EEKmZDx.jpg	http://www.youtube.com/watch?v=PtFrcVjVJBI	PG-13	163	25000000	2013-07-26 22:21:24.593601	2013-07-26 22:21:24.593601
+578	Shaun of the Dead	\N	747	tt0365748	6	2004-09-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ssY4EvRvufUZooNq1buRUrW7lCX.jpg	http://www.youtube.com/watch?v=CfBewQPFdKE	R	99	4000000	2013-07-26 22:21:25.591145	2013-07-26 22:21:25.591145
+579	Murder She Said	\N	750	tt0055205	9	1962-01-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3eD7WFDA9LxTlYpsCM9zcXyvhyl.jpg	http://www.youtube.com/watch?v=Uv34UJPcJoo		87	0	2013-07-26 22:21:27.195269	2013-07-26 22:21:27.195269
+580	Murder at the Gallop	\N	751	tt0057334	0	1963-07-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hzgxKkvKZVeyBn8M1buPcWnVVHI.jpg	http://www.youtube.com/watch?v=tiGUPaGyqxE		81	0	2013-07-26 22:21:27.883376	2013-07-26 22:21:27.883376
+581	V for Vendetta	\N	752	tt0434409	7	2006-01-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8rI9pNiTmugkEbI249evLygl9TC.jpg	http://www.youtube.com/watch?v=ZR5xUl2Suew	R	132	54000000	2013-07-26 22:21:28.784197	2013-07-26 22:21:28.784197
+582	Faces	\N	753	tt0062952	7	1968-11-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uIuCM1okb8ZIFgOgQE4mrebs38S.jpg	http://www.youtube.com/watch?v=OUrzJ60EdjA&feature=related	PG-13	130	275000	2013-07-26 22:21:29.316753	2013-07-26 22:21:29.316753
+583	Face/Off	\N	754	tt0119094	6	1997-06-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xq9Gif3CN4oyGkMnqreWuGl4Gt.jpg	http://www.youtube.com/watch?v=3zebJ_NoduE	R	138	80000000	2013-07-26 22:21:30.041931	2013-07-26 22:21:30.041931
+584	From Dusk Till Dawn	\N	755	tt0116367	6	1996-01-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ce0d4kM5KxT4x1Oq8JkSuNYevri.jpg	http://www.youtube.com/watch?v=jNuIn4T-CLk	R	108	19000000	2013-07-26 22:21:30.863659	2013-07-26 22:21:30.863659
+585	Fantasia	\N	756	tt0032455	6	1940-11-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9YXyiRszikyoakc4oNaHbjjybmT.jpg	http://www.youtube.com/watch?v=bCHd5C5ADRg	G	124	2280000	2013-07-26 22:21:31.563407	2013-07-26 22:21:31.563407
+586	Murder Most Foul	\N	757	tt0058383	0	1965-01-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ntkloKNU5DWgbuaTLJtmSwp4K6i.jpg	http://www.youtube.com/watch?v=tTKHmaufRNU		90	0	2013-07-26 22:21:32.185227	2013-07-26 22:21:32.185227
+587	Murder Ahoy	\N	758	tt0058382	0	1964-09-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uPdYyL5EjixXvb4bDi1Ad6C5wwF.jpg	http://www.youtube.com/watch?v=nwKmG9gliw0		93	0	2013-07-26 22:21:32.721181	2013-07-26 22:21:32.721181
+588	Gentlemen Prefer Blondes	\N	759	tt0045810	5	1953-07-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/43QKrBCm64pOSiUD73nRSJRoiWo.jpg	http://www.youtube.com/watch?v=ur9GKLl8v4U	NR	91	0	2013-07-26 22:21:33.360335	2013-07-26 22:21:33.360335
+589	The Adventures of Rabbi Jacob	\N	760	tt0069747	7	1973-11-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3ddHXKpOnPmUCHYYWtcUjDNhI4F.jpg	http://www.youtube.com/watch?v=wLwHaK86DsM		100	0	2013-07-26 22:21:33.968945	2013-07-26 22:21:33.968945
+590	The Wing and the Thigh	\N	761	tt0074103	7	1976-11-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/pTyHimS8MSVUh47N7mh0DfZgaiU.jpg	http://www.youtube.com/watch?v=ITD4MKaGpeg		104	0	2013-07-26 22:21:34.607758	2013-07-26 22:21:34.607758
+591	Monty Python and the Holy Grail	\N	762	tt0071853	7	1975-03-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/p1RvyuNbMbvNijjFuzfw11xNtyt.jpg	http://www.youtube.com/watch?v=RDM75-oXGmQ	PG	91	400000	2013-07-26 22:21:35.318114	2013-07-26 22:21:35.318114
+592	Dead Alive	\N	763	tt0103873	8	1992-06-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tzFjVTwcU9pUWTMSATjxvDc3Aqa.jpg	http://www.youtube.com/watch?v=Ogj4f-V--h0		97	3000000	2013-07-26 22:21:35.978222	2013-07-26 22:21:35.978222
+593	The Evil Dead	\N	764	tt0083907	7	1981-10-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7cpSdCrBY7UhiygkcP57dpixXsW.jpg	http://www.youtube.com/watch?v=6maEWyzwkoc	NC-17	85	350000	2013-07-26 22:21:36.75744	2013-07-26 22:21:36.75744
+594	Evil Dead II	\N	765	tt0092991	7	1987-03-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dxbIRmIo0rN5R6WGvxnJuUJPh3t.jpg	http://www.youtube.com/watch?v=Gh-8WpTCl7U	R	84	3600000	2013-07-26 22:21:37.465879	2013-07-26 22:21:37.465879
+595	Army of Darkness	\N	766	tt0106308	7	1993-02-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2eZKDIwLNnySbwqQtAaUz0kYDIL.jpg	http://www.youtube.com/watch?v=UD_82kvQLkA	R	81	11000000	2013-07-26 22:21:38.236409	2013-07-26 22:21:38.236409
+596	Harry Potter and the Half-Blood Prince	\N	767	tt0417741	6	2009-07-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bFXys2nhALwDvpkF3dP3Vvdfn8b.jpg	http://www.youtube.com/watch?v=6EHZeOP6Ap4	PG	153	250000000	2013-07-26 22:21:39.099274	2013-07-26 22:21:39.099274
+597	From Hell	\N	768	tt0120681	6	2001-09-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/f3J77Cy3pRSeeN52Pk8oIvgi6IN.jpg	http://www.youtube.com/watch?v=yw8US3gS37w	R	122	35000000	2013-07-26 22:21:39.751907	2013-07-26 22:21:39.751907
+598	Goodfellas	\N	769	tt0099685	7	1990-09-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ckDwlkT8V71rQxqmxFgzS91rjlR.jpg	http://www.youtube.com/watch?v=YH-7he92XfI	R	146	25000000	2013-07-26 22:21:40.632194	2013-07-26 22:21:40.632194
+599	Gone with the Wind	\N	770	tt0031381	7	1939-12-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lqPnvmaX4oZY9teAOT7M0txCLkS.jpg	http://www.youtube.com/watch?v=wUA5jB2MPCc	G	238	4000000	2013-07-26 22:21:41.916708	2013-07-26 22:21:41.916708
+600	Home Alone	\N	771	tt0099785	6	1990-11-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8IWPBT1rkAaI8Kpk5V3WfQRklJ7.jpg	http://www.youtube.com/watch?v=oGrLLn4nooQ	PG	103	18000000	2013-07-26 22:21:42.656278	2013-07-26 22:21:42.656278
+601	Home Alone 2: Lost In New York	\N	772	tt0104431	6	1992-11-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6TORcSs0YGtLZcLDohT2mTP9LuG.jpg	http://www.youtube.com/watch?v=z_An3W-oO2k	PG	120	15000000	2013-07-26 22:21:43.386872	2013-07-26 22:21:43.386872
+602	Little Miss Sunshine	\N	773	tt0449059	6	2006-07-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/j8iu2kdD0KWMcA3IMzCAhO8ULO.jpg	http://www.youtube.com/watch?v=g13E7QhRBn0	R	102	8000000	2013-07-26 22:21:44.014234	2013-07-26 22:21:44.014234
+603	The Rules of the Game	\N	776	tt0031885	8	1939-06-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jOTgnFicPlSGB1CUiK1ELjp67P4.jpg	http://www.youtube.com/watch?v=p5tV3wRwc_A	\N	110	8847685	2013-07-26 22:21:45.767507	2013-07-26 22:21:45.767507
+604	Grand Illusion	\N	777	tt0028950	7	1937-09-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dOT0Zu52MYN0Rtl7tykBzShcXIG.jpg	http://www.youtube.com/watch?v=hctrYzVYmfM		114	0	2013-07-26 22:21:46.457212	2013-07-26 22:21:46.457212
+605	Mr. Hulot's Holiday	\N	778	tt0046487	9	1954-06-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ohtLmfsB3Q07S1p9SX6SfdzFdWB.jpg	http://www.youtube.com/watch?v=_92Cm8gl7Ls	NR	84	0	2013-07-26 22:21:47.028263	2013-07-26 22:21:47.028263
+606	Vampyr	\N	779	tt0023649	7	1932-05-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rCBSN0O0A4LLPpeoHi4RCnGCiJN.jpg	http://www.youtube.com/watch?v=nvW2mKiLM-M		75	0	2013-07-26 22:21:47.63679	2013-07-26 22:21:47.63679
+607	The Passion of Joan of Arc	\N	780	tt0019254	9	1929-03-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jmA8HlpqWbddteW3z7JTh5CpYvO.jpg	http://www.youtube.com/watch?v=9NfCuPiUxcw		114	0	2013-07-26 22:21:48.248308	2013-07-26 22:21:48.248308
+608	Wintersleepers	\N	781	tt0120522	0	1997-10-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/nEzRPU5RhMBczgJxqmcDXkGWuuD.jpg	http://www.apple.com/trailers	\N	120	0	2013-07-26 22:21:48.774312	2013-07-26 22:21:48.774312
+609	Gattaca	\N	782	tt0119177	7	1997-10-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/Aq0ZKWRa6OXyGhH3qiJpC2x8vaU.jpg	http://www.apple.com/trailers	PG-13	106	36000000	2013-07-26 22:21:49.485164	2013-07-26 22:21:49.485164
+610	Gandhi	\N	783	tt0083987	7	1982-11-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2z9A4FSu1YySrhhcuqkdMIXpgyN.jpg	http://www.youtube.com/watch?v=PStHH9k8dtY	PG	191	22000000	2013-07-26 22:21:50.153256	2013-07-26 22:21:50.153256
+611	Kolya	\N	784	tt0116790	8	1996-05-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6vpmvksX3uyK3t8QZd5sPxnAIit.jpg	http://www.youtube.com/watch?v=-hU5gHcEH6Q		105	0	2013-07-26 22:21:50.702197	2013-07-26 22:21:50.702197
+612	To Whom Does the World Belong?	\N	785	tt0023104	0	1933-04-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oqHGvCSOtlY48norLvNMwi8n8ip.jpg	http://www.apple.com/trailers		74	0	2013-07-26 22:21:51.306202	2013-07-26 22:21:51.306202
+613	Almost Famous	\N	786	tt0181875	6	2000-09-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/nyxdfpIJ9kZYXoEv4ZiCMIJ03wy.jpg	http://www.youtube.com/watch?v=qk0XnyrENrE	R	122	60000000	2013-07-26 22:21:52.071917	2013-07-26 22:21:52.071917
+614	Mr. & Mrs. Smith	\N	787	tt0356910	6	2005-06-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dqs5BmwSULtB28Kls3IB6khTQwp.jpg	http://www.youtube.com/watch?v=TWB_icm5M38	PG-13	120	110000000	2013-07-26 22:21:52.983911	2013-07-26 22:21:52.983911
+615	Mrs. Doubtfire	\N	788	tt0107614	6	1993-11-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3KyIrnLUglxOQbTVrqPDmNabt6q.jpg	http://www.youtube.com/watch?v=TW5TkLWZkdc	PG-13	125	25000000	2013-07-26 22:21:53.651773	2013-07-26 22:21:53.651773
+616	Closely Watched Trains	\N	789	tt0060802	8	1966-11-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rxvjPfk4ccdljH1I0udUtGRw0nm.jpg	http://www.youtube.com/watch?v=LnBgon5-LN4	\N	92	0	2013-07-26 22:21:54.202873	2013-07-26 22:21:54.202873
+617	The Fog	\N	790	tt0080749	6	1980-02-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/u9wAIHya0BHJvGJh3mBPr010U7C.jpg	http://www.youtube.com/watch?v=nOZwnivtLbc	R	89	1000000	2013-07-26 22:21:54.936941	2013-07-26 22:21:54.936941
+618	The Fog	\N	791	tt0432291	5	2005-10-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lzANU2Ydjz8Isi4cnADfSOuVWtf.jpg	http://www.youtube.com/watch?v=1633	PG-13	100	18000000	2013-07-26 22:21:55.564298	2013-07-26 22:21:55.564298
+619	Platoon	\N	792	tt0091763	7	1986-12-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/aXRkPBQr7ZF59ZSx7AOYHUYTXjH.jpg	http://www.youtube.com/watch?v=pPi8EQzJ2Bg	R	120	6000000	2013-07-26 22:21:56.404227	2013-07-26 22:21:56.404227
+620	Blue Velvet	\N	793	tt0090756	7	1986-09-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/yXvdmffa0o8zlxwBBcQki8y3Fdw.jpg	http://www.youtube.com/watch?v=bWr4JvAWF20	R	120	6000000	2013-07-26 22:21:57.314194	2013-07-26 22:21:57.314194
+621	The Omen	\N	794	tt0075005	8	1976-06-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vM5PNjsQfI4pjyCnCuIxxbfZqde.jpg	http://www.youtube.com/watch?v=cvrv8U5MfS4	R	111	2800000	2013-07-26 22:21:58.896673	2013-07-26 22:21:58.896673
+622	City of Angels	\N	795	tt0120632	6	1998-03-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dMvup91Svpns2SfCtZ4jiSFiouV.jpg	http://www.youtube.com/watch?v=6zSG_oVliis	PG-13	114	55000000	2013-07-26 22:21:59.728527	2013-07-26 22:21:59.728527
+623	Cruel Intentions	\N	796	tt0139134	6	1999-03-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/a5O4kfxaw3PjANrpwOQlDEpOCcl.jpg	http://www.youtube.com/watch?v=dnWp4Jq32Zw	R	97	10500000	2013-07-26 22:22:00.508697	2013-07-26 22:22:00.508697
+624	Persona	\N	797	tt0060827	8	1967-03-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1SiAtvQzQmHvUE9xTKnnz6o4tlQ.jpg	http://www.youtube.com/watch?v=XZsU_ACYSAA		83	0	2013-07-26 22:22:01.618887	2013-07-26 22:22:01.618887
+625	Pünktchen und Anton	\N	798	tt0046218	0	1953-08-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9W79g8mZ2jGI50fUsANothbgvJt.jpg	http://www.apple.com/trailers		91	0	2013-07-26 22:22:02.780197	2013-07-26 22:22:02.780197
+626	Pünktchen und Anton	\N	799	tt0161935	0	1999-03-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/expaMZEos4NfeK4V8SprJW6eAvg.jpg	http://www.apple.com/trailers		107	0	2013-07-26 22:22:03.718736	2013-07-26 22:22:03.718736
+627	The Young and the Damned	\N	800	tt0042804	4	1950-12-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/jnVI8TtmqLUnU7GtO2BtKOvYuc1.jpg	http://www.youtube.com/watch?v=hr1h1acceRs		85	0	2013-07-26 22:22:04.747846	2013-07-26 22:22:04.747846
+628	Good Morning, Vietnam	\N	801	tt0093105	6	1987-12-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7gxvvzBj5dAIiTbGItX3V48YPMb.jpg	http://www.youtube.com/watch?v=3mJoHqmtFcQ	R	121	13000000	2013-07-26 22:22:05.619042	2013-07-26 22:22:05.619042
+629	Lolita	\N	802	tt0056193	6	1962-06-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rIL0X4VH03fgltIgi0LTCw7eSP0.jpg	http://www.youtube.com/watch?v=AHSUYVrvyCg	R	153	2000000	2013-07-26 22:22:06.717246	2013-07-26 22:22:06.717246
+630	Roman Holiday	\N	804	tt0046250	7	1953-08-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/konkuLjrROMzc1ieWxpnTqMnb4E.jpg	http://www.youtube.com/watch?v=eIFo0txAvuE	NR	118	1500000	2013-07-26 22:22:08.690388	2013-07-26 22:22:08.690388
+631	Rosemary's Baby	\N	805	tt0063522	7	1968-06-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zVjvNrKs5EYXrvHPpuRovjnLIml.jpg	http://www.youtube.com/watch?v=NoXLXMbOgiU	R	136	3200000	2013-07-26 22:22:09.484678	2013-07-26 22:22:09.484678
+632	The Omen	\N	806	tt0466909	5	2006-06-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kqKHg1qXuaIOhnKmPEF1GLzGrOY.jpg	http://www.youtube.com/watch?v=tjkULU6VR8A	R	110	25000000	2013-07-26 22:22:10.116706	2013-07-26 22:22:10.116706
+633	Se7en	\N	807	tt0114369	7	1995-09-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mhFXxB76LVgJBIfJM1sAuVBtVKv.jpg	http://www.youtube.com/watch?v=GsTUFuj4qwY	R	127	33000000	2013-07-26 22:22:11.126458	2013-07-26 22:22:11.126458
+634	Shrek	\N	808	tt0126029	6	2001-04-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/140ewbWv8qHStD3mlBDvvGd0Zvu.jpg	http://www.youtube.com/watch?v=W37DlG1i61s	PG	90	60000000	2013-07-26 22:22:12.048846	2013-07-26 22:22:12.048846
+635	Shrek 2	\N	809	tt0298148	6	2004-05-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/akWDA0BMVYK4OTM92T5i91DYnsT.jpg	http://www.youtube.com/watch?v=Bj9q_syxR1I	PG	93	70000000	2013-07-26 22:22:12.897225	2013-07-26 22:22:12.897225
+636	Shrek the Third	\N	810	tt0413267	6	2007-05-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/eDAnxTxVbrTFDz8KTMGgBXYLgYn.jpg	http://www.youtube.com/watch?v=QL9qJ00ePXY	PG	93	160000000	2013-07-26 22:22:13.822949	2013-07-26 22:22:13.822949
+637	Silent Running	\N	811	tt0067756	7	1972-03-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cEojZXSqoh75hT4m7eDMNqtVioF.jpg	http://www.youtube.com/watch?v=TckJBvl_uT0	G	89	0	2013-07-26 22:22:14.696172	2013-07-26 22:22:14.696172
+638	Aladdin	\N	812	tt0103639	7	1992-11-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oA2AY6adBYrHSrvMQSfZ14yA0HA.jpg	http://www.youtube.com/watch?v=cmUZuZniouU	G	90	28000000	2013-07-26 22:22:15.524289	2013-07-26 22:22:15.524289
+639	Airplane!	\N	813	tt0080339	6	1980-07-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/b4sAWNIbfXw4WTdc1wiVRBk2Vko.jpg	http://www.youtube.com/watch?v=HMnVs287AJ4	PG	88	3500000	2013-07-26 22:22:16.461119	2013-07-26 22:22:16.461119
+640	An American Werewolf in London	\N	814	tt0082010	7	1981-08-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kIEKSlUNEoU1lVFHqjaxqNRppym.jpg	http://www.youtube.com/watch?v=_oJZjpHBskc	R	97	10000000	2013-07-26 22:22:17.409357	2013-07-26 22:22:17.409357
+641	Animal Farm	\N	815	tt0204824	6	1999-10-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6H3tXdM9fm60BNRlYegoTDAyOao.jpg	http://www.apple.com/trailers		91	23000000	2013-07-26 22:22:18.318743	2013-07-26 22:22:18.318743
+642	Austin Powers: International Man of Mystery	\N	816	tt0118655	6	1997-05-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oGJZHUpkVUFYHLNNPdL79bmp5sv.jpg	http://www.youtube.com/watch?v=l3h-o1DzApw	PG-13	94	16500000	2013-07-26 22:22:19.130227	2013-07-26 22:22:19.130227
+643	Austin Powers: The Spy Who Shagged Me	\N	817	tt0145660	6	1999-06-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/wVV9X4MHAXZAtAADyLAlr5xEosc.jpg	http://www.youtube.com/watch?v=tZCkksmJ0YI	PG-13	95	33000000	2013-07-26 22:22:19.948117	2013-07-26 22:22:19.948117
+644	Austin Powers in Goldmember	\N	818	tt0295178	6	2002-07-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/yLIc6SbcqQc7nLOCPVMexNkUesT.jpg	http://www.youtube.com/watch?v=qawr97z_yUM	PG-13	94	63000000	2013-07-26 22:22:20.865319	2013-07-26 22:22:20.865319
+645	Sleepers	\N	819	tt0117665	7	1996-10-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/80LV2GvhvMEuOutxgQwbRYpo0Vv.jpg	http://www.youtube.com/watch?v=1piB0xIkvUU	R	147	44	2013-07-26 22:22:21.586661	2013-07-26 22:22:21.586661
+646	JFK	\N	820	tt0102138	7	1991-12-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9bmXpKDJv2kdtD4QNexErjGTIOz.jpg	http://www.youtube.com/watch?v=fW15dp3R-6U	R	189	40000000	2013-07-26 22:22:22.350641	2013-07-26 22:22:22.350641
+647	Judgment at Nuremberg	\N	821	tt0055031	9	1961-12-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/iu7VMhBma5S94M3wh0fR8cmwgUf.jpg	http://www.youtube.com/watch?v=RfOgZXIQ6fo	PG	186	3000000	2013-07-26 22:22:22.970832	2013-07-26 22:22:22.970832
+648	The Music Room	\N	822	tt0051792	0	1963-10-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dob93AD2i5vU79ZhppGT5YUTh0O.jpg	http://www.youtube.com/watch?v=fi1yYAgUFkg		100	0	2013-07-26 22:22:23.728823	2013-07-26 22:22:23.728823
+649	Jin-Roh: The Wolf Brigade	\N	823	tt0193253	6	2001-05-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/qxLds5SEWklVSph7apgzWWM0f8U.jpg	http://www.apple.com/trailers		102	0	2013-07-26 22:22:24.370936	2013-07-26 22:22:24.370936
+650	Moulin Rouge!	\N	824	tt0203009	6	2001-05-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zsphaxX7NaZyFTYpdlo2yz7q7wy.jpg	http://www.youtube.com/watch?v=dtEgAx80NC4	PG-13	127	50000000	2013-07-26 22:22:25.120935	2013-07-26 22:22:25.120935
+651	Playing by Heart	\N	825	tt0145734	7	1998-01-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2j4ABlRueaSI7fWBcl9vAiFPHQD.jpg	http://www.youtube.com/watch?v=mIqSInFQ_d8		121	20000000	2013-07-26 22:22:27.504334	2013-07-26 22:22:27.504334
+652	The Bridge on the River Kwai	\N	826	tt0050212	6	1957-12-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dOcKBbdEnNbmP4As5n7Lsj0mWid.jpg	http://www.youtube.com/watch?v=NrBEc4Ydl1c	PG	161	3000000	2013-07-26 22:22:28.267944	2013-07-26 22:22:28.267944
+653	Diabolique	\N	827	tt0046911	9	1955-11-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cbf8112i76kBdLtZxrUJboDGxTa.jpg	http://www.youtube.com/watch?v=BzbGtjtfZwA		116	0	2013-07-26 22:22:29.673406	2013-07-26 22:22:29.673406
+654	The Day the Earth Stood Still	\N	828	tt0043456	7	1951-09-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tyujnQl6topN3O9lPnGMpzGsYQM.jpg	http://www.youtube.com/watch?v=B50RyVBrr0k	G	92	1200000	2013-07-26 22:22:30.389762	2013-07-26 22:22:30.389762
+655	Chinatown	\N	829	tt0071315	7	1974-06-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/iIHO6FzF6lL4mA90rrmk3Y705XS.jpg	http://www.youtube.com/watch?v=3aifeXlnoqY	R	130	3200000	2013-07-26 22:22:31.327324	2013-07-26 22:22:31.327324
+656	Forbidden Planet	\N	830	tt0049223	7	1956-03-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vSzRohcdXDxgmiHWgHuvtgW2jq5.jpg	http://www.youtube.com/watch?v=8y4crGU7dkg	G	98	4900000	2013-07-26 22:22:32.111492	2013-07-26 22:22:32.111492
+657	This Island Earth	\N	831	tt0047577	9	1955-06-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/x5nPp1l2Cz2wH8VqvKH5CYlbnE8.jpg	http://www.youtube.com/watch?v=hR7e3StbXoU	PG	87	800000	2013-07-26 22:22:32.634198	2013-07-26 22:22:32.634198
+658	M	\N	832	tt0022100	8	1931-05-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5jAaU3LStpQNlaBnZYsExMlvsBQ.jpg	http://www.youtube.com/watch?v=d1344KFFpRo	\N	117	0	2013-07-26 22:22:33.304013	2013-07-26 22:22:33.304013
+659	Umberto D.	\N	833	tt0045274	8	1952-01-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/sDTbsN6aflWAx1O6sYwGaKnKjT2.jpg	http://www.youtube.com/watch?v=MW2NLQ-t43w		89	0	2013-07-26 22:22:34.345529	2013-07-26 22:22:34.345529
+660	Underworld: Evolution	\N	834	tt0401855	6	2006-01-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fogihlu39MuYgL6pKObI4SQWPOY.jpg	http://www.youtube.com/watch?v=7jHxESgl9qA	R	106	50000000	2013-07-26 22:22:35.050344	2013-07-26 22:22:35.050344
+661	F.P.1 antwortet nicht	\N	835	tt0022869	0	1932-12-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vBzrxMAMZF6CNQx4de4CW3wsdl6.jpg	http://www.apple.com/trailers		114	0	2013-07-26 22:22:36.011674	2013-07-26 22:22:36.011674
+662	Vidas Secas	\N	836	tt0057654	9	1963-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uBxO2nEQaQ9vtyzW4iMZRRb4Bux.jpg	http://www.apple.com/trailers		115	0	2013-07-26 22:22:36.53101	2013-07-26 22:22:36.53101
+663	Videodrome	\N	837	tt0086541	7	1983-02-04	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5fa5qzXgx8gMJh8hDJly7RymjXK.jpg	http://www.youtube.com/watch?v=OAgHWj0sQAo	R	87	0	2013-07-26 22:22:37.617082	2013-07-26 22:22:37.617082
+664	American Graffiti	\N	838	tt0069704	5	1973-08-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5q7NTi7WdsT3zofN9oDwGxOTnTl.jpg	http://www.youtube.com/watch?v=OZ9Gp6Qc8LQ	PG	110	777000	2013-07-26 22:22:38.384633	2013-07-26 22:22:38.384633
+665	Duel	\N	839	tt0067023	8	1971-11-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tr7YTVjGPSCheYtObfoNRkMV82L.jpg	http://www.youtube.com/watch?v=5MtAMc4i8OA	PG	74	450000	2013-07-26 22:22:40.051273	2013-07-26 22:22:40.051273
+666	Close Encounters of the Third Kind	\N	840	tt0075860	7	1977-11-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3Av8ZPiMrxFq9XiOjZl0tkoq9Oo.jpg	http://www.youtube.com/watch?v=Fxp32VHaYdE	PG	135	20000000	2013-07-26 22:22:41.181838	2013-07-26 22:22:41.181838
+667	Dune	\N	841	tt0087182	7	1984-12-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/wuiUqivUWiUySwhEvtdOqrlrLPn.jpg	http://www.youtube.com/watch?v=KwPTIEWTYEI	PG-13	137	40000000	2013-07-26 22:22:41.970214	2013-07-26 22:22:41.970214
+668	The Assassination of Richard Nixon	\N	842	tt0364961	7	2004-05-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4YKwAjsSMC2MhaJye4c5xuiZBZ3.jpg	http://www.youtube.com/watch?v=OxNDMzwSU7U		95	0	2013-07-26 22:22:42.95235	2013-07-26 22:22:42.95235
+669	In the Mood for Love	\N	843	tt0118694	7	2000-05-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/njsrOBLdCjfTUjhHuomEGNdnD8v.jpg	http://www.youtube.com/watch?v=AfZbh4cteqI		98	0	2013-07-26 22:22:43.64932	2013-07-26 22:22:43.64932
+670	2046	\N	844	tt0212712	6	2004-05-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/eZLYFkq0EaLbr6IzWE4QOiMF6la.jpg	http://www.youtube.com/watch?v=w8rG4plRMZ4	R	129	12000000	2013-07-26 22:22:44.272766	2013-07-26 22:22:44.272766
+671	Strangers on a Train	\N	845	tt0044079	8	1951-06-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/y0Lec3HBZbzkB3b1ACSC4tVnj9n.jpg	http://www.youtube.com/watch?v=B70_R1igohw	PG	101	1200000	2013-07-26 22:22:45.238139	2013-07-26 22:22:45.238139
+672	The X Files	\N	846	tt0120902	5	1998-06-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/l3umPrC6vEOhv3yabewqLcRFTLO.jpg	http://www.youtube.com/watch?v=2Dauoy3H764	PG-13	121	66000000	2013-07-26 22:22:46.065131	2013-07-26 22:22:46.065131
+673	Willow	\N	847	tt0096446	7	1988-05-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uxB76XmAMEFeeaRqsPAVumn6rTE.jpg	http://www.youtube.com/watch?v=JkSkdMw9qis	PG	126	35000000	2013-07-26 22:22:46.744391	2013-07-26 22:22:46.744391
+674	Dragonslayer	\N	848	tt0082288	7	1981-06-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tceaiNtwktGKzw4AIrZ2Hz6iK9u.jpg	http://www.youtube.com/watch?v=RSWznYdY_e8	PG	108	18000000	2013-07-26 22:22:47.96991	2013-07-26 22:22:47.96991
+675	Krull	\N	849	tt0085811	5	1983-07-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9ep9wGVbT9dqcTzAsxQgx36ylii.jpg	http://www.youtube.com/watch?v=uXrRN01BFSY	PG	117	0	2013-07-26 22:22:49.185721	2013-07-26 22:22:49.185721
+676	A Christmas Story	\N	850	tt0085334	7	1983-11-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/p2yuFxAyaBjdGrU2UBAqaE02NYG.jpg	http://www.youtube.com/watch?v=uvMLfSQrHKE	PG	94	0	2013-07-26 22:22:50.010243	2013-07-26 22:22:50.010243
+677	Brief Encounter	\N	851	tt0037558	0	1946-08-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gtIW7scvJiaP14HaLHnFZx0lThj.jpg	http://www.youtube.com/watch?v=Il8B6E9FzSE	Not Rated	86	0	2013-07-26 22:22:50.643852	2013-07-26 22:22:50.643852
+678	It Happened in Broad Daylight	\N	852	tt0051588	7	1958-06-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/j3irNMlfysHmAF6VtMmJdta9oEg.jpg	http://www.apple.com/trailers	\N	95	0	2013-07-26 22:22:51.548394	2013-07-26 22:22:51.548394
+679	Enemy at the Gates	\N	853	tt0215750	7	2001-03-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dOWSbEn3ucyoiBE9IgFWAo1O7Sg.jpg	http://www.youtube.com/watch?v=xqwlIaOyBSA	R	131	70000000	2013-07-26 22:22:52.320071	2013-07-26 22:22:52.320071
+680	The Mask	\N	854	tt0110475	6	1994-07-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/v8x8p441l1Bep8p82pAG6rduBoK.jpg	http://www.youtube.com/watch?v=lcjN7zkgELM	PG-13	101	23000000	2013-07-26 22:22:53.02135	2013-07-26 22:22:53.02135
+681	Black Hawk Down	\N	855	tt0265086	7	2001-12-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rASTSi7F2HwOshsQJdrXnp49hQM.jpg	http://www.youtube.com/watch?v=5Y1ju8QwpQM	R	144	92000000	2013-07-26 22:22:53.92662	2013-07-26 22:22:53.92662
+682	Who Framed Roger Rabbit	\N	856	tt0096438	6	1988-06-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hSycHavBDjY9Qk3h5B4oXWTEqp1.jpg	http://www.youtube.com/watch?v=OzuXjep6pbs	PG	104	70000000	2013-07-26 22:22:54.769852	2013-07-26 22:22:54.769852
+683	Saving Private Ryan	\N	857	tt0120815	7	1998-07-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gc7IN6bWNaWXv4vI6cxSmeB7PeO.jpg	http://www.youtube.com/watch?v=IuZ7H4ZGI8Y	R	169	70000000	2013-07-26 22:22:55.838447	2013-07-26 22:22:55.838447
+684	Sleepless in Seattle	\N	858	tt0108160	6	1993-06-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lUM9NBKwZ1RzBdScDLMkAtYuM9t.jpg	http://www.youtube.com/watch?v=4J7gg1V0oak	PG	105	21000000	2013-07-26 22:22:56.463448	2013-07-26 22:22:56.463448
+685	Dangerous Liaisons	\N	859	tt0094947	6	1988-12-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2rXbkUzM5ySwh3FmsFWSZdkMiaP.jpg	http://www.youtube.com/watch?v=FbB2oBlP2uI	R	119	14000000	2013-07-26 22:22:57.093507	2013-07-26 22:22:57.093507
+686	WarGames	\N	860	tt0086567	6	1983-06-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gWm3OcrOqobkut22eAXOkMzkvpx.jpg	http://www.youtube.com/watch?v=hbqMuvnx5MU	PG	114	12000000	2013-07-26 22:22:57.880221	2013-07-26 22:22:57.880221
+687	Total Recall	\N	861	tt0100802	6	1990-05-31	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ikYpJ0AjGBNnAYFnPJDUVIOcduR.jpg	http://www.youtube.com/watch?v=ABIgtQTLOXY	R	113	65000000	2013-07-26 22:22:59.629768	2013-07-26 22:22:59.629768
+688	Toy Story	\N	862	tt0114709	7	1995-11-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/agy8DheVu5zpQFbXfAdvYivF2FU.jpg	http://www.youtube.com/watch?v=enxAnyA6RXs	G	81	30000000	2013-07-26 22:23:00.859022	2013-07-26 22:23:00.859022
+689	Toy Story 2	\N	863	tt0120363	6	1999-11-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kuTPkbQmHxBHsxaKMUL1kUchhdE.jpg	http://www.youtube.com/watch?v=Lu0sotERXhI	G	92	90000000	2013-07-26 22:23:02.231179	2013-07-26 22:23:02.231179
+690	Cool Runnings	\N	864	tt0106611	6	1993-09-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9Jgk3T2EczJ55rElJpBJAaxeQd.jpg	http://www.youtube.com/watch?v=wLlmymHRNZg	PG	98	14000000	2013-07-26 22:23:02.911254	2013-07-26 22:23:02.911254
+691	The Running Man	\N	865	tt0093894	6	1987-11-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/t9pgOmaXcBK6cHYgppkzN7mCQMs.jpg	http://www.youtube.com/watch?v=CpB6AJqjxvs	R	101	27000000	2013-07-26 22:23:03.638548	2013-07-26 22:23:03.638548
+692	Finding Neverland	\N	866	tt0308644	6	2004-11-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/aS1ErQ5MgDW8f3m5kDErRM5ngYP.jpg	http://www.youtube.com/watch?v=m41gObaKgOw	PG	106	25000000	2013-07-26 22:23:04.325108	2013-07-26 22:23:04.325108
+693	Sliver	\N	867	tt0108162	5	1993-05-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lCXc25UEGsSHLyvaBkeBIdPJKqC.jpg	http://www.youtube.com/watch?v=5UNwxC-uPX0	R	108	0	2013-07-26 22:23:04.945879	2013-07-26 22:23:04.945879
+694	Tsotsi	\N	868	tt0468565	7	2005-08-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/wEwWDWP1pyQUVezdo7lQtJDi91m.jpg	http://www.youtube.com/watch?v=tX20lzOQwUo		94	3000000	2013-07-26 22:23:05.894854	2013-07-26 22:23:05.894854
+695	Planet of the Apes	\N	869	tt0133152	5	2001-07-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gYQKMOwLolMRyofpRzXPAawiLPC.jpg	http://www.youtube.com/watch?v=I1lZ3un-kcg	PG-13	119	100000000	2013-07-26 22:23:06.627677	2013-07-26 22:23:06.627677
+696	Dolls	\N	870	tt0330229	7	2002-09-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xnc2zlkWGTMbp570b4jvbsHHX9V.jpg	http://www.apple.com/trailers		114	0	2013-07-26 22:23:07.163051	2013-07-26 22:23:07.163051
+697	Planet of the Apes	\N	871	tt0063442	6	1968-02-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xNlrkGHC7ERtUufzRwyeKT61WHJ.jpg	http://www.youtube.com/watch?v=VjcpRHuPjOI	G	112	5800000	2013-07-26 22:23:08.032997	2013-07-26 22:23:08.032997
+698	Singin' in the Rain	\N	872	tt0045152	7	1952-04-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uJgp7KNBWHTXjEnbJZDodBTx4oD.jpg	http://www.youtube.com/watch?v=jEKQwy13j_8	NR	103	2540800	2013-07-26 22:23:08.72608	2013-07-26 22:23:08.72608
+699	The Color Purple	\N	873	tt0088939	7	1985-12-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2a50LyRInWGLWq3u3DeGBQnvBHR.jpg	http://www.youtube.com/watch?v=d83NnlL83mc	PG-13	154	15000000	2013-07-26 22:23:09.842117	2013-07-26 22:23:09.842117
+700	A Man for All Seasons	\N	874	tt0060665	9	1966-12-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7fkxD64TI0zYzGT8EJFb5JcImNz.jpg	http://www.youtube.com/watch?v=zbZfh-5QsAw	G	120	0	2013-07-26 22:23:10.45313	2013-07-26 22:23:10.45313
+701	Shanghai Express	\N	875	tt0023458	0	1932-02-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1RoyC0ogc1RGlpgqKhIkxsX68XO.jpg	http://www.apple.com/trailers		80	0	2013-07-26 22:23:11.215546	2013-07-26 22:23:11.215546
+702	Frank Herbert's Dune	\N	876	tt0142032	8	2000-12-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xhLPh6po1r1qDnemdCj8pGS2MvG.jpg	http://www.youtube.com/watch?v=xYWJn2GolrI		292	20000000	2013-07-26 22:23:11.878648	2013-07-26 22:23:11.878648
+703	Scarface	\N	877	tt0023427	7	1932-04-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oKpSrYDy65mcauw3M8O3CqM23yH.jpg	http://www.youtube.com/watch?v=3qx6DhjaAP8		90	0	2013-07-26 22:23:12.818063	2013-07-26 22:23:12.818063
+704	Die Feuerzangenbowle	\N	878	tt0036818	7	1944-01-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/nBT6GDSs1PJvzhWmUaNCsJLhlzv.jpg	http://www.apple.com/trailers		97	0	2013-07-26 22:23:13.695261	2013-07-26 22:23:13.695261
+705	Hook	\N	879	tt0102057	6	1991-12-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oLv3PE3Zj8DDhXPf9ErdTPGCLSl.jpg	http://www.youtube.com/watch?v=yNZnBHp_lrM	PG	144	70000000	2013-07-26 22:23:14.423867	2013-07-26 22:23:14.423867
+706	Antonia's Line	\N	880	tt0112379	4	1995-09-12	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bIQp2SJrVXiQttv9hXeqliQox0K.jpg	http://www.apple.com/trailers		102	900000	2013-07-26 22:23:15.503283	2013-07-26 22:23:15.503283
+707	A Few Good Men	\N	881	tt0104257	6	1992-12-11	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/WgWLwk55YaXFZdlMnPJTKlxGcz.jpg	http://www.youtube.com/watch?v=ePo91pMcu94	R	138	40000000	2013-07-26 22:23:16.230789	2013-07-26 22:23:16.230789
+708	Flussfahrt Mit Huhn	\N	882	tt0087273	0	1984-11-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5lHvgxgj4ZL4zlDYUa4vu5xpsNn.jpg	http://www.apple.com/trailers		103	0	2013-07-26 22:23:17.000118	2013-07-26 22:23:17.000118
+709	Coffee and Cigarettes	\N	883	tt0379217	6	2004-05-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/frxqOsZwHsqhKKwgFN5E0OGZsuM.jpg	http://www.youtube.com/watch?v=P_7uQsP2TBk	R	96	0	2013-07-26 22:23:18.183442	2013-07-26 22:23:18.183442
+710	Crash	\N	884	tt0115964	6	1996-05-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7PHiLNkiaBtWIZy4g0qgm9QLkN4.jpg	http://www.youtube.com/watch?v=vZTYkmAcsvk		100	10000000	2013-07-26 22:23:19.260915	2013-07-26 22:23:19.260915
+711	The Docks of New York	\N	885	tt0018839	7	1928-09-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/f08T52uwoY9FV0v5mSOKxeNoJm.jpg	http://www.apple.com/trailers		76	0	2013-07-26 22:23:19.968009	2013-07-26 22:23:19.968009
+712	The Cincinnati Kid	\N	886	tt0059037	8	1965-10-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/scnFy6iFYyrUjulFIzQZVTPtEPC.jpg	http://www.youtube.com/watch?v=k7oG12PCZwA	NR	102	0	2013-07-26 22:23:20.931562	2013-07-26 22:23:20.931562
+713	The Best Years of Our Lives	\N	887	tt0036868	7	1946-11-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ojrjkwnsgSKMjSdpLDJBCevqZ5Y.jpg	http://www.youtube.com/watch?v=h3EsNKlB7os		172	2100000	2013-07-26 22:23:21.609906	2013-07-26 22:23:21.609906
+714	The Flintstones	\N	888	tt0109813	6	1994-05-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/qY98ocS3KFYz5GMsHr7gDxBKfHr.jpg	http://www.youtube.com/watch?v=2729	PG	91	46000000	2013-07-26 22:23:22.235696	2013-07-26 22:23:22.235696
+715	The Flintstones in Viva Rock Vegas	\N	889	tt0158622	6	2000-04-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/lF4b9mVPeYYUJQWT6na1cBIT27q.jpg	http://www.youtube.com/watch?v=9AyoYLD6_PE	PG	90	83000000	2013-07-26 22:23:22.919	2013-07-26 22:23:22.919
+716	Brother of Sleep	\N	890	tt0114354	0	1995-09-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oVFPEiXCjHEyR3TYJWSNBQk0Huj.jpg	http://www.apple.com/trailers		127	0	2013-07-26 22:23:23.450737	2013-07-26 22:23:23.450737
+717	All the President's Men	\N	891	tt0074119	8	1976-04-04	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rvi8BSkTE3Lz7E9GKZVeR1TdFTd.jpg	http://www.youtube.com/watch?v=LvyglNQguFk	PG	138	8500000	2013-07-26 22:23:24.532244	2013-07-26 22:23:24.532244
+718	Delicatessen	\N	892	tt0101700	7	1992-04-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xO0DIw8PdkzKKyL1XiCQiEUkQJd.jpg	http://www.youtube.com/watch?v=Tg3V8HDK5go	R	99	4000000	2013-07-26 22:23:25.588742	2013-07-26 22:23:25.588742
+719	Die Polizistin	\N	893	tt0246859	0	2000-05-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vISRIr6zokEi7EUtnS1Al9BlVj4.jpg	http://www.apple.com/trailers		97	0	2013-07-26 22:23:26.131963	2013-07-26 22:23:26.131963
+720	Willenbrock	\N	894	tt0396273	0	2005-03-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/6uYsqLpWVFmUChKTKtzbbKWzYLc.jpg	http://www.apple.com/trailers		105	0	2013-07-26 22:23:26.994845	2013-07-26 22:23:26.994845
+721	Andrei Rublev	\N	895	tt0060107	9	1966-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/nntvcLm6yZgHWwhLVu70NVOQftA.jpg	http://www.youtube.com/watch?v=CbguowlkZ4g		205	0	2013-07-26 22:23:27.96943	2013-07-26 22:23:27.96943
+722	The World of Apu	\N	896	tt0052572	0	1959-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/nzFNDssKQnkEQkvgEmCJm4fuBNs.jpg	http://www.apple.com/trailers		117	0	2013-07-26 22:23:28.501473	2013-07-26 22:23:28.501473
+723	The Unvanquished	\N	897	tt0048956	0	1956-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/g040r7Vde3kivTzy0TqpPkdPf6G.jpg	http://www.apple.com/trailers	\N	110	0	2013-07-26 22:23:29.319531	2013-07-26 22:23:29.319531
+724	Birdman of Alcatraz	\N	898	tt0055798	7	1962-07-03	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7O3t69UNzjoWRiVxEnYSHDmV0Ob.jpg	http://www.youtube.com/watch?v=X_bULClXt70	NR	143	0	2013-07-26 22:23:30.36434	2013-07-26 22:23:30.36434
+725	Broken Blossoms or The Yellow Man and the Girl	\N	899	tt0009968	10	1919-05-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7v36RyKgvsrKzeDrYDyPaZwZcPz.jpg	http://www.youtube.com/watch?v=kF6B9_Pwgpw		90	0	2013-07-26 22:23:31.113269	2013-07-26 22:23:31.113269
+726	Bringing Up Baby	\N	900	tt0029947	7	1938-02-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/sAG0eqt4T04OB7vhuFhruYGYD0o.jpg	http://www.youtube.com/watch?v=n9uUJQRzh4k	G	102	1073000	2013-07-26 22:23:31.873652	2013-07-26 22:23:31.873652
+727	City Lights	\N	901	tt0021749	7	1931-01-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kZTzat2Da2ZEVn90FNW15tIU9wQ.jpg	http://www.youtube.com/watch?v=X_W1tOngo-w	G	87	1500000	2013-07-26 22:23:32.486406	2013-07-26 22:23:32.486406
+728	The City of Lost Children	\N	902	tt0112682	8	1995-05-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/dr7PpAlJe1cige23o6HrnxIYMcw.jpg	http://www.youtube.com/watch?v=toH1vzAmDBI	R	108	18000000	2013-07-26 22:23:33.165213	2013-07-26 22:23:33.165213
+729	Cool Hand Luke	\N	903	tt0061512	8	1967-11-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3rg6PsJfQgI1kMJRK4N7Yc6OH2P.jpg	http://www.youtube.com/watch?v=-L5a6jZExbA	PG	126	0	2013-07-26 22:23:33.930779	2013-07-26 22:23:33.930779
+730	Pandora's Box	\N	905	tt0018737	8	1929-01-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5xzNjvtUeNHU0DxvRqDNpDA56IV.jpg	http://www.youtube.com/watch?v=ecd0OV4E1YA	\N	133	0	2013-07-26 22:23:35.410652	2013-07-26 22:23:35.410652
+731	Die Drei von der Tankstelle	\N	906	tt0020842	0	1930-09-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9mPgiNHRLSAutIrrfGZK6m63goK.jpg	http://www.apple.com/trailers		90	0	2013-07-26 22:23:36.213229	2013-07-26 22:23:36.213229
+732	Doctor Zhivago	\N	907	tt0059113	7	1965-12-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/clmlHwjEKXLzomugcKaOAahn9c8.jpg	http://www.youtube.com/watch?v=hvIL_A0UsJk	PG-13	197	14000000	2013-07-26 22:23:36.989716	2013-07-26 22:23:36.989716
+733	Schnitzel Paradise	\N	908	tt0446460	0	2005-09-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tt4HkerTVA6JXaxeThRxh8QSHsR.jpg	http://www.youtube.com/watch?v=WnpSyKmqK2M		82	850000	2013-07-26 22:23:37.578464	2013-07-26 22:23:37.578464
+734	Meet Me in St. Louis	\N	909	tt0037059	7	1944-11-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mZmAwFYWpekm3X27CrXelVEVK2U.jpg	http://www.youtube.com/watch?v=hSKvNcC6eo8		113	0	2013-07-26 22:23:38.240888	2013-07-26 22:23:38.240888
+735	The Big Sleep	\N	910	tt0038355	7	1946-08-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ok4U0K45lxL0BUWv0gBf0Wg4CXa.jpg	http://www.youtube.com/watch?v=VjJlBnfyiI4	Approved	116	0	2013-07-26 22:23:38.971716	2013-07-26 22:23:38.971716
+736	The Bank Dick	\N	911	tt0032234	8	1940-11-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4K9k4dbYiLmxjFG132ZCwc9uHjC.jpg	http://www.apple.com/trailers	G	72	0	2013-07-26 22:23:39.554613	2013-07-26 22:23:39.554613
+737	The Thomas Crown Affair	\N	912	tt0063688	8	1968-06-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7VhE12KquLGVv0CVlti434BRUYs.jpg	http://www.youtube.com/watch?v=feEUFgclIbo	PG	102	4300000	2013-07-26 22:23:40.548544	2013-07-26 22:23:40.548544
+738	The Thomas Crown Affair	\N	913	tt0155267	6	1999-07-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gf71ODE3KlPwID6pDidFL89k1Qe.jpg	http://www.youtube.com/watch?v=h1Wi_KYprF4	R	113	48000000	2013-07-26 22:23:41.185832	2013-07-26 22:23:41.185832
+739	The Great Dictator	\N	914	tt0032553	7	1940-10-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/i9rN9JPbTHplRa9OLEwcymUAKvb.jpg	http://www.youtube.com/watch?v=k8bVG8XC-4I	G	125	2000000	2013-07-26 22:23:41.951374	2013-07-26 22:23:41.951374
+740	Bullitt	\N	916	tt0062765	7	1968-10-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mOelcQTDAlOTLMsXGgK74ksoS3H.jpg	http://www.youtube.com/watch?v=FPd8Qco2iMI	PG	113	0	2013-07-26 22:23:44.228127	2013-07-26 22:23:44.228127
+741	Mother India	\N	917	tt0050188	0	1957-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/e5a6SZjWS7P1lQzALVX24e4ClW5.jpg	http://www.apple.com/trailers		172	0	2013-07-26 22:23:45.017976	2013-07-26 22:23:45.017976
+742	Blind Date	\N	918	tt0092666	4	1987-03-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/aU5JNqQKaeExwNQzbIbcZCwx2qb.jpg	http://www.youtube.com/watch?v=dvB_Ck2zFzs	PG-13	95	0	2013-07-26 22:23:45.644995	2013-07-26 22:23:45.644995
+743	Blood: The Last Vampire	\N	919	tt0275230	7	2000-11-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/93ufAXXdcISidm7Kf53JpNkrjTD.jpg	http://www.youtube.com/watch?v=tYnciEGup9k	PG-13	48	0	2013-07-26 22:23:46.595578	2013-07-26 22:23:46.595578
+744	Cars	\N	920	tt0317219	6	2006-06-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/wjn9AKZy98qCiixi9iWpuxiUTfh.jpg	http://www.youtube.com/watch?v=_z-gerHEq6c	PG	117	120000000	2013-07-26 22:23:47.352512	2013-07-26 22:23:47.352512
+745	Cinderella Man	\N	921	tt0352248	7	2005-05-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/9K5JwTPbbaLKjhOTkq8BdZTr3pD.jpg	http://www.youtube.com/watch?v=DlbHzcH4VJY	PG-13	144	88000000	2013-07-26 22:23:48.149867	2013-07-26 22:23:48.149867
+746	Dead Man	\N	922	tt0112817	7	1995-05-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8yHprfwQzvgNIywvD4s30vvWGBx.jpg	http://www.youtube.com/watch?v=VsUxQHq5BjA	R	121	9000000	2013-07-26 22:23:49.244094	2013-07-26 22:23:49.244094
+747	Dawn of the Dead	\N	923	tt0077402	7	1979-04-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8D6WEfNZr6JadQrqJr5OOq1QlV0.jpg	http://www.youtube.com/watch?v=PpuNE1cX03c	NR	126	500000	2013-07-26 22:23:50.015922	2013-07-26 22:23:50.015922
+748	Dawn of the Dead	\N	924	tt0363547	6	2004-03-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/yfqsgzW6AQYmBjIEIq0y9EB1Rgl.jpg	http://www.youtube.com/watch?v=jirwx0qOQ9E	R	101	28000000	2013-07-26 22:23:50.796455	2013-07-26 22:23:50.796455
+749	Do the Right Thing	\N	925	tt0097216	8	1989-06-30	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/RgGGLeLxZADYiuKftnKMh0Eszs.jpg	http://www.youtube.com/watch?v=rAQSa0963T8	R	120	6500000	2013-07-26 22:23:51.436799	2013-07-26 22:23:51.436799
+750	Galaxy Quest	\N	926	tt0177789	7	1999-12-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ukqFzgNmRqKnlLUms4sC8GXThhu.jpg	http://www.youtube.com/watch?v=VtHM77IRkus	PG	102	45000000	2013-07-26 22:23:52.295906	2013-07-26 22:23:52.295906
+751	Gremlins	\N	927	tt0087363	6	1984-06-07	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/eLtimMhc6XFcwmfHCJuFyxEfOU0.jpg	http://www.youtube.com/watch?v=-14d51QTVjo	PG	106	11000000	2013-07-26 22:23:53.025105	2013-07-26 22:23:53.025105
+752	Gremlins 2: The New Batch	\N	928	tt0099700	6	1990-06-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/b5EWZRugg7eWP4HGGriCLerrjp.jpg	http://www.youtube.com/watch?v=zaNIwSzz6iE	PG-13	106	50000000	2013-07-26 22:23:53.810196	2013-07-26 22:23:53.810196
+753	Godzilla	\N	929	tt0120685	5	1998-05-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ot2B1k8fS24d0xxBFecfTO2h7mX.jpg	http://www.youtube.com/watch?v=Zwf2fqcS3mk	PG-13	139	130000000	2013-07-26 22:23:54.641118	2013-07-26 22:23:54.641118
+754	Die große Liebe	\N	930	tt0034815	0	1942-06-12	\N	\N	http://all3dmod.com/wp-content/uploads/2013/05/Cucumber-3D-Model.jpg	http://www.apple.com/trailers		100	0	2013-07-26 22:23:55.382012	2013-07-26 22:23:55.382012
+755	Don't Look Now	\N	931	tt0069995	5	1973-12-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/m1SgrPz5aga6r4c36H8gy13NgMN.jpg	http://www.youtube.com/watch?v=2711	R	110	0	2013-07-26 22:23:56.464201	2013-07-26 22:23:56.464201
+756	Murderers Among Us	\N	932	tt0038769	0	1946-10-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mnKZ6ae0Chce1PVYdhGPdqXSGXJ.jpg	http://www.apple.com/trailers		91	0	2013-07-26 22:23:57.001092	2013-07-26 22:23:57.001092
+757	Hot Summer	\N	933	tt0061756	0	1968-06-21	\N	\N	http://all3dmod.com/wp-content/uploads/2013/05/Cucumber-3D-Model.jpg	http://www.apple.com/trailers		97	0	2013-07-26 22:23:57.867911	2013-07-26 22:23:57.867911
+758	Rififi	\N	934	tt0048021	9	1955-04-13	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/zxtWaJobndsM2Tjg2lKKAP8xAs3.jpg	http://www.youtube.com/watch?v=a9bciTbt6l8	\N	146	0	2013-07-26 22:23:58.825135	2013-07-26 22:23:58.825135
+759	Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb	\N	935	tt0057012	7	1964-01-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kzeH0qI7j8OphsrLtb8peapgbuw.jpg	http://www.youtube.com/watch?v=71I4bdA7lDA	PG	95	1800000	2013-07-26 22:23:59.645894	2013-07-26 22:23:59.645894
+760	The Pink Panther	\N	936	tt0057413	7	1964-03-18	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oc4crRpSQatD6K34M8pdw83IqdE.jpg	http://www.youtube.com/watch?v=xMiRxq12Fx0	PG	113	0	2013-07-26 22:24:00.812487	2013-07-26 22:24:00.812487
+761	For a Few Dollars More	\N	938	tt0059578	8	1967-05-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/nEpuBCcgmEkYIUCmLCP2dP3Fk9w.jpg	http://www.youtube.com/watch?v=XsS3GLw2-DA	R	132	600000	2013-07-26 22:24:02.864508	2013-07-26 22:24:02.864508
+762	The Jazz Singer	\N	939	tt0018037	0	1927-10-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/snMBTdGE4Kv6aKyOArY8hAMulhq.jpg	http://www.apple.com/trailers		89	0	2013-07-26 22:24:03.711137	2013-07-26 22:24:03.711137
+763	The Lady Vanishes	\N	940	tt0030341	7	1938-11-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/wgEtrVCIt6kC7b62LMC9Xum3RXk.jpg	http://www.youtube.com/watch?v=al60grtUgHE	NR	97	0	2013-07-26 22:24:04.528641	2013-07-26 22:24:04.528641
+764	Lethal Weapon	\N	941	tt0093409	6	1987-03-05	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/mF2bTqJuxbZPeEJRIMrA2WeQVxu.jpg	http://www.youtube.com/watch?v=GUorM4nTX7k	R	110	15000000	2013-07-26 22:24:05.480191	2013-07-26 22:24:05.480191
+765	Lethal Weapon 2	\N	942	tt0097733	6	1989-07-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hKlMKQTezgfAqkO40uCN4rqqumD.jpg	http://www.youtube.com/watch?v=b0CuUw0_QWY	R	114	25000000	2013-07-26 22:24:06.258808	2013-07-26 22:24:06.258808
+766	Lethal Weapon 3	\N	943	tt0104714	6	1992-05-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ozjvwvkbpC5DIVhimZDGxQ91jpO.jpg	http://www.youtube.com/watch?v=oGbAMRvYYq0	R	118	35000000	2013-07-26 22:24:07.082354	2013-07-26 22:24:07.082354
+767	Lethal Weapon 4	\N	944	tt0122151	6	1998-07-09	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kpC9Y0jhwTqtRlcetxbgn3crnlU.jpg	http://www.youtube.com/watch?v=7cpig7OhI98	R	127	140000000	2013-07-26 22:24:07.886008	2013-07-26 22:24:07.886008
+768	Letter from an Unknown Woman	\N	946	tt0040536	8	1948-04-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bOIer8FgNORqgdG9STUTw4pTAbu.jpg	http://www.youtube.com/watch?v=JkGrmpOHRdM		87	0	2013-07-26 22:24:09.19767	2013-07-26 22:24:09.19767
+769	Lawrence of Arabia	\N	947	tt0056172	7	1962-12-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/A3XqyhPO4UwLbslTLQludA1qiuu.jpg	http://www.youtube.com/watch?v=RQA_ldX0VI0	PG	216	15000000	2013-07-26 22:24:09.964459	2013-07-26 22:24:09.964459
+770	Halloween	\N	948	tt0077651	7	1978-10-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/vjoOFOTBJcJvA1weJejlZ92LZD4.jpg	http://www.youtube.com/watch?v=3j1ZQZgHiDg	R	91	325000	2013-07-26 22:24:10.753082	2013-07-26 22:24:10.753082
+771	Heat	\N	949	tt0113277	7	1995-12-14	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3120SW9SCZGrhtlzYtyoPdLfseF.jpg	http://www.youtube.com/watch?v=USG0wDSdbrY	R	170	60000000	2013-07-26 22:24:11.494406	2013-07-26 22:24:11.494406
+772	Ice Age: The Meltdown	\N	950	tt0438097	6	2006-03-31	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oQhkGeoVcHuRBsEvxnzd62tIeB6.jpg	http://www.youtube.com/watch?v=kDP8ERAUnZc	PG	91	0	2013-07-26 22:24:12.331505	2013-07-26 22:24:12.331505
+773	Kindergarten Cop	\N	951	tt0099938	6	1990-12-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/aghmd0tGgvgm2mKi7eSJIhJnBK7.jpg	http://www.youtube.com/watch?v=cfC3CEdF1Xg	PG-13	111	15000000	2013-07-26 22:24:12.957597	2013-07-26 22:24:12.957597
+774	Madagascar	\N	953	tt0351283	6	2005-05-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/yumzX3Fn7geEKEjuAGNcRjZETPE.jpg	http://www.youtube.com/watch?v=adPvbscBK_8	PG	86	75000000	2013-07-26 22:24:14.204875	2013-07-26 22:24:14.204875
+775	Mission: Impossible	\N	954	tt0117060	6	1996-05-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/1PVKS17pIBFsIhgFws2uagPDNLW.jpg	http://www.youtube.com/watch?v=CGCBssNht9c	PG-13	110	80000000	2013-07-26 22:24:14.945491	2013-07-26 22:24:14.945491
+776	Mission: Impossible II	\N	955	tt0120755	5	2000-05-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/3XcpeZeSHlDjdPFTWyCvDM1bL6z.jpg	http://www.youtube.com/watch?v=mSInXjOQzdE	PG-13	123	125000000	2013-07-26 22:24:15.663011	2013-07-26 22:24:15.663011
+777	Mission: Impossible III	\N	956	tt0317919	6	2006-05-04	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hbEScevRZ5VF21hoFlgLwmSpq8r.jpg	http://www.youtube.com/watch?v=ssWbGKTgXFc	PG-13	126	150000000	2013-07-26 22:24:16.529085	2013-07-26 22:24:16.529085
+778	Spaceballs	\N	957	tt0094012	6	1987-06-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tcgCIeeEVmreQ3IN3UeGDlJqD5A.jpg	http://www.youtube.com/watch?v=2JaJG1fXHpM	PG	96	22700000	2013-07-26 22:24:17.177401	2013-07-26 22:24:17.177401
+779	The General	\N	961	tt0017925	8	1927-02-04	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/8sE1S2fOW7XMt0URZoHiiNsJMzr.jpg	http://www.youtube.com/watch?v=g193eTLigrQ	NR	107	0	2013-07-26 22:24:19.271002	2013-07-26 22:24:19.271002
+780	The Gold Rush	\N	962	tt0015864	7	1925-06-26	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/gcB0eO3M6b9M4W3CqO3KeayCbhN.jpg	http://www.youtube.com/watch?v=kDlEvaKBkhU	NR	95	0	2013-07-26 22:24:19.89953	2013-07-26 22:24:19.89953
+781	The Maltese Falcon	\N	963	tt0033870	8	1941-10-02	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/tNElCkv1dzx1PaDiA0ofBCF0YoW.jpg	http://www.youtube.com/watch?v=q4AXbpqYdD0	G	100	300000	2013-07-26 22:24:20.575092	2013-07-26 22:24:20.575092
+782	The Phantom of the Opera	\N	964	tt0016220	7	1925-09-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/bV4wSUq6kHvUWDog5RUcD2grkof.jpg	http://www.youtube.com/watch?v=IN6u28dq4qc		93	0	2013-07-26 22:24:21.51312	2013-07-26 22:24:21.51312
+783	The Magnificent Ambersons	\N	965	tt0035015	8	1942-07-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/xIpdXKQrt0ZFkbg1KODh80THwTp.jpg	http://www.youtube.com/watch?v=mJxgrxl5BRM		88	0	2013-07-26 22:24:22.386198	2013-07-26 22:24:22.386198
+784	The Magnificent Seven	\N	966	tt0054047	7	1960-10-23	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/uLfZ2fCViVxGrtgWRupp1wtskcp.jpg	http://www.youtube.com/watch?v=oam0x6wNK94	PG	128	0	2013-07-26 22:24:23.145025	2013-07-26 22:24:23.145025
+785	Spartacus	\N	967	tt0054331	6	1960-10-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/7t2EPfUtou6kl64sj6QSBd0qr6o.jpg	http://www.youtube.com/watch?v=u_C21N1UabM	PG-13	184	12000000	2013-07-26 22:24:23.889242	2013-07-26 22:24:23.889242
+786	Dog Day Afternoon	\N	968	tt0072890	7	1975-09-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/qgWuZ2yNJrclU8EldQG4rLhwMoy.jpg	http://www.youtube.com/watch?v=CF1rtd8_pxA	R	125	0	2013-07-26 22:24:24.580282	2013-07-26 22:24:24.580282
+787	Paths of Glory	\N	975	tt0050825	8	1957-12-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ebdMxeBM34NEXpPITBMkWjcjsZG.jpg	http://www.youtube.com/watch?v=nmDA60X-f_A	NR	88	0	2013-07-26 22:24:28.500874	2013-07-26 22:24:28.500874
+788	Sweet Smell of Success	\N	976	tt0051036	7	1957-06-27	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kTUadjKSImlOTdkiU6B8w3sfw8e.jpg	http://www.youtube.com/watch?v=8mzyX62OKyQ	NR	96	0	2013-07-26 22:24:29.445401	2013-07-26 22:24:29.445401
+789	Tabu: A Story of the South Seas	\N	977	tt0022458	7	1931-08-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oZiQfsNvpuEuvpF9hdwFFoqiNO2.jpg	http://www.youtube.com/watch?v=BmHQjE_YCGw		84	0	2013-07-26 22:24:30.003119	2013-07-26 22:24:30.003119
+790	Seven Years in Tibet	\N	978	tt0120102	6	1997-10-08	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/cflSeFUVDCf73Tzh5sB204JbQ6j.jpg	http://www.youtube.com/watch?v=rZ-KNWJeQ4g	PG-13	136	70000000	2013-07-26 22:24:30.697401	2013-07-26 22:24:30.697401
+791	Irreversible	\N	979	tt0290673	7	2003-01-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/eEA5JRaqq2ehMvdi0vBF2UOfOYc.jpg	http://www.youtube.com/watch?v=j7EDpDba8bU	NC-17	97	0	2013-07-26 22:24:31.400353	2013-07-26 22:24:31.400353
+792	The Ox-Bow Incident	\N	980	tt0036244	8	1943-05-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/sA95I5W1KElaDffBibVV24Ue9NZ.jpg	http://www.youtube.com/watch?v=UIDfzCzdjcs		75	0	2013-07-26 22:24:32.174494	2013-07-26 22:24:32.174494
+793	The Philadelphia Story	\N	981	tt0032904	8	1940-12-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/oMqRikJ7iJOpxp4V0WY9vm2ZX8T.jpg	http://www.youtube.com/watch?v=6CtquHsxoZo	NR	112	0	2013-07-26 22:24:32.870877	2013-07-26 22:24:32.870877
+794	The Manchurian Candidate	\N	982	tt0056218	6	1962-10-24	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/4LlR1NazZLhD55podBd7VAUGyTp.jpg	http://www.youtube.com/watch?v=6bMrAhe_K6A	PG-13	126	80000000	2013-07-26 22:24:33.552871	2013-07-26 22:24:33.552871
+795	The Man Who Would Be King	\N	983	tt0073341	7	1975-12-17	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/rs7SZpSqS8LVUrCVCrwVQDjvBDI.jpg	http://www.youtube.com/watch?v=rNb6SxXcD7g	PG	129	0	2013-07-26 22:24:34.206677	2013-07-26 22:24:34.206677
+796	Dirty Harry	\N	984	tt0066999	7	1971-12-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/2TADKc4GMMPdMrLXj0xJVgTvZJM.jpg	http://www.youtube.com/watch?v=b6Ro0Wiq6v0	R	102	0	2013-07-26 22:24:35.388347	2013-07-26 22:24:35.388347
+797	Eraserhead	\N	985	tt0074486	7	1977-03-19	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hZyHaheGPYzGH9QuxNusKRDmdu4.jpg	http://www.youtube.com/watch?v=oK-2_OsBe0s	NR	85	10000	2013-07-26 22:24:36.340439	2013-07-26 22:24:36.340439
+798	Chimes at Midnight	\N	986	tt0059012	7	1965-12-22	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5o4GubdnLhuZytMIbvoQhj8S7lA.jpg	http://www.youtube.com/watch?v=eii4_wbuPJY		117	0	2013-07-26 22:24:37.163238	2013-07-26 22:24:37.163238
+799	The Front Page	\N	987	tt0071524	8	1974-12-01	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/5uMJbuTO5yossGYsLJLVzL5jqRo.jpg	http://www.youtube.com/watch?v=WfccV14_tYk		105	0	2013-07-26 22:24:38.392952	2013-07-26 22:24:38.392952
+800	The China Syndrome	\N	988	tt0078966	6	1979-03-16	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/liu2oP2X88zLYAodLh34w0pcH6h.jpg	http://www.youtube.com/watch?v=6PJ-BzXAN1c		122	0	2013-07-26 22:24:39.381332	2013-07-26 22:24:39.381332
+801	The Mortal Storm	\N	989	tt0032811	0	1940-06-20	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/hsNMNLh07QplMEJcP9AasYmMDAz.jpg	http://www.youtube.com/watch?v=MP0LmTA2fXM		100	0	2013-07-26 22:24:40.268119	2013-07-26 22:24:40.268119
+802	The Hustler	\N	990	tt0054997	8	1961-09-25	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/fckHM9jP4p9eTBa7NdC57d2WGFR.jpg	http://www.youtube.com/watch?v=jtnLUaGdXpI	NR	134	2000000	2013-07-26 22:24:40.945171	2013-07-26 22:24:40.945171
+803	The Man Who Fell to Earth	\N	991	tt0074851	5	1976-05-28	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/ig9ZEYjqmPlE8FBXO3gT5BYwv3m.jpg	http://www.youtube.com/watch?v=oKF5lHcJY9k	R	138	0	2013-07-26 22:24:41.593667	2013-07-26 22:24:41.593667
+804	Sherlock, Jr.	\N	992	tt0015324	8	1924-04-21	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/wjdT2HRdhwlnV8nkVjBp8EctKXu.jpg	http://www.youtube.com/watch?v=4nT5vNb7NBk	NR	49	0	2013-07-26 22:24:42.60637	2013-07-26 22:24:42.60637
+805	Sleuth	\N	993	tt0069281	8	1972-12-10	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/eWTxj1DxyfILASuPsPYZvUcIBkI.jpg	http://www.youtube.com/watch?v=XBRMaieaLdU		138	0	2013-07-26 22:24:43.187221	2013-07-26 22:24:43.187221
+806	Straw Dogs	\N	994	tt0067800	8	1971-12-29	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kn85ADdkCrL3I2uWfKKhxpjolU5.jpg	http://www.youtube.com/watch?v=IQjQIXzFCRA	R	118	0	2013-07-26 22:24:43.893623	2013-07-26 22:24:43.893623
+807	Stagecoach	\N	995	tt0031971	8	1939-02-15	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/kAzoA4ivq9j5f3ytjXRoon30Ryd.jpg	http://www.youtube.com/watch?v=yccvdXoHubI	NR	96	0	2013-07-26 22:24:44.561876	2013-07-26 22:24:44.561876
+808	Double Indemnity	\N	996	tt0036775	8	1944-09-06	\N	\N	http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/wfhMSIqsLlsq3DKRQcl1ATtVl3F.jpg	http://www.youtube.com/watch?v=G1hpRSIVLds		107	927262	2013-07-26 22:24:45.303924	2013-07-26 22:24:45.303924
+\.
+
+
+--
+-- Name: movies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: apprentice
+--
+
+SELECT pg_catalog.setval('movies_id_seq', 808, true);
+
+
+--
+-- Data for Name: ratings; Type: TABLE DATA; Schema: public; Owner: apprentice
+--
+
+COPY ratings (id, movie_id, user_id, rating_value, viewable, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: ratings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: apprentice
+--
+
+SELECT pg_catalog.setval('ratings_id_seq', 1, false);
+
+
+--
+-- Data for Name: recommendations; Type: TABLE DATA; Schema: public; Owner: apprentice
+--
+
+COPY recommendations (id, user_id, movie_id) FROM stdin;
+\.
+
+
+--
+-- Name: recommendations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: apprentice
+--
+
+SELECT pg_catalog.setval('recommendations_id_seq', 1, false);
+
+
+--
+-- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: apprentice
+--
+
+COPY roles (id, name, resource_id, resource_type, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: apprentice
+--
+
+SELECT pg_catalog.setval('roles_id_seq', 1, false);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: apprentice
+--
+
+COPY schema_migrations (version) FROM stdin;
+20130726211324
+20130726021826
+20130726021831
+20130726021840
+20130726034824
+20130726034908
+20130726034925
+20130726034946
+20130726035002
+20130726035052
+20130726035104
+20130726173136
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: apprentice
+--
+
+COPY users (id, email, encrypted_password, reset_password_token, reset_password_sent_at, remember_created_at, sign_in_count, current_sign_in_at, last_sign_in_at, current_sign_in_ip, last_sign_in_ip, created_at, updated_at, name) FROM stdin;
+1	navidm@gmail.com	$2a$10$th3l/zVArPswts8UmxYXr.tP.iEV7JV4IZS2P.T758/MCWkrH99Wa	\N	\N	\N	1	2013-07-26 23:20:09.13481	2013-07-26 23:20:09.13481	127.0.0.1	127.0.0.1	2013-07-26 23:20:09.021907	2013-07-26 23:20:09.136165	Navid
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: apprentice
+--
+
+SELECT pg_catalog.setval('users_id_seq', 1, true);
+
+
+--
+-- Data for Name: users_roles; Type: TABLE DATA; Schema: public; Owner: apprentice
+--
+
+COPY users_roles (user_id, role_id) FROM stdin;
+\.
+
+
+--
+-- Name: actors_movies_pkey; Type: CONSTRAINT; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+ALTER TABLE ONLY actors_movies
+    ADD CONSTRAINT actors_movies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: actors_pkey; Type: CONSTRAINT; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+ALTER TABLE ONLY actors
+    ADD CONSTRAINT actors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: directors_movies_pkey; Type: CONSTRAINT; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+ALTER TABLE ONLY directors_movies
+    ADD CONSTRAINT directors_movies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: directors_pkey; Type: CONSTRAINT; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+ALTER TABLE ONLY directors
+    ADD CONSTRAINT directors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: genres_movies_pkey; Type: CONSTRAINT; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+ALTER TABLE ONLY genres_movies
+    ADD CONSTRAINT genres_movies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: genres_pkey; Type: CONSTRAINT; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+ALTER TABLE ONLY genres
+    ADD CONSTRAINT genres_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: movies_pkey; Type: CONSTRAINT; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+ALTER TABLE ONLY movies
+    ADD CONSTRAINT movies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ratings_pkey; Type: CONSTRAINT; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+ALTER TABLE ONLY ratings
+    ADD CONSTRAINT ratings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: recommendations_pkey; Type: CONSTRAINT; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+ALTER TABLE ONLY recommendations
+    ADD CONSTRAINT recommendations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+ALTER TABLE ONLY roles
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_roles_on_name; Type: INDEX; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE INDEX index_roles_on_name ON roles USING btree (name);
+
+
+--
+-- Name: index_roles_on_name_and_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE INDEX index_roles_on_name_and_resource_type_and_resource_id ON roles USING btree (name, resource_type, resource_id);
+
+
+--
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
+
+
+--
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
+
+
+--
+-- Name: index_users_roles_on_user_id_and_role_id; Type: INDEX; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE INDEX index_users_roles_on_user_id_and_role_id ON users_roles USING btree (user_id, role_id);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: apprentice; Tablespace: 
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: apprentice
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM apprentice;
+GRANT ALL ON SCHEMA public TO apprentice;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
