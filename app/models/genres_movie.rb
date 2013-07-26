@@ -1,4 +1,4 @@
-class GenreMovie < ActiveRecord::Base
+class GenresMovie < ActiveRecord::Base
 
   attr_accessible :movie_id, :genre_id
   belongs_to :movie
