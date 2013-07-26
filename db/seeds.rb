@@ -17,3 +17,6 @@
 # puts 'user: ' << user.name
 # user.add_role :admin
 
+%w{seed_moviedb}.each do |part|
+  require File.expand_path(File.dirname(__FILE__))+"/seeds/#{part}.rb"
+end

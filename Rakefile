@@ -5,3 +5,8 @@
 require File.expand_path('../config/application', __FILE__)
 
 MoviesCucumbers::Application.load_tasks
+
+desc 'Load Up Movie Db'
+task "load_movies" do
+  exec "rake db:seed_movi"
+end
