@@ -1,19 +1,18 @@
 MoviesCucumbers::Application.routes.draw do
-	authenticated :user do
-		root :to => 'home#index'
-	end
+	root :to => 'home#index'
 	devise_for :users
-	resources :users do 
-		resources :ratings, shallow: true
-		member do
-			get 'recommendations'
-			get 'watchlist'
-			post 'watchlist'
-			put 'watchlist'
-			get 'favorites'
-			post 'favorites'
-			put 'favorites'
-		end
-	end
+	# authenticated :user do
+	# 	root :to => 'home#index'
+	# end
 
+	resources :recommendations, only: [:index, :create, :new] 
+	resources :ratings, only: [:index, :new, :create, :edit, :update]
+
+
+	resources :user, only: [:index, :show]
+	# resources :favorites, only: [:index, :new, :create, :edit, :update]
+	# resources :watch_list, only: [:index, :new, :create, :edit, :update]
+
+	
+	
 end

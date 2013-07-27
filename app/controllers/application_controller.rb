@@ -16,17 +16,19 @@ class ApplicationController < ActionController::Base
   # end
   
   def update_recommendations
-    current_user.recommendations.delete_all
-    all_users_ratings = current_user.ratings    
-    recommended_movie_cluster = []
-      all_users_ratings.each do |movie|
-        recommended_movie_cluster << Movie.unit_cluster(Movie.find(movie.id),movie.rating_value)
-      end
-    recommended_movie_cluster.flatten!
+  current_user.recommendations.delete_all
+  all_users_ratings = current_user.ratings    
+  recommended_movie_cluster = []
+    
+    all_users_ratings.each do |movie|
+      recommended_movie_cluster << Movie.unit_cluster(Movie.find(movie.id),movie.rating_value)
+    end
 
-      recommended_movie_cluster.sample(50).each do |recommended_movies|
-        Recommendation.create(movie_id: recommended_movies.id, user_id: current_user.id)
-      end
-    end 
+  recommended_movie_cluster.flatten!
+
+    recommended_movie_cluster.sample(50).each do |recommended_movies|
+      Recommendation.create(movie_id: recommended_movies.id, user_id: current_user.id)
+    end
+  end 
 
 end
