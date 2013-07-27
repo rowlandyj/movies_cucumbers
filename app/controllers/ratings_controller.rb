@@ -1,5 +1,6 @@
 class RatingsController < ApplicationController
   def index
+    @movies = Movie.find(:all).sample(50)
   end
   def create
   end
@@ -13,4 +14,5 @@ class RatingsController < ApplicationController
   end
   def destroy
   end
-end
+end   
+
