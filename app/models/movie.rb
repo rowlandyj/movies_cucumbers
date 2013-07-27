@@ -152,6 +152,9 @@ class Movie < ActiveRecord::Base
 
   def self.unit_cluster(rated_movie, rating)
 
+    debugger 
+    ''
+
     directors = rated_movie.directors
     actors = rated_movie.actors
     genres = rated_movie.genres

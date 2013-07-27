@@ -9,11 +9,11 @@
     <div class='title'>
       <%= link_to(movie.title, movie.trailer_url) %>
     </div>
-    <span><%= link_to 'rating: 1', ratings_path(ratings_value: 1, movie_id: movie.id),  :method => :post %></span>
-    <span><%= link_to 'rating: 2', ratings_path(ratings_value: 2, movie_id: movie.id),  :method => :post %></span>
-    <span><%= link_to 'rating: 3', ratings_path(ratings_value: 3, movie_id: movie.id),  :method => :post %></span>
-    <span><%= link_to 'rating: 4', ratings_path(ratings_value: 4, movie_id: movie.id),  :method => :post %></span>
-    <span><%= link_to 'rating: 5', ratings_path(ratings_value: 5, movie_id: movie.id),  :method => :post %></span>
+    <span><%= link_to 'rating: 1', ratings_path(rating_value: 1, movie_id: movie.id),  :method => :post %></span>
+    <span><%= link_to 'rating: 2', ratings_path(rating_value: 2, movie_id: movie.id),  :method => :post %></span>
+    <span><%= link_to 'rating: 3', ratings_path(rating_value: 3, movie_id: movie.id),  :method => :post %></span>
+    <span><%= link_to 'rating: 4', ratings_path(rating_value: 4, movie_id: movie.id),  :method => :post %></span>
+    <span><%= link_to 'rating: 5', ratings_path(rating_value: 5, movie_id: movie.id),  :method => :post %></span>
   </div>
 <% end %>
 
