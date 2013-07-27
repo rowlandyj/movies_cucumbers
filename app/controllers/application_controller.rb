@@ -28,8 +28,11 @@ class ApplicationController < ActionController::Base
     actor_movies = Actor.find(actor.id).movies
     genre_movies = Genre.find(genre.id).movies
 
-    director_movies & genre_movies
+    total_recs = director_movies & actor_movies
 
+    total_recs.delete_if { |movie| movie.id == rated_movie.id }
+    total_recs
+    # puts total_recs.class
 
     # puts "Director Movies: #{director_movies.length}"
     # puts "Actor Movies: #{actor_movies.length}"
