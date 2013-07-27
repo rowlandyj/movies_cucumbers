@@ -11,10 +11,10 @@
   <% end %>
   <% if user_signed_in? %>
     <li>
-    <%= link_to 'Get Recommendations', recommendations_user_path(current_user) %>
+    <%= link_to 'Get Recommendations', recommendations_path %>
     </li>
     <li>
-    <%= link_to 'Rate Some Movies', user_ratings_path(current_user) %>
+    <%= link_to 'Rate Some Movies', ratings_path %>
     </li>
     <li>
     <%= link_to 'Edit Account', edit_user_registration_path %>
