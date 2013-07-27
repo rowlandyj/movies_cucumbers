@@ -144,7 +144,7 @@ class Movie < ActiveRecord::Base
       end
 
 
-      sleep 0.1
+      sleep 0.05
     end
 
   end

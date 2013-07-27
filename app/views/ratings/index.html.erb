@@ -1,9 +1,19 @@
 <h1>Ratings Index</h1>
+  <% @movies.each do |movie| %>
+  <div class="ratings-movie">
 
-<% @movies.each do |m| %>
-<!-- make movie div -->
-<p> 
-<%= m.title  %>
-</p>
+    <div class='poster'>
+      <%= link_to(image_tag(movie.poster_url, height: '300'), movie.trailer_url) %>
+    </div>
+
+    <div class='title'>
+      <%= link_to(movie.title, movie.trailer_url) %>
+    </div>
+    <span><%= link_to 'rating: 1', ratings_path(ratings_value: 1, movie_id: movie.id),  :method => :post %></span>
+    <span><%= link_to 'rating: 2', ratings_path(ratings_value: 2, movie_id: movie.id),  :method => :post %></span>
+    <span><%= link_to 'rating: 3', ratings_path(ratings_value: 3, movie_id: movie.id),  :method => :post %></span>
+    <span><%= link_to 'rating: 4', ratings_path(ratings_value: 4, movie_id: movie.id),  :method => :post %></span>
+    <span><%= link_to 'rating: 5', ratings_path(ratings_value: 5, movie_id: movie.id),  :method => :post %></span>
+  </div>
 <% end %>
 

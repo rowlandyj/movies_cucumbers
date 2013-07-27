@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
   def index
-    @users = User.all
+    if current_user
+      redirect_to recommendations_path
+    end
   end
 end
