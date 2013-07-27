@@ -149,18 +149,32 @@ class Movie < ActiveRecord::Base
 
     def self.unit_cluster(rated_movie, rating)
 
-      director = rated_movie.directors.last
-      actor = rated_movie.actors.last
-      genre = rated_movie.genres.last
+      directors = rated_movie.directors
+      actors = rated_movie.actors
+      genres = rated_movie.genres
+      directors_movies = []
+      actors_movies = []
+      genres_movies = []
 
-      director_movies = Director.find(director.id).movies
-      actor_movies = Actor.find(actor.id).movies
-      genre_movies = Genre.find(genre.id).movies
+      directors.each do |director|
+        directors_movies << Director.find(director.id).movies
+      end
+      directors_movies.flatten!
 
-      actor_director_genre_recs = director_movies & actor_movies & genre_movies
-      actor_director_recs = director_movies & actor_movies
-      director_genre_recs = director_movies & genre_movies
-      actor_genre_recs = genre_movies & actor_movies
+      actors.each do |actor|
+        actors_movies << Actor.find(actor.id).movies.flatten(1)
+      end
+      actors_movies.flatten!
+
+      genres.each do |genre|
+        genres_movies << Genre.find(genre.id).movies.flatten(1)
+      end
+      genres_movies.flatten!
+
+      actor_director_genre_recs = directors_movies & actors_movies & genres_movies
+      actor_director_recs = directors_movies & actors_movies
+      director_genre_recs = directors_movies & genres_movies
+      actor_genre_recs = genres_movies & actors_movies
 
 
       total_recs = []
@@ -180,11 +194,11 @@ class Movie < ActiveRecord::Base
       end 
 
       if total_recs.length <= REC_LIMIT[rating-1]
-        total_recs += director_movies
+        total_recs += directors_movies
       end 
 
       if total_recs.length <= REC_LIMIT[rating-1]
-        total_recs += actor_movies
+        total_recs += actors_movies
       end
 
       total_recs.delete_if { |movie| movie.id == rated_movie.id }
