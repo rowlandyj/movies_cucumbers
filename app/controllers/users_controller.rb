@@ -30,4 +30,13 @@ class UsersController < ApplicationController
       redirect_to users_path, :notice => "Can't delete yourself."
     end
   end
+
+  def watchlist
+  end
+
+  def favorites
+  end
+
+  def recommendations
+  end
 end
