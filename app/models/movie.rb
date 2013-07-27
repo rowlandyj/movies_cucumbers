@@ -1,6 +1,6 @@
 class Movie < ActiveRecord::Base
 
-  REC_LIMIT = [100, 200, 300, 400, 500]
+  REC_LIMIT = [10, 20, 30, 40, 50]
 
   attr_accessible :title, :rt_id, :tmdb_id, :director_id,
   :critic_consensus, :rt_score, :poster_url, :trailer_url, 
@@ -162,12 +162,12 @@ class Movie < ActiveRecord::Base
       directors_movies.flatten!
 
       actors.each do |actor|
-        actors_movies << Actor.find(actor.id).movies.flatten(1)
+        actors_movies << Actor.find(actor.id).movies
       end
       actors_movies.flatten!
 
       genres.each do |genre|
-        genres_movies << Genre.find(genre.id).movies.flatten(1)
+        genres_movies << Genre.find(genre.id).movies
       end
       genres_movies.flatten!
 
@@ -200,6 +200,14 @@ class Movie < ActiveRecord::Base
       if total_recs.length <= REC_LIMIT[rating-1]
         total_recs += actors_movies
       end
+
+      #Attempt to get exact number of movies every time by filling in 
+      #with movies from the genres
+      # if total_recs.length <= REC_LIMIT[rating-1]
+      #   genres_movies.each do |movie|
+      #     total_recs << movie if total_recs.length <= REC_LIMIT[rating-1]
+      #   end
+      # end      
 
       total_recs.delete_if { |movie| movie.id == rated_movie.id }
       total_recs = total_recs.uniq
