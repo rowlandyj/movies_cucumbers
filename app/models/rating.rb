@@ -6,7 +6,7 @@ class Rating < ActiveRecord::Base
 
   def self.rating_distributor(group_of_movies)
     if group_of_movies.rating <= 2.0
-      next
+  
     elsif group_of_movies.rating > 2.0 && group_of_movies.rating <= 3.0
 
     elsif group_of_movies.rating > 3.0 && group_of_movies.rating <= 4.0
