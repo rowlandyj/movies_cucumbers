@@ -38,6 +38,7 @@ group :development do
 end
 group :development, :test do
   gem 'factory_girl_rails'
+  gem 'faker'
   gem 'rspec-rails'
 end
 group :production do
