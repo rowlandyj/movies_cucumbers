@@ -7,7 +7,7 @@ class Movie < ActiveRecord::Base
   :mpaa_rating, :run_time, :imdb_ref, :tmdb_rating, :release_date,
   :budget
   has_many :ratings
-  has_many :user, through: :ratings
+  has_many :users, through: :ratings
 
   has_many :actors_movies
   has_many :actors, through: :actors_movies
@@ -17,6 +17,9 @@ class Movie < ActiveRecord::Base
 
   has_many :directors_movies
   has_many :directors, through: :directors_movies
+
+  has_many :recommendations
+  has_many :users, through: :recommendations
 
   # def self.seed_rt(min_id, max_id)
 
