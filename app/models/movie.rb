@@ -1,6 +1,6 @@
 class Movie < ActiveRecord::Base
 
-  REC_LIMIT = 50
+  REC_LIMIT = [100, 200, 300, 400, 500]
 
   attr_accessible :title, :rt_id, :tmdb_id, :director_id,
   :critic_consensus, :rt_score, :poster_url, :trailer_url, 
@@ -147,7 +147,8 @@ class Movie < ActiveRecord::Base
   end
 
 
-    def self.movie_recommender(rated_movie)
+    def self.unit_cluster(rated_movie, rating)
+
       director = rated_movie.directors.last
       actor = rated_movie.actors.last
       genre = rated_movie.genres.last
@@ -159,23 +160,35 @@ class Movie < ActiveRecord::Base
       actor_director_genre_recs = director_movies & actor_movies & genre_movies
       actor_director_recs = director_movies & actor_movies
       director_genre_recs = director_movies & genre_movies
-      genre_actor_recs = genre_movies & actor_movies
-      total_recs = actor_director_genre_recs
+      actor_genre_recs = genre_movies & actor_movies
 
-      if total_recs.length <= REC_LIMIT
-        total_recs << actor_director_recs
+
+      total_recs = []
+      total_recs += actor_director_genre_recs
+      
+      
+      if total_recs.length <= REC_LIMIT[rating-1]
+        total_recs += actor_director_recs
       end
 
-      if total_recs.length <= REC_LIMIT
-        total_recs << director_genre_recs
+      if total_recs.length <= REC_LIMIT[rating-1]
+        total_recs += director_genre_recs
       end 
 
-      if total_recs.length <= REC_LIMIT
-        total_recs << actor_genre_recs
+      if total_recs.length <= REC_LIMIT[rating-1]
+        total_recs += actor_genre_recs
       end 
+
+      if total_recs.length <= REC_LIMIT[rating-1]
+        total_recs += director_movies
+      end 
+
+      if total_recs.length <= REC_LIMIT[rating-1]
+        total_recs += actor_movies
+      end
 
       total_recs.delete_if { |movie| movie.id == rated_movie.id }
-      total_recs
+      total_recs = total_recs.uniq
     end
 
   end
