@@ -147,70 +147,95 @@ class Movie < ActiveRecord::Base
   end
 
 
-    def self.unit_cluster(rated_movie, rating)
+  def self.unit_cluster(rated_movie, rating)
 
-      directors = rated_movie.directors
-      actors = rated_movie.actors
-      genres = rated_movie.genres
-      directors_movies = []
-      actors_movies = []
-      genres_movies = []
+    directors = rated_movie.directors
+    actors = rated_movie.actors
+    genres = rated_movie.genres
+    directors_movies = []
+    actors_movies = []
+    genres_movies = []
 
-      directors.each do |director|
-        directors_movies << Director.find(director.id).movies
+    directors.each do |director|
+      directors_movies << Director.find(director.id).movies
+    end
+    directors_movies.flatten!
+
+    actors.each do |actor|
+      actors_movies << Actor.find(actor.id).movies
+    end
+    actors_movies.flatten!
+
+    genres.each do |genre|
+      genres_movies << Genre.find(genre.id).movies
+    end
+    genres_movies.flatten!
+
+    actor_director_genre_recs = directors_movies & actors_movies & genres_movies
+    actor_director_recs = directors_movies & actors_movies
+    director_genre_recs = directors_movies & genres_movies
+    actor_genre_recs = genres_movies & actors_movies
+
+
+    total_recs = []
+
+    if total_recs.length < REC_LIMIT[rating-1]
+      actor_director_genre_recs.each do |movie|
+        if total_recs.length < REC_LIMIT[rating-1] && movie.id != rated_movie.id
+          total_recs << movie
+        end
       end
-      directors_movies.flatten!
-
-      actors.each do |actor|
-        actors_movies << Actor.find(actor.id).movies
-      end
-      actors_movies.flatten!
-
-      genres.each do |genre|
-        genres_movies << Genre.find(genre.id).movies
-      end
-      genres_movies.flatten!
-
-      actor_director_genre_recs = directors_movies & actors_movies & genres_movies
-      actor_director_recs = directors_movies & actors_movies
-      director_genre_recs = directors_movies & genres_movies
-      actor_genre_recs = genres_movies & actors_movies
-
-
-      total_recs = []
-      total_recs += actor_director_genre_recs
-      
-      
-      if total_recs.length <= REC_LIMIT[rating-1]
-        total_recs += actor_director_recs
-      end
-
-      if total_recs.length <= REC_LIMIT[rating-1]
-        total_recs += director_genre_recs
-      end 
-
-      if total_recs.length <= REC_LIMIT[rating-1]
-        total_recs += actor_genre_recs
-      end 
-
-      if total_recs.length <= REC_LIMIT[rating-1]
-        total_recs += directors_movies
-      end 
-
-      if total_recs.length <= REC_LIMIT[rating-1]
-        total_recs += actors_movies
-      end
-
-      #Attempt to get exact number of movies every time by filling in 
-      #with movies from the genres
-      # if total_recs.length <= REC_LIMIT[rating-1]
-      #   genres_movies.each do |movie|
-      #     total_recs << movie if total_recs.length <= REC_LIMIT[rating-1]
-      #   end
-      # end      
-
-      total_recs.delete_if { |movie| movie.id == rated_movie.id }
-      total_recs = total_recs.uniq
     end
 
+    if total_recs.length < REC_LIMIT[rating-1]
+      actor_director_recs.each do |movie|
+        if total_recs.length < REC_LIMIT[rating-1] && movie.id != rated_movie.id
+          total_recs << movie
+        end
+      end
+    end
+
+    if total_recs.length < REC_LIMIT[rating-1]
+      director_genre_recs.each do |movie|
+        if total_recs.length < REC_LIMIT[rating-1] && movie.id != rated_movie.id
+          total_recs << movie
+        end
+      end
+    end
+
+    if total_recs.length < REC_LIMIT[rating-1]
+      actor_genre_recs.each do |movie|
+        if total_recs.length < REC_LIMIT[rating-1] && movie.id != rated_movie.id
+          total_recs << movie
+        end
+      end
+    end
+
+    if total_recs.length < REC_LIMIT[rating-1]
+      directors_movies.each do |movie|
+        if total_recs.length < REC_LIMIT[rating-1] && movie.id != rated_movie.id
+          total_recs << movie
+        end
+      end
+    end
+
+    if total_recs.length < REC_LIMIT[rating-1]
+      actors_movies.each do |movie|
+        if total_recs.length < REC_LIMIT[rating-1] && movie.id != rated_movie.id
+          total_recs << movie
+        end
+      end
+    end
+
+    if total_recs.length < REC_LIMIT[rating-1]
+      genres_movies.each do |movie|
+        if total_recs.length < REC_LIMIT[rating-1] && movie.id != rated_movie.id
+          total_recs << movie
+        end
+      end
+    end
+
+    total_recs
   end
+
+end
