@@ -2,9 +2,9 @@ class RecommendationsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @recommendations = current_user.recommendations
-    @recommendations.delete_if do |movie|
-      Rating.where(user_id: current_user.id).pluck(:movie_id).include? movie.id
+    @recommendations=current_user.recommendations
+    @recommendations.delete_if do |rec|
+      current_user.ratings.pluck(:movie_id).include? rec.movie_id
     end
   end
 
