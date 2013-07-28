@@ -1,10 +1,17 @@
 class RatingsController < ApplicationController
   before_filter :authenticate_user!
   def index
-    @movies = Movie.find(:all).sample(50)
-    @movies.delete_if do |movie|
-      Rating.where(user_id: current_user.id).pluck(:movie_id).include? movie.id
+    @movies = []
+    
+    until @movies.length == 51 
+      random_number = Random.rand(1..Movie.count)
+      movie = Movie.find(random_number)
+      @movies << movie unless @movies.include? movie
+      @movies.delete_if do |movie|
+        Rating.where(user_id: current_user.id).pluck(:movie_id).include? movie.id
+      end
     end
+
   end
 
   def create
