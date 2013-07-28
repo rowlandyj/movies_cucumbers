@@ -6,6 +6,7 @@ class RecommendationsController < ApplicationController
     @recommendations.delete_if do |rec|
       current_user.ratings.pluck(:movie_id).include? rec.movie_id
     end
+    @recommendations.shuffle!
   end
 
   def create
