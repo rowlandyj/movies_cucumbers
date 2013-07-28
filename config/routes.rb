@@ -10,6 +10,9 @@ MoviesCucumbers::Application.routes.draw do
 
 
 	resources :user, only: [:index, :show]
+
+	get '/users/ratings' => 'users#ratings', as: 'user_ratings'
+
 	# resources :favorites, only: [:index, :new, :create, :edit, :update]
 	# resources :watch_list, only: [:index, :new, :create, :edit, :update]
 

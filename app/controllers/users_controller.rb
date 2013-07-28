@@ -31,6 +31,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def ratings
+    @ratings = current_user.ratings
+    
+  end
+
   def watchlist
   end
 

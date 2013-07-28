@@ -3,6 +3,9 @@ class RecommendationsController < ApplicationController
 
   def index
     @recommendations = current_user.recommendations
+    @recommendations.delete_if do |movie|
+      Rating.where(user_id: current_user.id).pluck(:movie_id).include? movie.id
+    end
   end
 
   def create
