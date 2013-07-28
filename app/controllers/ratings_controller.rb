@@ -6,9 +6,6 @@ class RatingsController < ApplicationController
   end
 
   def create
-
-    puts '*'*50
-    puts "Params: #{params}"
     rating = Rating.new(rating_value: params[:rating_value], movie_id: params[:movie_id], user_id: current_user.id)
     if rating.save
       update_recommendations
