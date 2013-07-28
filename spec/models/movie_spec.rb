@@ -1,4 +1,4 @@
-# require 'spec_helper'
+ require 'spec_helper'
 
 # describe 'Movie' do
 
@@ -26,4 +26,10 @@
 # # name: 'Comedy'
 
 # # genre = build(:genre)
-
+puts '--------'
+movie = FactoryGirl.create(:trilogy).title
+genre = FactoryGirl.create(:genre)
+actor = FactoryGirl.create(:actor)
+director = FactoryGirl.create(:director)
+movie << genre << actor << director
+puts '--------'
