@@ -86,7 +86,7 @@ class Movie < ActiveRecord::Base
 
     (min_id).upto(max_id) do |i|
       movie = TmdbMovie.find(id: i)
-      if !movie.empty? && movie.runtime > 45
+      if !movie.empty? && !movie.runtime.nil? && movie.runtime > 45
 
         unless movie.trailer.nil?
           trailer_url = movie.trailer
