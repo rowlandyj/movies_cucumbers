@@ -1,4 +1,6 @@
 <h1>Your Ratings</h1>
+<div class='movie-list'>
+
   <% @ratings.each do |rating| %>
   <div class="ratings-movie">
 
@@ -17,3 +19,4 @@
     <span><%= link_to 'rating: 5', rating_path(rating, rating_value: 5, movie_id: rating.movie.id),  :method => :put %></span>
   </div>
 <% end %>
+</div>
