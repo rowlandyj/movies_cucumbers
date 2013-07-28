@@ -12,11 +12,12 @@
       <%= link_to(rating.movie.title, rating.movie.trailer_url) %>
     </div>
     <p>Your current rating: <%= rating.rating_value.to_i %></p>
-    <span><%= link_to 'rating: 1', rating_path(rating, rating_value: 1, movie_id: rating.movie.id),  :method => :put %></span>
-    <span><%= link_to 'rating: 2', rating_path(rating, rating_value: 2, movie_id: rating.movie.id),  :method => :put %></span>
-    <span><%= link_to 'rating: 3', rating_path(rating, rating_value: 3, movie_id: rating.movie.id),  :method => :put %></span>
-    <span><%= link_to 'rating: 4', rating_path(rating, rating_value: 4, movie_id: rating.movie.id),  :method => :put %></span>
-    <span><%= link_to 'rating: 5', rating_path(rating, rating_value: 5, movie_id: rating.movie.id),  :method => :put %></span>
+    <span>Rate Movie: </span>
+    <span class="rating-value"><%= link_to '1', rating_path(rating, rating_value: 1, movie_id: rating.movie.id),  :method => :put %></span>
+    <span class="rating-value"><%= link_to '2', rating_path(rating, rating_value: 2, movie_id: rating.movie.id),  :method => :put %></span>
+    <span class="rating-value"><%= link_to '3', rating_path(rating, rating_value: 3, movie_id: rating.movie.id),  :method => :put %></span>
+    <span class="rating-value"><%= link_to '4', rating_path(rating, rating_value: 4, movie_id: rating.movie.id),  :method => :put %></span>
+    <span class="rating-value"><%= link_to '5', rating_path(rating, rating_value: 5, movie_id: rating.movie.id),  :method => :put %></span>
   </div>
 <% end %>
 </div>

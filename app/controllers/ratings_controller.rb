@@ -39,7 +39,7 @@ class RatingsController < ApplicationController
     rating = Rating.find(params[:id])
     rating.rating_value = params[:rating_value]
     if rating.save
-      update_recommendations
+      update_recommendations(rating.movie_id, rating.rating_value)
       redirect_to request.referer
     else
       #show error message
