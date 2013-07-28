@@ -156,6 +156,7 @@ class Movie < ActiveRecord::Base
     actors = rated_movie.actors
     genres = rated_movie.genres
 
+
     Movie.director_rec_list(directors,directors_movies=[])
     Movie.actor_rec_list(actors,actors_movies=[])
     Movie.genre_rec_list(genres,genres_movies=[])

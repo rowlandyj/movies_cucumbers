@@ -18,11 +18,17 @@ class ApplicationController < ActionController::Base
   def update_recommendations(movie_id, rating_value)
     newly_rated_movie_cluster = Movie.unit_cluster(Movie.find(movie_id), rating_value, current_user)
 
+    puts "Cluster Length: #{newly_rated_movie_cluster.length}"
+
     newly_rated_movie_cluster.each do |new_movie|
+
       current_user.recommendations << Recommendation.create(movie_id: new_movie.id, user_id: current_user.id)
     end
 
+    puts "Current User Recs: #{current_user.recommendations.length}"
     current_user.recommendations = current_user.recommendations.sample(50)
+
+    puts "Current User Recs Post Sampe: #{current_user.recommendations.length}"
   end 
 
 end
