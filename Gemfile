@@ -35,6 +35,7 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
   gem 'debugger'
+  gem 'newrelic_rpm'
 end
 group :development, :test do
   gem 'factory_girl_rails'
