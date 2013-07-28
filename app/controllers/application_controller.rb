@@ -15,20 +15,14 @@ class ApplicationController < ActionController::Base
   #   end
   # end
   
-  def update_recommendations
-    current_user.recommendations.delete_all
-    all_users_ratings = current_user.ratings    
-    recommended_movie_cluster = []
-      
-    all_users_ratings.each do |rating|
-      recommended_movie_cluster << Movie.unit_cluster(Movie.find(rating.movie_id), rating.rating_value)
+  def update_recommendations(movie_id, rating_value)
+    newly_rated_movie_cluster = Movie.unit_cluster(Movie.find(movie_id), rating_value)
+
+    newly_rated_movie_cluster.each do |new_movie|
+      current_user.recommendations << Recommendation.create(movie_id: new_movie.id, user_id: current_user.id)
     end
 
-    recommended_movie_cluster.flatten!
-      recommended_movie_cluster.sample(50).each do |recommended_movies|
-        Recommendation.create(movie_id: recommended_movies.id, user_id: current_user.id)
-      end
-
-    end 
+    current_user.recommendations = current_user.recommendations.sample(50)
+  end 
 
 end

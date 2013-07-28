@@ -8,9 +8,11 @@ class RatingsController < ApplicationController
   end
 
   def create
+    params[:rating_value] = params[:rating_value].to_i
+    params[:movie_id] = params[:movie_id].to_i
     rating = Rating.new(rating_value: params[:rating_value], movie_id: params[:movie_id], user_id: current_user.id)
     if rating.save
-      update_recommendations
+      update_recommendations(params[:movie_id], params[:rating_value])
       redirect_to request.referer
     else
       flash[:notice] = "You aleady rated this movie.  Check 'My Ratings'."
