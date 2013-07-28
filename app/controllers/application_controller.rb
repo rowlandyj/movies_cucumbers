@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   # end
   
   def update_recommendations(movie_id, rating_value)
-    newly_rated_movie_cluster = Movie.unit_cluster(Movie.find(movie_id), rating_value)
+    newly_rated_movie_cluster = Movie.unit_cluster(Movie.find(movie_id), rating_value, current_user)
 
     newly_rated_movie_cluster.each do |new_movie|
       current_user.recommendations << Recommendation.create(movie_id: new_movie.id, user_id: current_user.id)

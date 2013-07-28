@@ -150,7 +150,7 @@ class Movie < ActiveRecord::Base
   end
 
 
-  def self.unit_cluster(rated_movie, rating)
+  def self.unit_cluster(rated_movie, rating, current_user)
 
     directors = rated_movie.directors
     actors = rated_movie.actors
@@ -167,13 +167,13 @@ class Movie < ActiveRecord::Base
 
     total_recs = []
 
-    Movie.populate_rec_list(actor_director_genre_recs, total_recs, rating, rated_movie)
-    Movie.populate_rec_list(actor_director_recs, total_recs, rating, rated_movie)
-    Movie.populate_rec_list(director_genre_recs, total_recs, rating, rated_movie)
-    Movie.populate_rec_list(actor_genre_recs, total_recs, rating, rated_movie)
-    Movie.populate_rec_list(directors_movies, total_recs, rating, rated_movie)
-    Movie.populate_rec_list(actors_movies, total_recs, rating, rated_movie)
-    Movie.populate_rec_list(genres_movies, total_recs, rating, rated_movie)
+    Movie.populate_rec_list(actor_director_genre_recs, total_recs, rating, rated_movie, current_user)
+    Movie.populate_rec_list(actor_director_recs, total_recs, rating, rated_movie, current_user)
+    Movie.populate_rec_list(director_genre_recs, total_recs, rating, rated_movie, current_user)
+    Movie.populate_rec_list(actor_genre_recs, total_recs, rating, rated_movie, current_user)
+    Movie.populate_rec_list(directors_movies, total_recs, rating, rated_movie, current_user)
+    Movie.populate_rec_list(actors_movies, total_recs, rating, rated_movie, current_user)
+    Movie.populate_rec_list(genres_movies, total_recs, rating, rated_movie, current_user)
 
     total_recs
   end
@@ -202,11 +202,11 @@ class Movie < ActiveRecord::Base
     genres_movies.flatten!
   end
 
-  def self.populate_rec_list(chosen_list, total_recs, rating, rated_movie)
+  def self.populate_rec_list(chosen_list, total_recs, rating, rated_movie, current_user)
     if total_recs.length < REC_LIMIT[rating-1]
       chosen_list.each do |movie|
         if total_recs.length < REC_LIMIT[rating-1] && movie.id != rated_movie.id
-          total_recs << movie
+          total_recs << movie unless current_user.ratings.pluck(:movie_id).include? movie.id
         end
       end
     end
