@@ -1,25 +1,59 @@
-require 'faker'
+# require 'faker'
 
-FactoryGirl.define do
-  factory :trilogy, class: Movie do
-    title Faker::Company.name
-    genres ['Comedy']
-    directors ['Michael Bay']
-    actors ['slutty girl 1']
-  end
-end
+# FactoryGirl.define do
+#   factory :genre do
+#     name "Comedy"
+#   end
+# end
 
 
-genre_arr = ['Comedy','Action', 'Drama', 'Horror', 'Animation']
-director_arr = %w(dir1, dir2, dir3, dir4)
-actor_arr = %w(actor1,actor2,actor3,actor4,actor5,actor6)
+# FactoryGirl.define do
+#   factory :director do
+#     name 'Michael Bay'
+#   end
+# end
 
-FactoryGirl.define do
-  factory :movie do
-    title Faker::Company.name
-    genres genre_arr.sample
-    directors director_arr.sample
-    actors actor_arr.sample
-  end
-end
+# FactoryGirl.define do
+#   factory :actor do
+#     name 'Slutty Girl 1'
+#   end
+# end
+
+# FactoryGirl.define do
+#   factory :trilogy, class: Movie do
+#     title Faker::Company.name
+#   end
+# end
+
+# FactoryGirl.define do
+#   factory :actors_movies do
+#     association :actor
+#     association :trilogy
+#   end
+# end
+
+# FactoryGirl.define do
+#   factory :directors_movies do
+#     association :director
+#     association :trilogy
+#   end
+# end
+
+# FactoryGirl.define do
+#   factory :genres_movies do
+#     association :genre
+#     association :trilogy
+#   end
+# end
+
+
+
+# # FactoryGirl.define do
+# #   factory :movie do
+# #     title Faker::Company.name
+# #     genres genre_arr.sample
+# #     directors director_arr.sample
+# #     actors actor_arr.sample
+# #   end
+# # end
 
