@@ -13,8 +13,8 @@ class RatingsController < ApplicationController
       update_recommendations
       redirect_to request.referer
     else
-      flash[:notice] = 'Rating Not Created.'
-      redirect_to new_user_rating_path
+      flash[:notice] = "You aleady rated this movie.  Check 'My Ratings'."
+      redirect_to request.referer
     end
   end
 
