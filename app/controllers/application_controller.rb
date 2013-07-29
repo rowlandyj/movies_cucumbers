@@ -14,6 +14,28 @@ class ApplicationController < ActionController::Base
   #     redirect_to new_user_session_path
   #   end
   # end
+
+  def get_fifty
+    movies = []
+    until movies.length == 51 
+      random_number = Random.rand(1..Movie.count)
+      movie = Movie.find(random_number)
+      movies << movie unless movies.include? movie
+      # movies.delete_if do |movie|
+      #   Rating.where(user_id: current_user.id).pluck(:movie_id).include? movie.id
+      # end
+      remove_duplicates(movies)
+    end
+    movies
+  end
+
+  def remove_duplicates(movies)
+    movies.delete_if do |movie|
+      Rating.where(user_id: current_user.id).pluck(:movie_id).include? movie.id
+    end
+    movies
+  end
+
   
   def update_recommendations(movie_id, rating_value)
     newly_rated_movie_cluster = Movie.unit_cluster(Movie.find(movie_id), rating_value, current_user)

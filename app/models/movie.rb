@@ -1,6 +1,6 @@
 class Movie < ActiveRecord::Base
 
-  REC_LIMIT = [1, 2, 5, 9, 10]
+  REC_LIMIT = [5, 10, 25, 45, 50]
 
   attr_accessible :title, :rt_id, :tmdb_id, :director_id,
   :critic_consensus, :rt_score, :poster_url, :trailer_url, 
@@ -71,8 +71,6 @@ class Movie < ActiveRecord::Base
   #           movie_in_db.genres << genre_in_db
   #         end
   #       end
-
-
   #     end
 
 

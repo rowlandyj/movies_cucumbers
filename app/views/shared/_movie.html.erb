@@ -7,9 +7,9 @@
     <%= link_to(movie.title, movie.trailer_url) %>
   </div>
   <span>Rate Movie: </span>
-  <span class="rating-value"><%= link_to '1', ratings_path(rating_value: 1, movie_id: movie.id),  :method => :post %></span>
-  <span class="rating-value"><%= link_to '2', ratings_path(rating_value: 2, movie_id: movie.id),  :method => :post %></span>
-  <span class="rating-value"><%= link_to '3', ratings_path(rating_value: 3, movie_id: movie.id),  :method => :post %></span>
-  <span class="rating-value"><%= link_to '4', ratings_path(rating_value: 4, movie_id: movie.id),  :method => :post %></span>
-  <span class="rating-value"><%= link_to '5', ratings_path(rating_value: 5, movie_id: movie.id),  :method => :post %></span>
+  <span><%= link_to '1', ratings_path(rating_value: 1, movie_id: movie.id),  :method => :post, remote: true, class: "movie-rating-value", 'data-movie_id' => movie.id, 'data-rating_value' => 1 %></span>
+  <span><%= link_to '2', ratings_path(rating_value: 2, movie_id: movie.id),  :method => :post, remote: true, class: "movie-rating-value",  'data-movie_id' => movie.id, 'data-rating_value' => 2%></span>
+  <span><%= link_to '3', ratings_path(rating_value: 3, movie_id: movie.id),  :method => :post, remote: true, class: "movie-rating-value",  'data-movie_id' => movie.id, 'data-rating_value' => 3%></span>
+  <span><%= link_to '4', ratings_path(rating_value: 4, movie_id: movie.id),  :method => :post, remote: true, class: "movie-rating-value",  'data-movie_id' => movie.id, 'data-rating_value' => 4%></span>
+  <span><%= link_to '5', ratings_path(rating_value: 5, movie_id: movie.id),  :method => :post, remote: true, class: "movie-rating-value",  'data-movie_id' => movie.id, 'data-rating_value' => 5%></span>
 </div>
