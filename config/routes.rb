@@ -8,6 +8,7 @@ MoviesCucumbers::Application.routes.draw do
 	resources :recommendations, only: [:index, :create, :new] 
 	resources :ratings, only: [:index, :new, :create, :edit, :update]
 
+	get '/search' => 'ratings#search', as: 'search'
 
 	resources :user, only: [:index, :show]
 

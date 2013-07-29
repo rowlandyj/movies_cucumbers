@@ -156,6 +156,9 @@ GEM
     orm_adapter (0.4.0)
     pg (0.16.0)
     polyglot (0.3.3)
+    pose (2.1.0)
+      rails (~> 3.0)
+      ruby-progressbar
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -216,6 +219,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
+    ruby-progressbar (1.1.1)
     ruby-tmdb (0.2.1)
       addressable
       deepopenstruct (>= 0.1.2)
@@ -286,6 +290,7 @@ DEPENDENCIES
   launchy
   newrelic_rpm
   pg
+  pose
   quiet_assets
   rails (= 3.2.12)
   rb-fchange

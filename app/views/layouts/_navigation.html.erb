@@ -1,4 +1,10 @@
+<%= form_tag("/search", method: "get") do %>
+  <%= text_field_tag(:query) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
 <%= link_to "Movies Cucumbers", root_path, :id => 'brand' %>
+
 <ul class="nav">
   <% if user_signed_in? %>
   <li>

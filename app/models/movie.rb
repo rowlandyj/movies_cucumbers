@@ -19,6 +19,11 @@ class Movie < ActiveRecord::Base
   has_many :recommendations
   has_many :users, through: :recommendations
 
+  posify do
+    # The searchable content.
+    [self.title].join ' '
+  end
+
   # def self.seed_rt(min_id, max_id)
 
   #   (min_id).upto(max_id) do |i|

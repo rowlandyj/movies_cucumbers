@@ -9,7 +9,6 @@ class RecommendationsController < ApplicationController
     @recommendations.shuffle!
   end
 
-
   def new
     @recommendation = Recommendation.new
   end

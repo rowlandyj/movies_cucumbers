@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130728011106) do
+ActiveRecord::Schema.define(:version => 20130729193544) do
 
   create_table "actors", :force => true do |t|
     t.string   "name"
@@ -67,6 +67,21 @@ ActiveRecord::Schema.define(:version => 20130728011106) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
+
+  create_table "pose_assignments", :force => true do |t|
+    t.integer "word_id",                    :null => false
+    t.integer "posable_id",                 :null => false
+    t.string  "posable_type", :limit => 40, :null => false
+  end
+
+  add_index "pose_assignments", ["posable_id"], :name => "index_pose_assignments_on_posable_id"
+  add_index "pose_assignments", ["word_id"], :name => "index_pose_assignments_on_word_id"
+
+  create_table "pose_words", :force => true do |t|
+    t.string "text", :limit => 80, :null => false
+  end
+
+  add_index "pose_words", ["text"], :name => "index_pose_words_on_text"
 
   create_table "ratings", :force => true do |t|
     t.integer  "movie_id"
