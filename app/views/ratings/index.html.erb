@@ -1,6 +1,6 @@
 <h1>Rate Some Movies</h1>
 <div class='movie-list'>
   <% @movies.each do |movie| %>
-    <%= render 'shared/movie', :movie => movie %>
+    <%= render 'shared/movie', :movie => movie, :method => :post %>
   <% end %>
 </div>

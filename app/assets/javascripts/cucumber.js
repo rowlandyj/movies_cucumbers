@@ -1,7 +1,12 @@
 //same as $(document).ready()
 $(function() {
+
+  var filled_in_star = '\u2605';
+  var hollow_star = '☆';
+
   $(".movie-rating-value").on("ajax:success", function (e, data, status, xhr) {
 
+    debugger
     var $movie_rating = $(this).closest('div.ratings-movie');
     if (window.location.pathname === "/recommendations" || window.location.pathname === "/ratings") {
       var title = $movie_rating.find('div.title');
@@ -23,5 +28,12 @@ $(function() {
       $movie_rating.find('p').text("Movie already rated.");
     }
 
+  }).mouseover(function (e) {
+    $(this).text(filled_in_star);
+    $(this).prevAll().text(filled_in_star);
+  }).mouseout(function (e) {
+    $(this).text(hollow_star);
+    $(this).prevAll().text(hollow_star);
   });
+
 });

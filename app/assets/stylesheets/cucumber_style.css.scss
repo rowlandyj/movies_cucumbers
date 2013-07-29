@@ -17,6 +17,7 @@
   float:right;
 }
 
+
 .movie-list{
   padding: 1em;
   text-align: center;
@@ -41,8 +42,6 @@
         width: 213px !important;
       }
     }
-
-
     .title {
       margin-top: 10px;
     }
@@ -53,6 +52,7 @@
   }
 
 }
+
 .side-bar-icon{
   margin-left:11.3em;
 }
@@ -120,4 +120,18 @@
 }
 .side-bar ul li:hover{
 }
+
+
+
+
+.rating > a {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+}
+
+.rating > a:hover {
+  text-decoration: none;
+}
+
 
