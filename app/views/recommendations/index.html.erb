@@ -1,6 +1,10 @@
 <h1>Recommendations</h1>
 <div class='movie-list'>
-  <% @recommendations.each do |recommendation| %>
+  <% if @recommendations.empty? %>
+    <%= render 'shared/no_recs' %>
+  <% else %>
+    <% @recommendations.each do |recommendation| %>
       <%= render 'shared/movie', :movie => recommendation.movie, :method => :post %>
+    <% end %>
   <% end %>
 </div>
