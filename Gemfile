@@ -15,6 +15,7 @@ gem 'devise'
 gem 'figaro'
 gem 'rolify'
 gem 'simple_form'
+gem 'will_paginate', '~> 3.0'
 
 gem 'faker'
 gem 'rottentomatoes'
