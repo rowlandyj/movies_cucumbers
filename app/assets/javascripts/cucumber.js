@@ -1,12 +1,29 @@
 //same as $(document).ready()
 $(function() {
+  $('#brand').addClass('slideDown');
+  $('.poster').slice(0,3).each(function(){
+  $(this).addClass('bigEntrance');
+    });
+  $(window).scroll(function() {
+    $('.poster').each(function(){
+    var imagePos = $(this).offset().top;
+
+    var topOfWindow = $(window).scrollTop();
+      if (imagePos < topOfWindow+ 400) {
+        $(this).addClass("bigEntrance");
+      }
+    });
+  });
+
+  $('.ratings-movie').mouseover(function(e){
+    $(this).addClass("");
+  });
 
   var filled_in_star = '\u2605';
   var hollow_star = '☆';
 
   $(".movie-rating-value").on("ajax:success", function (e, data, status, xhr) {
 
-    debugger
     var $movie_rating = $(this).closest('div.ratings-movie');
     if (window.location.pathname === "/recommendations" || window.location.pathname === "/ratings") {
       var title = $movie_rating.find('div.title');
@@ -35,5 +52,7 @@ $(function() {
     $(this).text(hollow_star);
     $(this).prevAll().text(hollow_star);
   });
+
+
 
 });

@@ -16,7 +16,8 @@
 .navbar .nav{
   float:right;
 }
-.navbar .brand {
+.navbar #brand {
+  visibility: hidden;
   float: left;
   display: block;
   padding: 10px 20px 10px;
@@ -25,6 +26,7 @@
   font-weight: 200;
   color: #777777;
   text-shadow: 0 1px 0 white;
+  text-decoration: none;
 }
 
 
@@ -44,6 +46,7 @@
     -moz-box-shadow: 0px 1px 6px rgba(23, 69, 88, .5);
 
     .poster{
+      visibility: hidden;
       height: 300px !important;
       width: 213px !important;
       overflow: hidden;
