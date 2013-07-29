@@ -1,57 +1,62 @@
 //same as $(document).ready()
 $(function() {
   $('#brand').addClass('slideDown');
-  $('.poster').slice(0,3).each(function(){
-  $(this).addClass('bigEntrance');
-    });
-  $(window).scroll(function() {
-    $('.poster').each(function(){
-    var imagePos = $(this).offset().top;
+  $('.poster').slice(0,6).each(function(){
+    $(this).addClass('fadeIn');
+  });
 
+$(".side-bar-icon").click( function(event){
+  event.preventDefault();
+  $(this).toggleClass('side-bar-icon-right');
+});
+
+$(window).scroll(function() {
+  $('.poster').each(function(){
+    var imagePos = $(this).offset().top;
     var topOfWindow = $(window).scrollTop();
-      if (imagePos < topOfWindow+ 400) {
-        $(this).addClass("bigEntrance");
+    if (imagePos < topOfWindow + 900) {
+      $(this).addClass("fadeIn");
       }
     });
-  });
+});
 
-  $('.ratings-movie').mouseover(function(e){
-    $(this).addClass("");
-  });
+$('.ratings-movie').mouseover(function(e){
+  $(this).addClass("");
+});
 
-  var filled_in_star = '\u2605';
-  var hollow_star = '☆';
+var filled_in_star = '\u2605';
+var hollow_star = '☆';
 
-  $(".movie-rating-value").on("ajax:success", function (e, data, status, xhr) {
+$(".movie-rating-value").on("ajax:success", function (e, data, status, xhr) {
 
-    var $movie_rating = $(this).closest('div.ratings-movie');
-    if (window.location.pathname === "/recommendations" || window.location.pathname === "/ratings") {
-      var title = $movie_rating.find('div.title');
-      title.append('<h4>Movie rated: ' + data.rating_value + '</h4>');
-      title.find('p').fadeOut(1600);
-      $movie_rating.hide(800);
-    } else if (window.location.pathname === "/users/ratings") {
-      $movie_rating.find('p').text('Your current rating: ' + data.rating_value);
-    }
+  var $movie_rating = $(this).closest('div.ratings-movie');
+  if (window.location.pathname === "/recommendations" || window.location.pathname === "/ratings") {
+    var title = $movie_rating.find('div.title');
+    title.append('<h4>Movie rated: ' + data.rating_value + '</h4>');
+    title.find('p').fadeOut(1600);
+    $movie_rating.hide(800);
+  } else if (window.location.pathname === "/users/ratings") {
+    $movie_rating.find('p').text('Your current rating: ' + data.rating_value);
+  }
 
 
-  }).on("ajax:error", function (e, xhr, status, error) {
-    var $movie_rating = $(this).closest('div.ratings-movie');
-    if (window.location.pathname === "/recommendations" || window.location.pathname === "/ratings") {
-      var title = $movie_rating.find('div.title');
-      title.append('<h4>Movie rated: Aleady rated</h4>');
-      title.find('p').fadeOut(1600);
-    } else if (window.location.pathname === "/users/ratings") {
-      $movie_rating.find('p').text("Movie already rated.");
-    }
+}).on("ajax:error", function (e, xhr, status, error) {
+  var $movie_rating = $(this).closest('div.ratings-movie');
+  if (window.location.pathname === "/recommendations" || window.location.pathname === "/ratings") {
+    var title = $movie_rating.find('div.title');
+    title.append('<h4>Movie rated: Aleady rated</h4>');
+    title.find('p').fadeOut(1600);
+  } else if (window.location.pathname === "/users/ratings") {
+    $movie_rating.find('p').text("Movie already rated.");
+  }
 
-  }).mouseover(function (e) {
-    $(this).text(filled_in_star);
-    $(this).prevAll().text(filled_in_star);
-  }).mouseout(function (e) {
-    $(this).text(hollow_star);
-    $(this).prevAll().text(hollow_star);
-  });
+}).mouseover(function (e) {
+  $(this).text(filled_in_star);
+  $(this).prevAll().text(filled_in_star);
+}).mouseout(function (e) {
+  $(this).text(hollow_star);
+  $(this).prevAll().text(hollow_star);
+});
 
 
 
