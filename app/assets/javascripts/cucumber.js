@@ -1,8 +1,7 @@
 //same as $(document).ready()
 $(function() {
   $(".movie-rating-value").on("ajax:success", function (e, data, status, xhr) {
-    e.preventDefault();
-    e.stopPropagation();
+
     var $movie_rating = $(this).closest('div.ratings-movie');
     if (window.location.pathname === "/recommendations" || window.location.pathname === "/ratings") {
       var title = $movie_rating.find('div.title');
@@ -15,7 +14,14 @@ $(function() {
 
 
   }).on("ajax:error", function (e, xhr, status, error) {
-    // debugger
-    console.log('AJAX Error');
+    var $movie_rating = $(this).closest('div.ratings-movie');
+    if (window.location.pathname === "/recommendations" || window.location.pathname === "/ratings") {
+      var title = $movie_rating.find('div.title');
+      title.append('<h4>Movie rated: Aleady rated</h4>');
+      title.find('p').fadeOut(1600);
+    } else if (window.location.pathname === "/users/ratings") {
+      $movie_rating.find('p').text("Movie already rated.");
+    }
+
   });
 });

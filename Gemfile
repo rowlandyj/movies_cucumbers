@@ -20,6 +20,7 @@ gem 'faker'
 gem 'rottentomatoes'
 gem 'httparty'
 gem 'ruby-tmdb'
+gem 'sidekiq'
 
 
 

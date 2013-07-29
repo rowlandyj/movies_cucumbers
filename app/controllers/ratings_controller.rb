@@ -12,11 +12,12 @@ class RatingsController < ApplicationController
 
     respond_to do |format|
       if rating.save
-        update_recommendations(params[:movie_id], params[:rating_value])
+        # update_recommendations(params[:movie_id], params[:rating_value])
+        UpdateRecsWorker.perform_async(params[:movie_id], params[:rating_value], current_user.id)
         format.json { render json: rating }
         format.html { redirect_to request.referer }
       else
-        flash[:notice] = "You aleady rated this movie.  Check 'My Ratings'."
+        # flash[:notice] = "You aleady rated this movie.  Check 'My Ratings'."
         # format.html { render action: "index"}
         format.json { render json: rating.errors }
         format.html { redirect_to request.referer }
@@ -32,12 +33,12 @@ class RatingsController < ApplicationController
 
     rating = Rating.find(params[:id])
     rating.rating_value = params[:rating_value]
-
     
     respond_to do |format|
 
       if rating.save
-        update_recommendations(rating.movie_id, rating.rating_value)
+        # update_recommendations(rating.movie_id, rating.rating_value)
+        UpdateRecsWorker.perform_async(params[:movie_id], params[:rating_value], current_user.id)
         format.json { render json: rating }
         format.html { redirect_to request.referer }
       else

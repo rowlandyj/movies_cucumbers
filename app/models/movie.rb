@@ -1,7 +1,5 @@
 class Movie < ActiveRecord::Base
 
-  REC_LIMIT = [5, 10, 25, 45, 50]
-
   attr_accessible :title, :rt_id, :tmdb_id, :director_id,
   :critic_consensus, :rt_score, :poster_url, :trailer_url, 
   :mpaa_rating, :run_time, :imdb_ref, :tmdb_rating, :release_date,
@@ -148,68 +146,6 @@ class Movie < ActiveRecord::Base
   end
 
 
-  def self.unit_cluster(rated_movie, rating, current_user)
-
-    directors = rated_movie.directors
-    actors = rated_movie.actors
-    genres = rated_movie.genres
-
-
-    Movie.director_rec_list(directors,directors_movies=[])
-    Movie.actor_rec_list(actors,actors_movies=[])
-    Movie.genre_rec_list(genres,genres_movies=[])
-
-    actor_director_genre_recs = directors_movies & actors_movies & genres_movies
-    actor_director_recs = directors_movies & actors_movies
-    director_genre_recs = directors_movies & genres_movies
-    actor_genre_recs = genres_movies & actors_movies
-
-    total_recs = []
-
-    Movie.populate_rec_list(actor_director_genre_recs, total_recs, rating, rated_movie, current_user)
-    Movie.populate_rec_list(actor_director_recs, total_recs, rating, rated_movie, current_user)
-    Movie.populate_rec_list(director_genre_recs, total_recs, rating, rated_movie, current_user)
-    Movie.populate_rec_list(actor_genre_recs, total_recs, rating, rated_movie, current_user)
-    Movie.populate_rec_list(directors_movies, total_recs, rating, rated_movie, current_user)
-    Movie.populate_rec_list(actors_movies, total_recs, rating, rated_movie, current_user)
-    Movie.populate_rec_list(genres_movies, total_recs, rating, rated_movie, current_user)
-
-    total_recs
-  end
-
-
-  private
-
-  def self.director_rec_list(directors,directors_movies)
-    directors.each do |director|
-      directors_movies << Director.find(director.id).movies
-    end
-    directors_movies.flatten!
-  end
-
-  def self.actor_rec_list(actors,actors_movies)
-    actors.each do |actor|
-      actors_movies << Actor.find(actor.id).movies
-    end
-    actors_movies.flatten!
-  end
-
-  def self.genre_rec_list(genres,genres_movies)
-    genres.each do |genre|
-      genres_movies << Genre.find(genre.id).movies
-    end
-    genres_movies.flatten!
-  end
-
-  def self.populate_rec_list(chosen_list, total_recs, rating, rated_movie, current_user)
-    if total_recs.length < REC_LIMIT[rating-1]
-      chosen_list.each do |movie|
-        if total_recs.length < REC_LIMIT[rating-1] && movie.id != rated_movie.id
-          total_recs << movie unless current_user.ratings.pluck(:movie_id).include? movie.id
-        end
-      end
-    end
-  end
-
+  
 end
 
