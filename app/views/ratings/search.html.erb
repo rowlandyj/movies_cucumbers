@@ -1,14 +1,11 @@
 <h1>Movies</h1>
-<% @result[Movie].each do |movie| %>
-  <p><%= movie.title %></p>
-<% end %>
+<div class='movie-list'>
+  <% if @result.empty? %>
+    <p>No movies matched your search.</p>
+  <% else %>
+    <% @result[Movie].each do |movie| %>
+      <%= render 'shared/movie', :movie => movie, :method => :post %>
+    <% end %>
+  <% end %>
+</div>
 
-<h1>Actors</h1>
-<% @result[Actor].each do |actor| %>
-  <p><%= actor.name %></p>
-<% end %>
-
-<h1>Directors</h1>
-<% @result[Director].each do |director| %>
-  <p><%= director.name %></p>
-<% end %>

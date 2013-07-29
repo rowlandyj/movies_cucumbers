@@ -55,7 +55,7 @@ class RatingsController < ApplicationController
   end
 
   def search
-    @result = Pose.search "#{params[:query]}", [Movie, Actor, Director]
+    @result = Pose.search "#{params[:query]}", [Movie]
   end
 end   
 
