@@ -6,7 +6,6 @@ $(function() {
   });
 
 $(".side-bar-icon").click( function(event){
-  event.preventDefault();
   $(this).toggleClass('side-bar-icon-right');
 });
 
