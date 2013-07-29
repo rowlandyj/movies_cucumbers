@@ -1,33 +1,44 @@
 <%= link_to "Movies Cucumbers", root_path, :class => 'brand' %>
 <ul class="nav">
   <% if user_signed_in? %>
-
-    <li>
-    <%= link_to 'Get Recommendations', recommendations_path %>
-    </li>
-    <li>
-    <%= link_to 'Rate Some Movies', ratings_path %>
-    </li>
-    <li>
-    <%= link_to 'My Ratings', user_ratings_path %>
-    </li>
-    <li>
+  <li>
     <%= link_to 'Edit Account', edit_user_registration_path %>
-    </li>
-    <% if current_user.has_role? :admin %>
-      <li>
-      <%= link_to 'Admin', users_path %>
-      </li>
-    <% end %>
-    <li>
+  </li>
+  <% if current_user.has_role? :admin %>
+  <li>
+    <%= link_to 'Admin', users_path %>
+  </li>
+  <% end %>
+  <li>
     <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
-    </li>
+  </li>
   <% else %>
-    <li>
+  <li>
     <%= link_to 'Sign up', new_user_registration_path %>
-    </li>
-    <li>
+  </li>
+  <li>
     <%= link_to 'Login', new_user_session_path %>
-    </li>
+  </li>
   <% end %>
 </ul>
+<% if user_signed_in? %>
+  <div class='side-bar'>
+    <span class='side-bar-icon'>
+      <i class="icon-th-list icon-3x"></i>
+    </span>
+      <ul>
+        <li>
+         <%= link_to recommendations_path do %><i class="icon-film"></i> Recommendations
+         <% end %>
+       </li>
+       <li>
+        <%= link_to ratings_path do %><i class="icon-thumbs-up-alt"></i> Rate Some More!
+        <% end %>
+      </li>
+      <li>
+        <%= link_to user_ratings_path do %><i class="icon-archive"></i> My Ratings
+        <% end %>
+      </li>
+    </ul>
+  </div>
+<% end %>
