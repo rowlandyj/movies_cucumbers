@@ -3,6 +3,62 @@ class UpdateRecsWorker
 
   REC_LIMIT = [5, 10, 25, 45, 50]
 
+
+  def pearson_corr(target_user_ratings, other_user_ratings)
+    target_rating_hash = Hash[target_user_ratings.pluck(:movie_id).zip(target_user_ratings.pluck(:rating_value))]
+    other_rating_hash = Hash[other_user_ratings.pluck(:movie_id).zip(other_user_ratings.pluck(:rating_value))]
+
+    shared_movie_ids = target_rating_hash.keys.reject{ |k| other_rating_hash[k].nil? }    
+    return 0 if shared_movie_ids.empty?
+
+    number_of_shared_movie_ids = shared_movie_ids.length
+
+    target_user_rating_sum = target_user_ratings.inject(0) { |sum, rating| sum += rating.rating_value }
+    target_user_rating_avg = target_user_rating_sum/number_of_shared_movie_ids
+
+    other_user_rating_sum = other_user_ratings.inject(0) { |sum, rating| sum += rating.rating_value }
+    other_user_rating_avg = other_user_rating_sum/number_of_shared_movie_ids
+
+    deviation = shared_movie_ids.inject(0) do |sum, movie_id|
+      target = target_rating_hash[movie_id] - target_user_rating_avg
+      other = other_rating_hash[movie_id] - other_user_rating_avg
+      sum + (target * other)
+    end
+
+    square_target = shared_movie_ids.inject(0) do |sum, movie_id|
+      sum + ((target_rating_hash[movie_id] + target_user_rating_avg)**2)
+    end
+
+    square_other = shared_movie_ids.inject(0) do |sum, movie_id|
+      sum + ((other_rating_hash[movie_id] + other_user_rating_avg)**2)
+    end
+
+    denominator = Math.sqrt(square_target * square_other)
+
+    return deviation / denominator
+  end
+
+  def find_closest_user(target_user)
+    closest_user = [User.first.id, pearson_corr(target_user, User.first)]
+    
+    User.all.each do |user|      
+      if user.id != target_user.id
+        curr_pearson_corr = pearson_corr(target_user,user) 
+        
+        if abs(1-curr_pearson_corr) < abs(1-closest_user.last)
+          closest_user = [user.id, curr_pearson_corr]
+        end
+      end
+      return closest_user
+    end
+  end
+
+  def get_rating_lists(target, closest)
+    rated_recs = closest.ratings.pluck(:movie_id) - target.ratings.select{|r| r.rating_value > 3}
+    rated_recs.map {|rating| rating.movie_id}
+  end
+
+
   def unit_cluster(rated_movie, rating, current_user)
 
     directors = rated_movie.directors
