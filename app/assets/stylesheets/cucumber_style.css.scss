@@ -40,7 +40,7 @@
     text-align: center;
     display: inline-table;
     width: 20%;
-    margin: 1em;
+    margin: 0.5em;
     height: 360px;
     -webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.4); 
     -moz-box-shadow: 0px 1px 6px rgba(23, 69, 88, .5);
@@ -113,7 +113,7 @@
   background: -ms-linear-gradient(top,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
   background: linear-gradient(to bottom,  rgba(0,0,0,0.65) 0%,rgba(0,0,0,0) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 );
-  opacity: 0.45;
+  opacity: 0.9;
 }
 
 .side-bar ul{

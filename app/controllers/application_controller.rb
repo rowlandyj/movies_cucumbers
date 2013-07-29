@@ -5,16 +5,12 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, :alert => exception.message
   end
 
-
   def get_fifty
     movies = []
-    until movies.length == 51 
+    until movies.length == 52 
       random_number = Random.rand(1..Movie.count)
       movie = Movie.find(random_number)
       movies << movie unless movies.include? movie
-      # movies.delete_if do |movie|
-      #   Rating.where(user_id: current_user.id).pluck(:movie_id).include? movie.id
-      # end
       remove_duplicates(movies)
     end
     movies
@@ -26,8 +22,5 @@ class ApplicationController < ActionController::Base
     end
     movies
   end
-
-  
-  
 
 end
