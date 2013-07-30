@@ -1,5 +1,13 @@
 html,body{
-    height: 100%;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  color: #333333;
 }
 .container{
   max-width: 1024px;
@@ -17,6 +25,10 @@ html,body{
   padding: 0.5em;
 }
 
+.pure-input-1-2:focus{
+  border: 1px solid green;
+}
+
 input[type="text"]{
   height:30px;
   margin-right: 1em;
@@ -32,7 +44,7 @@ input[type="text"]{
   margin-right: 4em;
 }
 .navbar #brand {
-  margin-left: 3.8em;
+  margin-left: 5.8em;
   visibility: hidden;
   float: left;
   display: block;
@@ -113,9 +125,10 @@ input[type="text"]{
   vertical-align: middle;
 }
 .side-bar {
+  font-size: 15px; 
   z-index: 4;
   top: 0;
-  margin-left: -12em;
+  margin-left: -12.7em;
   bottom: 0;
   height: 100%;
   width: 160px;

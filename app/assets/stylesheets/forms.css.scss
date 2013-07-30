@@ -1,0 +1,25 @@
+#user_email{
+	height: 3em;
+}
+
+#user_password{
+	height: 3em;
+}
+
+#user_password_confirmation{
+	height: 3em;
+}
+
+.pure-form-aligned .pure-control-group label {
+text-align: right;
+display: inline-block;
+vertical-align: middle;
+width: 11em;
+margin: 0 1em 0 0;
+}
+
+input[type=submit] {
+-webkit-appearance: button;
+cursor: pointer;
+margin-left: 2em;
+}

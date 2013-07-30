@@ -5,6 +5,11 @@ $(function() {
     $(this).addClass('fadeIn');
   });
 
+  $('.pure-input-1-2').focus(function() {
+    $('.pure-input-1-2').css('border','1px solid green');
+  });
+
+
   $(".side-bar-icon").click( function(event){
     $(this).toggleClass('side-bar-icon-right');
   });

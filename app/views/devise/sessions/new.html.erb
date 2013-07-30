@@ -1,8 +1,15 @@
 <h2>Sign in</h2>
-<%= simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-vertical' }) do |f| %>
-  <%= f.input :email, :autofocus => true %>
-  <%= f.input :password %>
-  <%= f.input :remember_me, :as => :boolean if devise_mapping.rememberable? %>
-  <%= f.button :submit, "Sign in", :class => 'btn-primary' %>
-<% end %>
-<%= render "devise/shared/links" %>
+
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {class: "pure-form pure-form-aligned"}) do |f| %>
+<fieldset>
+	<div class="pure-control-group">
+		<div><%= f.label :email %><span class="add-on"><i class="icon-envelope"></i></span>
+			<%= f.email_field :email, :autofocus => true %></div>
+			<div><%= f.label :password %><span class="add-on"><i class="icon-key"></i>  </span><%= f.password_field :password %></div>
+			<div class="pure-controls">
+				<%= f.submit "Sign up", class: "pure-button pure-button-primary" %>
+			</div>
+		</fieldset>
+		<%= render "devise/shared/links" %></div>
+		<% end %>
+	</div>
