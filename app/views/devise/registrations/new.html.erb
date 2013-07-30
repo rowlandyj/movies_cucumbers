@@ -1,12 +1,13 @@
 <h2>Sign up</h2>
 
-<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {class: "pure-form pure-form-aligned"}) do |f| %>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), html: {class: "pure-form pure-form-aligned"}) do |f| %>
 <fieldset>
 	<div class="pure-control-group">
-		<div><%= f.label :email %><span class="add-on"><i class="icon-envelope"></i></span>
+		<div><%= f.label :email %><i class="icon-envelope"></i>
 			<%= f.email_field :email, :autofocus => true %></div>
-			<div><%= f.label :password %><span class="add-on"><i class="icon-key"></i>  </span><%= f.password_field :password %></div>
-			<div><%= f.label :password_confirmation %><span class="add-on"><i class="icon-key"></i>  </span><%= f.password_field :password_confirmation %></div>
+			<div><%= f.label :password %><i class="icon-key"></i>
+				<%= f.password_field :password %></div>
+			<div><%= f.label :password_confirmation %><i class="icon-key"></i> <%= f.password_field :password_confirmation %></div>			
 			<div class="pure-controls">
 				<%= f.submit "Sign up", class: "pure-button pure-button-primary" %>
 			</div>

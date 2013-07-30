@@ -18,9 +18,12 @@ body {
   width: 1024px;
   margin: 0 auto;
     min-height: 55em;
-
 }
 
+.field_with_errors{
+  display: inline-block;
+  color: red;
+}
 #search{
   margin: auto auto;
   text-align: center;
