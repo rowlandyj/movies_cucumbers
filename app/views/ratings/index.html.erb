@@ -1,5 +1,5 @@
-<h1>Rate Some Movies</h1>
 <div class='movie-list'>
+  <h2 class='page-header'>Rate Some Movies</h2>
   <% @movies.each do |movie| %>
     <%= render 'shared/movie', :movie => movie, :method => :post %>
   <% end %>

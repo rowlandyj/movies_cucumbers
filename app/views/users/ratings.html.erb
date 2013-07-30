@@ -1,5 +1,5 @@
-<h1>Your Ratings</h1>
 <div class='movie-list'>
+  <h1 class='page-header'>Your Ratings</h1>
   <% @ratings.each do |rating| %>
     <div class="ratings-movie">
       <div class='poster'>
@@ -10,8 +10,10 @@
         <%= link_to(rating.movie.title, rating.movie.trailer_url) %>
       </div>
 
-        <p>Your Current Rating: <%= rating.rating_value.to_i %></p>
-      <div class="rating">
+      <div class='current-rating'>
+        Your Current Rating: <%= rating.rating_value.to_i %>
+      </div>
+      <div class="rating" data-current_rating="<%= rating.rating_value %>">
         <%= link_to '☆', rating_path(rating, rating_value: 1, movie_id: rating.movie.id),  :method => :put, remote: true, class: "movie-rating-value", 'data-movie_id' => rating.movie.id, 'data-rating_value' => 1 %>
         <%= link_to '☆', rating_path(rating, rating_value: 2, movie_id: rating.movie.id),  :method => :put, remote: true, class: "movie-rating-value",  'data-movie_id' => rating.movie.id, 'data-rating_value' => 2%>
         <%= link_to '☆', rating_path(rating, rating_value: 3, movie_id: rating.movie.id),  :method => :put, remote: true, class: "movie-rating-value",  'data-movie_id' => rating.movie.id, 'data-rating_value' => 3%>

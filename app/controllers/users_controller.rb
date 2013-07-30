@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   end
 
   def ratings
-    @ratings = current_user.ratings
+    @ratings = current_user.ratings.reverse
   end
 
   def watchlist

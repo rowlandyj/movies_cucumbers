@@ -8,9 +8,9 @@
   </div>
 
   <% if current_user.ratings.pluck(:movie_id).include? movie.id %>
-    <p>Your Current Rating: <%= current_user.ratings.find_by_movie_id(movie.id).rating_value.to_i %></p>
+    <div>Your Current Rating: <%= current_user.ratings.find_by_movie_id(movie.id).rating_value.to_i %></div>
   <% end %>
-  <div class="rating">
+  <div class="rating" data-current_rating="">
     <%= link_to '☆', ratings_path(rating_value: 1, movie_id: movie.id),  :method => method, remote: true, class: "movie-rating-value", 'data-movie_id' => movie.id, 'data-rating_value' => 1 %>
     <%= link_to '☆', ratings_path(rating_value: 2, movie_id: movie.id),  :method => method, remote: true, class: "movie-rating-value",  'data-movie_id' => movie.id, 'data-rating_value' => 2%>
     <%= link_to '☆', ratings_path(rating_value: 3, movie_id: movie.id),  :method => method, remote: true, class: "movie-rating-value",  'data-movie_id' => movie.id, 'data-rating_value' => 3%>
