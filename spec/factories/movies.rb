@@ -3,20 +3,25 @@ require 'faker'
 FactoryGirl.define do
   
   factory :genre do
-    name "Genre 1"
+    sequence(:name) {|n| "Genre#{n}" }
   end
 
   factory :director do
-    name 'Director 1'
+    sequence(:name) {|n| "Director#{n}" }
   end
 
   factory :actor do
-    name 'Actor 1'
+    sequence(:name) {|n| "Actor#{n}" }
   end
 
   factory :trilogy, class: Movie do
     title Faker::Company.name
   end
+
+  factory :movie do
+    title Faker::Company.name
+  end
+  
 end
 
 
