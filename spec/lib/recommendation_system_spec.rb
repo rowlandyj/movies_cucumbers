@@ -56,12 +56,29 @@ describe "Collab-Algorithm" do
       @user1 = FactoryGirl.create(:collab_user)
       @user2 = FactoryGirl.create(:collab_user)
       @user3 = FactoryGirl.create(:collab_user)
+
+      @movie1 = FactoryGirl.create(:movie)
+      @movie1.genres << FactoryGirl.create(:genre)
+      @movie1.actors << FactoryGirl.create(:actor)
+      @movie1.directors << FactoryGirl.create(:director)
+
+      @movie2 = FactoryGirl.create(:movie)
+      @movie2.genres << FactoryGirl.create(:genre)
+      @movie2.actors << FactoryGirl.create(:actor)
+      @movie2.directors << FactoryGirl.create(:director)
+
+      @movie3 = FactoryGirl.create(:movie)
+      @movie3.genres << FactoryGirl.create(:genre)
+      @movie3.actors << FactoryGirl.create(:actor)
+      @movie3.directors << FactoryGirl.create(:director)
+
+
     }
 
     # PEARSON_CORR_CONTROL_VALUE will be abbreviated to PCCV
 
     it "get a value of PCCV when user has no ratings" do
-      
+      pending
     end
 
     it "get a value of PCCV when no rated movies are similar to other users" do
