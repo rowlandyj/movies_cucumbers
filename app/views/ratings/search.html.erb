@@ -1,11 +1,17 @@
-<h1>Movies</h1>
 <div class='movie-list'>
-  <% if @result.empty? %>
-    <p>No movies matched your search.</p>
+  <% if @actor_movies.nil? && @director_movies.nil? && @movies.nil? %>
+    <p>Nothing matched your search.</p>
+  <% elsif @actor_movies %>
+    <% @actor_movies.each do |movie| %>
+      <%= render 'shared/movie', :movie => movie, :method => :post %>
+    <% end %>
+  <% elsif @director_movies %>
+    <% @director_movies.each do |movie| %>
+      <%= render 'shared/movie', :movie => movie, :method => :post %>
+    <% end %>
   <% else %>
-    <% @result[Movie].each do |movie| %>
+    <% @movies.each do |movie| %>
       <%= render 'shared/movie', :movie => movie, :method => :post %>
     <% end %>
   <% end %>
 </div>
-

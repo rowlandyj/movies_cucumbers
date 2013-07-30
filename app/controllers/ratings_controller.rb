@@ -5,7 +5,7 @@ class RatingsController < ApplicationController
   end
 
   def create
-    
+
     params[:rating_value] = params[:rating_value].to_i
     params[:movie_id] = params[:movie_id].to_i
     rating = Rating.new(rating_value: params[:rating_value], movie_id: params[:movie_id], user_id: current_user.id)
@@ -55,7 +55,21 @@ class RatingsController < ApplicationController
   end
 
   def search
-    @result = Pose.search "#{params[:query]}", [Movie]
+    result = Pose.search "#{params[:query]}", [Movie, Actor, Director], limit: 20
+    query_match = params[:query].downcase
+    result[Actor].each do |actor|
+      if actor.name.downcase == query_match
+        @actor_movies = actor.movies
+      end
+    end
+
+    result[Director].each do |director|
+      if director.name.downcase == query_match
+        @director_movies = director.movies
+      end
+    end
+
+    @movies = result[Movie]
   end
 end   
 

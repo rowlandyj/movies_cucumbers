@@ -6,4 +6,9 @@ class Actor < ActiveRecord::Base
 
   validates :name, presence: true
 
+  posify do
+    # The searchable content.
+    [self.name].join ' '
+  end
+
 end
