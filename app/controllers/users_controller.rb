@@ -34,6 +34,5 @@ class UsersController < ApplicationController
 
   def ratings
     @ratings = current_user.ratings.reverse
-
   end
 end
