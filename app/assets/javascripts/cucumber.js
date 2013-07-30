@@ -63,30 +63,36 @@ $(function() {
     var self = this;
     var $movie_rating = $(this).closest('div.ratings-movie');
 
-    if (window.location.pathname !== "/users/ratings") {
-      // var title = $movie_rating.find('div.title');
-      // title.append('<div class="rate_update">Movie rated: ' + data.rating_value + '</div>');
-      // title.find('.rate_update').fadeOut(1600);
-      // $movie_rating.hide(800);
-      $movie_rating.find('.rating').data('current_rating', data.rating_value);
+    $movie_rating.find('.rating').data('current_rating', data.rating_value);
 
-    }else if (window.location.pathname === "/users/ratings") {
-      // $movie_rating.find('.current-rating').text('Your Current Rating: ' + data.rating_value);
-      $movie_rating.find('.rating').data('current_rating', data.rating_value);
-    }
+    // "/ratings/287?movie_id=32476&rating_value=1" method put
+    // "/ratings?movie_id=3228&rating_value=5" method post
+    $movie_rating.find('.rating a').each( function(index) {
+      var rating_id = data.id;
+      // $(this).data('rating_id', rating_id);
+      var movie_id = $(this).data('movie_id');
+
+      var rating_value = $(this).data('rating_value');
+
+      var new_href = '/ratings/' + rating_id + '?movie_id=' + movie_id + '&rating_value=' + rating_value;
+      $(this).attr('href', new_href);
+      
+    });
+    $movie_rating.find('.rating').find('a').attr('data-method', 'put');
+
+    debugger
     hollow_stars(this);
     fill_stars_upto_rating(this);
 
+
   }).on("ajax:error", function (e, xhr, status, error) {
   
+    console.log('AJAX ERROR!!!!');
     var $movie_rating = $(this).closest('div.ratings-movie');
-    if (window.location.pathname !== "/users/ratings") {
-      var title = $movie_rating.find('div.title');
-      title.append('<h4>Movie rated: Aleady rated</h4>');
-      title.find('h4').fadeOut(1600);
-    } else if (window.location.pathname === "/users/ratings") {
-      $movie_rating.find('.current-rating').text("Movie already rated.");
-    }
+    var title = $movie_rating.find('div.title');
+    title.append('<p>Aleady rated that value.</p>');
+    title.find('p').fadeOut(500);
+
 
   }).mouseover(function (e) {
     hollow_stars(this);

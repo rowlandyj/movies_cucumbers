@@ -6,7 +6,13 @@
     <% @recommendations.each do |recommendation| %>
       <% rated_movie =  @ratings.include? recommendation.movie_id  %>
       <% current_rating = @rating_values[recommendation.movie_id].to_i %>
-      <%= render 'shared/movie', :movie => recommendation.movie, :rated_movie => rated_movie, :current_rating => current_rating %>
+
+      <% if rated_movie %>
+        <% rating = Rating.where(movie_id: movie.id, user_id: current_user.id).first %>
+        <%= render 'shared/movie', :movie => recommendation.movie, :rated_movie => rated_movie, :current_rating => current_rating, :rating => rating %>
+      <% else %>
+        <%= render 'shared/movie_no_rating', :movie => recommendation.movie, :rated_movie => rated_movie, :current_rating => current_rating %>
+      <% end %>
     <% end %>
   <% end %>
 </div>

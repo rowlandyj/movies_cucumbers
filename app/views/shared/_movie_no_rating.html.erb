@@ -1,0 +1,18 @@
+<div class="ratings-movie">
+  <div class='poster'>
+    <%= link_to(image_tag(movie.poster_url, height: '300'), movie.trailer_url) %>
+  </div>
+
+  <div class='title'>
+    <%= link_to(movie.title, movie.trailer_url) %>
+  </div>
+
+  <div class="rating" data-current_rating="<%= current_rating if current_rating%>">
+    <%= link_to '☆', ratings_path(rating_value: 1, movie_id: movie.id),  :method => :post, remote: true, class: "movie-rating-value", 'data-movie_id' => movie.id, 'data-rating_value' => 1%>
+    <%= link_to '☆', ratings_path(rating_value: 2, movie_id: movie.id),  :method => :post, remote: true, class: "movie-rating-value",  'data-movie_id' => movie.id, 'data-rating_value' => 2%>
+    <%= link_to '☆', ratings_path(rating_value: 3, movie_id: movie.id),  :method => :post, remote: true, class: "movie-rating-value",  'data-movie_id' => movie.id, 'data-rating_value' => 3%>
+    <%= link_to '☆', ratings_path(rating_value: 4, movie_id: movie.id),  :method => :post, remote: true, class: "movie-rating-value",  'data-movie_id' => movie.id, 'data-rating_value' => 4%>
+    <%= link_to '☆', ratings_path(rating_value: 5, movie_id: movie.id),  :method => :post, remote: true, class: "movie-rating-value",  'data-movie_id' => movie.id, 'data-rating_value' => 5%>
+  </div>
+
+</div>

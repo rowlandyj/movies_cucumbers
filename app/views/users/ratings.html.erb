@@ -3,6 +3,6 @@
   <% @ratings.each do |rating| %>
       <% rated_movie =  true  %>
       <% current_rating = @rating_values[rating.movie_id].to_i %>
-      <%= render 'shared/movie', :movie => rating.movie, :rated_movie => rated_movie, :current_rating => current_rating, :rating => rating.id %>
+      <%= render 'shared/movie', :movie => rating.movie, :rated_movie => rated_movie, :current_rating => current_rating, :rating => rating%>
   <% end %>
 </div>

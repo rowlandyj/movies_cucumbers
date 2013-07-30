@@ -7,6 +7,7 @@ class RatingsController < ApplicationController
 
   def create
 
+
     params[:rating_value] = params[:rating_value].to_i
     params[:movie_id] = params[:movie_id].to_i
     rating = Rating.new(rating_value: params[:rating_value], movie_id: params[:movie_id], user_id: current_user.id)
@@ -28,6 +29,8 @@ class RatingsController < ApplicationController
 
   def update
 
+    puts '*'*80
+    puts "Params: #{params}"
     rating = Rating.find(params[:id])
     rating.rating_value = params[:rating_value]
 
