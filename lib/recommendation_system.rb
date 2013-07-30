@@ -1,7 +1,23 @@
 module RecommendationSystem
 
+  # TODO-JW: How many of these module methods belong in the User model?
+  # TODO-JW: Refactor some of these so that they return Array objects (containing movie ids)
+  # TODO-JW: (Potential) goal -- try to make each of these methods only deal with Arrays of
+  #          ids (or Arrays of pairs of ids in the case of id + rating)
+
+  # TODO-JW: consdier moving these "magic numbers" into a Config model in your database
+  #          so that you can tune your algorithm without redeploying
   REC_LIMIT = [5, 10, 25, 45, 50]
   PEARSON_CORR_CONTROL_VALUE = 100000 #arbritrary large number far from 1, used in pearson correlation
+
+  # TODO-JW: Added by Jeffrey -- make the rest of the algorithm deterministic!
+  # TODO-JW: If you successfully refactor to use Array of movie_ids, add a
+  #          User#update_reccomendations(movie_ids) method
+  def update_top_50_recommendations(movie_id, rating_value, current_user)
+    new_recs = update_recommendations(movie_id, rating_value, current_user)
+    current_user.recommendations = (new_recs + current_user.recommendations).sample(50)
+    current_user.save
+  end
 
   # Appending/Updating movie recommendation list.  
   def update_recommendations(movie_id, rating_value, current_user)
@@ -9,27 +25,37 @@ module RecommendationSystem
     recs_from_closest_user = []
 
     unless closest_user_id.nil?
+      # returns 80% of the REC_LIMIT[rating_value-1]*0.8 movies (max of 40 movies)
       movies_to_rec = get_movies_from_closest_user(current_user, closest_user_id)
+      # TODO-JW: instead of passing-in rating_value, pass in REC_LIMIT[rating_value - 1]*(0.8)
       recs_from_closest_user = create_recommendation_list(movies_to_rec, current_user.id, rating_value)
     end
 
+    # returns max of 50 movies
     newly_rated_movie_cluster = unit_cluster(Movie.find(movie_id), rating_value, current_user, recs_from_closest_user)
 
+    # TODO-JW: Do I need to save these to the database, or would it be easier
+    # (since there are only a maximum of 90 movies) to sample these in memory
+    # before writing to the database. (performance, yay!)
+    new_recs = []
     newly_rated_movie_cluster.each do |new_movie|
-      current_user.recommendations << Recommendation.create(movie_id: new_movie.id, user_id: current_user.id)
+      #current_user.recommendations << Recommendation.create(movie_id: new_movie.id, user_id: current_user.id)
+      new_recs << Recommendation.build(movie_id: new_movie.id, user_id: current_user.id)
     end
 
-    current_user.recommendations = current_user.recommendations.sample(50)
+    new_recs
   end 
 
 
   # Iterating through all users to find the closest user for a target user (uses pearson_corr)
+  # TODO-JW: Possibly a class method on User? Also, return the User object rather than an id so
+  #          you keep the performance advantage of the User.includes()
   def find_closest_user_id(target_user)
-    temp_user = User.includes(:ratings => :movie)
+    temp_users = User.includes(:ratings => :movie)
 
-    closest_user = [temp_user.first.id, pearson_corr(target_user.ratings, temp_user.first.ratings)]
+    closest_user = [temp_users.first.id, pearson_corr(target_user.ratings, temp_users.first.ratings)]
 
-    temp_user.each do |user|      
+    temp_users.each do |user|      
       if user.id != target_user.id
         curr_pearson_corr = pearson_corr(target_user.ratings, user.ratings) 
 
@@ -43,6 +69,7 @@ module RecommendationSystem
 
   # Finds the 'distance' between two users...literally the pearson correlation coefficient
   def pearson_corr(target_user_ratings, other_user_ratings)
+    # TODO-JW: This Hash[] operation is probably a User#get_movie_rating_pairs method
     target_rating_hash = Hash[target_user_ratings.pluck(:movie_id).zip(target_user_ratings.pluck(:rating_value))]
     other_rating_hash = Hash[other_user_ratings.pluck(:movie_id).zip(other_user_ratings.pluck(:rating_value))]
 
@@ -79,12 +106,15 @@ module RecommendationSystem
 
   # Returns movies that the closest user has rated 4 or 5 stars that target user has not rated
   def get_movies_from_closest_user(target, closest_id)
-    closest = User.where(:id => closest_id).includes(:ratings => :movie).first
+    closest = User.where(:id => closest_id).includes(:ratings => :movie).first # TODO-JW: possibly unnecessary b/c of line 53 above
     movies_of_interest = closest.ratings.map(&:movie_id) - target.ratings.map(&:movie_id)
     movies_of_interest = Movie.includes(:ratings => :user).where("users.id" => closest_id).where("ratings.rating_value > 3").map(&:id)
   end
 
 # Adds up to 80% of the movies found by get_movies_from_closest_user method to target user's recommendation list
+# TODO-JW: instead of passing-in rating_value, pass in REC_LIMIT[rating_value - 1]*(0.8)
+# TODO-JW: put this magic 0.8 number somewhere configurable ... perhaps in a "Config" model
+#          that is updatable from rails_admin (or something similar)
   def create_recommendation_list(movie_ids, target_id, rating_value)
     collaborative_limit = REC_LIMIT[rating_value - 1]*(0.8) #80% of REC_LIMIT value
 
