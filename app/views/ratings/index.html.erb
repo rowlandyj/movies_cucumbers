@@ -1,6 +1,8 @@
 <div class='movie-list'>
   <h2 class='page-header'>Rate Some Movies</h2>
   <% @movies.each do |movie| %>
-    <%= render 'shared/movie', :movie => movie, :method => :post %>
+    <% rated_movie =  @ratings.include? movie.id  %>
+    <% current_rating = @rating_values[movie.id].to_i %>
+    <%= render 'shared/movie', :movie => movie, :rated_movie => rated_movie, :current_rating => current_rating %>
   <% end %>
 </div>

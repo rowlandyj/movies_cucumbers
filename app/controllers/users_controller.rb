@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :get_ratings!
 
   def index
     authorize! :index, @user, :message => 'Not authorized as an administrator.'
@@ -33,14 +34,6 @@ class UsersController < ApplicationController
 
   def ratings
     @ratings = current_user.ratings.reverse
-  end
 
-  def watchlist
-  end
-
-  def favorites
-  end
-
-  def recommendations
   end
 end

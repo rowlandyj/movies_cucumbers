@@ -58,22 +58,24 @@ $(function() {
     var self = this;
     var $movie_rating = $(this).closest('div.ratings-movie');
 
-    if (window.location.pathname === "/recommendations" || window.location.pathname === "/ratings") {
-      var title = $movie_rating.find('div.title');
-      title.append('<div class="rate_update">Movie rated: ' + data.rating_value + '</div>');
-      title.find('.rate_update').fadeOut(1600);
-      $movie_rating.hide(800);
+    if (window.location.pathname !== "/users/ratings") {
+      // var title = $movie_rating.find('div.title');
+      // title.append('<div class="rate_update">Movie rated: ' + data.rating_value + '</div>');
+      // title.find('.rate_update').fadeOut(1600);
+      // $movie_rating.hide(800);
+      $movie_rating.find('.rating').data('current_rating', data.rating_value);
 
     }else if (window.location.pathname === "/users/ratings") {
-      $movie_rating.find('.current-rating').text('Your Current Rating: ' + data.rating_value);
+      // $movie_rating.find('.current-rating').text('Your Current Rating: ' + data.rating_value);
       $movie_rating.find('.rating').data('current_rating', data.rating_value);
     }
     hollow_stars(this);
     fill_stars_upto_rating(this);
 
   }).on("ajax:error", function (e, xhr, status, error) {
+  
     var $movie_rating = $(this).closest('div.ratings-movie');
-    if (window.location.pathname === "/recommendations" || window.location.pathname === "/ratings") {
+    if (window.location.pathname !== "/users/ratings") {
       var title = $movie_rating.find('div.title');
       title.append('<h4>Movie rated: Aleady rated</h4>');
       title.find('h4').fadeOut(1600);
