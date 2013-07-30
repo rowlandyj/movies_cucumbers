@@ -22,9 +22,6 @@ class Movie < ActiveRecord::Base
     # The searchable content.
     [self.title].join ' '
   end
-
-
-
   
 end
 
