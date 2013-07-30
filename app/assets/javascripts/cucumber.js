@@ -80,7 +80,6 @@ $(function() {
     });
     $movie_rating.find('.rating').find('a').attr('data-method', 'put');
 
-    debugger
     hollow_stars(this);
     fill_stars_upto_rating(this);
 
