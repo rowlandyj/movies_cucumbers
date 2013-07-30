@@ -22,6 +22,8 @@ gem 'httparty'
 gem 'ruby-tmdb'
 gem 'sidekiq'
 gem 'pose'
+gem 'pry'
+gem 'pry-rails'
 
 
 

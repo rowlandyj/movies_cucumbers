@@ -4,6 +4,8 @@ class UpdateRecsWorker
   REC_LIMIT = [5, 10, 25, 45, 50]
 
   def pearson_corr(target_user_ratings, other_user_ratings)
+    puts "*"*50
+    puts "pearson_corr"
     target_rating_hash = Hash[target_user_ratings.pluck(:movie_id).zip(target_user_ratings.pluck(:rating_value))]
     other_rating_hash = Hash[other_user_ratings.pluck(:movie_id).zip(other_user_ratings.pluck(:rating_value))]
 
@@ -39,9 +41,14 @@ class UpdateRecsWorker
   end
 
   def find_closest_user_id(target_user)
-    closest_user = [User.first.id, pearson_corr(target_user.ratings, User.first.ratings)]
+    puts "*"*50
+    puts "find_closest_user_id"
 
-    User.all.each do |user|      
+    temp_user = User.includes(:ratings => :movie)
+
+    closest_user = [temp_user.first.id, pearson_corr(target_user.ratings, temp_user.first.ratings)]
+
+    temp_user.each do |user|      
       if user.id != target_user.id
         curr_pearson_corr = pearson_corr(target_user.ratings, user.ratings) 
 
@@ -54,12 +61,16 @@ class UpdateRecsWorker
   end
 
     def get_movies_from_closest_user(target, closest_id)
-      closest = User.find(closest_id)
-      movies_of_interest = closest.ratings.pluck(:movie_id) - target.ratings.pluck(:movie_id)
-      movies_of_interest.select { |movie| closest.ratings.find_by_movie_id(movie).rating_value > 3 }
+      puts "*"*50
+      puts "get_movies_from_closest_user"
+      closest = User.where(:id => closest_id).includes(:ratings => :movie).first
+      movies_of_interest = closest.ratings.map(&:movie_id) - target.ratings.map(&:movie_id)
+      movies_of_interest = Movie.includes(:ratings => :user).where("users.id" => closest_id).where("ratings.rating_value > 3").map(&:id)
     end
 
     def create_recommendation_list(movie_ids, target_id, rating_value)
+      puts "*"*50
+      puts "create_recommendation_list"
       collaborative_limit = REC_LIMIT[rating_value - 1]*(0.8) #80% of REC_LIMIT value
       if movie_ids.length > collaborative_limit
         movie_ids = movie_ids[0..collaborative_limit]
@@ -69,6 +80,8 @@ class UpdateRecsWorker
 
     def unit_cluster(rated_movie, rating, current_user, total_recs=[])
 
+      puts "*"*50
+      puts "unit_cluster"
       directors = rated_movie.directors
       actors = rated_movie.actors
       genres = rated_movie.genres
@@ -96,37 +109,47 @@ class UpdateRecsWorker
 
 
     def director_rec_list(directors,directors_movies)
+      puts "*"*50
+      puts "director_rec_list"
       directors.each do |director|
-        directors_movies << Director.find(director.id).movies
+        directors_movies << Director.where(:id => director.id).includes(:movies).first.movies
       end
       directors_movies.flatten!
     end
 
     def actor_rec_list(actors,actors_movies)
+      puts "*"*50
+      puts "actor_rec_list"
       actors.each do |actor|
-        actors_movies << Actor.find(actor.id).movies
+        actors_movies << Actor.where(:id => actor.id).includes(:movies).first.movies
       end
       actors_movies.flatten!
     end
 
     def genre_rec_list(genres,genres_movies)
+      puts "*"*50
+      puts "genre_rec_list"
       genres.each do |genre|
-        genres_movies << Genre.find(genre.id).movies
+        genres_movies << Genre.where(:id => genre.id).includes(:movies).first.movies
       end
       genres_movies.flatten!
     end
 
     def populate_rec_list(chosen_list, total_recs, rating, rated_movie, current_user)
+      puts "*"*50
+      puts "populate_rec_list"
       if total_recs.length < REC_LIMIT[rating-1]
         chosen_list.each do |movie|
           if total_recs.length < REC_LIMIT[rating-1] && movie.id != rated_movie.id
-            total_recs << movie unless current_user.ratings.pluck(:movie_id).include? movie.id
+            total_recs << movie unless current_user.ratings.map(&:movie_id).include? movie.id
           end
         end
       end
     end
 
     def update_recommendations(movie_id, rating_value, current_user)
+      puts "*"*50
+      puts "update_recommendations"
       closest_user_id = find_closest_user_id(current_user)
       recs_from_closest_user = []
 
@@ -149,7 +172,9 @@ class UpdateRecsWorker
 
 
     def perform(movie_id, rating_value, id)
-      current_user = User.find(id)
+      puts "*"*50
+      puts "perform"
+      current_user = User.where(:id => id).includes(:ratings => :movie, :recommendations => :movie).first
       update_recommendations(movie_id, rating_value, current_user)
     end
 
