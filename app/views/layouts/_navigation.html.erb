@@ -1,11 +1,7 @@
-<%= form_tag("/search", method: "get") do %>
-  <%= text_field_tag(:query) %>
-  <%= submit_tag("Search") %>
-<% end %>
-
 <%= link_to "Movies Cucumbers", root_path, :id => 'brand' %>
 
 <ul class="nav">
+
   <% if user_signed_in? %>
   <li>
     <%= link_to 'Edit Account', edit_user_registration_path %>
@@ -26,7 +22,9 @@
     <%= link_to 'Login', new_user_session_path %>
   </li>
   <% end %>
+
 </ul>
+
 <% if user_signed_in? %>
   <span class='side-bar-icon'>
     <i class="icon-th-list icon-3x"></i>
@@ -48,3 +46,4 @@
     </ul>
   </div>
 <% end %>
+

@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
       remove_duplicates(movies)
     end
     movies
-  enxd
+  end
 
   def remove_duplicates(movies)
     movies.delete_if do |movie|

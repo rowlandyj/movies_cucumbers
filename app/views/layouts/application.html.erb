@@ -20,12 +20,12 @@
   <div id="main" role="main">
     <div class="container">
       <div class="span12">
+      <%= render 'layouts/search-bar' %>
       <%= render 'layouts/messages' %>
       <%= yield %>
     </div>
-    <footer>
-    </footer>
-  </div> <!--! end of navbar inner -->
-</div> <!--! end of #nav bar fixed inner -->
+  </div> <!--! end of container -->
+</div> <!--! end of #main -->
+      <%= render 'layouts/footer' %>
 </body>
 </html>

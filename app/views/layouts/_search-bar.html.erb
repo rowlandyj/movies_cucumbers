@@ -1,0 +1,6 @@
+<div id="search">
+  <%= form_tag("/search", method: "get", :class => 'pure-form pure-g') do %>
+    <%= text_field_tag :query, nil, :class => 'pure-input-1-2', :placeholder => 'Search for keywords' %>
+    <%= submit_tag "Search", class: "pure-button pure-button-primary" %>
+  <% end %>
+</div>
