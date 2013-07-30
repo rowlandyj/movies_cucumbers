@@ -15,7 +15,6 @@ class Movie < ActiveRecord::Base
 
   has_many :directors_movies
   has_many :directors, through: :directors_movies
-
   has_many :recommendations
   has_many :users, through: :recommendations
 

@@ -10,6 +10,7 @@ html,body{
   margin: 0 auto;
   margin-bottom: 80px;
 }
+
 #search{
   margin: auto auto;
   text-align: center;
@@ -28,8 +29,10 @@ input[type="text"]{
 
 .navbar .nav{
   float:right;
+  margin-right: 4em;
 }
 .navbar #brand {
+  margin-left: 3.8em;
   visibility: hidden;
   float: left;
   display: block;
@@ -181,8 +184,40 @@ footer{
   bottom: 0 !important;
 }
 .lower {
+  margin-top: 1em;
+  color: white;
   overflow: visible;
   width: 100%;
   height: 200px;
   background-color: black;
+  bottom: 0;
 }
+.lower-box{
+  float:right;
+  width: 60%;
+  display: inline-block;
+  bottom: 0;
+}
+.column{
+  text-align: left;
+  margin-right: auto;
+  margin-left: auto;
+  display: inline-table;
+  width: 25%;
+}
+.column ul li {
+  margin: 0;
+  padding: 0;
+}
+
+#main {
+  overflow:auto;
+  padding-bottom:10em; /* this needs to be bigger than footer height*/
+}
+
+.footer {
+  position: relative;
+  margin-top: -130px; /* negative value of footer height */
+  height: 130px;
+  clear:both;
+} 
