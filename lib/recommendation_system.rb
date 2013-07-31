@@ -48,15 +48,20 @@ module RecommendationSystem
 
     shared_movie_ids = target_rating_hash.keys.reject{ |k| other_rating_hash[k].nil? }
 
+
     return PEARSON_CORR_CONTROL_VALUE if shared_movie_ids.empty? #arbitrary big number far from 1 
 
     number_of_shared_movie_ids = shared_movie_ids.length
 
-    target_user_rating_sum = target_user_ratings.inject(0) { |sum, rating| sum += rating.rating_value }
-    target_user_rating_avg = target_user_rating_sum/number_of_shared_movie_ids
+    target_user_rating_sum = shared_movie_ids.inject(0) { |sum, movie| sum += target_rating_hash[movie] }
+    
 
-    other_user_rating_sum = other_user_ratings.inject(0) { |sum, rating| sum += rating.rating_value }
-    other_user_rating_avg = other_user_rating_sum/number_of_shared_movie_ids
+    target_user_rating_avg = target_user_rating_sum.to_f/number_of_shared_movie_ids
+
+
+    other_user_rating_sum = shared_movie_ids.inject(0) { |sum, movie| sum += other_rating_hash[movie] }
+
+    other_user_rating_avg = other_user_rating_sum.to_f/number_of_shared_movie_ids
 
     deviation = shared_movie_ids.inject(0) do |sum, movie_id|
       target = target_rating_hash[movie_id] - target_user_rating_avg
@@ -64,12 +69,13 @@ module RecommendationSystem
       sum + (target * other)
     end
 
+
     square_target = shared_movie_ids.inject(0) do |sum, movie_id|
-      sum + ((target_rating_hash[movie_id] + target_user_rating_avg)**2)
+      sum + ((target_rating_hash[movie_id] - target_user_rating_avg)**2)
     end
 
     square_other = shared_movie_ids.inject(0) do |sum, movie_id|
-      sum + ((other_rating_hash[movie_id] + other_user_rating_avg)**2)
+      sum + ((other_rating_hash[movie_id] - other_user_rating_avg)**2)
     end
 
     denominator = Math.sqrt(square_target * square_other)

@@ -56,6 +56,7 @@ describe "Collab-Algorithm" do
       @user1 = FactoryGirl.create(:collab_user)
       @user2 = FactoryGirl.create(:collab_user)
       @user3 = FactoryGirl.create(:collab_user)
+      @user4 = FactoryGirl.create(:collab_user)
 
       @movie1 = FactoryGirl.create(:movie)
       @movie1.genres << FactoryGirl.create(:genre)
@@ -72,21 +73,41 @@ describe "Collab-Algorithm" do
       @movie3.actors << FactoryGirl.create(:actor)
       @movie3.directors << FactoryGirl.create(:director)
 
+      @movie4 = FactoryGirl.create(:movie)
+      @movie4.genres << FactoryGirl.create(:genre)
+      @movie4.actors << FactoryGirl.create(:actor)
+      @movie4.directors << FactoryGirl.create(:director)
+
+      @movie5 = FactoryGirl.create(:movie)
+      @movie5.genres << FactoryGirl.create(:genre)
+      @movie5.actors << FactoryGirl.create(:actor)
+      @movie5.directors << FactoryGirl.create(:director)
+
+      @user2.ratings << Rating.create(movie_id: 1, rating_value: 5)
+      @user3.ratings << Rating.create(movie_id: 2, rating_value: 5)
+      @user3.ratings << Rating.create(movie_id: 3, rating_value: 4)
+      @user3.ratings << Rating.create(movie_id: 5, rating_value: 3)
+      @user3.ratings << Rating.create(movie_id: 4, rating_value: 3)
+      @user4.ratings << Rating.create(movie_id: 2, rating_value: 5)
+      @user4.ratings << Rating.create(movie_id: 3, rating_value: 5)
+      @user4.ratings << Rating.create(movie_id: 5, rating_value: 5)
+      @user4.ratings << Rating.create(movie_id: 4, rating_value: 3)
 
     }
 
     # PEARSON_CORR_CONTROL_VALUE will be abbreviated to PCCV
 
     it "get a value of PCCV when user has no ratings" do
-      pending
+      expect(pearson_corr(@user1.ratings, @user2.ratings)).to eq(PEARSON_CORR_CONTROL_VALUE)
     end
 
     it "get a value of PCCV when no rated movies are similar to other users" do
-      pending
+      expect(pearson_corr(@user3.ratings, @user2.ratings)).to eq(PEARSON_CORR_CONTROL_VALUE)
+      expect(pearson_corr(@user2.ratings, @user3.ratings)).to eq(PEARSON_CORR_CONTROL_VALUE)
     end
 
     it "get a value closer to 1 than PCCV when two users have some similar ratings" do
-      pending
+      expect(pearson_corr(@user4.ratings, @user3.ratings)).to be_between(-1,1)
     end
   end
 end

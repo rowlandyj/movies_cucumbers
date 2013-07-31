@@ -4,4 +4,5 @@ FactoryGirl.define do
     user_id 1
     rating_value 5
   end
+  
 end
