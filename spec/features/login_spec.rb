@@ -1,10 +1,30 @@
 require 'spec_helper'
 
-describe "User authentication Testing", :js => true do 
+describe "User session integration tests", :js => true do 
 
   let!(:user) { FactoryGirl.create(:user)  }
+  let(:collab_user) { FactoryGirl.build(:collab_user)  }
 
-  it "User can visit page and get sign in fields" do 
+  # before(:each) do
+  #   login(user)
+  # end
+  
+  it "user can create a new account" do
+    visit new_user_registration_path
+    fill_in "Email", :with => collab_user.email
+    fill_in "Password", :with => collab_user.password
+    fill_in "Password confirmation", :with => collab_user.password_confirmation
+    # save_and_open_page
+    click_button "Sign up"
+    expect(page).to have_text("Signed in successfully.")
+    expect(page).to have_text("Recommendations")
+  end
+
+  it "user cannot create account if password is not confirmed" do 
+
+  end
+
+  it "User can login and start session" do 
     visit new_user_session_path
     expect(page).to have_text("Sign in")
     expect(page).to have_text("Email")
@@ -16,7 +36,8 @@ describe "User authentication Testing", :js => true do
     expect(page).to have_content 'Recommendations'
   end
 
-  it "User can't visit page if wrong password" do 
+
+  it "User can't start session with wrong password" do 
     visit new_user_session_path
     expect(page).to have_text("Sign in")
     expect(page).to have_text("Email")
@@ -28,7 +49,7 @@ describe "User authentication Testing", :js => true do
     expect(page).to have_content 'Invalid email or password.'
   end
 
-  it "User can't visit page if wrong email" do 
+  it "User can't begin session with wrong email" do 
     visit new_user_session_path
     expect(page).to have_text("Sign in")
     expect(page).to have_text("Email")
@@ -38,6 +59,16 @@ describe "User authentication Testing", :js => true do
     fill_in "Password", :with => 'fake-password'
     click_button "Sign in"
     expect(page).to have_content 'Invalid email or password.'
+  end
+
+  it "User can log out when they have an active session" do
+    login(user)
+    visit destroy_user_session_path
+    expect(page).to have_text("Signed out successfully.")
+  end
+
+  it "User can update their email" do
+
   end
 
 end
