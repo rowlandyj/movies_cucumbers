@@ -1,0 +1,19 @@
+---
+common: &common
+  adapter: postgresql
+  username:
+  password:
+  host: localhost
+  timeout: 5000
+
+development:
+  <<: *common
+  database: movies_cucumbers_dev
+
+test:
+  <<: *common
+  database: movies_cucumbers_test
+
+production:
+  <<: *common
+  database: movies_cucumbers_name

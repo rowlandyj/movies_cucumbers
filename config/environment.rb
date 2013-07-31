@@ -3,3 +3,4 @@ require File.expand_path('../application', __FILE__)
 
 # Initialize the rails application
 MoviesCucumbers::Application.initialize!
+# ENV["RAILS_ENV"] = 'test'
