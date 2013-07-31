@@ -90,9 +90,9 @@ module RecommendationSystem
     movies_of_interest = Movie.includes(:ratings => :user).where("users.id" => closest_id).where("ratings.rating_value > 3").map(&:id)
   end
 
-# Adds up to 80% of the movies found by get_movies_from_closest_user method to target user's recommendation list
+# Adds up to 10% of the movies found by get_movies_from_closest_user method to target user's recommendation list
   def create_recommendation_list(movie_ids, target_id, rating_value)
-    collaborative_limit = REC_LIMIT[rating_value - 1]*(0.1) #80% of REC_LIMIT value
+    collaborative_limit = REC_LIMIT[rating_value - 1]*(0.1) #10% of REC_LIMIT value
 
     if movie_ids.length > collaborative_limit
       movie_ids = movie_ids[0..collaborative_limit]
