@@ -21,7 +21,12 @@ describe "User session integration tests", :js => true do
   end
 
   it "user cannot create account if password is not confirmed" do 
-
+    visit new_user_registration_path
+    fill_in "Email", :with => collab_user.email
+    fill_in "Password", :with => collab_user.password
+    # save_and_open_page
+    click_button "Sign up"
+    expect(page).to have_text("Sign up")
   end
 
   it "User can login and start session" do 
@@ -68,27 +73,24 @@ describe "User session integration tests", :js => true do
   end
 
   it "User can update their email" do
+    login(user)
+    visit edit_user_registration_path
+    fill_in "Name", :with => user.name
+    fill_in "Email", :with => user.email
+    fill_in "Password", :with => user.password
+    fill_in "Password", :with => user.password_confirmation
+    click_button "Update"
+    expect(page).to have_text("Recommendations")
 
   end
 
+  it "User can cancel their account" do
+    login(user)
+    visit edit_user_registration_path
+    click_link('Cancel my account')
+    alert = page.driver.browser.switch_to.alert
+    alert.accept
+    expect(page).to have_text("Bye! Your account was successfully cancelled. We hope to see you again soon.")
+  end
+
 end
-
-# scenario "User adds ingredient to cocktail" do
-#   visit new_cocktail_path 
-
-#   fill_in "Name", :with => "Flizzerlicious"
-#   fill_in "Description", :with => "A shot of 151, A shot of Absinthe, 1 oz of real burning alcohol"
-#   fill_in "Instructions", :with => "Light it up! Stir with ass out"
-#   click_link "Add Ingredient"
-
-#   expect(page).to have_text("Quantity")
-#   expect(page).to have_text("Unit of measurement")
-#   within('form.new_cocktail fieldset') do
-#     fill_in "Name", :with => "Stuff"
-#     fill_in "Quantity", :with => "2"
-#     fill_in "Unit of measurement", :with => "1oz"
-#   end
-#   click_button "Create Cocktail"
-#   expect(page).to have_text("Your cocktail")
-
-# end
