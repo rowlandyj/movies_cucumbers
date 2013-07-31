@@ -9,7 +9,7 @@ $(function() {
 
   $('.pure-input-1-2').focus(function() {
     $('.pure-input-1-2').css('border','1px solid green');
-    $(this).animate({width:'400px'}, 1000);
+    $(this).animate({width:'60%'}, 1000);
   });
 
   $(window).scroll(function() {
