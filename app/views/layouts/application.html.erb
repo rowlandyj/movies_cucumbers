@@ -10,23 +10,23 @@
   <%= csrf_meta_tags %>
   <%= yield(:head) %>
 </head>
-<body class="<%= controller_name %> <%= action_name %>">
-  <div class="navbar navbar-fixed-top">
-    <nav class="navbar-inner">
-      <div class="container">
- <%= render 'layouts/navigation' %>
-   </div>
-    </nav>
-  </div>
-        <%= render 'layouts/search-bar' %>
-  <div id="main" role="main">
-    <div class="container">
-      <div class="span12">
-      <%= render 'layouts/messages' %>
-      <%= yield %>
+  <body class="<%= controller_name %> <%= action_name %>">
+    <div class="navbar navbar-fixed-top">
+      <nav class="navbar-inner">
+        <div class="container">
+          <%= render 'layouts/navigation' %>
+        </div>
+      </nav>
     </div>
-  </div> <!--! end of container -->
-</div> <!--! end of #main -->
-<%= render 'layouts/footer' %>
-</body>
+    <%= render 'layouts/search-bar' %>
+    <div id="main" role="main">
+      <div class="container">
+        <div class="span12">
+          <%= render 'layouts/messages' %>
+          <%= yield %>
+        </div>
+      </div> <!--! end of container -->
+    </div> <!--! end of #main -->
+    <%= render 'layouts/footer' %>
+  </body>
 </html>

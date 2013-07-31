@@ -19,9 +19,6 @@ class RatingsController < ApplicationController
     end
   end
 
-  def new
-    rating = Rating.new
-  end
 
   def update
     rating = Rating.find(params[:id])

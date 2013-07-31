@@ -2,8 +2,8 @@ MoviesCucumbers::Application.routes.draw do
 	root :to => 'home#index'
 	devise_for :users
 
-	resources :recommendations, only: [:index, :create, :new] 
-	resources :ratings, only: [:index, :new, :create, :edit, :update]
+	resources :recommendations, only: [:index] 
+	resources :ratings, only: [:index, :create, :update]
 
 	get '/search' => 'ratings#search', as: 'search'
 
