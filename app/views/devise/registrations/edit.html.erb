@@ -1,16 +1,18 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
+<div class='form-title'>
+  <h2>Edit <%= resource_name.to_s.humanize %></h2>
+</div>
+<div class="edit-form-center">
+  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'pure-form' }) do |f| %>
   <%= f.error_notification %>
   <%= display_base_errors resource %>
   <%= f.input :name, :autofocus => true %>
   <%= f.input :email, :required => true %>
   <%= f.input :password, :autocomplete => "off", :required => false %>
   <%= f.input :password_confirmation, :required => false %>
-    <p>leave it blank if you don't want to change it</p>
+  <p>leave it blank if you don't want to change it</p>
   <%= f.input :current_password, :required => true %>
-  	<p>we need your current password to confirm your changes</p>
-  <%= f.button :submit, 'Update', :class => 'pure-button' %>
-<% end %>
-<h3>Cancel my account</h3>
-<p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
-<%= link_to "Back", :back %>
+  <p>we need your current password to confirm your changes</p>
+  <%= f.button :submit, 'Update', :class => 'pure-button pure-button-active' %>
+  <% end %>
+  <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete %>.</p>
+</div>

@@ -10,7 +10,6 @@ $(function() {
     $('.pure-input-1-2').css('border','1px solid green');
   });
 
-
   $(".side-bar-icon").click( function(event){
     $(this).toggleClass('side-bar-icon-right');
   });
@@ -28,6 +27,10 @@ $(function() {
   $('.ratings-movie').mouseover(function(e){
     $(this).addClass("");
   });
+
+  var removeSearchBar = function(){
+    $('#search').hide();
+  }
 
 
   var filled_in_star = '\u2605';
@@ -86,7 +89,7 @@ $(function() {
 
 
   }).on("ajax:error", function (e, xhr, status, error) {
-  
+
     console.log('AJAX ERROR!!!!');
     var $movie_rating = $(this).closest('div.ratings-movie');
     var title = $movie_rating.find('div.title');
@@ -105,4 +108,8 @@ $(function() {
 
   updateStars_forAll(); //fill in star values on page load
 
+  if (window.location.pathname === '/users/edit'){
+    removeSearchBar();
+  }
+  
 });

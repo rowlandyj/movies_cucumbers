@@ -1,15 +1,24 @@
+.form-title{
+	margin-left: 12em;
+}
 #user_email{
 	height: 3em;
+	margin-bottom: 1px;
 }
-
 #user_password{
 	height: 3em;
+	margin-bottom: 1px;
+}
+.edit-form-center{
+	margin-left: 24em;
 }
 
 #user_password_confirmation{
 	height: 3em;
 }
-
+.center-button{
+	margin-left:2.2em;
+}
 .pure-form-aligned .pure-control-group label {
 text-align: right;
 display: inline-block;
@@ -19,7 +28,7 @@ margin: 0 1em 0 0;
 }
 
 input[type=submit] {
--webkit-appearance: button;
-cursor: pointer;
-margin-left: 2em;
+// -webkit-appearance: button;
+// cursor: pointer;
+// margin-left: 2em;
 }
