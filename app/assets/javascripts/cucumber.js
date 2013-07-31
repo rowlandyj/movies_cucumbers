@@ -1,7 +1,18 @@
 //same as $(document).ready()
 $(function() {
+
   $('#brand').addClass('slideDown');
   $('.nav').addClass('slideDown');
+
+  var path = location.pathname; //return /portfolio/newish/index.html
+  path = path.substring(path.lastIndexOf('/')-5); //will return index.html
+  if (path === "/ratings"){
+    // $('.navbar ul li a[href$="' + path + '"]').addClass('selected');
+    $('ul li #rate').parent().addClass('selected');
+  }
+  else if (path) {
+      $('.navbar ul li a[href$="' + path + '"]').addClass('selected');
+  }
 
   $('.poster').slice(0,8).each(function(){
     $(this).addClass('fadeIn');
