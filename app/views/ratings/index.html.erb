@@ -1,5 +1,4 @@
 <div class='movie-list'>
-  <h2 class='page-header'>Rate Some Movies</h2>
   <% @movies.each do |movie| %>
     <% rated_movie =  @ratings.include? movie.id  %>
     <% current_rating = @rating_values[movie.id].to_i %>
@@ -10,4 +9,7 @@
       <%= render 'shared/movie_no_rating', :movie => movie, :rated_movie => rated_movie, :current_rating => current_rating%>
     <% end %> 
   <% end %>
+</div>
+<div class='module'>
+<h2>Rate Some Movies</h2>
 </div>

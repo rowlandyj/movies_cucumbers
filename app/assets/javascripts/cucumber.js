@@ -2,16 +2,14 @@
 $(function() {
   $('#brand').addClass('slideDown');
   $('.nav').addClass('slideDown');
+
   $('.poster').slice(0,8).each(function(){
     $(this).addClass('fadeIn');
   });
 
   $('.pure-input-1-2').focus(function() {
     $('.pure-input-1-2').css('border','1px solid green');
-  });
-
-  $(".side-bar-icon").click( function(event){
-    $(this).toggleClass('side-bar-icon-right');
+    $(this).animate({width:'400px'}, 1000);
   });
 
   $(window).scroll(function() {

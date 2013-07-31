@@ -20,15 +20,55 @@
 	margin-left:2.2em;
 }
 .pure-form-aligned .pure-control-group label {
-text-align: right;
-display: inline-block;
-vertical-align: middle;
-width: 11em;
-margin: 0 1em 0 0;
+  text-align: right;
+  display: inline-block;
+  vertical-align: middle;
+  width: 11em;
+  margin: 0 1em 0 0;
 }
 
 input[type=submit] {
 // -webkit-appearance: button;
 // cursor: pointer;
 // margin-left: 2em;
+}
+.form-center {
+  margin-left: 16em;
+}
+.shared-links{
+  margin-left: 2em;
+}
+#search{
+  width: 50%;
+  float: left;
+  margin-left: -2em;
+  margin-top: 2em;
+  text-align: center;
+  padding: 0.5em;
+  position: absolute;
+
+}
+
+.pure-input-1-2:focus{
+  border: 1px solid green;
+}
+.change-width{
+  width: 50%;
+}
+input[type=name] {
+  height: 3em;
+}
+input[type=email] {
+}
+input[type=password]{
+  height: 3em;
+}
+input[type=submit] {
+  -webkit-appearance: button;
+  cursor: pointer;
+  margin-left: 0em;
+}
+input[type="text"]{
+  height:3em;
+  margin-right: 1em;
 }
