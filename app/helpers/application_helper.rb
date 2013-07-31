@@ -1,5 +1,17 @@
 module ApplicationHelper
 
+  def resource_name
+    :user
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+
   def display_base_errors resource
     return '' if (resource.errors.empty?) or (resource.errors[:base].empty?)
     messages = resource.errors[:base].map { |msg| content_tag(:p, msg) }.join
@@ -11,5 +23,5 @@ module ApplicationHelper
     HTML
     html.html_safe
   end
-
+  
 end

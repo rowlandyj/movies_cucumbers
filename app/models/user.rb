@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include ContentHelper
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 

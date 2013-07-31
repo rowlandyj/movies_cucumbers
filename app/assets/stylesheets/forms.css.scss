@@ -1,23 +1,48 @@
 .form-title{
 	margin-left: 12em;
 }
+
+.new_user{
+  margin-top: 20.5em;
+  margin-left: 40em;
+  float: left;
+  left:0;
+}
+
+.email{
+  margin-top: -1.2em;
+}
+
+.password{
+  margin-top: 1.8em;
+}
+
+.password-confirm{
+  margin-top: 1.7em;
+}
+
+.sign-up{
+  margin-left: 7.3em;
+  margin-top: 4em;
+}
+
 #user_email{
-	height: 3em;
-	margin-bottom: 1px;
+ height: 3em;
+ margin-bottom: 1px;
 }
 #user_password{
-	height: 3em;
-	margin-bottom: 1px;
+ height: 3em;
+ margin-bottom: 1px;
 }
 .edit-form-center{
-	margin-left: 24em;
+ margin-left: 24em;
 }
 
 #user_password_confirmation{
-	height: 3em;
+ height: 3em;
 }
 .center-button{
-	margin-left:2.2em;
+ margin-left:2.2em;
 }
 .pure-form-aligned .pure-control-group label {
   text-align: right;

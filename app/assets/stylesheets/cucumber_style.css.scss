@@ -26,6 +26,9 @@ body {
   background-position: top right, 0px 0px;
   background-origin: inherit;
 }
+.row-fluid{
+  min-height: 900px;
+}
 
 .span12 {
   margin-top: 6.5em;
@@ -43,6 +46,11 @@ body {
   color: red;
 }
 
+.login-background{
+  background: url('movie-reel.png') no-repeat;
+  background-position: center;
+  height: 750px;
+}
 
 ul{
   padding-top: 1em;
