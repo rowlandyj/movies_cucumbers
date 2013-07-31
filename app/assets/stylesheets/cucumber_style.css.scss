@@ -135,6 +135,18 @@ ul{
     }
     .title {
       margin-top: 10px;
+      
+      a {
+        color: black;
+        text-decoration: none;
+      }
+    }
+
+    .rating {
+      a {
+        color: #20AC37;
+        text-decoration: none;
+      }
     }
 
     span {

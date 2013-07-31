@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     #   movie = Movie.where(:id => random_number).first
     #   if !movie.nil?
     #     movies << movie unless movies.include? movie
-    #   end
+    #   end 
     # end
     # remove_duplicates(movies)
     # movies
