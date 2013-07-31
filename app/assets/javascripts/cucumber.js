@@ -1,4 +1,3 @@
-//same as $(document).ready()
 $(function() {
 
   $('#brand').addClass('slideDown');

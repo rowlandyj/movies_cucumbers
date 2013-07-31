@@ -36,9 +36,6 @@ class RatingsController < ApplicationController
     end
     
   end
-  
-  def destroy
-  end
 
   def search
     result = Pose.search "#{params[:query]}", [Movie, Actor, Director], limit: 20
