@@ -1,6 +1,7 @@
 //same as $(document).ready()
 $(function() {
   $('#brand').addClass('slideDown');
+  $('.nav').addClass('slideDown');
   $('.poster').slice(0,8).each(function(){
     $(this).addClass('fadeIn');
   });

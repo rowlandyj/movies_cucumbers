@@ -17,21 +17,37 @@ body {
 .span12 {
   width: 1024px;
   margin: 0 auto;
-    min-height: 55em;
+  min-height: 55em;
+  border-radius: .5em;
+  // border: 2px solid green;
+  background-color: #EFEFEF;
 }
 
 .field_with_errors{
   display: inline-block;
   color: red;
 }
+
+.pure-form {
+float: right;
+margin-right: 2em;
+}
+.shared-links{
+  margin-left: 2em;
+}
 #search{
-  margin: auto auto;
+  margin-top: 2em;
   text-align: center;
   padding: 0.5em;
 }
 
 .pure-input-1-2:focus{
   border: 1px solid green;
+}
+
+input[type=email] {
+}
+input[type=password]{
 }
 
 input[type="text"]{
@@ -46,10 +62,14 @@ input[type="text"]{
 
 .navbar .nav{
   float:right;
-  margin-right: 4em;
+  margin-right: 0;
+}
+
+.navbar .nav > li > a:hover{
+  color: #20AC37;
 }
 .navbar #brand {
-  margin-left: 5.8em;
+  margin-left: 1em;
   visibility: hidden;
   float: left;
   display: block;
@@ -72,6 +92,7 @@ input[type="text"]{
   width: 100%;
 
   .ratings-movie {
+    background-color: white;
     padding: .5em;
     text-align: center;
     display: inline-table;
@@ -101,6 +122,8 @@ input[type="text"]{
   }
 
 }
+
+
 .slide-right{
 /*  margin-left: 10em;
 */}
@@ -202,12 +225,12 @@ footer{
   bottom: 0 !important;
 }
 .lower {
+  background-color: black;
   margin-top: 4em;
   color: white;
   overflow: visible;
   width: 100%;
   height: 200px;
-  background-color: black;
   bottom: 0;
 }
 .lower-box{

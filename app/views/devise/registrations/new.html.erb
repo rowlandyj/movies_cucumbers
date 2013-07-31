@@ -10,8 +10,11 @@
 			<div><%= f.label :password_confirmation %><i class="icon-key"></i> <%= f.password_field :password_confirmation %></div>			
 			<div class="pure-controls">
 				<%= f.submit "Sign up", class: "pure-button pure-button-primary" %>
+						<div class='shared-links'>
+							<%= render "devise/shared/links" %>
+						</div>
+			</div>
 			</div>
 		</fieldset>
-		<%= render "devise/shared/links" %></div>
 		<% end %>
 	</div>
