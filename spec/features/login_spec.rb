@@ -4,17 +4,12 @@ describe "User session integration tests", :js => true do
 
   let!(:user) { FactoryGirl.create(:user)  }
   let!(:collab_user) { FactoryGirl.build(:collab_user)  }
-
-  # before(:each) do
-  #   login(user)
-  # end
   
   it "user can create a new account" do
     visit new_user_registration_path
     fill_in "Email", :with => collab_user.email
     fill_in "Password", :with => collab_user.password
     fill_in "Password confirmation", :with => collab_user.password_confirmation
-    # save_and_open_page
     click_button "Sign up"
     expect(page).to have_text("Recommendations")
     expect(page).to have_text("Go Rate Some Movies and Then Come Back!")
@@ -24,7 +19,6 @@ describe "User session integration tests", :js => true do
     visit new_user_registration_path
     fill_in "Email", :with => collab_user.email
     fill_in "Password", :with => collab_user.password
-    # save_and_open_page
     click_button "Sign up"
     expect(page).to have_text("Sign up")
   end
@@ -40,7 +34,6 @@ describe "User session integration tests", :js => true do
     click_button "Sign in"
     expect(page).to have_content 'Recommendations'
   end
-
 
   it "User can't start session with wrong password" do 
     visit new_user_session_path
