@@ -14,9 +14,6 @@
           </div>
       <% else %>
         <%= render 'shared/movie_no_rating', :movie => recommendation.movie, :rated_movie => rated_movie, :current_rating => current_rating %>
-          <div class='module'>
-           <h2>Recommendations</h2>
-          </div>
       <% end %>
     <% end %>
   <% end %>

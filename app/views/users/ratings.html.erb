@@ -5,8 +5,3 @@
     <%= render 'shared/movie', :movie => rating.movie, :rated_movie => rated_movie, :current_rating => current_rating, :rating => rating%>
   <% end %>
 </div>
- <% if current_user.ratings.exists? %>
-  	    <div class='module'>
-           <h2>Your Ratings</h2>
-         </div>
- <% end %>
