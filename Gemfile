@@ -1,32 +1,20 @@
 source 'https://rubygems.org'
 ruby '1.9.3'
 gem 'rails', '3.2.12'
-# gem 'sqlite3'
 gem 'pg'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
 end
+
 gem 'jquery-rails'
 gem 'bootstrap-sass'
-gem 'cancan'
 gem 'devise'
-gem 'figaro'
-gem 'rolify'
 gem 'simple_form'
-gem 'will_paginate', '~> 3.0'
-
-gem 'faker'
-gem 'rottentomatoes'
-gem 'httparty'
-gem 'ruby-tmdb'
 gem 'sidekiq'
 gem 'pose'
-gem 'pry'
-gem 'pry-rails'
-
-
 
 group :development do
   gem 'better_errors'
@@ -40,16 +28,23 @@ group :development do
   gem 'rb-fsevent', :require=>false
   gem 'rb-inotify', :require=>false
   gem 'debugger'
-  gem 'newrelic_rpm'
+  gem 'pry'
+  gem 'pry-rails'
+  gem 'rottentomatoes'
+  gem 'httparty'
+  gem 'ruby-tmdb'
 end
+
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
-  gem 'rspec-rails'
+  gem 'rspec-rails'  
 end
+
 group :production do
   gem 'thin'
 end
+
 group :test do
   gem 'capybara'
   gem 'cucumber-rails', :require=>false
