@@ -86,7 +86,7 @@ module RecommendationSystem
 
 # Adds up to 80% of the movies found by get_movies_from_closest_user method to target user's recommendation list
   def create_recommendation_list(movie_ids, target_id, rating_value)
-    collaborative_limit = REC_LIMIT[rating_value - 1]*(0.8) #80% of REC_LIMIT value
+    collaborative_limit = REC_LIMIT[rating_value - 1]*(0.1) #80% of REC_LIMIT value
 
     if movie_ids.length > collaborative_limit
       movie_ids = movie_ids[0..collaborative_limit]

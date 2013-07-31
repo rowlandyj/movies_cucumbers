@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "User session integration tests", :js => true do 
 
   let!(:user) { FactoryGirl.create(:user)  }
-  let(:collab_user) { FactoryGirl.build(:collab_user)  }
+  let!(:collab_user) { FactoryGirl.build(:collab_user)  }
 
   # before(:each) do
   #   login(user)
@@ -16,8 +16,8 @@ describe "User session integration tests", :js => true do
     fill_in "Password confirmation", :with => collab_user.password_confirmation
     # save_and_open_page
     click_button "Sign up"
-    expect(page).to have_text("Signed in successfully.")
     expect(page).to have_text("Recommendations")
+    expect(page).to have_text("Go Rate Some Movies and Then Come Back!")
   end
 
   it "user cannot create account if password is not confirmed" do 
