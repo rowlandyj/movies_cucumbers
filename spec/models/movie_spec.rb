@@ -1,6 +1,10 @@
 require 'spec_helper'
 
-describe 'Movie' do
-  it "should add some model tests for the movie"
+describe Movie do
+  describe "validations" do 
+    before (:each) do
+      @movie = FactoryGirl.build(:movie)
+    end      
+  end
 end
 

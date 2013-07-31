@@ -4,6 +4,7 @@ class Movie < ActiveRecord::Base
   :critic_consensus, :rt_score, :poster_url, :trailer_url, 
   :mpaa_rating, :run_time, :imdb_ref, :tmdb_rating, :release_date,
   :budget
+
   has_many :ratings, dependent: :destroy 
   has_many :users, through: :ratings
 
