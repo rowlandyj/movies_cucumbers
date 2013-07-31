@@ -1,15 +1,19 @@
 <h2>Sign in</h2>
-
-<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {class: "pure-form pure-form-aligned"}) do |f| %>
-<fieldset>
-	<div class="pure-control-group">
-		<div><%= f.label :email %><span class="add-on"><i class="icon-envelope"></i></span>
-			<%= f.email_field :email, :autofocus => true %></div>
-			<div><%= f.label :password %><span class="add-on"><i class="icon-key"></i>  </span><%= f.password_field :password %></div>
-			<div class="pure-controls">
-				<%= f.submit "Sign in", class: "pure-button pure-button-primary" %>
-			</div>
-		</fieldset>
-		<%= render "devise/shared/links" %></div>
-		<% end %>
+<div class='form-center'>
+	<%= form_for(resource, :as => resource_name, :url => session_path(resource_name), html: {class: "pure-form pure-form-aligned"}) do |f| %>
+	<fieldset>
+		<div class="pure-control-group">
+			<div><%= f.label :email %><span class="add-on"><i class="icon-envelope"></i></span>
+				<%= f.email_field :email, :autofocus => true %></div>
+				<div><%= f.label :password %><span class="add-on"><i class="icon-key"></i>  </span><%= f.password_field :password %></div>
+				<div class="pure-controls">
+					<%= f.submit "Sign in", class: "pure-button pure-button-primary" %>
+					<div class='shared-links'>
+						<br>
+						<%= render "devise/shared/links" %>
+					</div>
+				</div>
+			</fieldset>
+			<% end %>
+		</div>
 	</div>
