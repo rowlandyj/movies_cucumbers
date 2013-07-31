@@ -15,6 +15,9 @@ gem 'devise'
 gem 'simple_form'
 gem 'sidekiq'
 gem 'pose'
+gem 'rottentomatoes'
+gem 'httparty'
+gem 'ruby-tmdb'
 
 group :development do
   gem 'better_errors'
@@ -30,9 +33,7 @@ group :development do
   gem 'debugger'
   gem 'pry'
   gem 'pry-rails'
-  gem 'rottentomatoes'
-  gem 'httparty'
-  gem 'ruby-tmdb'
+
 end
 
 group :development, :test do
