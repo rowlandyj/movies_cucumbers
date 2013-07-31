@@ -6,16 +6,17 @@ class ApplicationController < ActionController::Base
   end
 
   def get_fifty
-    movies = []
-    until movies.length == 52 
-      random_number = Random.rand(1..Movie.count)
-      movie = Movie.where(:id => random_number).first
-      if !movie.nil?
-        movies << movie unless movies.include? movie
-      end
-    end
-    remove_duplicates(movies)
-    movies
+    # movies = []
+    # until movies.length == 52 
+    #   random_number = Random.rand(1..Movie.count)
+    #   movie = Movie.where(:demo_display => true).first
+    #   if !movie.nil?
+    #     movies << movie unless movies.include? movie
+    #   end
+    # end
+    # remove_duplicates(movies)
+    # movies
+    Movie.where(:demo_display => true).sample(52)
   end
 
   def remove_duplicates(movies)
