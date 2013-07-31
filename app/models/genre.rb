@@ -1,7 +1,7 @@
 class Genre < ActiveRecord::Base
 
   attr_accessible :name
-  has_many :genres_movies
+  has_many :genres_movies, dependent: :destroy
   has_many :movies, through: :genres_movies
 
   validates :name, presence: true

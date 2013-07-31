@@ -1,6 +1,7 @@
 class RatingsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :get_ratings!
+  
   def index
     @movies = get_fifty
   end

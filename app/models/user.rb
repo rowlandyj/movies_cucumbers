@@ -10,10 +10,10 @@ class User < ActiveRecord::Base
   attr_accessible :role_ids, :as => :admin
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
 
-  has_many :ratings
+  has_many :ratings, dependent: :destroy
   has_many :movies, through: :ratings
 
-  has_many :recommendations
+  has_many :recommendations, dependent: :destroy
   has_many :movies, through: :recommendations
 
   

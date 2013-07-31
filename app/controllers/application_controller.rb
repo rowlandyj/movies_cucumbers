@@ -9,10 +9,12 @@ class ApplicationController < ActionController::Base
     movies = []
     until movies.length == 52 
       random_number = Random.rand(1..Movie.count)
-      movie = Movie.find(random_number)
-      movies << movie unless movies.include? movie
-      remove_duplicates(movies)
+      movie = Movie.where(:id => random_number).first #===[ACTIVERECORDCRAP]
+      if !movie.nil?
+        movies << movie unless movies.include? movie
+      end
     end
+    remove_duplicates(movies)
     movies
   end
 
