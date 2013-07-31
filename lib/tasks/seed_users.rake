@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 require_relative '../recommendation_system.rb'
->>>>>>> added seed_user rake task
 include RecommendationSystem
 
 desc "Delete all users and seed the DB with 2 users" 
@@ -49,8 +46,8 @@ task :seed_users => :environment do
   u2.ratings << Rating.create(movie_id: 6849, rating_value: 2)
   update_recommendations(6849, 2, u2)
 
-  u2.ratings << Rating.create(movie_id: 7979, rating_value: 4)
-  update_recommendations(7979, 4, u2)
+  u2.ratings << Rating.create(movie_id: 30086, rating_value: 4)
+  update_recommendations(30086, 4, u2)
 
 end 
 
