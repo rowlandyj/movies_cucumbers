@@ -5,7 +5,9 @@
   <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'pure-form' }) do |f| %>
   <%= f.error_notification %>
   <%= display_base_errors resource %>
+  <div class='off-name'>
   <%= f.input :name, :autofocus => true %>
+  </div>
   <%= f.input :email, :required => true %>
   <%= f.input :password, :autocomplete => "off", :required => false %>
   <%= f.input :password_confirmation, :required => false %>
