@@ -7,6 +7,18 @@
     <%= link_to(movie.title, movie.trailer_url) %>
   </div>
 
+  <span class='date'>
+     (<%= movie.release_date.year %>)  
+  </span>
+
+  <span class='mpaa-rating'>
+    <% if movie.mpaa_rating.nil? || movie.mpaa_rating.empty? %>
+      Not Rated
+    <% else %>
+      <%= movie.mpaa_rating %>        
+    <% end %>
+  </span>
+
   <div class="rating" data-current_rating="<%= current_rating if current_rating%>">
     <%= link_to '☆', rating_path(rating, rating_value: 1, movie_id: movie.id),  :method => :put, remote: true, class: "movie-rating-value", 'data-movie_id' => movie.id, 'data-rating_value' => 1, 'data-rating_id' => rating.id %>
     <%= link_to '☆', rating_path(rating, rating_value: 2, movie_id: movie.id),  :method => :put, remote: true, class: "movie-rating-value",  'data-movie_id' => movie.id, 'data-rating_value' => 2, 'data-rating_id' => rating.id%>
