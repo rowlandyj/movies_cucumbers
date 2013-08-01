@@ -5,6 +5,7 @@ module RecommendationSystem
 
   # Appending/Updating movie recommendation list.  
   def update_recommendations(movie_id, rating_value, current_user)
+    rating_value = rating_value.to_i
     closest_user_id = find_closest_user_id(current_user)
     recs_from_closest_user = []
 
