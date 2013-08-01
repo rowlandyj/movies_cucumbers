@@ -2,6 +2,7 @@ $(function() {
 
   $('#brand').addClass('slideDown');
   $('.nav').addClass('slideDown');
+  $('#logo').addClass('floating');
 
   $('.pure-input-1-2').focus(function() {
     $('.pure-input-1-2').css('border','1px solid green');

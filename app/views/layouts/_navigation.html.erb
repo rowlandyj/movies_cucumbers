@@ -1,4 +1,4 @@
-<%= link_to(image_tag('mnclogo.png', height: '300', width: '308', id: 'brand'), root_path) %>
+<%= link_to(image_tag('mnclogo.png', height: '300', width: '340', id: 'brand'), root_path) %>
 <ul class="nav">
   <% if user_signed_in? %>
    <li>
@@ -6,7 +6,7 @@
      <% end %>
    </li>
    <li>
-    <%= link_to ratings_path, id: 'rate' do %><i class="icon-thumbs-up-alt"></i> Rate Some More!
+    <%= link_to ratings_path, id: 'rate' do %><i class="icon-thumbs-up-alt"></i> Rate Movies
     <% end %>
   </li>
   <li>
