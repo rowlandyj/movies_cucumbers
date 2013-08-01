@@ -70,14 +70,14 @@ ul{
 
 .navbar .nav > li > a:hover{
   color: #20AC37;
-background: #f0f0f0; /* Old browsers */
-background: -moz-linear-gradient(top,  #f0f0f0 0%, #e3e3e3 50%, #d4d4d4 51%, #e7e7e7 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f0f0f0), color-stop(50%,#e3e3e3), color-stop(51%,#d4d4d4), color-stop(100%,#e7e7e7)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #f0f0f0 0%,#e3e3e3 50%,#d4d4d4 51%,#e7e7e7 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #f0f0f0 0%,#e3e3e3 50%,#d4d4d4 51%,#e7e7e7 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #f0f0f0 0%,#e3e3e3 50%,#d4d4d4 51%,#e7e7e7 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #f0f0f0 0%,#e3e3e3 50%,#d4d4d4 51%,#e7e7e7 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#e7e7e7',GradientType=0 ); /* IE6-9 */
+  background: #f0f0f0; /* Old browsers */
+  background: -moz-linear-gradient(top,  #f0f0f0 0%, #e3e3e3 50%, #d4d4d4 51%, #e7e7e7 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f0f0f0), color-stop(50%,#e3e3e3), color-stop(51%,#d4d4d4), color-stop(100%,#e7e7e7)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #f0f0f0 0%,#e3e3e3 50%,#d4d4d4 51%,#e7e7e7 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #f0f0f0 0%,#e3e3e3 50%,#d4d4d4 51%,#e7e7e7 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #f0f0f0 0%,#e3e3e3 50%,#d4d4d4 51%,#e7e7e7 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #f0f0f0 0%,#e3e3e3 50%,#d4d4d4 51%,#e7e7e7 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', endColorstr='#e7e7e7',GradientType=0 ); /* IE6-9 */
 
 }
 
@@ -89,26 +89,26 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f0f0', end
 }
 
 .selected #rate{
-background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.83) 83%, rgba(21,165,26,1) 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(83%,rgba(255,255,255,0.83)), color-stop(100%,rgba(21,165,26,1))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* IE10+ */
-background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#15a51a',GradientType=0 ); /* IE6-9 */
+  background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.83) 83%, rgba(21,165,26,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(83%,rgba(255,255,255,0.83)), color-stop(100%,rgba(21,165,26,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#15a51a',GradientType=0 ); /* IE6-9 */
 
-color:green !important;
+  color:green !important;
 }
 
 .selected {
-background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.83) 83%, rgba(21,165,26,1) 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(83%,rgba(255,255,255,0.83)), color-stop(100%,rgba(21,165,26,1))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* IE10+ */
-background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#15a51a',GradientType=0 ); /* IE6-9 */
-color:green !important;
+  background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,0.83) 83%, rgba(21,165,26,1) 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(83%,rgba(255,255,255,0.83)), color-stop(100%,rgba(21,165,26,1))); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,0.83) 83%,rgba(21,165,26,1) 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#15a51a',GradientType=0 ); /* IE6-9 */
+  color:green !important;
 }
 
 .navbar .nav > li > a {
@@ -286,11 +286,11 @@ footer{
   bottom: 0;
 }
 .column-1{
-  margin-left: 13em;
+  margin-left: 20.3em;
   margin-top: -2em;
   text-align: left;
   display: inline-table;
-  width: 25%;
+  width: 16%;
 }
 
 .column-2{
@@ -330,7 +330,9 @@ footer{
 
 .devbootcamp {
   z-index: -10;
-  margin-top: -11em;
+  margin-right: 7em;
+  margin-left: -2em;
+  margin-top: -10.5em;
   position: absolute;
 }
 
